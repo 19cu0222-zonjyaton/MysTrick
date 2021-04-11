@@ -346,21 +346,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6909944551177578388, guid: e15dc0ee214140e4a97cf72cd870a5ee,
-        type: 3}
-      propertyPath: m_TagString
-      value: Stairs
-      objectReference: {fileID: 0}
-    - target: {fileID: 8558510948664656408, guid: e15dc0ee214140e4a97cf72cd870a5ee,
-        type: 3}
-      propertyPath: m_TagString
-      value: Stairs
-      objectReference: {fileID: 0}
-    - target: {fileID: 9141418050916755258, guid: e15dc0ee214140e4a97cf72cd870a5ee,
-        type: 3}
-      propertyPath: m_TagString
-      value: Stairs
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e15dc0ee214140e4a97cf72cd870a5ee, type: 3}
 --- !u!1 &673822157
@@ -449,6 +434,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   model: {fileID: 124014191}
   pi: {fileID: 0}
+  keys: 
+  devices: 
   rigid: {fileID: 0}
 --- !u!54 &673822164
 Rigidbody:
