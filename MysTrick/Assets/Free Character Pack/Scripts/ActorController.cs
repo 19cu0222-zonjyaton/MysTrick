@@ -34,6 +34,6 @@ public class ActorController : MonoBehaviour
 
     void FixedUpdate()
     {
-        rigid.position += movingVec * 3.0f * Time.fixedDeltaTime;
+        rigid.position += movingVec * 8.0f * Time.fixedDeltaTime;
     }
 }
