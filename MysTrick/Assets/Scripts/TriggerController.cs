@@ -8,12 +8,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ObjectTrigger : MonoBehaviour
+public class TriggerController : MonoBehaviour
 {
+	public DoorController kDoor;
+	public bool isTriggered;
+
 	// Start is called before the first frame update
 	void Start()
 	{
-		
+		isTriggered = false;
 	}
 
 	// Update is called once per frame
@@ -28,6 +31,7 @@ public class ObjectTrigger : MonoBehaviour
 		{
 			if (this.transform.tag == "Device")
 			{
+				isTriggered = true;
 				Debug.Log(this.transform.name + " has touched.");
 
 				if (this.transform.GetChild(0) != null)
@@ -43,6 +47,13 @@ public class ObjectTrigger : MonoBehaviour
 						this.transform.BroadcastMessage("DeviceOnTriggered", "sDevice");
 					}
 				}
+			}
+			if (this.transform.tag == "Key")
+			{
+				isTriggered = true;
+				Debug.Log(this.transform.name + " has touched.");
+				if (!kDoor.isTriggered) kDoor.isTriggered = true;
+				Destroy(this.gameObject);
 			}
 		}
 	}
