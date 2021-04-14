@@ -21,6 +21,7 @@ public class JumpCheck : MonoBehaviour
 	public int jumpCount;
 
 	private int tempJumpCount;  //  階段数を保存するため
+	private float tempJumpTime;	//	ジャンプタイムを保存するため
 	private PlayerInput pi;
 	private Rigidbody rigid;
 
@@ -32,6 +33,8 @@ public class JumpCheck : MonoBehaviour
 		rigid = GameObject.Find("PlayerHandle").GetComponent<Rigidbody>();
 
 		tempJumpCount = jumpCount;
+
+		tempJumpTime = jumpTime;
 	}
 
 	// Update is called once per frame
@@ -48,13 +51,6 @@ public class JumpCheck : MonoBehaviour
 					rigid.AddForce(jumpPowerX, jumpPowerY, jumpPowerZ);
 
 					isJump = false;
-
-					jumpCount--;    //  階段の段数
-
-					if (jumpCount == 0)
-					{
-						pi.inputEnabled = true;
-					}
 				}
 			}
 
@@ -62,15 +58,26 @@ public class JumpCheck : MonoBehaviour
 			{
 				isJump = true;
 
-				jumpTime = 1.15f;
+				jumpTime = tempJumpTime;
+
+				jumpCount--;    //  階段の段数
+
+				if (jumpCount == 0)
+				{
+					pi.inputEnabled = true;
+
+					canJump = false;
+				}
 			}
 		}
 	}
 
-	void OnTriggerEnter(Collider collider)
+    void OnTriggerStay(Collider collider)
 	{
-		if (collider.transform.tag == "Player")
+		if (collider.transform.tag == "Player" && pi.isJump)
 		{
+			collider.transform.position = new Vector3(transform.position.x, collider.transform.position.y, transform.position.z);
+
 			jumpCount = tempJumpCount; 
 
 			pi.inputEnabled = false;
@@ -78,6 +85,8 @@ public class JumpCheck : MonoBehaviour
 			canJump = true;
 
 			isJump = true;
+
+			pi.isJump = false;
 		}
 	}
 }

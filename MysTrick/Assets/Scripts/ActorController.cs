@@ -14,6 +14,7 @@ public class ActorController : MonoBehaviour
 {
 	public GameObject model;
 	public PlayerInput pi;
+
 	//============================
 	// 作成者：鍾家同
 	// Trigger用変数宣言
@@ -48,6 +49,6 @@ public class ActorController : MonoBehaviour
 
 	void FixedUpdate()
 	{
-		rigid.position += movingVec * 8.0f * Time.fixedDeltaTime;
+		rigid.position += movingVec * 5.0f * Time.fixedDeltaTime;
 	}
 }

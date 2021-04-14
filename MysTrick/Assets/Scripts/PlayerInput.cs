@@ -4,7 +4,12 @@ using UnityEngine;
 
 public class PlayerInput : MonoBehaviour
 {
-    // Variable
+    [Header("======= JoyStick Setting =======")]
+    public string axisX = "axisX";
+    public string axisY = "axisY";
+    public string axisJright = "axis3";
+    public string axisJup = "axis4";
+
     [Header("======= Key Setting =======")]
     public string keyUp;
     public string keyDown;
@@ -16,6 +21,8 @@ public class PlayerInput : MonoBehaviour
     public string keyJRight;
     public string keyJLeft;
 
+    public string keyJump;
+
     [Header("======= Output Signals =======")]
     public float Dup;
     public float Dright;
@@ -26,28 +33,51 @@ public class PlayerInput : MonoBehaviour
     public float Jright;
 
     public bool inputEnabled = true;
+    public bool isJump = false;
 
     private float targetDup;
     private float targetDright;
     private float velocityDup;
     private float velocityDright;
 
-    // Start is called before the first frame update
-    void Start()
+    private bool isUsingJoyStick;       //  コントローラーを検査する
+
+    void Awake()
     {
-        
+        string[] joystickNames = Input.GetJoystickNames();
+        foreach (string joystickName in joystickNames)
+        {
+            if (joystickName == "")     //  Keyboard
+            {
+                isUsingJoyStick = false;
+            }
+            else                        //  JoyStick
+            {
+                isUsingJoyStick = true;
+            }
+        }
     }  
 
-    // Update is called once per frame
     void Update()
     {
-        //  Stick Signal
-        Jup = (Input.GetKey(keyJUp) ? 1.0f : 0) - (Input.GetKey(keyJDown) ? 1.0f : 0);
-        Jright = (Input.GetKey(keyJRight) ? 1.0f : 0) - (Input.GetKey(keyJLeft) ? 1.0f : 0);
+        if (isUsingJoyStick)
+        {
+            //  Stick Signal
+            Jup = Input.GetAxis(axisJup);
+            Jright = Input.GetAxis(axisJright);
 
-        //  KeyBoard Signal
-        targetDup = (Input.GetKey(keyUp)?1.0f:0) - (Input.GetKey(keyDown)?1.0f:0);
-        targetDright = (Input.GetKey(keyRight)?1.0f:0) - (Input.GetKey(keyLeft)?1.0f:0);
+            targetDup = -1 * Input.GetAxis(axisY);
+            targetDright = Input.GetAxis(axisX);
+        }
+        else
+        {
+            //  KeyBoard Signal
+            Jup = (Input.GetKey(keyJUp) ? 1.0f : 0) - (Input.GetKey(keyJDown) ? 1.0f : 0);
+            Jright = (Input.GetKey(keyJRight) ? 1.0f : 0) - (Input.GetKey(keyJLeft) ? 1.0f : 0);
+
+            targetDup = (Input.GetKey(keyUp) ? 1.0f : 0) - (Input.GetKey(keyDown) ? 1.0f : 0);
+            targetDright = (Input.GetKey(keyRight) ? 1.0f : 0) - (Input.GetKey(keyLeft) ? 1.0f : 0);
+        }
 
         //  Moveable
         if (inputEnabled == false)
@@ -65,6 +95,18 @@ public class PlayerInput : MonoBehaviour
 
         Dmag = Mathf.Sqrt((Dup2 * Dup2) + (Dright2 * Dright2)); ;
         Dvec = Dright * transform.right + Dup * transform.forward;
+
+
+
+        if (Input.GetKeyDown(keyJump) || Input.GetButtonDown("action"))
+        {
+            isJump = true;
+        }
+
+        if (Input.GetKeyUp(keyJump) || Input.GetButtonUp("action"))
+        {
+            isJump = false;
+        }
     }
 
     private Vector2 SquareToCircle(Vector2 input)
@@ -76,4 +118,5 @@ public class PlayerInput : MonoBehaviour
 
         return output;
     }
+
 }
