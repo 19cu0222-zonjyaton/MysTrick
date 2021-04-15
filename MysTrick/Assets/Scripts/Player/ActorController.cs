@@ -22,6 +22,8 @@ public class ActorController : MonoBehaviour
 	public bool[] devices;
 	//============================
 
+	public bool isInTrigger;
+
 	[SerializeField]
 	//private Animator anim;
 	private Rigidbody rigid;
@@ -50,5 +52,21 @@ public class ActorController : MonoBehaviour
 	void FixedUpdate()
 	{
 		rigid.position += movingVec * 5.0f * Time.fixedDeltaTime;
+	}
+
+	void OnTriggerEnter(Collider collider)
+	{
+		if (collider.transform.tag == "Device")
+		{
+			isInTrigger = true;
+		}
+	}
+
+	void OnTriggerExit(Collider collider)
+	{
+		if (collider.transform.tag == "Device")
+		{
+			isInTrigger = false;
+		}
 	}
 }
