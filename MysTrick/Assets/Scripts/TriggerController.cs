@@ -13,12 +13,12 @@ public class TriggerController : MonoBehaviour
 {
 	public DoorController kDoor;
 	public bool isTriggered;
-	public PlayerInput Player;
+	private PlayerInput Player;
 
 	// Start is called before the first frame update
 	void Start()
 	{
-		isTriggered = true;
+		Player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerInput>();
 	}
 
 	// Update is called once per frame
@@ -51,7 +51,7 @@ public class TriggerController : MonoBehaviour
 					Player.isTriggered = false;
 				}
 			}
-			if (this.transform.tag == "Key")
+			if (this.transform.tag == "Key" && Player.isTriggered)
 			{
 				isTriggered = true;
 				Debug.Log(this.transform.name + " has touched.");
