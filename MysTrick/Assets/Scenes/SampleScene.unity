@@ -259,7 +259,7 @@ MonoBehaviour:
   keyJDown: down
   keyJRight: right
   keyJLeft: left
-  keyJump: q
+  keyTrigger: q
   Dup: 0
   Dright: 0
   Dmag: 0
@@ -267,7 +267,7 @@ MonoBehaviour:
   Jup: 0
   Jright: 0
   inputEnabled: 1
-  isJump: 0
+  isTriggered: 0
 --- !u!33 &673822161
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -284,7 +284,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 673822157}
   m_LocalRotation: {x: 0, y: 0.7071068, z: -0, w: -0.7071068}
-  m_LocalPosition: {x: 15.55, y: 13.07, z: 11.25}
+  m_LocalPosition: {x: 10.16, y: 17.25, z: -5.45}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 124014195}
@@ -1030,82 +1030,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 24538857, guid: e15dc0ee214140e4a97cf72cd870a5ee, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.01100633
-      objectReference: {fileID: 0}
-    - target: {fileID: 24538857, guid: e15dc0ee214140e4a97cf72cd870a5ee, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.020657057
-      objectReference: {fileID: 0}
-    - target: {fileID: 24538858, guid: e15dc0ee214140e4a97cf72cd870a5ee, type: 3}
-      propertyPath: jumpPowerY
-      value: 550
-      objectReference: {fileID: 0}
-    - target: {fileID: 24538858, guid: e15dc0ee214140e4a97cf72cd870a5ee, type: 3}
-      propertyPath: jumpPowerZ
-      value: -165
-      objectReference: {fileID: 0}
-    - target: {fileID: 24538858, guid: e15dc0ee214140e4a97cf72cd870a5ee, type: 3}
-      propertyPath: jumpTime
-      value: 0.55
-      objectReference: {fileID: 0}
-    - target: {fileID: 1028923870, guid: e15dc0ee214140e4a97cf72cd870a5ee, type: 3}
-      propertyPath: m_TagString
-      value: Stairs
-      objectReference: {fileID: 0}
-    - target: {fileID: 1028923871, guid: e15dc0ee214140e4a97cf72cd870a5ee, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0.0487
-      objectReference: {fileID: 0}
-    - target: {fileID: 1028923871, guid: e15dc0ee214140e4a97cf72cd870a5ee, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.0126892505
-      objectReference: {fileID: 0}
-    - target: {fileID: 1028923871, guid: e15dc0ee214140e4a97cf72cd870a5ee, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.021049032
-      objectReference: {fileID: 0}
-    - target: {fileID: 1028923872, guid: e15dc0ee214140e4a97cf72cd870a5ee, type: 3}
-      propertyPath: jumpPowerY
-      value: 550
-      objectReference: {fileID: 0}
-    - target: {fileID: 1028923872, guid: e15dc0ee214140e4a97cf72cd870a5ee, type: 3}
-      propertyPath: jumpPowerZ
-      value: -155
-      objectReference: {fileID: 0}
-    - target: {fileID: 1028923872, guid: e15dc0ee214140e4a97cf72cd870a5ee, type: 3}
-      propertyPath: jumpTime
-      value: 0.55
-      objectReference: {fileID: 0}
-    - target: {fileID: 1761762250, guid: e15dc0ee214140e4a97cf72cd870a5ee, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.013555575
-      objectReference: {fileID: 0}
-    - target: {fileID: 1761762250, guid: e15dc0ee214140e4a97cf72cd870a5ee, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.02204552
-      objectReference: {fileID: 0}
-    - target: {fileID: 1761762250, guid: e15dc0ee214140e4a97cf72cd870a5ee, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -0.1081
-      objectReference: {fileID: 0}
-    - target: {fileID: 1761762250, guid: e15dc0ee214140e4a97cf72cd870a5ee, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0.1524
-      objectReference: {fileID: 0}
-    - target: {fileID: 1761762251, guid: e15dc0ee214140e4a97cf72cd870a5ee, type: 3}
-      propertyPath: jumpPowerY
-      value: 550
-      objectReference: {fileID: 0}
-    - target: {fileID: 1761762251, guid: e15dc0ee214140e4a97cf72cd870a5ee, type: 3}
-      propertyPath: jumpPowerX
-      value: -155
-      objectReference: {fileID: 0}
-    - target: {fileID: 1761762251, guid: e15dc0ee214140e4a97cf72cd870a5ee, type: 3}
-      propertyPath: jumpTime
-      value: 0.55
-      objectReference: {fileID: 0}
     - target: {fileID: 3390627140972450558, guid: e15dc0ee214140e4a97cf72cd870a5ee,
         type: 3}
       propertyPath: m_LocalPosition.x
