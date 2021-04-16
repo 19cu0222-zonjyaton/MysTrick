@@ -35,8 +35,7 @@ public class TriggerController : MonoBehaviour
 			{
 				isTriggered = true;
 				Debug.Log(this.transform.name + " has touched.");
-
-				if (this.transform.GetChild(0) != null)
+				if (this.transform.childCount > 0)
 				{
 					if (this.transform.GetChild(0).gameObject.activeSelf)
 					{
@@ -48,8 +47,8 @@ public class TriggerController : MonoBehaviour
 						// 子オブジェクトに受け渡すメッセージ
 						this.transform.BroadcastMessage("DeviceOnTriggered", "sDevice");
 					}
-					Player.isTriggered = false;
 				}
+				Player.isTriggered = false;
 			}
 			if (this.transform.tag == "Key" && Player.isTriggered)
 			{
