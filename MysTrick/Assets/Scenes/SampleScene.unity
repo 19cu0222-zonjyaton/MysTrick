@@ -383,7 +383,7 @@ MonoBehaviour:
   keyJDown: down
   keyJRight: right
   keyJLeft: left
-  keyJump: q
+  keyTrigger: q
   Dup: 0
   Dright: 0
   Dmag: 0
@@ -391,7 +391,7 @@ MonoBehaviour:
   Jup: 0
   Jright: 0
   inputEnabled: 1
-  isJump: 0
+  isTriggered: 0
 --- !u!33 &673822161
 MeshFilter:
   m_ObjectHideFlags: 0

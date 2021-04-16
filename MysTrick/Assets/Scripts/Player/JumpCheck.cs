@@ -74,19 +74,19 @@ public class JumpCheck : MonoBehaviour
 
     void OnTriggerStay(Collider collider)
 	{
-		if (collider.transform.tag == "Player" && pi.isJump)
+		if (collider.transform.tag == "Player" && pi.isTriggered)
 		{
-				collider.transform.position = new Vector3(transform.position.x, collider.transform.position.y, transform.position.z);
+			collider.transform.position = new Vector3(transform.position.x, collider.transform.position.y, transform.position.z);
 
-				jumpCount = tempJumpCount;
+			jumpCount = tempJumpCount;
 
-				pi.inputEnabled = false;
+			pi.inputEnabled = false;
 
-				canJump = true;
+			canJump = true;
 
-				isJump = true;
+			isJump = true;
 
-				pi.isJump = false;
+			pi.isTriggered = false;
 		}
 	}
 }
