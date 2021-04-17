@@ -5,8 +5,8 @@ using UnityEngine;
 public class CameraController : MonoBehaviour
 {
     public PlayerInput pi;
-    public float horizontalSpeed = 100.0f;
-    public float verticalSpeed = 80.0f;
+    public float horizontalSpeed = 25.0f;
+    public float verticalSpeed = 20.0f;
 
     private GameObject cameraHandle;
     private GameObject playerHandle;
@@ -22,12 +22,12 @@ public class CameraController : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void LateUpdate()
     {
         Vector3 tempModelEuler = model.transform.eulerAngles;
 
-        playerHandle.transform.Rotate(Vector3.up, pi.Jright * horizontalSpeed * Time.deltaTime);      
-        tempEulerX -= pi.Jup * verticalSpeed * Time.deltaTime;
+        playerHandle.transform.Rotate(Vector3.up, pi.Jright * horizontalSpeed * Time.fixedDeltaTime);      
+        tempEulerX -= pi.Jup * verticalSpeed * Time.fixedDeltaTime;
         tempEulerX = Mathf.Clamp(tempEulerX, -25, 15);
 
         cameraHandle.transform.localEulerAngles = new Vector3(tempEulerX, 0, 0);   //  縦の回転角を制限する

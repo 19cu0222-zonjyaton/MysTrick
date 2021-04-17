@@ -14,6 +14,7 @@ public class ActorController : MonoBehaviour
 {
 	public GameObject model;
 	public PlayerInput pi;
+	public CapsuleCollider capcol;
 
 	//============================
 	// 作成者：鍾家同
