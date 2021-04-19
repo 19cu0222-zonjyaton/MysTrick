@@ -73,14 +73,14 @@ public class ActorController : MonoBehaviour
 
 	void OnCollisionStay(Collision collision)
 	{
-		if (collision.transform.tag == "Device")
+		if (collision.transform.tag == "Device" || collision.transform.tag == "Key")
 		{
 			isInTrigger = true;
 		}
 	}
 	void OnCollisionExit(Collision collision)
 	{
-		if (collision.transform.tag == "Device")
+		if (collision.transform.tag == "Device" || collision.transform.tag == "Key")
 		{
 			isInTrigger = false;
 		}

@@ -17,6 +17,7 @@ public class JumpCheck : MonoBehaviour
 
     public bool isJumpStart;
     public bool isJump;
+    private GameObject hintUI;
 
     public float jumpTime;
     public int jumpCount;
@@ -24,9 +25,10 @@ public class JumpCheck : MonoBehaviour
     private int tempJumpCount;  //  階段数を保存するため
     private float tempJumpTime; //	ジャンプタイムを保存するため
     private PlayerInput pi;
-    private Rigidbody rigid;
-    public GameObject playerModel;
+    private Rigidbody rigid;   
     private float timeCount = 0.3f;
+
+    public GameObject playerModel;
 
     // Start is called before the first frame update
     void Awake()
@@ -34,6 +36,8 @@ public class JumpCheck : MonoBehaviour
         pi = GameObject.Find("PlayerHandle").GetComponent<PlayerInput>();
 
         rigid = GameObject.Find("PlayerHandle").GetComponent<Rigidbody>();
+
+        hintUI = transform.Find("hintUI").gameObject;
 
         tempJumpCount = jumpCount;
 
@@ -56,31 +60,10 @@ public class JumpCheck : MonoBehaviour
                 playerModel.transform.localPosition = new Vector3((float)Math.Round((double)transform.position.x, 1), playerModel.transform.position.y, (float)Math.Round((double)transform.position.z, 1));        //  ジャンプ始点を固定する
             }
         }
-    }
 
-    void OnTriggerStay(Collider collider)
-    {
-        if (collider.transform.tag == "Player" && pi.isTriggered && pi.isJumping && !pi.lockJumpStatus)
+        if (isJumpStart)
         {
-            pi.Dup = 0.0f;          //	シングルを0にする
-            pi.Dright = 0.0f;
-            pi.Dmag = 0.0f;
-            pi.moveSpeed = 0.0f;
-            pi.inputEnabled = false;
-
-            collider.transform.localPosition = new Vector3((float)Math.Round((double)transform.position.x, 1), collider.transform.position.y, (float)Math.Round((double)transform.position.z, 1));
-
-            playerModel = collider.transform.gameObject;
-
-            //collider.transform.rotation = Quaternion.Euler(0, 0, 0);	//	プレイヤーモデルの方向を正す
-
-            jumpCount = tempJumpCount;
-
-            isJumpStart = true;
-
-            isJump = true;
-
-            pi.lockJumpStatus = true;
+            hintUI.SetActive(false);
         }
     }
 
@@ -124,6 +107,45 @@ public class JumpCheck : MonoBehaviour
                     isJumpStart = false;
                 }
             }
+        }
+    }
+
+    void OnTriggerStay(Collider collider)
+    {
+        if (collider.transform.tag == "Player")
+        {
+            hintUI.SetActive(true);
+
+            if (pi.isTriggered && pi.isJumping && !pi.lockJumpStatus)
+            {
+                pi.Dup = 0.0f;          //	シングルを0にする
+                pi.Dright = 0.0f;
+                pi.Dmag = 0.0f;
+                pi.moveSpeed = 0.0f;
+                pi.inputEnabled = false;
+
+                collider.transform.localPosition = new Vector3((float)Math.Round((double)transform.position.x, 1), collider.transform.position.y, (float)Math.Round((double)transform.position.z, 1));
+
+                playerModel = collider.transform.gameObject;
+
+                //collider.transform.rotation = Quaternion.Euler(0, 0, 0);	//	プレイヤーモデルの方向を正す
+
+                jumpCount = tempJumpCount;
+
+                isJumpStart = true;
+
+                isJump = true;
+
+                pi.lockJumpStatus = true;
+            }
+        }
+    }
+
+    void OnTriggerExit(Collider collider)
+    {
+        if (collider.transform.tag == "Player")
+        {
+            hintUI.SetActive(false);
         }
     }
 }

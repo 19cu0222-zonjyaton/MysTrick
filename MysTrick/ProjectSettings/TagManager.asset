@@ -4,9 +4,9 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Stairs
   - Key
   - Device
+  - Bridge
   layers:
   - Default
   - TransparentFX

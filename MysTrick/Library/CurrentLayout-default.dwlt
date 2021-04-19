@@ -100,7 +100,7 @@ MonoBehaviour:
   m_MinSize: {x: 201, y: 442}
   m_MaxSize: {x: 4001, y: 8042}
   vertical: 1
-  controlID: 110
+  controlID: 78
 --- !u!114 &5
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -152,7 +152,7 @@ MonoBehaviour:
   m_MinSize: {x: 232, y: 613}
   m_MaxSize: {x: 10002, y: 18063}
   vertical: 1
-  controlID: 136
+  controlID: 104
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -470,10 +470,10 @@ MonoBehaviour:
   m_ViewDataDictionary: {fileID: 0}
   m_SceneHierarchy:
     m_TreeViewState:
-      scrollPos: {x: 0, y: 144}
-      m_SelectedIDs: 66370000
-      m_LastClickedID: 14182
-      m_ExpandedIDs: 0cf7ffff2af7ffff26370000383700004a370000
+      scrollPos: {x: 0, y: 80}
+      m_SelectedIDs: a0f6ffff
+      m_LastClickedID: -2400
+      m_ExpandedIDs: 80f6ffff84f6ffff86f6ffff8cf6ffff8ef6ffff94f6ffff96f6ffff9cf6ffffa0f6ffffaaf6ffffb0f6ffffb4f6ffffbaf6ffffd6f6fffff2f6fffff4f6ffff34370000463700005c370000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -574,20 +574,20 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Scripts/Player
+    - Assets/Scripts
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Scripts/Player
+  - Assets/Scripts
   m_LastFoldersGridSize: -1
   m_LastProjectPath: D:\GameTools\MyStrick\MysTrick
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 65}
-    m_SelectedIDs: 1a390000
-    m_LastClickedID: 14618
-    m_ExpandedIDs: 00000000ee380000f0380000f2380000f4380000fa3800001439000000ca9a3b
+    m_SelectedIDs: 3e390000
+    m_LastClickedID: 14654
+    m_ExpandedIDs: 00000000183900001a3900001c3900001e390000243900003e39000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -615,7 +615,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000ee380000f0380000f2380000f4380000
+    m_ExpandedIDs: 00000000183900001a3900001c3900001e390000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -799,9 +799,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 15.959188, y: 13.523083, z: -5.125984}
+    m_Target: {x: 15.807616, y: 20.169117, z: 0.9409143}
     speed: 2
-    m_Value: {x: 15.959188, y: 13.523083, z: -5.125984}
+    m_Value: {x: 15.807616, y: 20.169117, z: 0.9409143}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -847,13 +847,13 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: -0.19987658, y: 0.5969245, z: -0.15674596, w: -0.761086}
+    m_Target: {x: 0.09930228, y: -0.8683659, z: 0.19359112, w: 0.44581795}
     speed: 2
-    m_Value: {x: -0.19986752, y: 0.5968974, z: -0.15673886, w: -0.76105154}
+    m_Value: {x: 0.09929476, y: -0.86830014, z: 0.19357647, w: 0.4457842}
   m_Size:
-    m_Target: 3.6785069
+    m_Target: 1.6314576
     speed: 2
-    m_Value: 3.6785069
+    m_Value: 1.6314576
   m_Ortho:
     m_Target: 0
     speed: 2

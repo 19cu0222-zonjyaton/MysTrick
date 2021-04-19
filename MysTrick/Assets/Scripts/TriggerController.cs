@@ -14,28 +14,33 @@ public class TriggerController : MonoBehaviour
 	public DoorController kDoor;
 	public bool isTriggered;
 	private PlayerInput Player;
+	public GameObject hintUI;
 
 	// Start is called before the first frame update
-	void Start()
+	void Awake()
 	{
 		Player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerInput>();
+
+		hintUI = transform.Find("hintUI").gameObject;
 	}
 
 	// Update is called once per frame
 	void Update()
 	{
-		
+
 	}
 
 	private void OnCollisionStay(Collision other)
 	{
 		if (other.transform.tag == "Player")
 		{
+			hintUI.SetActive(true);
+
 			if (this.transform.tag == "Device" && Player.isTriggered)
 			{
 				isTriggered = true;
 				Debug.Log(this.transform.name + " has touched.");
-				if (this.transform.childCount > 0)
+				if (this.transform.childCount > 1)
 				{
 					if (this.transform.GetChild(0).gameObject.activeSelf)
 					{
@@ -57,6 +62,14 @@ public class TriggerController : MonoBehaviour
 				if (!kDoor.isTriggered) kDoor.isTriggered = true;
 				Destroy(this.gameObject);
 			}
+		}
+	}
+
+	private void OnCollisionExit(Collision other)
+	{
+		if (other.transform.tag == "Player")
+		{
+			hintUI.SetActive(false);
 		}
 	}
 }
