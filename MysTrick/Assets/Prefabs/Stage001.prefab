@@ -60,10 +60,11 @@ MonoBehaviour:
   jumpPowerX: 0
   jumpPowerY: 550
   jumpPowerZ: -165
-  canJump: 0
+  isJumpStart: 0
   isJump: 0
   jumpTime: 0.55
   jumpCount: 5
+  playerModel: {fileID: 0}
 --- !u!1 &1028923870
 GameObject:
   m_ObjectHideFlags: 0
@@ -124,10 +125,11 @@ MonoBehaviour:
   jumpPowerX: 0
   jumpPowerY: 550
   jumpPowerZ: -155
-  canJump: 0
+  isJumpStart: 0
   isJump: 0
   jumpTime: 0.55
   jumpCount: 5
+  playerModel: {fileID: 0}
 --- !u!1 &1761762249
 GameObject:
   m_ObjectHideFlags: 0
@@ -188,10 +190,11 @@ MonoBehaviour:
   jumpPowerX: -155
   jumpPowerY: 550
   jumpPowerZ: 0
-  canJump: 0
+  isJumpStart: 0
   isJump: 0
   jumpTime: 0.55
   jumpCount: 5
+  playerModel: {fileID: 0}
 --- !u!1 &3390627140448860722
 GameObject:
   m_ObjectHideFlags: 0
@@ -300,6 +303,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   kDoor: {fileID: 3390627142487900403}
   isTriggered: 0
+  hintUI: {fileID: 0}
 --- !u!1 &3390627140535428798
 GameObject:
   m_ObjectHideFlags: 0
@@ -1566,6 +1570,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   kDoor: {fileID: 0}
   isTriggered: 0
+  hintUI: {fileID: 0}
 --- !u!1 &3390627141765648253
 GameObject:
   m_ObjectHideFlags: 0
@@ -1675,6 +1680,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   kDoor: {fileID: 0}
   isTriggered: 0
+  hintUI: {fileID: 0}
 --- !u!1 &3390627141934409005
 GameObject:
   m_ObjectHideFlags: 0
@@ -1783,6 +1789,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   kDoor: {fileID: 3390627140702545740}
   isTriggered: 0
+  hintUI: {fileID: 0}
 --- !u!1 &3390627141943782454
 GameObject:
   m_ObjectHideFlags: 0
@@ -2269,6 +2276,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   kDoor: {fileID: 0}
   isTriggered: 0
+  hintUI: {fileID: 0}
 --- !u!1 &3390627142386710888
 GameObject:
   m_ObjectHideFlags: 0
@@ -2426,6 +2434,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   kDoor: {fileID: 0}
   isTriggered: 0
+  hintUI: {fileID: 0}
 --- !u!1 &3390627142487900412
 GameObject:
   m_ObjectHideFlags: 0
