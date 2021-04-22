@@ -6,6 +6,8 @@ public class OnGroundSensor : MonoBehaviour
 {
     public CapsuleCollider capcol;
     public PlayerInput pi;
+    public GoalController goal;
+    public CameraController ca;
 
     private Vector3 point1;
     private Vector3 point2;
@@ -17,6 +19,10 @@ public class OnGroundSensor : MonoBehaviour
         radius = capcol.radius;
 
         pi = gameObject.GetComponentInParent<PlayerInput>();    //  親のComponentを獲得する
+
+        goal = GameObject.Find("Goal").GetComponent<GoalController>();
+
+        ca = GameObject.Find("Main Camera").GetComponent<CameraController>();
     }
 
     // Update is called once per frame
@@ -35,7 +41,7 @@ public class OnGroundSensor : MonoBehaviour
             //    print("collision: " + col.name);
             //}
         }
-        else if (outputCols.Length != 0 && !pi.lockJumpStatus)
+        else if (outputCols.Length != 0 && !pi.lockJumpStatus && !goal.gameClear && ca.cameraStatic == "Idle")
         {
             pi.inputEnabled = true;
         }

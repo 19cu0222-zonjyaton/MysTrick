@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 24538857}
   - component: {fileID: 24538859}
   - component: {fileID: 24538858}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Check2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -76,9 +76,9 @@ GameObject:
   - component: {fileID: 1028923871}
   - component: {fileID: 1028923873}
   - component: {fileID: 1028923872}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Check1
-  m_TagString: Device
+  m_TagString: Stairs
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -91,7 +91,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1028923870}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.028, y: 0.112, z: 0.048}
+  m_LocalPosition: {x: 0.028869715, y: 0.11220285, z: 0.0487}
   m_LocalScale: {x: 0.021049032, y: 0.011254677, z: 0.0126892505}
   m_Children: []
   m_Father: {fileID: 3390627141298127793}
@@ -124,7 +124,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   jumpPowerX: 0
   jumpPowerY: 550
-  jumpPowerZ: -157
+  jumpPowerZ: -155
   isJumpStart: 0
   isJump: 0
   jumpTime: 0.55
@@ -141,7 +141,7 @@ GameObject:
   - component: {fileID: 1761762250}
   - component: {fileID: 1761762252}
   - component: {fileID: 1761762251}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Check3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -208,7 +208,7 @@ GameObject:
   - component: {fileID: 3390627140448860727}
   - component: {fileID: 3390627140448860724}
   - component: {fileID: 3390627140448860681}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Key002
   m_TagString: Key
   m_Icon: {fileID: 0}
@@ -236,7 +236,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3390627140448860722}
-  m_Mesh: {fileID: 3321367309127246269, guid: 5a386cc7f208c0e45b0002ebe62c6cc0, type: 3}
+  m_Mesh: {fileID: 3321367309127246269, guid: 1511c25bbd14bec4aa3bdaeeed8cee5d, type: 3}
 --- !u!23 &3390627140448860727
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -255,7 +255,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 3655396658102750768, guid: 5a386cc7f208c0e45b0002ebe62c6cc0, type: 3}
+  - {fileID: 3655396658102750768, guid: 1511c25bbd14bec4aa3bdaeeed8cee5d, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -298,7 +298,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3390627140448860722}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 89c1d6189355ed44a80eafa1f8337963, type: 3}
+  m_Script: {fileID: 11500000, guid: 834108fadf85ef84c9664dd797e5168a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   kDoor: {fileID: 3390627142487900403}
@@ -317,7 +317,7 @@ GameObject:
   - component: {fileID: 3390627140535428787}
   - component: {fileID: 3390627140535428784}
   - component: {fileID: 7582693551992276103}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Lift001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -345,7 +345,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3390627140535428798}
-  m_Mesh: {fileID: -6546451453691191340, guid: 5a386cc7f208c0e45b0002ebe62c6cc0, type: 3}
+  m_Mesh: {fileID: -6546451453691191340, guid: 1511c25bbd14bec4aa3bdaeeed8cee5d, type: 3}
 --- !u!23 &3390627140535428787
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -364,7 +364,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 5561349426305759274, guid: 5a386cc7f208c0e45b0002ebe62c6cc0, type: 3}
+  - {fileID: 5561349426305759274, guid: 1511c25bbd14bec4aa3bdaeeed8cee5d, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -407,7 +407,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3390627140535428798}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aafb0788ebde89f46a8e63d9267eb9ce, type: 3}
+  m_Script: {fileID: 11500000, guid: f4cda3947cb87ad4b879ce9f2a9d0962, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   trajectory: 1
@@ -432,7 +432,7 @@ GameObject:
   - component: {fileID: 3390627140652770789}
   - component: {fileID: 3390627140652770786}
   - component: {fileID: 3390627140652770787}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Goal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -460,7 +460,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3390627140652770785}
-  m_Mesh: {fileID: 6812965727148888272, guid: 5a386cc7f208c0e45b0002ebe62c6cc0, type: 3}
+  m_Mesh: {fileID: 6812965727148888272, guid: 1511c25bbd14bec4aa3bdaeeed8cee5d, type: 3}
 --- !u!23 &3390627140652770786
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -479,7 +479,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 6271573414225017425, guid: 5a386cc7f208c0e45b0002ebe62c6cc0, type: 3}
+  - {fileID: 6271573414225017425, guid: 1511c25bbd14bec4aa3bdaeeed8cee5d, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -526,7 +526,7 @@ GameObject:
   - component: {fileID: 3390627140702545738}
   - component: {fileID: 3390627140702545739}
   - component: {fileID: 3390627140702545740}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Door001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -554,7 +554,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3390627140702545737}
-  m_Mesh: {fileID: 4902371974396057163, guid: 5a386cc7f208c0e45b0002ebe62c6cc0, type: 3}
+  m_Mesh: {fileID: 4902371974396057163, guid: 1511c25bbd14bec4aa3bdaeeed8cee5d, type: 3}
 --- !u!23 &3390627140702545738
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -573,7 +573,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 3655396658102750768, guid: 5a386cc7f208c0e45b0002ebe62c6cc0, type: 3}
+  - {fileID: 3655396658102750768, guid: 1511c25bbd14bec4aa3bdaeeed8cee5d, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -616,7 +616,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3390627140702545737}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1976276dd68a43c45b8f6709636be238, type: 3}
+  m_Script: {fileID: 11500000, guid: f2ea7f121fd57494b9a11f305c4fc6c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   dest: {x: 0, y: 0, z: 0}
@@ -631,7 +631,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3390627140972450558}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Stage001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -679,7 +679,7 @@ GameObject:
   - component: {fileID: 3390627141103929799}
   - component: {fileID: 3390627141103929796}
   - component: {fileID: 3390627141103929797}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Bridge001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -707,7 +707,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3390627141103929795}
-  m_Mesh: {fileID: -1114816402421527125, guid: 5a386cc7f208c0e45b0002ebe62c6cc0, type: 3}
+  m_Mesh: {fileID: -1114816402421527125, guid: 1511c25bbd14bec4aa3bdaeeed8cee5d, type: 3}
 --- !u!23 &3390627141103929796
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -726,7 +726,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 3655396658102750768, guid: 5a386cc7f208c0e45b0002ebe62c6cc0, type: 3}
+  - {fileID: 3655396658102750768, guid: 1511c25bbd14bec4aa3bdaeeed8cee5d, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -777,9 +777,9 @@ GameObject:
   - component: {fileID: 3390627141298127794}
   - component: {fileID: 3390627141298127795}
   - component: {fileID: 3390627141298127792}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Stairs001
-  m_TagString: Untagged
+  m_TagString: Stairs
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -806,7 +806,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3390627141298127806}
-  m_Mesh: {fileID: -2836961658398177141, guid: 5a386cc7f208c0e45b0002ebe62c6cc0, type: 3}
+  m_Mesh: {fileID: -2836961658398177141, guid: 1511c25bbd14bec4aa3bdaeeed8cee5d, type: 3}
 --- !u!23 &3390627141298127798
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -825,7 +825,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -1360991219368177298, guid: 5a386cc7f208c0e45b0002ebe62c6cc0, type: 3}
+  - {fileID: -1360991219368177298, guid: 1511c25bbd14bec4aa3bdaeeed8cee5d, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -920,7 +920,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3390627141298127806}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 65b77676379b75c4d93a736be13fb8eb, type: 3}
+  m_Script: {fileID: 11500000, guid: ab0084890e598284a8763270090279e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   isTriggered: 0
@@ -956,7 +956,7 @@ GameObject:
   - component: {fileID: 3390627141438265494}
   - component: {fileID: 3390627141438265495}
   - component: {fileID: 3390627141438265492}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: mainMap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -984,7 +984,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3390627141438265490}
-  m_Mesh: {fileID: -4952091390860049004, guid: 5a386cc7f208c0e45b0002ebe62c6cc0, type: 3}
+  m_Mesh: {fileID: -4952091390860049004, guid: 1511c25bbd14bec4aa3bdaeeed8cee5d, type: 3}
 --- !u!23 &3390627141438265595
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1003,7 +1003,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 5561349426305759274, guid: 5a386cc7f208c0e45b0002ebe62c6cc0, type: 3}
+  - {fileID: 5561349426305759274, guid: 1511c25bbd14bec4aa3bdaeeed8cee5d, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1314,9 +1314,9 @@ GameObject:
   - component: {fileID: 3390627141539920870}
   - component: {fileID: 3390627141539920871}
   - component: {fileID: 3390627141539920868}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Stairs003
-  m_TagString: Untagged
+  m_TagString: Stairs
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1457,7 +1457,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3390627141539920866}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 65b77676379b75c4d93a736be13fb8eb, type: 3}
+  m_Script: {fileID: 11500000, guid: ab0084890e598284a8763270090279e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   isTriggered: 0
@@ -1474,7 +1474,7 @@ GameObject:
   - component: {fileID: 3390627141731462954}
   - component: {fileID: 3390627141731462955}
   - component: {fileID: 3390627141731462952}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: sDevice001
   m_TagString: Device
   m_Icon: {fileID: 0}
@@ -1503,7 +1503,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3390627141731462870}
-  m_Mesh: {fileID: -6609621178903524089, guid: 5a386cc7f208c0e45b0002ebe62c6cc0, type: 3}
+  m_Mesh: {fileID: -6609621178903524089, guid: 1511c25bbd14bec4aa3bdaeeed8cee5d, type: 3}
 --- !u!23 &3390627141731462954
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1522,7 +1522,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 5561349426305759274, guid: 5a386cc7f208c0e45b0002ebe62c6cc0, type: 3}
+  - {fileID: 5561349426305759274, guid: 1511c25bbd14bec4aa3bdaeeed8cee5d, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1565,7 +1565,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3390627141731462870}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 89c1d6189355ed44a80eafa1f8337963, type: 3}
+  m_Script: {fileID: 11500000, guid: 834108fadf85ef84c9664dd797e5168a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   kDoor: {fileID: 0}
@@ -1584,7 +1584,7 @@ GameObject:
   - component: {fileID: 3390627141765648254}
   - component: {fileID: 3390627141765648255}
   - component: {fileID: 3390627141765648240}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: sDevice003
   m_TagString: Device
   m_Icon: {fileID: 0}
@@ -1613,7 +1613,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3390627141765648253}
-  m_Mesh: {fileID: 6579177715269815379, guid: 5a386cc7f208c0e45b0002ebe62c6cc0, type: 3}
+  m_Mesh: {fileID: 6579177715269815379, guid: 1511c25bbd14bec4aa3bdaeeed8cee5d, type: 3}
 --- !u!23 &3390627141765648254
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1632,7 +1632,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 5561349426305759274, guid: 5a386cc7f208c0e45b0002ebe62c6cc0, type: 3}
+  - {fileID: 5561349426305759274, guid: 1511c25bbd14bec4aa3bdaeeed8cee5d, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1675,7 +1675,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3390627141765648253}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 89c1d6189355ed44a80eafa1f8337963, type: 3}
+  m_Script: {fileID: 11500000, guid: 834108fadf85ef84c9664dd797e5168a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   kDoor: {fileID: 0}
@@ -1694,7 +1694,7 @@ GameObject:
   - component: {fileID: 3390627141934409006}
   - component: {fileID: 3390627141934409007}
   - component: {fileID: 3390627141934408992}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Key001
   m_TagString: Key
   m_Icon: {fileID: 0}
@@ -1722,7 +1722,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3390627141934409005}
-  m_Mesh: {fileID: -8034046871698848102, guid: 5a386cc7f208c0e45b0002ebe62c6cc0, type: 3}
+  m_Mesh: {fileID: -8034046871698848102, guid: 1511c25bbd14bec4aa3bdaeeed8cee5d, type: 3}
 --- !u!23 &3390627141934409006
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1741,7 +1741,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 3655396658102750768, guid: 5a386cc7f208c0e45b0002ebe62c6cc0, type: 3}
+  - {fileID: 3655396658102750768, guid: 1511c25bbd14bec4aa3bdaeeed8cee5d, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1784,7 +1784,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3390627141934409005}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 89c1d6189355ed44a80eafa1f8337963, type: 3}
+  m_Script: {fileID: 11500000, guid: 834108fadf85ef84c9664dd797e5168a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   kDoor: {fileID: 3390627140702545740}
@@ -1801,7 +1801,7 @@ GameObject:
   - component: {fileID: 3390627141943782409}
   - component: {fileID: 3390627141943782411}
   - component: {fileID: 3390627141943782408}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1829,7 +1829,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3390627141943782454}
-  m_Mesh: {fileID: 4237179799288247963, guid: 5a386cc7f208c0e45b0002ebe62c6cc0, type: 3}
+  m_Mesh: {fileID: 4237179799288247963, guid: 1511c25bbd14bec4aa3bdaeeed8cee5d, type: 3}
 --- !u!23 &3390627141943782408
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1848,7 +1848,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -8498072568288798726, guid: 5a386cc7f208c0e45b0002ebe62c6cc0, type: 3}
+  - {fileID: -8498072568288798726, guid: 1511c25bbd14bec4aa3bdaeeed8cee5d, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1884,7 +1884,7 @@ GameObject:
   - component: {fileID: 3390627142059277104}
   - component: {fileID: 3390627142059277105}
   - component: {fileID: 3390627142059277118}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: sideMap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1912,7 +1912,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3390627142059277116}
-  m_Mesh: {fileID: -8909060503509546748, guid: 5a386cc7f208c0e45b0002ebe62c6cc0, type: 3}
+  m_Mesh: {fileID: -8909060503509546748, guid: 1511c25bbd14bec4aa3bdaeeed8cee5d, type: 3}
 --- !u!23 &3390627142059277106
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1931,7 +1931,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -1360991219368177298, guid: 5a386cc7f208c0e45b0002ebe62c6cc0, type: 3}
+  - {fileID: -1360991219368177298, guid: 1511c25bbd14bec4aa3bdaeeed8cee5d, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2021,9 +2021,9 @@ GameObject:
   - component: {fileID: 3390627142070825981}
   - component: {fileID: 3390627142070825978}
   - component: {fileID: 3390627142070825979}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Stairs002
-  m_TagString: Untagged
+  m_TagString: Stairs
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2050,7 +2050,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3390627142070825977}
-  m_Mesh: {fileID: -8286202529383501045, guid: 5a386cc7f208c0e45b0002ebe62c6cc0, type: 3}
+  m_Mesh: {fileID: -8286202529383501045, guid: 1511c25bbd14bec4aa3bdaeeed8cee5d, type: 3}
 --- !u!23 &3390627142070825969
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -2069,7 +2069,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -1360991219368177298, guid: 5a386cc7f208c0e45b0002ebe62c6cc0, type: 3}
+  - {fileID: -1360991219368177298, guid: 1511c25bbd14bec4aa3bdaeeed8cee5d, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2164,7 +2164,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3390627142070825977}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 65b77676379b75c4d93a736be13fb8eb, type: 3}
+  m_Script: {fileID: 11500000, guid: ab0084890e598284a8763270090279e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   isTriggered: 0
@@ -2181,7 +2181,7 @@ GameObject:
   - component: {fileID: 3390627142156676402}
   - component: {fileID: 3390627142156676403}
   - component: {fileID: 3390627142156676404}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: bDevice004
   m_TagString: Device
   m_Icon: {fileID: 0}
@@ -2209,7 +2209,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3390627142156676401}
-  m_Mesh: {fileID: -7755137016071815825, guid: 5a386cc7f208c0e45b0002ebe62c6cc0, type: 3}
+  m_Mesh: {fileID: -7755137016071815825, guid: 1511c25bbd14bec4aa3bdaeeed8cee5d, type: 3}
 --- !u!23 &3390627142156676402
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -2228,7 +2228,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 5561349426305759274, guid: 5a386cc7f208c0e45b0002ebe62c6cc0, type: 3}
+  - {fileID: 5561349426305759274, guid: 1511c25bbd14bec4aa3bdaeeed8cee5d, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2271,7 +2271,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3390627142156676401}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 89c1d6189355ed44a80eafa1f8337963, type: 3}
+  m_Script: {fileID: 11500000, guid: 834108fadf85ef84c9664dd797e5168a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   kDoor: {fileID: 0}
@@ -2287,7 +2287,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3390627142386710891}
   - component: {fileID: 1731656878}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Pivot
   m_TagString: Untagged
   m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
@@ -2318,7 +2318,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3390627142386710888}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7524139947050a14ebac9fbba608ec7b, type: 3}
+  m_Script: {fileID: 11500000, guid: 08140c7541b6eca40923050eefcb1901, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Device: {fileID: 3390627142156676404}
@@ -2338,7 +2338,7 @@ GameObject:
   - component: {fileID: 3390627142434858095}
   - component: {fileID: 3390627142434858092}
   - component: {fileID: 3390627142434858081}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: sDevice002
   m_TagString: Device
   m_Icon: {fileID: 0}
@@ -2367,7 +2367,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3390627142434858090}
-  m_Mesh: {fileID: 1676535569589150729, guid: 5a386cc7f208c0e45b0002ebe62c6cc0, type: 3}
+  m_Mesh: {fileID: 1676535569589150729, guid: 1511c25bbd14bec4aa3bdaeeed8cee5d, type: 3}
 --- !u!23 &3390627142434858095
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -2386,7 +2386,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 5561349426305759274, guid: 5a386cc7f208c0e45b0002ebe62c6cc0, type: 3}
+  - {fileID: 5561349426305759274, guid: 1511c25bbd14bec4aa3bdaeeed8cee5d, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2429,7 +2429,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3390627142434858090}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 89c1d6189355ed44a80eafa1f8337963, type: 3}
+  m_Script: {fileID: 11500000, guid: 834108fadf85ef84c9664dd797e5168a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   kDoor: {fileID: 0}
@@ -2448,7 +2448,7 @@ GameObject:
   - component: {fileID: 3390627142487900401}
   - component: {fileID: 3390627142487900414}
   - component: {fileID: 3390627142487900403}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Door002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2476,7 +2476,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3390627142487900412}
-  m_Mesh: {fileID: 7372807837608782638, guid: 5a386cc7f208c0e45b0002ebe62c6cc0, type: 3}
+  m_Mesh: {fileID: 7372807837608782638, guid: 1511c25bbd14bec4aa3bdaeeed8cee5d, type: 3}
 --- !u!23 &3390627142487900401
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -2495,7 +2495,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 3655396658102750768, guid: 5a386cc7f208c0e45b0002ebe62c6cc0, type: 3}
+  - {fileID: 3655396658102750768, guid: 1511c25bbd14bec4aa3bdaeeed8cee5d, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2538,7 +2538,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3390627142487900412}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1976276dd68a43c45b8f6709636be238, type: 3}
+  m_Script: {fileID: 11500000, guid: f2ea7f121fd57494b9a11f305c4fc6c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   dest: {x: 0, y: 5.61, z: 0}
@@ -2557,7 +2557,7 @@ GameObject:
   - component: {fileID: 5537453812970632371}
   - component: {fileID: 8230838017806611645}
   - component: {fileID: 6501316622965848610}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Wall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
