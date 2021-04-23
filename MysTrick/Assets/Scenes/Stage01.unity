@@ -1092,7 +1092,8 @@ MonoBehaviour:
   verticalSpeed: 20
   stair:
   - {fileID: 401750073}
-  temp: {fileID: 0}
+  cameraBackPos: {fileID: 0}
+  moveToPos: {x: 0, y: 0, z: 0}
   cameraStatic: Idle
 --- !u!45 &963194230
 Skybox:
