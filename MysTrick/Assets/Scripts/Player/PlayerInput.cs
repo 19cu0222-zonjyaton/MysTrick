@@ -21,7 +21,7 @@ public class PlayerInput : MonoBehaviour
 	public string keyJRight;
 	public string keyJLeft;
 
-	public string keyTrigger;
+	public string keyTrigger = "b";
 
 	[Header("======= Output Signals =======")]
 	public float Dup;
@@ -37,6 +37,7 @@ public class PlayerInput : MonoBehaviour
 	public bool isTriggered = false;
 	public bool isJumping = false;
 	public bool lockJumpStatus = false;
+	public CameraController ca;
 
 	public float targetDup;
 	public float targetDright;
@@ -99,7 +100,7 @@ public class PlayerInput : MonoBehaviour
 		Dmag = Mathf.Sqrt((Dup2 * Dup2) + (Dright2 * Dright2)); ;
 		Dvec = Dright * transform.right + Dup * transform.forward;
 
-		if (Input.GetKeyDown(keyTrigger) || Input.GetButtonDown("action"))
+		if ((Input.GetKeyDown(keyTrigger) || Input.GetButtonDown("action")) && ca.cameraStatic == "Idle")
 		{
 			isTriggered = true;
 
@@ -112,6 +113,8 @@ public class PlayerInput : MonoBehaviour
 		if (Input.GetKeyUp(keyTrigger) || Input.GetButtonUp("action"))
 		{
 			isTriggered = false;
+
+			isJumping = false;
 		}
 	}
 

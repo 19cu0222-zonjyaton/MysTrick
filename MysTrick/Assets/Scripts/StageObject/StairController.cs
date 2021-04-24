@@ -11,8 +11,9 @@ using UnityEngine;
 public class StairController : MonoBehaviour
 {
 	public bool isTriggered;
-	public bool moveToHere;     //	カメラ用参数
-	public bool hasDone;        //	カメラ用参数
+	public bool moveToHere;				//	カメラ用参数
+	public bool hasDone;				//	カメラ用参数
+
 	// Start is called before the first frame update
 	void Start()
 	{
@@ -23,15 +24,22 @@ public class StairController : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
+		if (moveToHere)
+		{
+			transform.localPosition = Vector3.Lerp(transform.localPosition, new Vector3(0, 0, 0), 0.01f);
+		}
 	}
 
 	public void DeviceOnTriggered(string msg)
 	{
 		if (msg == "sDevice")
 		{
-			isTriggered = true;
-
 			moveToHere = true;
+		}
+		
+		if (msg == "sCamera")
+		{
+			isTriggered = true;
 		}
 	}
 }

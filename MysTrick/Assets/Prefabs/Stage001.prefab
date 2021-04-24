@@ -304,6 +304,7 @@ MonoBehaviour:
   kDoor: {fileID: 3390627142487900403}
   isTriggered: 0
   hintUI: {fileID: 0}
+  timeCount: 1.2
 --- !u!1 &3390627140535428798
 GameObject:
   m_ObjectHideFlags: 0
@@ -622,6 +623,8 @@ MonoBehaviour:
   dest: {x: 0, y: 0, z: 0}
   speed: 5
   isTriggered: 0
+  hasDone: 0
+  timeCount: 1.8
 --- !u!1 &3390627140972450559
 GameObject:
   m_ObjectHideFlags: 0
@@ -924,6 +927,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isTriggered: 0
+  moveToHere: 0
+  hasDone: 0
 --- !u!1 &3390627141438265490
 GameObject:
   m_ObjectHideFlags: 0
@@ -1461,6 +1466,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isTriggered: 0
+  moveToHere: 0
+  hasDone: 0
 --- !u!1 &3390627141731462870
 GameObject:
   m_ObjectHideFlags: 0
@@ -1571,6 +1578,7 @@ MonoBehaviour:
   kDoor: {fileID: 0}
   isTriggered: 0
   hintUI: {fileID: 0}
+  timeCount: 1.2
 --- !u!1 &3390627141765648253
 GameObject:
   m_ObjectHideFlags: 0
@@ -1681,6 +1689,7 @@ MonoBehaviour:
   kDoor: {fileID: 0}
   isTriggered: 0
   hintUI: {fileID: 0}
+  timeCount: 1.2
 --- !u!1 &3390627141934409005
 GameObject:
   m_ObjectHideFlags: 0
@@ -1790,6 +1799,7 @@ MonoBehaviour:
   kDoor: {fileID: 3390627140702545740}
   isTriggered: 0
   hintUI: {fileID: 0}
+  timeCount: 1.2
 --- !u!1 &3390627141943782454
 GameObject:
   m_ObjectHideFlags: 0
@@ -2168,6 +2178,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isTriggered: 0
+  moveToHere: 0
+  hasDone: 0
 --- !u!1 &3390627142156676401
 GameObject:
   m_ObjectHideFlags: 0
@@ -2277,6 +2289,7 @@ MonoBehaviour:
   kDoor: {fileID: 0}
   isTriggered: 0
   hintUI: {fileID: 0}
+  timeCount: 1.2
 --- !u!1 &3390627142386710888
 GameObject:
   m_ObjectHideFlags: 0
@@ -2435,6 +2448,7 @@ MonoBehaviour:
   kDoor: {fileID: 0}
   isTriggered: 0
   hintUI: {fileID: 0}
+  timeCount: 1.2
 --- !u!1 &3390627142487900412
 GameObject:
   m_ObjectHideFlags: 0
@@ -2544,6 +2558,8 @@ MonoBehaviour:
   dest: {x: 0, y: 5.61, z: 0}
   speed: 5
   isTriggered: 0
+  hasDone: 0
+  timeCount: 1.8
 --- !u!1 &4371302610593683733
 GameObject:
   m_ObjectHideFlags: 0

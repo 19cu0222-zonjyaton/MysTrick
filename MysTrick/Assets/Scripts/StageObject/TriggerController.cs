@@ -15,6 +15,10 @@ public class TriggerController : MonoBehaviour
 	public bool isTriggered;
 	private PlayerInput Player;
 	public GameObject hintUI;
+	public float timeCount = 1.2f;              //	Triggerを出すまでの時間
+
+	private bool hadDone;						//	一回だけ実行する
+	private bool cameraCanMoveToStair;			//	カメラ視点を移動し始めます
 
 	// Start is called before the first frame update
 	void Awake()
@@ -27,7 +31,20 @@ public class TriggerController : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
+		if (cameraCanMoveToStair)
+		{
+			timeCount -= Time.deltaTime;
 
+			if (timeCount <= 0.0f)
+			{
+				// 子オブジェクトに受け渡すメッセージ
+				this.transform.BroadcastMessage("DeviceOnTriggered", "sDevice");
+
+				cameraCanMoveToStair = false;
+
+				timeCount = 1.2f;
+			}
+		}
 	}
 
 	private void OnCollisionStay(Collision other)
@@ -48,9 +65,15 @@ public class TriggerController : MonoBehaviour
 					}
 					else
 					{
+						if (!hadDone)
+						{
+							cameraCanMoveToStair = true;
+
+							hadDone = true;
+						}
 						this.transform.GetChild(0).gameObject.SetActive(true);
-						// 子オブジェクトに受け渡すメッセージ
-						this.transform.BroadcastMessage("DeviceOnTriggered", "sDevice");
+
+						this.transform.BroadcastMessage("DeviceOnTriggered", "sCamera");
 					}
 				}
 				Player.isTriggered = false;

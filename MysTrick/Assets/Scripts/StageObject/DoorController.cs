@@ -7,6 +7,9 @@ public class DoorController : MonoBehaviour
 	public Vector3 dest;
 	public float speed;
 	public bool isTriggered;
+	public bool hasDone;                //	カメラ用参数
+	public float timeCount = 1.8f;      //	Triggerを出すまでの時間
+
 	// Start is called before the first frame update
 	void Start()
 	{
@@ -18,7 +21,15 @@ public class DoorController : MonoBehaviour
 	{
 		if (isTriggered)
 		{
-			this.transform.position = Vector3.MoveTowards(this.transform.position, dest, speed * Time.deltaTime);
+			timeCount -= Time.deltaTime;
+
+			if (timeCount <= 0.0f)
+			{
+				this.transform.position = Vector3.MoveTowards(this.transform.position, dest, speed * Time.deltaTime);
+
+				//timeCount = 1.2f;
+			}
+
 		}
 
 	}
