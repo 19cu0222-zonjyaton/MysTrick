@@ -23,7 +23,7 @@ public class TriggerController : MonoBehaviour
 	// Start is called before the first frame update
 	void Awake()
 	{
-		Player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerInput>();
+		Player = GameObject.Find("PlayerHandle").GetComponent<PlayerInput>();
 
 		hintUI = transform.Find("hintUI").gameObject;
 	}
@@ -73,7 +73,7 @@ public class TriggerController : MonoBehaviour
 						}
 						this.transform.GetChild(0).gameObject.SetActive(true);
 
-						this.transform.BroadcastMessage("DeviceOnTriggered", "sCamera");
+					this.transform.BroadcastMessage("DeviceOnTriggered", "sCamera");
 					}
 				}
 				Player.isTriggered = false;
