@@ -7,6 +7,8 @@ TagManager:
   - Key
   - Device
   - Bridge
+  - Stairs
+  - FootPlate
   layers:
   - Default
   - TransparentFX

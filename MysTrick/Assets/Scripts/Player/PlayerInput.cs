@@ -39,6 +39,7 @@ public class PlayerInput : MonoBehaviour
 	public bool lockJumpStatus = false;
 	public CameraController ca;
 
+
 	public float targetDup;
 	public float targetDright;
 	private float velocityDup;
@@ -103,7 +104,6 @@ public class PlayerInput : MonoBehaviour
 		if ((Input.GetKeyDown(keyTrigger) || Input.GetButtonDown("action")) && ca.cameraStatic == "Idle")
 		{
 			isTriggered = true;
-
 			if (!isJumping && !lockJumpStatus)
 			{
 				isJumping = true;

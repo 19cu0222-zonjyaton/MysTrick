@@ -12,7 +12,7 @@ public class StairController : MonoBehaviour
 {
 	public bool isTriggered;
 	public bool moveToHere;				//	カメラ用参数
-	public bool hasDone;                //	カメラ用参数
+	public bool hasDone;				//	カメラ用参数
 
 	private float moveSpeed;
 
