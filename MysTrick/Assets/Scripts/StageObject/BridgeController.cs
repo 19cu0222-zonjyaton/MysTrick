@@ -11,8 +11,8 @@ public class BridgeController : MonoBehaviour
 	public Vector3 targetAng;
 	private Quaternion targetEuAng;
 	public float speed = 5.0f;
-	public bool hasDone;                //	カメラ用参数
-	public float timeCount = 1.8f;      //	Triggerを出すまでの時間
+	public bool hasDone;				//	カメラ用参数
+	public float timeCount = 1.8f;		//	Triggerを出すまでの時間
 
 	void Start()
 	{
