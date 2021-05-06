@@ -95,7 +95,7 @@ public class JumpCheck : MonoBehaviour
                 jumpCount--;    //  階段の段数
 
                 if (jumpCount == 0)
-                {
+                {                  
                     timeCount = 0.3f;
 
                     pi.moveSpeed = 0.1f;
