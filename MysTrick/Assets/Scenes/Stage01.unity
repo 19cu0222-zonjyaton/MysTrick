@@ -580,6 +580,8 @@ MonoBehaviour:
   keyJRight: right
   keyJLeft: left
   keyTrigger: b
+  keyAttack: j
+  sickle: {fileID: 5548277920454499929, guid: 603f11a32496ff64db2bc6b39ecaefb3, type: 3}
   Dup: 0
   Dright: 0
   Dmag: 0
@@ -590,6 +592,7 @@ MonoBehaviour:
   inputEnabled: 1
   isTriggered: 0
   isJumping: 0
+  isAttacking: 0
   lockJumpStatus: 0
   ca: {fileID: 963194229}
   targetDup: 0

@@ -23,6 +23,9 @@ public class PlayerInput : MonoBehaviour
 
 	public string keyTrigger = "b";
 
+	public string keyAttack = "j";
+	public GameObject sickle;
+
 	[Header("======= Output Signals =======")]
 	public float Dup;
 	public float Dright;
@@ -36,14 +39,16 @@ public class PlayerInput : MonoBehaviour
 	public bool inputEnabled = true;
 	public bool isTriggered = false;
 	public bool isJumping = false;
+	public bool isAttacking = false;
 	public bool lockJumpStatus = false;
 	public CameraController ca;
-
 
 	public float targetDup;
 	public float targetDright;
 	private float velocityDup;
 	private float velocityDright;
+
+	private GameObject model;
 
 	private bool isUsingJoyStick;       //  コントローラーを検査する
 
@@ -61,6 +66,8 @@ public class PlayerInput : MonoBehaviour
 				isUsingJoyStick = true;
 			}
 		}
+
+		model = GameObject.Find("PlayerModule");
 	}  
 
 	void Update()
@@ -116,6 +123,12 @@ public class PlayerInput : MonoBehaviour
 
 			isJumping = false;
 		}
+
+		if (Input.GetKeyDown(keyAttack))
+		{
+			Instantiate(sickle, transform.position + model.transform.forward * 1.5f + new Vector3(0.0f, 1.0f, 0.0f), transform.rotation);
+		}
+
 	}
 
 	private Vector2 SquareToCircle(Vector2 input)
