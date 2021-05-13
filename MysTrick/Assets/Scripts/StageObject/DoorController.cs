@@ -31,8 +31,6 @@ public class DoorController : MonoBehaviour
 			{
 				this.transform.position = Vector3.MoveTowards(this.transform.position, dest, moveSpeed / 1.5f * Time.deltaTime);
 			}
-
 		}
-
 	}
 }
