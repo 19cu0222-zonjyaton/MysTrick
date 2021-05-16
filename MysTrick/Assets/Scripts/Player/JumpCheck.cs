@@ -17,18 +17,22 @@ public class JumpCheck : MonoBehaviour
 
     public bool isJumpStart;
     public bool isJump;
-    private GameObject hintUI;
 
     public float jumpTime;
     public int jumpCount;
 
+    public float playerRotation;    //  階段の正方向に向く
+
+    public GameObject playerHandle;
+    public GameObject playerModule;
+
+    private GameObject hintUI;
+    private PlayerInput pi;
+    private Rigidbody rigid;
+
     private int tempJumpCount;  //  階段数を保存するため
     private float tempJumpTime; //	ジャンプタイムを保存するため
-    private PlayerInput pi;
-    private Rigidbody rigid;   
     private float timeCount = 0.3f;
-
-    public GameObject playerModel;
 
     // Start is called before the first frame update
     void Awake()
@@ -38,6 +42,8 @@ public class JumpCheck : MonoBehaviour
         rigid = GameObject.Find("PlayerHandle").GetComponent<Rigidbody>();
 
         hintUI = transform.Find("hintUI").gameObject;
+
+        playerModule = GameObject.Find("PlayerModule");
 
         tempJumpCount = jumpCount;
 
@@ -57,7 +63,7 @@ public class JumpCheck : MonoBehaviour
             {
                 timeCount -= Time.deltaTime;
 
-                playerModel.transform.localPosition = new Vector3((float)Math.Round((double)transform.position.x, 1), playerModel.transform.position.y, (float)Math.Round((double)transform.position.z, 1));        //  ジャンプ始点を固定する
+                playerHandle.transform.localPosition = new Vector3((float)Math.Round((double)transform.position.x, 1), playerHandle.transform.position.y, (float)Math.Round((double)transform.position.z, 1));        //  ジャンプ始点を固定する
             }
         }
 
@@ -126,7 +132,11 @@ public class JumpCheck : MonoBehaviour
 
                 collider.transform.localPosition = new Vector3((float)Math.Round((double)transform.position.x, 1), collider.transform.position.y, (float)Math.Round((double)transform.position.z, 1));
 
-                playerModel = collider.transform.gameObject;
+                playerHandle = collider.transform.gameObject;
+
+                playerModule.transform.rotation = Quaternion.Euler(0, playerRotation, 0);
+
+                print(playerModule.transform.rotation);
 
                 //collider.transform.rotation = Quaternion.Euler(0, 0, 0);	//	プレイヤーモデルの方向を正す
 

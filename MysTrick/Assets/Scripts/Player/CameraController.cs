@@ -21,7 +21,7 @@ public class CameraController : MonoBehaviour
 	private float tempEulerX;
 	private GameObject model;
 	private bool doOnce;                        //  ゴールに着いたら一回だけを実行するための参数
-	private float countTime = 20.0f;            //  カメラ視角切り替えの時間
+	private float countTime = 10.0f;            //  カメラ視角切り替えの時間
 	private Vector3 relativePos;
 
 	// Start is called before the first frame update
@@ -159,15 +159,15 @@ public class CameraController : MonoBehaviour
 	{
 		countTime -= Time.fixedDeltaTime;
 
-		if (countTime <= 20.0f && countTime > 12.0f)
+		if (countTime <= 10.0f && countTime > 6.0f)
 		{
 			//  親関係を解除
 			transform.parent = null;
 
-			transform.localPosition = Vector3.Slerp(transform.localPosition, movePos, 0.01f);
+			transform.localPosition = Vector3.Slerp(transform.localPosition, movePos, 0.02f);
 
 			// 補完スピードを決める
-			float speed = 0.05f;
+			float speed = 0.08f;
 			if (stair != null)
 			{
 				// ターゲット方向のベクトルを取得
@@ -186,13 +186,13 @@ public class CameraController : MonoBehaviour
 			// 現在の回転情報と、ターゲット方向の回転情報を補完する
 			transform.rotation = Quaternion.Slerp(this.transform.rotation, rotation, speed);
 		}
-		else if (countTime <= 8.0f && countTime >= 0.0f)
+		else if (countTime <= 4.0f && countTime >= 0.0f)
 		{
 			//  親関係になる
 			transform.SetParent(cameraHandle.transform);
 
 			//  位置を戻る
-			transform.localPosition = Vector3.Slerp(transform.localPosition, cameraBackPos.transform.localPosition, 0.01f);
+			transform.localPosition = Vector3.Slerp(transform.localPosition, cameraBackPos.transform.localPosition, 0.02f);
 
 			//  角度を戻る
 			transform.rotation = Quaternion.Slerp(transform.rotation, cameraBackPos.transform.rotation, Time.fixedDeltaTime * 1.0f);
@@ -201,7 +201,7 @@ public class CameraController : MonoBehaviour
 		{
 			cameraStatic = "Idle";
 
-			countTime = 20.0f;
+			countTime = 10.0f;
 
 			pi.inputEnabled = true;
 		}

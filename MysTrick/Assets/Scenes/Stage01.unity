@@ -581,7 +581,6 @@ MonoBehaviour:
   keyJLeft: left
   keyTrigger: b
   keyAttack: j
-  sickle: {fileID: 5548277920454499929, guid: 603f11a32496ff64db2bc6b39ecaefb3, type: 3}
   Dup: 0
   Dright: 0
   Dmag: 0
@@ -592,8 +591,9 @@ MonoBehaviour:
   inputEnabled: 1
   isTriggered: 0
   isJumping: 0
-  isAttacking: 0
   lockJumpStatus: 0
+  isAttacking: 0
+  canAttack: 1
   ca: {fileID: 963194229}
   targetDup: 0
   targetDright: 0
@@ -643,6 +643,7 @@ MonoBehaviour:
   model: {fileID: 124014191}
   pi: {fileID: 0}
   capcol: {fileID: 0}
+  sickle: {fileID: 5548277920454499929, guid: 603f11a32496ff64db2bc6b39ecaefb3, type: 3}
   keys: 
   devices: 
   isInTrigger: 0
@@ -1589,7 +1590,9 @@ MonoBehaviour:
   isJump: 0
   jumpTime: 0.55
   jumpCount: 5
-  playerModel: {fileID: 0}
+  playerRotation: 180
+  playerHandle: {fileID: 0}
+  playerModule: {fileID: 0}
 --- !u!65 &1640698809
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4857,7 +4860,9 @@ MonoBehaviour:
   isJump: 0
   jumpTime: 0.55
   jumpCount: 5
-  playerModel: {fileID: 0}
+  playerRotation: 180
+  playerHandle: {fileID: 0}
+  playerModule: {fileID: 0}
 --- !u!65 &3040006774869577081
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4984,7 +4989,9 @@ MonoBehaviour:
   isJump: 0
   jumpTime: 0.55
   jumpCount: 5
-  playerModel: {fileID: 0}
+  playerRotation: -90
+  playerHandle: {fileID: 0}
+  playerModule: {fileID: 0}
 --- !u!1 &3040006776341002331
 GameObject:
   m_ObjectHideFlags: 0

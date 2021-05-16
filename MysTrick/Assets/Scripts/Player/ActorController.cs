@@ -15,6 +15,7 @@ public class ActorController : MonoBehaviour
 	public GameObject model;
 	public PlayerInput pi;
 	public CapsuleCollider capcol;
+	public GameObject sickle;		//	武器
 
 	//============================
 	// 作成者：鍾家同
@@ -48,7 +49,17 @@ public class ActorController : MonoBehaviour
 		}
 
 		movingVec = pi.Dmag * model.transform.forward;
-	}
+
+        if (pi.isAttacking)
+        {
+            Instantiate(sickle, transform.position + model.transform.forward * 1.5f + new Vector3(0.0f, 1.0f, 0.0f), transform.rotation);
+
+            pi.canAttack = false;
+
+			pi.isAttacking = false;
+
+		}
+    }
 
 	void FixedUpdate()
 	{
