@@ -7,10 +7,11 @@ public class WeaponController : MonoBehaviour
     public float rotateSpeed;       //  回転速度
     public float speed;             //  スタートの移動速度
 
-    private Rigidbody rigidbody;
+    private new Rigidbody rigidbody;
     private GameObject playerPos;   //  プレイヤーの位置を獲得するため
     private PlayerInput pi;         //  攻撃ができるかどうかの判断
     private GameObject model;       //  プレイヤーの回転方向を獲得するため
+    private GameObject playerCamera;
     private Vector3 moveVec;        //  武器の回転方向
     private float speedDown;        //  戻る時の速度
 
@@ -24,6 +25,8 @@ public class WeaponController : MonoBehaviour
 
         pi = GameObject.Find("PlayerHandle").GetComponent<PlayerInput>();
 
+        playerCamera = GameObject.Find("Main Camera");
+
         moveVec = model.transform.forward;
     }
 
@@ -31,17 +34,33 @@ public class WeaponController : MonoBehaviour
     {
         transform.Rotate(0.0f, rotateSpeed, 0.0f);
 
-        speed -= 2.0f;
+        speed -= 1.5f;
 
-        if (speed > 0.0f)
+        if (!pi.isAimStatus)
         {
-            rigidbody.position += moveVec * speed * Time.fixedDeltaTime;     //  プレイヤーの正方向に一定距離を移動する
+            if (speed > 0.0f)
+            {
+                rigidbody.position += moveVec * speed * Time.fixedDeltaTime;     //  プレイヤーの正方向に一定距離を移動する
+            }
+            else
+            {
+                speedDown += 0.004f;
+
+                transform.position = Vector3.Lerp(transform.position, playerPos.transform.position + new Vector3(0.0f, 1.0f, 0.0f), speedDown);     //  プレイヤーの位置に戻る
+            }
         }
         else
         {
-            speedDown += 0.004f;
+            if (speed > 0.0f)
+            {
+                rigidbody.position += playerCamera.transform.forward * speed * Time.fixedDeltaTime;     //  カメラの正方向に一定距離を移動する
+            }
+            else
+            {
+                speedDown += 0.004f;
 
-            transform.position = Vector3.Lerp(transform.position, playerPos.transform.position + new Vector3(0.0f, 1.0f, 0.0f), speedDown);     //  プレイヤーの位置に戻る
+                transform.position = Vector3.Lerp(transform.position, playerPos.transform.position, speedDown);     //  プレイヤーの位置に戻る
+            }
         }
     }
 

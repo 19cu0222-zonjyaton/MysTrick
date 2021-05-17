@@ -15,6 +15,8 @@ public class CameraController : MonoBehaviour
 	public DoorController[] door;
 	public BridgeController[] bridge;
 	public GameObject[] targetPos;
+	public GameObject firstPerspect;
+	public GameObject weapon;
 
 	private GameObject cameraHandle;
 	private GameObject playerHandle;
@@ -122,15 +124,46 @@ public class CameraController : MonoBehaviour
 
 		if (!goal.gameClear && cameraStatic == "Idle")
 		{
-			Vector3 tempModelEuler = model.transform.eulerAngles;
+			if (pi.isAimStatus && !pi.lockJumpStatus)		//	Aiming and is not jumping
+			{
+				if (pi.isAttacking)
+				{
+					Instantiate(weapon, transform.position + transform.forward * 1.5f, transform.rotation);
 
-			playerHandle.transform.Rotate(Vector3.up, pi.Jright * horizontalSpeed * Time.fixedDeltaTime);
-			tempEulerX -= pi.Jup * verticalSpeed * Time.fixedDeltaTime;
-			tempEulerX = Mathf.Clamp(tempEulerX, -25, 15);
+					pi.canAttack = false;
 
-			cameraHandle.transform.localEulerAngles = new Vector3(tempEulerX, 0, 0);   //  縦の回転角を制限する
+					pi.isAttacking = false;
+				}
 
-			model.transform.eulerAngles = tempModelEuler;
+				Vector3 tempModelEuler = transform.eulerAngles;
+				transform.Rotate(Vector3.up, pi.Jright * 120 * Time.fixedDeltaTime);
+				transform.Rotate(Vector3.right, -pi.Jup * 120 * Time.fixedDeltaTime);
+
+				transform.parent = null;
+
+				transform.localPosition = Vector3.Slerp(transform.localPosition, firstPerspect.transform.position, 0.05f);
+
+				transform.rotation = Quaternion.Slerp(transform.rotation, model.transform.rotation, Time.fixedDeltaTime * 2.0f);
+			}
+			else if(!pi.isAimStatus && !pi.lockJumpStatus)  //	not Aiming and not jumping
+			{
+				pi.inputEnabled = true;
+				Vector3 tempModelEuler = model.transform.eulerAngles;
+				playerHandle.transform.Rotate(Vector3.up, pi.Jright * horizontalSpeed * Time.fixedDeltaTime);
+				tempEulerX -= pi.Jup * verticalSpeed * Time.fixedDeltaTime;
+				tempEulerX = Mathf.Clamp(tempEulerX, -25, 15);
+
+				cameraHandle.transform.localEulerAngles = new Vector3(tempEulerX, 0, 0);   //  縦の回転角を制限する
+
+				model.transform.eulerAngles = tempModelEuler;
+
+				transform.SetParent(cameraHandle.transform);
+
+				//  位置を戻る
+				transform.localPosition = Vector3.Slerp(transform.localPosition, cameraBackPos.transform.localPosition, 0.05f);
+
+				transform.rotation = Quaternion.Slerp(transform.rotation, cameraBackPos.transform.rotation, Time.fixedDeltaTime * 2.0f);
+			}
 		}
 		//else
 		//{
@@ -150,7 +183,7 @@ public class CameraController : MonoBehaviour
 		//        doOnce = true;
 		//        //transform.localScale = Vector3.one;
 		//    }
-			
+
 		//}
 	}
 

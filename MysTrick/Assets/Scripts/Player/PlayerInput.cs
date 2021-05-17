@@ -22,7 +22,8 @@ public class PlayerInput : MonoBehaviour
 	public string keyJLeft;
 
 	public string keyTrigger = "b";				
-	public string keyAttack = "j";			
+	public string keyAttack = "j";
+	public string keyCamera = "p";
 
 	[Header("======= Output Signals =======")]
 	public float Dup;
@@ -35,11 +36,13 @@ public class PlayerInput : MonoBehaviour
 	public float Jright;
 
 	public bool inputEnabled = true;
+	public bool aimUI = false;
 	public bool isTriggered = false;
 	public bool isJumping = false;
 	public bool lockJumpStatus = false;
 	public bool isAttacking = false;
 	public bool canAttack = true;
+	public bool isAimStatus = false;
 	public CameraController ca;
 
 	public float targetDup;
@@ -72,7 +75,7 @@ public class PlayerInput : MonoBehaviour
 		if (isUsingJoyStick)
 		{
 			//  Stick Signal
-			Jup = Input.GetAxis(axisJup);
+			Jup = -1 * Input.GetAxis(axisJup);
 			Jright = Input.GetAxis(axisJright);
 
 			targetDup = -1 * Input.GetAxis(axisY);
@@ -95,17 +98,7 @@ public class PlayerInput : MonoBehaviour
 			targetDright = 0;
 		}
 
-		Dup = Mathf.SmoothDamp(Dup, targetDup, ref velocityDup, moveSpeed);
-		Dright = Mathf.SmoothDamp(Dright, targetDright, ref velocityDright, moveSpeed);
-
-		Vector2 tempDAxis = SquareToCircle(new Vector2(Dright, Dup));
-		float Dright2 = tempDAxis.x;
-		float Dup2 = tempDAxis.y;
-
-		Dmag = Mathf.Sqrt((Dup2 * Dup2) + (Dright2 * Dright2)); ;
-		Dvec = Dright * transform.right + Dup * transform.forward;
-
-		if ((Input.GetKeyDown(keyTrigger) || Input.GetButtonDown("action")) && ca.cameraStatic == "Idle")
+		if ((Input.GetKeyDown(keyTrigger) || Input.GetButtonDown("action")) && ca.cameraStatic == "Idle" && !isAimStatus)
 		{
 			isTriggered = true;
 			if (!isJumping && !lockJumpStatus)
@@ -121,12 +114,31 @@ public class PlayerInput : MonoBehaviour
 			isJumping = false;
 		}
 
-        if (Input.GetKeyDown(keyAttack) && canAttack)
+        if ((Input.GetKeyDown(keyAttack) || Input.GetAxis("attack") == 1) && canAttack && inputEnabled)
         {
             isAttacking = true;
 		}
 
-    }
+		if (Input.GetKey(keyCamera) || Input.GetButton("perspect"))
+		{
+			ResetSignal();
+			inputEnabled = false;
+			isAimStatus = true;
+		}
+		else
+		{
+			isAimStatus = false;
+			Dup = Mathf.SmoothDamp(Dup, targetDup, ref velocityDup, moveSpeed);
+			Dright = Mathf.SmoothDamp(Dright, targetDright, ref velocityDright, moveSpeed);
+
+			Vector2 tempDAxis = SquareToCircle(new Vector2(Dright, Dup));
+			float Dright2 = tempDAxis.x;
+			float Dup2 = tempDAxis.y;
+
+			Dmag = Mathf.Sqrt((Dup2 * Dup2) + (Dright2 * Dright2)); ;
+			Dvec = Dright * transform.right + Dup * transform.forward;
+		}
+	}
 
 	private Vector2 SquareToCircle(Vector2 input)
 	{
@@ -138,4 +150,11 @@ public class PlayerInput : MonoBehaviour
 		return output;
 	}
 
+	private void ResetSignal()
+	{
+		//Jup = 0;
+		//Jright = 0;
+		targetDup = 0;
+		targetDright = 0;
+	}
 }
