@@ -23,7 +23,7 @@ public class PlayerInput : MonoBehaviour
 
 	public string keyTrigger = "b";				
 	public string keyAttack = "j";
-	public string keyCamera = "p";
+	public string keyCamera = "LeftShift";
 
 	[Header("======= Output Signals =======")]
 	public float Dup;
@@ -119,7 +119,7 @@ public class PlayerInput : MonoBehaviour
             isAttacking = true;
 		}
 
-		if (Input.GetKey(keyCamera) || Input.GetButton("perspect"))
+		if (Input.GetKey(KeyCode.LeftShift) || Input.GetButton("perspect"))
 		{
 			ResetSignal();
 			inputEnabled = false;
