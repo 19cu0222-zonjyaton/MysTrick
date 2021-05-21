@@ -65,7 +65,9 @@ MonoBehaviour:
   isJump: 0
   jumpTime: 0.55
   jumpCount: 5
-  playerModel: {fileID: 0}
+  playerRotation: 0
+  playerHandle: {fileID: 0}
+  playerModule: {fileID: 0}
 --- !u!1 &1761762249
 GameObject:
   m_ObjectHideFlags: 0
@@ -131,7 +133,9 @@ MonoBehaviour:
   isJump: 0
   jumpTime: 0.55
   jumpCount: 5
-  playerModel: {fileID: 0}
+  playerRotation: 0
+  playerHandle: {fileID: 0}
+  playerModule: {fileID: 0}
 --- !u!114 &3040006775320759461
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -626,7 +630,7 @@ Transform:
   m_GameObject: {fileID: 3390627140972450559}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 100, y: 100, z: 100}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 3295226947763530503}
   - {fileID: 3040006775119044816}
@@ -820,7 +824,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 5561349426305759274, guid: 1511c25bbd14bec4aa3bdaeeed8cee5d, type: 3}
+  - {fileID: 8748892135801146194, guid: 8753f48124c85f04e812e729e5536b3a, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2900,7 +2904,7 @@ PrefabInstance:
     - target: {fileID: 489297755510966141, guid: c545b14631d9b054883077197a299854,
         type: 3}
       propertyPath: m_Name
-      value: sDevice001 (1)
+      value: sDevice003
       objectReference: {fileID: 0}
     - target: {fileID: 784730875205248575, guid: c545b14631d9b054883077197a299854,
         type: 3}
