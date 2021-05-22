@@ -51,7 +51,7 @@ public class JumpCheck : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         if (isJumpStart)
         {            
@@ -135,10 +135,6 @@ public class JumpCheck : MonoBehaviour
                 playerHandle = collider.transform.gameObject;
 
                 playerModule.transform.rotation = Quaternion.Euler(0, playerRotation, 0);
-
-                print(playerModule.transform.rotation);
-
-                //collider.transform.rotation = Quaternion.Euler(0, 0, 0);	//	プレイヤーモデルの方向を正す
 
                 jumpCount = tempJumpCount;
 

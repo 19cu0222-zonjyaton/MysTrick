@@ -124,7 +124,7 @@ public class CameraController : MonoBehaviour
 
 		if (!goal.gameClear && cameraStatic == "Idle")
 		{
-			if (pi.isAimStatus && !pi.lockJumpStatus)		//	Aiming and is not jumping
+			if (pi.isAimStatus && !pi.lockJumpStatus)       //	Aiming and is not jumping
 			{
 				if (pi.isAttacking)
 				{
@@ -141,11 +141,11 @@ public class CameraController : MonoBehaviour
 
 				transform.parent = null;
 
-				transform.localPosition = Vector3.Slerp(transform.localPosition, firstPerspect.transform.position, 0.05f);
+				transform.position = Vector3.Slerp(transform.position, firstPerspect.transform.position, 0.1f);
 
 				transform.rotation = Quaternion.Slerp(transform.rotation, model.transform.rotation, Time.fixedDeltaTime * 2.0f);
 			}
-			else if(!pi.isAimStatus && !pi.lockJumpStatus)  //	not Aiming and not jumping
+			else if (!pi.isAimStatus && !pi.lockJumpStatus)  //	not Aiming and not jumping
 			{
 				pi.inputEnabled = true;
 				Vector3 tempModelEuler = model.transform.eulerAngles;
@@ -160,32 +160,31 @@ public class CameraController : MonoBehaviour
 				transform.SetParent(cameraHandle.transform);
 
 				//  位置を戻る
-				transform.localPosition = Vector3.Slerp(transform.localPosition, cameraBackPos.transform.localPosition, 0.05f);
+				transform.position = Vector3.Slerp(transform.position, cameraBackPos.transform.position, 0.05f);
 
 				transform.rotation = Quaternion.Slerp(transform.rotation, cameraBackPos.transform.rotation, Time.fixedDeltaTime * 2.0f);
 			}
+			else if (pi.lockJumpStatus)	//	is jumping
+			{
+				Vector3 tempModelEuler = model.transform.eulerAngles;
+				playerHandle.transform.Rotate(Vector3.up, pi.Jright * horizontalSpeed * Time.fixedDeltaTime);
+				tempEulerX -= pi.Jup * verticalSpeed * Time.fixedDeltaTime;
+				tempEulerX = Mathf.Clamp(tempEulerX, -25, 15);
+
+				cameraHandle.transform.localEulerAngles = new Vector3(tempEulerX, 0, 0);   //  縦の回転角を制限する
+
+				model.transform.eulerAngles = tempModelEuler;
+			}
 		}
-		//else
-		//{
-		//    if (!doOnce)
-		//    {
-		//        transform.SetParent(null);
+        else if(goal.gameClear)
+        {
+            transform.SetParent(null);
+			cameraStatic = "GameClear";
 
-		//        //print(model.transform.forward.normalized);
-		//        //transform.rotation = Quaternion.identity;
-		//        transform.rotation = Quaternion.LookRotation(-model.transform.forward); //  カメラをプレイヤーの正方向に置く
-		//        transform.Rotate(Vector3.right, 30.0f);                                 //  カメラをX軸に沿って30度を回転する
-		//        //transform.LookRotation(model.transform);
-		//        transform.localPosition = new Vector3(model.transform.position.x, model.transform.position.y, model.transform.position.z);
-		//        transform.Translate(Vector3.forward * -15.0f);
-		//        //model.transform.parent.transform.LookAt(transform);            
-
-		//        doOnce = true;
-		//        //transform.localScale = Vector3.one;
-		//    }
-
-		//}
-	}
+			transform.position = Vector3.Slerp(transform.position, targetPos[6].transform.position, 0.2f);
+			transform.rotation = Quaternion.Slerp(transform.rotation, targetPos[6].transform.rotation, Time.fixedDeltaTime * 3.0f);
+		}
+    }
 
 	//  カメラ移動関数
 	private void cameraMove(Vector3 movePos, StairController stair, DoorController door, BridgeController bridge)
@@ -197,7 +196,7 @@ public class CameraController : MonoBehaviour
 			//  親関係を解除
 			transform.parent = null;
 
-			transform.localPosition = Vector3.Slerp(transform.localPosition, movePos, 0.02f);
+			transform.position = Vector3.Slerp(transform.position, movePos, 0.02f);
 
 			// 補完スピードを決める
 			float speed = 0.08f;
@@ -225,7 +224,7 @@ public class CameraController : MonoBehaviour
 			transform.SetParent(cameraHandle.transform);
 
 			//  位置を戻る
-			transform.localPosition = Vector3.Slerp(transform.localPosition, cameraBackPos.transform.localPosition, 0.02f);
+			transform.position = Vector3.Slerp(transform.position, cameraBackPos.transform.position, 0.02f);
 
 			//  角度を戻る
 			transform.rotation = Quaternion.Slerp(transform.rotation, cameraBackPos.transform.rotation, Time.fixedDeltaTime * 1.0f);

@@ -14,7 +14,6 @@ public class ActorController : MonoBehaviour
 {
 	public GameObject model;
 	public PlayerInput pi;
-	public CapsuleCollider capcol;
 	public GameObject weapon;		//	武器
 
 	//============================
@@ -30,6 +29,8 @@ public class ActorController : MonoBehaviour
 	//private Animator anim;
 	private Rigidbody rigid;
 	private Vector3 movingVec;
+	private GoalController Gc;
+	private float timeCount;
 
 	// Start is called before the first frame update
 	void Awake()
@@ -37,6 +38,7 @@ public class ActorController : MonoBehaviour
 		pi = GetComponent<PlayerInput>();
 		//anim = model.GetComponent<Animator>();
 		rigid = GetComponent<Rigidbody>();
+		Gc = GameObject.Find("Goal").GetComponent<GoalController>();
 	}
 
 	// Update is called once per frame
@@ -66,6 +68,16 @@ public class ActorController : MonoBehaviour
 		if (!pi.isAimStatus)
 		{
 			rigid.position += movingVec * 5.0f * Time.fixedDeltaTime;
+		}
+
+		if (Gc.gameClear)
+		{
+			timeCount -= Time.fixedDeltaTime;
+			if (timeCount < 0.0f)
+			{
+				rigid.AddForce(0, 500.0f, 0);
+				timeCount = 2.0f;
+			}
 		}
 	}
 

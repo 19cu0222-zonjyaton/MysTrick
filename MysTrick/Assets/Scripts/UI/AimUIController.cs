@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ButtonB : MonoBehaviour
+public class AimUIController : MonoBehaviour
 {
     private PlayerInput pi;
     private CameraController cc;
@@ -21,14 +21,12 @@ public class ButtonB : MonoBehaviour
     {
         if (pi.isAimStatus && cc.cameraStatic == "Idle")
         {
-            //  UIを出す
             canvasGroup.alpha = 1;
             canvasGroup.interactable = true;
             canvasGroup.blocksRaycasts = true;
         }
         else
         {
-            //  UIを隠す
             canvasGroup.alpha = 0;
             canvasGroup.interactable = false;
             canvasGroup.blocksRaycasts = false;
