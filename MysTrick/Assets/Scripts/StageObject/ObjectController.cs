@@ -3,6 +3,7 @@
 // 概要				：オブジェクトの制御
 // 作成者			：鍾家同
 // 更新内容			：2021/04/13 作成
+//					：2021/05/23 更新　エレベーター用移動方法の変更
 //-------------------------------------------------
 using System.Collections;
 using System.Collections.Generic;
@@ -15,7 +16,8 @@ public class ObjectController : MonoBehaviour
 		OneWayMove,
 		TwoWayMove,
 		RotatePerSecond,
-		RotateToTarget
+		RotateToTarget,
+		WaitToStart
 	}
 	[Header("移動方法")]
 	public Trajectory trajectory;
@@ -31,15 +33,16 @@ public class ObjectController : MonoBehaviour
 		public Quaternion targetEuAng;
 		[HideInInspector]
 		public Vector3 startPosition;
-		[Tooltip("For Two Way Move")]
+		[Tooltip("For Two Way Move and Wait to Start")]
 		public Transform targetA;
-		[Tooltip("For Two Way Move")]
+		[Tooltip("For Two Way Move and Wait to Start")]
 		public Transform targetB;
 		[Tooltip("For All")]
 		public float speed;
 	}
 	public MoveData moveData;
 	public TriggerController triggerController;
+	public TimerController timerController;
 	private Vector3 nextTarget;
 	private float startSpeed;
 	private bool timeFlag = true;
@@ -51,6 +54,7 @@ public class ObjectController : MonoBehaviour
 		moveData.startPosition = this.transform.position;
 		nextTarget = moveData.targetA.position;
 		startSpeed = moveData.speed;
+		timerController = gameObject.GetComponent<TimerController>();
 	}
 
 	// Update is called once per frame
@@ -68,7 +72,7 @@ public class ObjectController : MonoBehaviour
 				Vector3 curPosition = this.transform.position;
 				if (triggerController.isTriggered)
 				{
-					if (Mathf.Abs(curPosition.magnitude - nextTarget.magnitude)>0.1f)
+					if (Mathf.Abs(curPosition.magnitude - nextTarget.magnitude) > 0.1f)
 					{
 						moveData.speed += Time.deltaTime * 10.0f;
 						//this.transform.position = Vector3.Slerp(moveData.startPosition, nextTarget, moveData.speed);
@@ -87,6 +91,9 @@ public class ObjectController : MonoBehaviour
 			case Trajectory.RotatePerSecond:
 				break;
 			case Trajectory.RotateToTarget:
+				break;
+			case Trajectory.WaitToStart:
+
 				break;
 			default:
 				break;
@@ -108,5 +115,10 @@ public class ObjectController : MonoBehaviour
 		}
 		moveData.speed = startSpeed;
 		timeFlag = true;
+	}
+
+	private void OnCollisionStay(Collision other)
+	{
+		
 	}
 }

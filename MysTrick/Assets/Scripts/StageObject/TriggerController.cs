@@ -63,7 +63,7 @@ public class TriggerController : MonoBehaviour
 				isTriggered = true;
 				Debug.Log(this.transform.name + " has touched.");
 				if (!kDoor.isTriggered) kDoor.isTriggered = true;
-				Destroy(this.gameObject);
+				//Destroy(this.gameObject);
 			}
 		}
 	}
