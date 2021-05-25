@@ -42,10 +42,11 @@ public class ObjectController : MonoBehaviour
 	}
 	public MoveData moveData;
 	public TriggerController triggerController;
-	public TimerController timerController;
+	public TimerController ElevTimer;
 	private Vector3 nextTarget;
 	private float startSpeed;
 	private bool timeFlag = true;
+	private bool liftingFin;		// エレベーター使用完了フラグ
 
 	// Start is called before the first frame update
 	void Start()
@@ -54,7 +55,8 @@ public class ObjectController : MonoBehaviour
 		moveData.startPosition = this.transform.position;
 		nextTarget = moveData.targetA.position;
 		startSpeed = moveData.speed;
-		timerController = gameObject.GetComponent<TimerController>();
+		ElevTimer = gameObject.GetComponent<TimerController>();
+		liftingFin = false;
 	}
 
 	// Update is called once per frame
@@ -93,7 +95,35 @@ public class ObjectController : MonoBehaviour
 			case Trajectory.RotateToTarget:
 				break;
 			case Trajectory.WaitToStart:
+				Vector3 currPosition = this.transform.position;
+				if (ElevTimer.TimerFinish)
+				{
+					if (this.transform.position != nextTarget && !liftingFin)
+					{
+						moveData.speed += Time.deltaTime * 10.0f;
+						//this.transform.position = Vector3.Slerp(moveData.startPosition, nextTarget, moveData.speed);
+						this.transform.position = Vector3.MoveTowards(moveData.startPosition, nextTarget, moveData.speed);
+					}
+					else liftingFin = true;
 
+				}
+				if (liftingFin)
+				{
+					if (nextTarget == moveData.targetA.position)
+					{
+						moveData.startPosition = moveData.targetA.position;
+						nextTarget = moveData.targetB.position;
+					}
+					else
+					{
+						moveData.startPosition = moveData.targetB.position;
+						nextTarget = moveData.targetA.position;
+					}
+					moveData.speed = 0.0f;
+					liftingFin = false;
+					ElevTimer.TimerFinish = false;
+				}
+				//Debug.Log(this.transform.position + "\n" + moveData.targetB.position);
 				break;
 			default:
 				break;
@@ -117,8 +147,28 @@ public class ObjectController : MonoBehaviour
 		timeFlag = true;
 	}
 
-	private void OnCollisionStay(Collision other)
+	private void OnTriggerStay(Collider other)
 	{
-		
+		if (other.gameObject.tag == "Player" && trajectory == Trajectory.WaitToStart
+			&& this.transform.position == moveData.targetB.position)
+		{
+			ElevTimer.TimerStart = true;
+		}
+	}
+
+	private void OnTriggerExit(Collider other)
+	{
+		if (other.gameObject.tag == "Player" && trajectory == Trajectory.WaitToStart)
+		{
+			// エレベーターから外す場合
+			if (Mathf.Abs(this.transform.position.magnitude - moveData.targetB.position.magnitude) <= 0.1f)
+			{
+				ElevTimer.TimerStart = false;
+			}
+			else if (Mathf.Abs(this.transform.position.magnitude - moveData.targetA.position.magnitude) <= 0.1f)
+			{
+				ElevTimer.TimerStart = true;
+			}
+		}
 	}
 }

@@ -12,38 +12,41 @@ using UnityEngine;
 public class TimerController : MonoBehaviour
 {
 	[Header("調整用")]
-	public float timeStart;
 	public float timeMax;
 	[Header("監視用")]
-	[SerializeField]
-	private bool timeFinished;
-	[SerializeField]
-	private bool isTimeStart;
+	public float timeCount;
+	public bool TimerStart;		// タイマーをスタートするフラグ
+	public bool TimerFinish;	// タイマーが終了するフラグ
+	public bool TimerReset;		// タイマーをリセットするフラグ
 
 	void Start()
 	{
-		timeFinished = false;
-		isTimeStart = false;
+		TimerReset = false;
+		TimerStart = false;
+		TimerFinish = false;
 	}
 
 	void Update()
 	{
-		if (isTimeStart)
-		{
-			Timer(timeStart, timeMax);
-		}
-		Debug.Log("timeFinished:" + timeFinished);
+		if (TimerStart) Timer();
+
+		else timeCount = 0.0f;
 	}
 
-	public void Timer(float timeCount,float _timeMax)
+	private void Timer()
 	{
-		if (timeCount <= _timeMax)
+		// タイマーをスタット
+		if (timeCount <= timeMax && !TimerReset)
 		{
 			timeCount += Time.deltaTime;
 		}
+		// タイマーを復帰
 		else
 		{
+			if (timeCount > timeMax) TimerFinish = true;
 			timeCount = 0.0f;
+			TimerStart = false;
 		}
+		//Debug.Log("Object Name: " + this.name + ", Timer: " + timeCount);
 	}
 }
