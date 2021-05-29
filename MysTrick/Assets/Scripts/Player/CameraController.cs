@@ -203,7 +203,7 @@ public class CameraController : MonoBehaviour
 
 				transform.parent = null;
 
-				transform.position = Vector3.Slerp(transform.position, firstPerspect.transform.position, 0.1f);
+				transform.position = Vector3.Slerp(transform.position, firstPerspect.transform.position, 0.2f);
 
 				transform.rotation = Quaternion.Slerp(transform.rotation, model.transform.rotation, Time.fixedDeltaTime * 2.0f);
 			}

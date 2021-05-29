@@ -52,6 +52,8 @@ public class PlayerInput : MonoBehaviour
 
 	private bool isUsingJoyStick;       //  コントローラーを検査する
 
+	private GameObject playerModel;
+
 	void Awake()
 	{
 		string[] joystickNames = Input.GetJoystickNames();
@@ -67,7 +69,9 @@ public class PlayerInput : MonoBehaviour
 			}
 		}
 
-		Application.targetFrameRate = 60;	//	FPSを60に固定する
+		Application.targetFrameRate = 60;   //	FPSを60に固定する
+
+		playerModel = GameObject.Find("PlayerModule");
 	}  
 
 	void Update()
@@ -119,23 +123,23 @@ public class PlayerInput : MonoBehaviour
             isAttacking = true;
 		}
 
+		Dup = Mathf.SmoothDamp(Dup, targetDup, ref velocityDup, moveSpeed);
+		Dright = Mathf.SmoothDamp(Dright, targetDright, ref velocityDright, moveSpeed);
+
+		Vector2 tempDAxis = SquareToCircle(new Vector2(Dright, Dup));
+		float Dright2 = tempDAxis.x;
+		float Dup2 = tempDAxis.y;
+
+		Dmag = Mathf.Sqrt((Dup2 * Dup2) + (Dright2 * Dright2));
+
 		if (Input.GetKey(KeyCode.LeftShift) || Input.GetButton("perspect"))
 		{
-			ResetSignal();
-			inputEnabled = false;
 			isAimStatus = true;
+			Dvec = Dright * playerModel.transform.right + Dup * playerModel.transform.forward;
 		}
 		else
 		{
 			isAimStatus = false;
-			Dup = Mathf.SmoothDamp(Dup, targetDup, ref velocityDup, moveSpeed);
-			Dright = Mathf.SmoothDamp(Dright, targetDright, ref velocityDright, moveSpeed);
-
-			Vector2 tempDAxis = SquareToCircle(new Vector2(Dright, Dup));
-			float Dright2 = tempDAxis.x;
-			float Dup2 = tempDAxis.y;
-
-			Dmag = Mathf.Sqrt((Dup2 * Dup2) + (Dright2 * Dright2)); ;
 			Dvec = Dright * transform.right + Dup * transform.forward;
 		}
 	}
@@ -148,13 +152,5 @@ public class PlayerInput : MonoBehaviour
 		output.y = input.y * Mathf.Sqrt(1 - (input.x * input.x) / 2.0f);
 
 		return output;
-	}
-
-	private void ResetSignal()
-	{
-		//Jup = 0;
-		//Jright = 0;
-		targetDup = 0;
-		targetDright = 0;
 	}
 }

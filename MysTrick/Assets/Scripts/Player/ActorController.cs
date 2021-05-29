@@ -32,7 +32,7 @@ public class ActorController : MonoBehaviour
 	//private Animator anim;
 	private Rigidbody rigid;
 	private Vector3 movingVec;
-	private GoalController Gc;
+	private GoalController gc;
 	private MeshRenderer mesh;
 	private int shortTimeCount;   //	点滅用タイムカウント
 	private float timeCount;
@@ -43,7 +43,7 @@ public class ActorController : MonoBehaviour
 		pi = GetComponent<PlayerInput>();
 		//anim = model.GetComponent<Animator>();
 		rigid = GetComponent<Rigidbody>();
-		Gc = GameObject.Find("Goal").GetComponent<GoalController>();
+		gc = GameObject.Find("Goal").GetComponent<GoalController>();
 		mesh = GameObject.Find("PlayerModule").GetComponent<MeshRenderer>();
 	}
 
@@ -51,13 +51,21 @@ public class ActorController : MonoBehaviour
 	void Update()
 	{
 		//anim.SetFloat("forward", pi.Dmag);
-		if (pi.Dmag > 0.1f)
+		if (pi.Dmag > 0.1f && !pi.isAimStatus)
 		{
 			model.transform.forward = pi.Dvec;
+			movingVec = pi.Dmag * model.transform.forward;
 		}
-
-		movingVec = pi.Dmag * model.transform.forward;
-
+		else if (pi.Dmag > 0.1f && pi.isAimStatus)
+		{
+			//model.transform.forward = pi.Dvec;
+			movingVec = pi.Dmag * pi.Dvec;
+		}
+		else
+		{
+			movingVec = pi.Dmag * model.transform.forward;
+		}
+		
         if (pi.isAttacking && !pi.isAimStatus)
         {
             Instantiate(weapon, transform.position + model.transform.forward * 1.5f + new Vector3(0.0f, 1.0f, 0.0f), transform.rotation);
@@ -74,12 +82,9 @@ public class ActorController : MonoBehaviour
 
 	void FixedUpdate()
 	{
-		if (!pi.isAimStatus)
-		{
-			rigid.position += movingVec * 5.0f * Time.fixedDeltaTime;
-		}
-
-		if (Gc.gameClear)
+		rigid.position += movingVec * 5.0f * Time.fixedDeltaTime;
+		
+		if (gc.gameClear)
 		{
 			timeCount -= Time.fixedDeltaTime;
 			if (timeCount < 0.0f)
@@ -128,7 +133,7 @@ public class ActorController : MonoBehaviour
 		if (isDead)
 		{
 			pi.inputEnabled = false;
-			transform.position = new Vector3(8.37f, -124.63f, 47.8f);
+			transform.position = new Vector3(10.0f, -125.0f, 50.0f);
 			rigid.useGravity = false;
 		}
 	}
