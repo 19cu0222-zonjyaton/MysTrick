@@ -73,7 +73,7 @@ public class JumpCheck : MonoBehaviour
         }
     }
 
-    void jumpStart()
+    private void jumpStart()
     {
         if (jumpCount > 0)
         {
@@ -116,7 +116,7 @@ public class JumpCheck : MonoBehaviour
         }
     }
 
-    void OnTriggerStay(Collider collider)
+    private void OnTriggerStay(Collider collider)
     {
         if (collider.transform.tag == "Player")
         {
@@ -147,7 +147,7 @@ public class JumpCheck : MonoBehaviour
         }
     }
 
-    void OnTriggerExit(Collider collider)
+    private void OnTriggerExit(Collider collider)
     {
         if (collider.transform.tag == "Player")
         {

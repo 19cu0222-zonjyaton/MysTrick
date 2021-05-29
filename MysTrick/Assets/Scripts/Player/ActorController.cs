@@ -14,7 +14,9 @@ public class ActorController : MonoBehaviour
 {
 	public GameObject model;
 	public PlayerInput pi;
-	public GameObject weapon;		//	武器
+	public GameObject weapon;       //	武器
+	public int hp;
+	public bool isDead;
 
 	//============================
 	// 作成者：鍾家同
@@ -24,12 +26,15 @@ public class ActorController : MonoBehaviour
 	//============================
 
 	public bool isInTrigger;
+	public bool isUnrivaled;        //	無敵Time
 
 	[SerializeField]
 	//private Animator anim;
 	private Rigidbody rigid;
 	private Vector3 movingVec;
 	private GoalController Gc;
+	private MeshRenderer mesh;
+	private int shortTimeCount;   //	点滅用タイムカウント
 	private float timeCount;
 
 	// Start is called before the first frame update
@@ -39,6 +44,7 @@ public class ActorController : MonoBehaviour
 		//anim = model.GetComponent<Animator>();
 		rigid = GetComponent<Rigidbody>();
 		Gc = GameObject.Find("Goal").GetComponent<GoalController>();
+		mesh = GameObject.Find("PlayerModule").GetComponent<MeshRenderer>();
 	}
 
 	// Update is called once per frame
@@ -59,8 +65,11 @@ public class ActorController : MonoBehaviour
             pi.canAttack = false;
 
 			pi.isAttacking = false;
-
 		}
+
+		checkIsUnderDamage();
+
+		checkPlayerIsDead();
     }
 
 	void FixedUpdate()
@@ -81,7 +90,50 @@ public class ActorController : MonoBehaviour
 		}
 	}
 
-	void OnTriggerEnter(Collider collider)
+	private void checkIsUnderDamage()
+	{
+		if (isUnrivaled)
+		{
+			pi.inputEnabled = false;
+			timeCount += Time.deltaTime;
+			if (timeCount >= 0.1f)
+			{
+				mesh.enabled = true;
+			}
+
+			if (timeCount >= 0.2f)
+			{
+				mesh.enabled = false;
+				shortTimeCount++;
+				timeCount = 0.0f;
+			}
+
+			if (shortTimeCount >= 5)
+			{
+				shortTimeCount = 0;
+				mesh.enabled = true;
+				isUnrivaled = false;
+				pi.inputEnabled = true;
+			}
+		}
+	}
+
+	private void checkPlayerIsDead()
+	{
+		if (hp <= 0)
+		{
+			isDead = true;
+		}
+
+		if (isDead)
+		{
+			pi.inputEnabled = false;
+			transform.position = new Vector3(8.37f, -124.63f, 47.8f);
+			rigid.useGravity = false;
+		}
+	}
+
+	private void OnTriggerEnter(Collider collider)
 	{
 		if (collider.transform.tag == "Device")
 		{
@@ -89,7 +141,7 @@ public class ActorController : MonoBehaviour
 		}
 	}
 
-	void OnTriggerExit(Collider collider)
+	private void OnTriggerExit(Collider collider)
 	{
 		if (collider.transform.tag == "Device")
 		{
@@ -97,19 +149,30 @@ public class ActorController : MonoBehaviour
 		}
 	}
 
-	void OnCollisionStay(Collision collision)
+	private void OnCollisionEnter(Collision collision)
+	{
+		if (collision.transform.tag == "Enemy" && !isUnrivaled)
+		{
+			hp--;
+			mesh.enabled = false;
+			rigid.AddForce(0.0f, 500.0f, 0.0f);
+			rigid.AddExplosionForce(300.0f, collision.transform.position, 5.0f);
+			isUnrivaled = true;
+		}
+	}
+
+	private void OnCollisionStay(Collision collision)
 	{
 		if (collision.transform.tag == "Device" || collision.transform.tag == "Key")
 		{
 			isInTrigger = true;
 		}
 	}
-	void OnCollisionExit(Collision collision)
+	private void OnCollisionExit(Collision collision)
 	{
 		if (collision.transform.tag == "Device" || collision.transform.tag == "Key")
 		{
 			isInTrigger = false;
 		}
 	}
-
 }

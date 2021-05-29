@@ -18,6 +18,7 @@ public class CameraController : MonoBehaviour
 	public GameObject firstPerspect;
 	public GameObject weapon;
 
+	private ActorController ac;
 	private GameObject cameraHandle;
 	private GameObject playerHandle;
 	private float tempEulerX;
@@ -38,10 +39,70 @@ public class CameraController : MonoBehaviour
 		goal = GameObject.Find("Goal").GetComponent<GoalController>();
 
 		cameraBackPos = GameObject.Find("CameraPos");
+
+		ac = GameObject.Find("PlayerHandle").GetComponent<ActorController>();
 	}
 
 	// Update is called once per frame
 	void LateUpdate()
+	{
+		checkCameraStatic();
+    }
+
+	//  カメラ移動関数
+	private void cameraMove(Vector3 movePos, StairController stair, DoorController door, BridgeController bridge)
+	{
+		countTime -= Time.fixedDeltaTime;
+
+		if (countTime <= 10.0f && countTime > 6.0f)
+		{
+			//  親関係を解除
+			transform.parent = null;
+
+			transform.position = Vector3.Slerp(transform.position, movePos, 0.02f);
+
+			// 補完スピードを決める
+			float speed = 0.08f;
+			if (stair != null)
+			{
+				// ターゲット方向のベクトルを取得
+				relativePos = stair.transform.position - this.transform.position;
+			}
+			else if (door != null)
+			{
+				relativePos = door.transform.position - this.transform.position;
+			}
+			else if (bridge != null)
+			{
+				relativePos = bridge.transform.position - this.transform.position;
+			}
+			// 方向を、回転情報に変換
+			Quaternion rotation = Quaternion.LookRotation(relativePos);
+			// 現在の回転情報と、ターゲット方向の回転情報を補完する
+			transform.rotation = Quaternion.Slerp(this.transform.rotation, rotation, speed);
+		}
+		else if (countTime <= 4.0f && countTime >= 0.0f)
+		{
+			//  親関係になる
+			transform.SetParent(cameraHandle.transform);
+
+			//  位置を戻る
+			transform.position = Vector3.Slerp(transform.position, cameraBackPos.transform.position, 0.02f);
+
+			//  角度を戻る
+			transform.rotation = Quaternion.Slerp(transform.rotation, cameraBackPos.transform.rotation, Time.fixedDeltaTime * 1.0f);
+		}
+		else if (countTime < 0.0f)
+		{
+			cameraStatic = "Idle";
+
+			countTime = 10.0f;
+
+			pi.inputEnabled = true;
+		}
+	}
+
+	private void checkCameraStatic()
 	{
 		//  When Trigger are Stairs
 		if (stair[0].isTriggered && !stair[0].hasDone)
@@ -122,6 +183,7 @@ public class CameraController : MonoBehaviour
 			cameraMove(targetPos[5].transform.position, null, null, bridge[0]);
 		}
 
+
 		if (!goal.gameClear && cameraStatic == "Idle")
 		{
 			if (pi.isAimStatus && !pi.lockJumpStatus)       //	Aiming and is not jumping
@@ -145,7 +207,7 @@ public class CameraController : MonoBehaviour
 
 				transform.rotation = Quaternion.Slerp(transform.rotation, model.transform.rotation, Time.fixedDeltaTime * 2.0f);
 			}
-			else if (!pi.isAimStatus && !pi.lockJumpStatus)  //	not Aiming and not jumping
+			else if (!pi.isAimStatus && !pi.lockJumpStatus && !ac.isUnrivaled && !ac.isDead)  //	not Aiming and not jumping
 			{
 				pi.inputEnabled = true;
 				Vector3 tempModelEuler = model.transform.eulerAngles;
@@ -164,7 +226,7 @@ public class CameraController : MonoBehaviour
 
 				transform.rotation = Quaternion.Slerp(transform.rotation, cameraBackPos.transform.rotation, Time.fixedDeltaTime * 2.0f);
 			}
-			else if (pi.lockJumpStatus)	//	is jumping
+			else if (pi.lockJumpStatus) //	is jumping
 			{
 				Vector3 tempModelEuler = model.transform.eulerAngles;
 				playerHandle.transform.Rotate(Vector3.up, pi.Jright * horizontalSpeed * Time.fixedDeltaTime);
@@ -176,66 +238,19 @@ public class CameraController : MonoBehaviour
 				model.transform.eulerAngles = tempModelEuler;
 			}
 		}
-        else if(goal.gameClear)
-        {
-            transform.SetParent(null);
+		else if (goal.gameClear)
+		{
+			transform.SetParent(null);
 			cameraStatic = "GameClear";
 
 			transform.position = Vector3.Slerp(transform.position, targetPos[6].transform.position, 0.2f);
 			transform.rotation = Quaternion.Slerp(transform.rotation, targetPos[6].transform.rotation, Time.fixedDeltaTime * 3.0f);
 		}
-    }
-
-	//  カメラ移動関数
-	private void cameraMove(Vector3 movePos, StairController stair, DoorController door, BridgeController bridge)
-	{
-		countTime -= Time.fixedDeltaTime;
-
-		if (countTime <= 10.0f && countTime > 6.0f)
+		
+		if (ac.isDead)
 		{
-			//  親関係を解除
-			transform.parent = null;
-
-			transform.position = Vector3.Slerp(transform.position, movePos, 0.02f);
-
-			// 補完スピードを決める
-			float speed = 0.08f;
-			if (stair != null)
-			{
-				// ターゲット方向のベクトルを取得
-				relativePos = stair.transform.position - this.transform.position;
-			}
-			else if (door != null)
-			{
-				relativePos = door.transform.position - this.transform.position;
-			}
-			else if (bridge != null)
-			{
-				relativePos = bridge.transform.position - this.transform.position;
-			}
-			// 方向を、回転情報に変換
-			Quaternion rotation = Quaternion.LookRotation(relativePos);
-			// 現在の回転情報と、ターゲット方向の回転情報を補完する
-			transform.rotation = Quaternion.Slerp(this.transform.rotation, rotation, speed);
-		}
-		else if (countTime <= 4.0f && countTime >= 0.0f)
-		{
-			//  親関係になる
-			transform.SetParent(cameraHandle.transform);
-
-			//  位置を戻る
-			transform.position = Vector3.Slerp(transform.position, cameraBackPos.transform.position, 0.02f);
-
-			//  角度を戻る
-			transform.rotation = Quaternion.Slerp(transform.rotation, cameraBackPos.transform.rotation, Time.fixedDeltaTime * 1.0f);
-		}
-		else if (countTime < 0.0f)
-		{
-			cameraStatic = "Idle";
-
-			countTime = 10.0f;
-
-			pi.inputEnabled = true;
+			model.transform.localRotation = new Quaternion(0.0f, 180.0f, 90.0f, 0.0f);
+			gameObject.GetComponent<Camera>().fieldOfView = 20.0f;
 		}
 	}
 }

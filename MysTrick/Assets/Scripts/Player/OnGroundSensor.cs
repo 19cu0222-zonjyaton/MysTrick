@@ -12,6 +12,7 @@ public class OnGroundSensor : MonoBehaviour
     private Vector3 point1;
     private Vector3 point2;
     private float radius;
+    private ActorController ac;
 
     // Start is called before the first frame update
     void Awake()
@@ -23,6 +24,8 @@ public class OnGroundSensor : MonoBehaviour
         goal = GameObject.Find("Goal").GetComponent<GoalController>();
 
         ca = GameObject.Find("Main Camera").GetComponent<CameraController>();
+
+        ac = GameObject.Find("PlayerHandle").GetComponent<ActorController>();
     }
 
     // Update is called once per frame
@@ -36,12 +39,8 @@ public class OnGroundSensor : MonoBehaviour
         if (outputCols.Length == 0)
         {
             pi.inputEnabled = false;
-            //foreach (var col in outputCols)
-            //{
-            //    print("collision: " + col.name);
-            //}
         }
-        else if (outputCols.Length != 0 && !pi.lockJumpStatus && !goal.gameClear && ca.cameraStatic == "Idle")
+        else if (outputCols.Length != 0 && !pi.lockJumpStatus && !goal.gameClear && ca.cameraStatic == "Idle" && !ac.isUnrivaled && !ac.isDead)
         {
             pi.inputEnabled = true;
         }
