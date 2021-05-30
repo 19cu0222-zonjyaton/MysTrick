@@ -10,14 +10,24 @@ public class EnemyPathControl : MonoBehaviour
     public Transform head;
     public EnemyDamageController edc;
     private int index = 1;
-    public bool islock = false;
+    private bool islock = false;
+    public bool playerIsAttack;
 
     void Update()
     {
-        if (!edc.isDamage)
+        if (edc.isDamage)
+        {
+            playerIsAttack = true;
+        }
+
+        if (!playerIsAttack)
         {
             if (!LockOn()) Patrol();
             else Move();
+        }
+        else
+        {
+            Move();
         }
     }
 

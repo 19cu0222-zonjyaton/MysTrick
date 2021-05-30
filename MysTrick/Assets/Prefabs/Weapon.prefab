@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 9157544779870268107}
   - component: {fileID: 6409419675674254849}
   - component: {fileID: 6260097348797109204}
-  - component: {fileID: 5263641482515343321}
+  - component: {fileID: 349449106854145785}
   - component: {fileID: 6715858851945187223}
   m_Layer: 0
   m_Name: Weapon
@@ -28,13 +28,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4896021154492923860}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 12.12, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0.09623566, w: 0.99535865}
+  m_LocalPosition: {x: 0.0002640104, y: 12.11968, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -11.045}
 --- !u!33 &9157544779870268107
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -98,8 +98,8 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!136 &5263641482515343321
-CapsuleCollider:
+--- !u!65 &349449106854145785
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -108,10 +108,9 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  m_Radius: 0.15
-  m_Height: 1.2496378
-  m_Direction: 1
-  m_Center: {x: 0.000000029802322, y: -0.0015250444, z: 0.0018742904}
+  serializedVersion: 2
+  m_Size: {x: 1.2496378, y: 0.28032187, z: 0.43189675}
+  m_Center: {x: -0.0015250146, y: 0.0018742979, z: 0.000000044703484}
 --- !u!114 &6715858851945187223
 MonoBehaviour:
   m_ObjectHideFlags: 0

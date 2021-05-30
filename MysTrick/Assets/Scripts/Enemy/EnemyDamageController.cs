@@ -22,12 +22,14 @@ public class EnemyDamageController : MonoBehaviour
             if (timeCount > 1.0f)
             {
                 isDamage = false;
+
+                timeCount = 0.0f;
             }
         }
 
         if (enemyHp <= 0)
         {
-            Destroy(this.gameObject.transform.parent.gameObject);
+            Destroy(this.gameObject);
         }
     }
 
