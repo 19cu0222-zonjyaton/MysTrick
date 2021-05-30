@@ -1911,6 +1911,8 @@ MonoBehaviour:
   - {fileID: 760332014}
   - {fileID: 1107031917}
   head: {fileID: 3966877573168558157}
+  edc: {fileID: 4343438777333361402}
+  islock: 0
 --- !u!1 &1048302111
 GameObject:
   m_ObjectHideFlags: 0
@@ -6448,6 +6450,20 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.16, y: 0.33, z: 0.31}
   m_Center: {x: 0, y: -0.03, z: 0}
+--- !u!114 &4343438777333361402
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4343438777333361399}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30ad393fad2171947835913706f53ed2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isDamage: 0
+  enemyHp: 3
 --- !u!1 &4460831116095030549
 GameObject:
   m_ObjectHideFlags: 0
@@ -7201,7 +7217,7 @@ PrefabInstance:
     - target: {fileID: 7259251043969113847, guid: 56ae212ae5fa76543a02bb4e280b9317,
         type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7259251043969113847, guid: 56ae212ae5fa76543a02bb4e280b9317,
         type: 3}
@@ -7272,6 +7288,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 8067595038703076429, guid: 56ae212ae5fa76543a02bb4e280b9317,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8067595038703076429, guid: 56ae212ae5fa76543a02bb4e280b9317,
         type: 3}

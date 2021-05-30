@@ -8,13 +8,17 @@ public class EnemyPathControl : MonoBehaviour
     public float field = 5.0f;
     public Transform[] pathPositions;
     public Transform head;
+    public EnemyDamageController edc;
     private int index = 1;
-    private bool islock = false;
+    public bool islock = false;
 
     void Update()
     {
-        if (!LockOn()) Patrol();
-        else Move();
+        if (!edc.isDamage)
+        {
+            if (!LockOn()) Patrol();
+            else Move();
+        }
     }
 
     bool LockOn()

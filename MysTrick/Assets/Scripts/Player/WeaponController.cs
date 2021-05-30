@@ -44,6 +44,8 @@ public class WeaponController : MonoBehaviour
             }
             else
             {
+                gameObject.transform.tag = "Untagged";
+
                 speedDown += 0.004f;
 
                 transform.position = Vector3.Lerp(transform.position, playerPos.transform.position + new Vector3(0.0f, 1.0f, 0.0f), speedDown);     //  プレイヤーの位置に戻る
@@ -57,6 +59,8 @@ public class WeaponController : MonoBehaviour
             }
             else
             {
+                gameObject.transform.tag = "Untagged";
+
                 speedDown += 0.004f;
 
                 transform.position = Vector3.Lerp(transform.position, playerPos.transform.position, speedDown);     //  プレイヤーの位置に戻る

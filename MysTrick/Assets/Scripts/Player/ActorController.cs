@@ -95,7 +95,7 @@ public class ActorController : MonoBehaviour
 		}
 	}
 
-	private void checkIsUnderDamage()
+	private void checkIsUnderDamage()   //	敵と当たると時間内で無敵状態になる
 	{
 		if (isUnrivaled)
 		{
@@ -123,7 +123,7 @@ public class ActorController : MonoBehaviour
 		}
 	}
 
-	private void checkPlayerIsDead()
+	private void checkPlayerIsDead()	//	死亡処理
 	{
 		if (hp <= 0)
 		{
@@ -156,13 +156,16 @@ public class ActorController : MonoBehaviour
 
 	private void OnCollisionEnter(Collision collision)
 	{
-		if (collision.transform.tag == "Enemy" && !isUnrivaled)
+		if (collision.transform.tag == "Enemy" && !isUnrivaled)		//	敵と当たる処理
 		{
 			hp--;
-			mesh.enabled = false;
-			rigid.AddForce(0.0f, 500.0f, 0.0f);
-			rigid.AddExplosionForce(300.0f, collision.transform.position, 5.0f);
-			isUnrivaled = true;
+			if (hp > 0)
+			{
+				mesh.enabled = false;
+				rigid.AddForce(0.0f, 500.0f, 0.0f);
+				rigid.AddExplosionForce(300.0f, collision.transform.position, 5.0f);
+				isUnrivaled = true;
+			}
 		}
 	}
 
