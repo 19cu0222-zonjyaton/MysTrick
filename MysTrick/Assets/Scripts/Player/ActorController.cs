@@ -99,7 +99,6 @@ public class ActorController : MonoBehaviour
 	{
 		if (isUnrivaled)
 		{
-			pi.inputEnabled = false;
 			timeCount += Time.deltaTime;
 			if (timeCount >= 0.1f)
 			{
@@ -113,13 +112,17 @@ public class ActorController : MonoBehaviour
 				timeCount = 0.0f;
 			}
 
-			if (shortTimeCount >= 5)
+			if (shortTimeCount >= 8)
 			{
 				shortTimeCount = 0;
 				mesh.enabled = true;
 				isUnrivaled = false;
+			}
+			else if (shortTimeCount > 2)	//	プレイヤー操作を解禁
+			{
 				pi.inputEnabled = true;
 			}
+
 		}
 	}
 
@@ -161,6 +164,7 @@ public class ActorController : MonoBehaviour
 			hp--;
 			if (hp > 0)
 			{
+				pi.inputEnabled = false;
 				mesh.enabled = false;
 				rigid.AddForce(0.0f, 500.0f, 0.0f);
 				rigid.AddExplosionForce(300.0f, collision.transform.position, 5.0f);

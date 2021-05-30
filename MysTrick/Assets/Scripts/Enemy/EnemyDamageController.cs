@@ -40,7 +40,7 @@ public class EnemyDamageController : MonoBehaviour
             enemyHp--;
             isDamage = true;
             rigid.AddForce(0.0f, 500.0f, 0.0f);
-            rigid.AddExplosionForce(300.0f, collider.transform.position, 5.0f);
+            rigid.AddExplosionForce(400.0f, collider.transform.position, 5.0f);
         }
     }
 }
