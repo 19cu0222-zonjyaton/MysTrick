@@ -9,35 +9,47 @@ public class EnemyPathControl : MonoBehaviour
     public Transform[] pathPositions;
     public Transform head;
     public EnemyDamageController edc;
+    public CameraController cc;
     private int index = 1;
     private bool islock = false;
-    public bool playerIsAttack;
+    private bool isAttackedByPlayer;
+    private GameObject player;
+
+    void Awake()
+    {
+        player = GameObject.Find("PlayerHandle");
+    }
 
     void Update()
     {
         if (edc.isDamage)
         {
-            playerIsAttack = true;
+            isAttackedByPlayer = true;
         }
 
-        if (!playerIsAttack)
+        if (cc.cameraStatic == "Idle")
         {
-            if (!LockOn()) Patrol();
-            else Move();
+            if (!isAttackedByPlayer)
+            {
+                if (!LockOn()) Patrol();
+                else Move();
+            }
+            else
+            {
+                Move();
+            }
         }
-        else
-        {
-            Move();
-        }
+
+        ReleaseAttackedFlag();
     }
 
     bool LockOn()
     {
-        if (System.Math.Abs(GameObject.Find("PlayerHandle").GetComponent<Transform>().position.y - transform.position.y) >= 2.0f)
+        if (System.Math.Abs(player.transform.position.y - transform.position.y) >= 2.0f)
             islock = false;
         else
         {
-            Vector3 targetPosition = GameObject.Find("PlayerHandle").GetComponent<Transform>().position;
+            Vector3 targetPosition = player.transform.position;
             if (Vector3.Distance(targetPosition, transform.position) >= field)
                 islock = false;
             else
@@ -81,10 +93,18 @@ public class EnemyPathControl : MonoBehaviour
     }
     void Move()
     {
-        transform.Translate((GameObject.Find("PlayerHandle").GetComponent<Transform>().position - transform.position).normalized * Time.deltaTime * speed);
-        Vector3 targetPosition = GameObject.Find("PlayerHandle").GetComponent<Transform>().position;
+        transform.Translate((player.transform.position - transform.position).normalized * Time.deltaTime * speed);
+        Vector3 targetPosition = player.transform.position;
         targetPosition.y = head.position.y;
         head.LookAt(targetPosition);
+    }
+
+    void ReleaseAttackedFlag()
+    {
+        if (player.transform.position.y - transform.position.y > 1.0f)
+        {
+            isAttackedByPlayer = false;
+        }
     }
 }
 

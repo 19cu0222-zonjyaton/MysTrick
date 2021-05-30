@@ -125,7 +125,7 @@ public class ActorController : MonoBehaviour
 
 	private void checkPlayerIsDead()	//	死亡処理
 	{
-		if (hp <= 0)
+		if (hp <= 0 || transform.position.y < -10.0f)
 		{
 			isDead = true;
 		}
@@ -154,9 +154,9 @@ public class ActorController : MonoBehaviour
 		}
 	}
 
-	private void OnCollisionEnter(Collision collision)
+	private void OnCollisionStay(Collision collision)
 	{
-		if (collision.transform.tag == "Enemy" && !isUnrivaled)		//	敵と当たる処理
+		if (collision.transform.tag == "Enemy" && !isUnrivaled)     //	敵と当たる処理
 		{
 			hp--;
 			if (hp > 0)
@@ -167,10 +167,7 @@ public class ActorController : MonoBehaviour
 				isUnrivaled = true;
 			}
 		}
-	}
 
-	private void OnCollisionStay(Collision collision)
-	{
 		if (collision.transform.tag == "Device" || collision.transform.tag == "Key")
 		{
 			isInTrigger = true;

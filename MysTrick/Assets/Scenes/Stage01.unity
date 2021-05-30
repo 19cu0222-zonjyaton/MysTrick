@@ -1915,7 +1915,7 @@ MonoBehaviour:
   - {fileID: 1107031917}
   head: {fileID: 3966877573168558157}
   edc: {fileID: 1017037198}
-  playerIsAttack: 0
+  cc: {fileID: 963194229}
 --- !u!54 &1017037197
 Rigidbody:
   m_ObjectHideFlags: 0
