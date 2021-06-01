@@ -33,7 +33,7 @@ public class ActorController : MonoBehaviour
 	private Rigidbody rigid;
 	private Vector3 movingVec;
 	private GoalController gc;
-	private MeshRenderer mesh;
+	private SkinnedMeshRenderer mesh;
 	private int shortTimeCount;   //	点滅用タイムカウント
 	private float timeCount;
 
@@ -44,7 +44,7 @@ public class ActorController : MonoBehaviour
 		//anim = model.GetComponent<Animator>();
 		rigid = GetComponent<Rigidbody>();
 		gc = GameObject.Find("Goal").GetComponent<GoalController>();
-		mesh = GameObject.Find("PlayerModule").GetComponent<MeshRenderer>();
+		mesh = GameObject.Find("Model").GetComponent<SkinnedMeshRenderer>();
 	}
 
 	// Update is called once per frame
