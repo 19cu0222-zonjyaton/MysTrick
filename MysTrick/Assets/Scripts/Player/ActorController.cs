@@ -15,6 +15,7 @@ public class ActorController : MonoBehaviour
 	public GameObject model;
 	public PlayerInput pi;
 	public GameObject weapon;       //	武器
+	public GameObject rightHand;	//	プレイヤーの右手
 	public int hp;
 	public bool isDead;
 
@@ -28,6 +29,7 @@ public class ActorController : MonoBehaviour
 	public float moveSpeed = 5.0f;
 	public bool isInTrigger;
 	public bool isUnrivaled;        //	無敵Time
+	public bool shootStart;			//	武器発射flag
 
 	[SerializeField]
 	private Animator anim;
@@ -70,7 +72,7 @@ public class ActorController : MonoBehaviour
 		
         if (pi.isAttacking && !pi.isAimStatus)
         {
-            Instantiate(weapon, transform.position + model.transform.forward * 1.5f + new Vector3(0.0f, 1.0f, 0.0f), transform.rotation);
+			//shootStart = true;
 
 			anim.SetTrigger("Throw");
 

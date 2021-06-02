@@ -978,6 +978,7 @@ MonoBehaviour:
   model: {fileID: 1363094117}
   pi: {fileID: 0}
   weapon: {fileID: 4896021154492923860, guid: 603f11a32496ff64db2bc6b39ecaefb3, type: 3}
+  rightHand: {fileID: 0}
   hp: 3
   isDead: 0
   keys: 
@@ -985,6 +986,7 @@ MonoBehaviour:
   moveSpeed: 0
   isInTrigger: 0
   isUnrivaled: 0
+  shootStart: 0
   anim: {fileID: 0}
 --- !u!54 &673822164
 Rigidbody:
@@ -2574,6 +2576,120 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   perRadian: 0.03
   radius: 0.2
+--- !u!1001 &1423817906
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 2099560829}
+    m_Modifications:
+    - target: {fileID: 349449106854145785, guid: 603f11a32496ff64db2bc6b39ecaefb3,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4896021154492923860, guid: 603f11a32496ff64db2bc6b39ecaefb3,
+        type: 3}
+      propertyPath: m_Name
+      value: Weapon
+      objectReference: {fileID: 0}
+    - target: {fileID: 4896021154492923860, guid: 603f11a32496ff64db2bc6b39ecaefb3,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
+    - target: {fileID: 5240494382509548910, guid: 603f11a32496ff64db2bc6b39ecaefb3,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5240494382509548910, guid: 603f11a32496ff64db2bc6b39ecaefb3,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5240494382509548910, guid: 603f11a32496ff64db2bc6b39ecaefb3,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5240494382509548910, guid: 603f11a32496ff64db2bc6b39ecaefb3,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5240494382509548910, guid: 603f11a32496ff64db2bc6b39ecaefb3,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5240494382509548910, guid: 603f11a32496ff64db2bc6b39ecaefb3,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.06
+      objectReference: {fileID: 0}
+    - target: {fileID: 5240494382509548910, guid: 603f11a32496ff64db2bc6b39ecaefb3,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1.12
+      objectReference: {fileID: 0}
+    - target: {fileID: 5240494382509548910, guid: 603f11a32496ff64db2bc6b39ecaefb3,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.14849323
+      objectReference: {fileID: 0}
+    - target: {fileID: 5240494382509548910, guid: 603f11a32496ff64db2bc6b39ecaefb3,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.5546005
+      objectReference: {fileID: 0}
+    - target: {fileID: 5240494382509548910, guid: 603f11a32496ff64db2bc6b39ecaefb3,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.06797645
+      objectReference: {fileID: 0}
+    - target: {fileID: 5240494382509548910, guid: 603f11a32496ff64db2bc6b39ecaefb3,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.81593335
+      objectReference: {fileID: 0}
+    - target: {fileID: 5240494382509548910, guid: 603f11a32496ff64db2bc6b39ecaefb3,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 5240494382509548910, guid: 603f11a32496ff64db2bc6b39ecaefb3,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 67
+      objectReference: {fileID: 0}
+    - target: {fileID: 5240494382509548910, guid: 603f11a32496ff64db2bc6b39ecaefb3,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 170
+      objectReference: {fileID: 0}
+    - target: {fileID: 6260097348797109204, guid: 603f11a32496ff64db2bc6b39ecaefb3,
+        type: 3}
+      propertyPath: m_Constraints
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6260097348797109204, guid: 603f11a32496ff64db2bc6b39ecaefb3,
+        type: 3}
+      propertyPath: m_IsKinematic
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6409419675674254849, guid: 603f11a32496ff64db2bc6b39ecaefb3,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9102104106233600480, guid: 603f11a32496ff64db2bc6b39ecaefb3,
+        type: 3}
+      propertyPath: rightHand
+      value: 
+      objectReference: {fileID: 2099560828}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 603f11a32496ff64db2bc6b39ecaefb3, type: 3}
 --- !u!1 &1463762300
 GameObject:
   m_ObjectHideFlags: 0
@@ -2782,6 +2898,11 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: c5d4723aa760a6948b04d99084a486d3, type: 2}
+    - target: {fileID: 5866666021909216657, guid: 12d50109dc4199a4d8fcde73607632ef,
+        type: 3}
+      propertyPath: m_UpdateMode
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5866666021909216657, guid: 12d50109dc4199a4d8fcde73607632ef,
         type: 3}
       propertyPath: m_ApplyRootMotion
@@ -3428,6 +3549,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 6.808468, y: 0.6534113, z: 2.0833607}
   m_Center: {x: -0.028566133, y: 0.03619167, z: 0.012037277}
+--- !u!1 &2099560828 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -8152517256492414210, guid: 12d50109dc4199a4d8fcde73607632ef,
+    type: 3}
+  m_PrefabInstance: {fileID: 1628493112}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &2099560829 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -4413909382283740827, guid: 12d50109dc4199a4d8fcde73607632ef,
+    type: 3}
+  m_PrefabInstance: {fileID: 1628493112}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &66021825496027549
 GameObject:
   m_ObjectHideFlags: 0

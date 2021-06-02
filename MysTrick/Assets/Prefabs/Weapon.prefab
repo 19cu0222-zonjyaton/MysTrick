@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6409419675674254849}
   - component: {fileID: 6260097348797109204}
   - component: {fileID: 349449106854145785}
-  - component: {fileID: 6715858851945187223}
+  - component: {fileID: 9102104106233600480}
   m_Layer: 0
   m_Name: Weapon
   m_TagString: Weapon
@@ -111,7 +111,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.2496378, y: 0.28032187, z: 0.43189675}
   m_Center: {x: -0.0015250146, y: 0.0018742979, z: 0.000000044703484}
---- !u!114 &6715858851945187223
+--- !u!114 &9102104106233600480
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
