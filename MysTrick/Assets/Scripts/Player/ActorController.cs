@@ -25,11 +25,12 @@ public class ActorController : MonoBehaviour
 	public bool[] devices;
 	//============================
 
+	public float moveSpeed = 5.0f;
 	public bool isInTrigger;
 	public bool isUnrivaled;        //	無敵Time
 
 	[SerializeField]
-	//private Animator anim;
+	private Animator anim;
 	private Rigidbody rigid;
 	private Vector3 movingVec;
 	private GoalController gc;
@@ -41,7 +42,7 @@ public class ActorController : MonoBehaviour
 	void Awake()
 	{
 		pi = GetComponent<PlayerInput>();
-		//anim = model.GetComponent<Animator>();
+		anim = model.GetComponent<Animator>();
 		rigid = GetComponent<Rigidbody>();
 		gc = GameObject.Find("Goal").GetComponent<GoalController>();
 		mesh = GameObject.Find("Model").GetComponent<SkinnedMeshRenderer>();
@@ -50,10 +51,11 @@ public class ActorController : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
-		//anim.SetFloat("forward", pi.Dmag);
+		anim.SetFloat("Forward", pi.Dmag);
+
 		if (pi.Dmag > 0.1f && !pi.isAimStatus)
 		{
-			model.transform.forward = pi.Dvec;
+			model.transform.forward = Vector3.Slerp(model.transform.forward, pi.Dvec, 0.3f);
 			movingVec = pi.Dmag * model.transform.forward;
 		}
 		else if (pi.Dmag > 0.1f && pi.isAimStatus)
@@ -70,6 +72,8 @@ public class ActorController : MonoBehaviour
         {
             Instantiate(weapon, transform.position + model.transform.forward * 1.5f + new Vector3(0.0f, 1.0f, 0.0f), transform.rotation);
 
+			anim.SetTrigger("Throw");
+
             pi.canAttack = false;
 
 			pi.isAttacking = false;
@@ -82,7 +86,7 @@ public class ActorController : MonoBehaviour
 
 	void FixedUpdate()
 	{
-		rigid.position += movingVec * 5.0f * Time.fixedDeltaTime;
+		rigid.position += movingVec * moveSpeed * Time.fixedDeltaTime;
 		
 		if (gc.gameClear)
 		{

@@ -30,7 +30,7 @@ public class PlayerInput : MonoBehaviour
 	public float Dright;
 	public float Dmag;
 	public Vector3 Dvec;
-	public float moveSpeed = 0.1f;
+	public float moveToTargetTime = 0.1f;
 
 	public float Jup;
 	public float Jright;
@@ -44,6 +44,7 @@ public class PlayerInput : MonoBehaviour
 	public bool canAttack = true;
 	public bool isAimStatus = false;
 	public CameraController ca;
+	private GameObject playerCamera;
 
 	public float targetDup;
 	public float targetDright;
@@ -72,6 +73,8 @@ public class PlayerInput : MonoBehaviour
 		Application.targetFrameRate = 60;   //	FPSを60に固定する
 
 		playerModel = GameObject.Find("PlayerModule");
+
+		playerCamera = GameObject.Find("Main Camera");
 	}  
 
 	void Update()
@@ -123,19 +126,19 @@ public class PlayerInput : MonoBehaviour
             isAttacking = true;
 		}
 
-		Dup = Mathf.SmoothDamp(Dup, targetDup, ref velocityDup, moveSpeed);
-		Dright = Mathf.SmoothDamp(Dright, targetDright, ref velocityDright, moveSpeed);
+		Dup = Mathf.SmoothDamp(Dup, targetDup, ref velocityDup, moveToTargetTime);
+		Dright = Mathf.SmoothDamp(Dright, targetDright, ref velocityDright, moveToTargetTime);
 
 		Vector2 tempDAxis = SquareToCircle(new Vector2(Dright, Dup));
 		float Dright2 = tempDAxis.x;
 		float Dup2 = tempDAxis.y;
 
 		Dmag = Mathf.Sqrt((Dup2 * Dup2) + (Dright2 * Dright2));
-
+		//Dvec = Dright * transform.right + Dup * transform.forward;
 		if (Input.GetKey(KeyCode.LeftShift) || Input.GetButton("perspect"))
 		{
 			isAimStatus = true;
-			Dvec = Dright * playerModel.transform.right + Dup * playerModel.transform.forward;
+			Dvec = Dright * playerCamera.transform.right + Dup * playerCamera.transform.forward;
 		}
 		else
 		{

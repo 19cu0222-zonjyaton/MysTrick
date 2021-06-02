@@ -23,8 +23,9 @@ public class CameraController : MonoBehaviour
 	private GameObject playerHandle;
 	private float tempEulerX;
 	private GameObject model;
-	private bool doOnce;                        //  ゴールに着いたら一回だけを実行するための参数
+	private SkinnedMeshRenderer smr;
 	private float countTime = 10.0f;            //  カメラ視角切り替えの時間
+	private bool canRotate;						//	プレイヤー視点切り替えた後回転できるか
 	private Vector3 relativePos;
 
 	// Start is called before the first frame update
@@ -35,6 +36,8 @@ public class CameraController : MonoBehaviour
 		playerHandle = cameraHandle.transform.parent.gameObject;
 
 		model = playerHandle.GetComponent<ActorController>().model;
+
+		smr = GameObject.Find("Model").GetComponent<SkinnedMeshRenderer>();
 
 		goal = GameObject.Find("Goal").GetComponent<GoalController>();
 
@@ -197,34 +200,48 @@ public class CameraController : MonoBehaviour
 					pi.isAttacking = false;
 				}
 
-				Vector3 tempModelEuler = transform.eulerAngles;
-				transform.Rotate(Vector3.up, pi.Jright * 120 * Time.fixedDeltaTime);
-				transform.Rotate(Vector3.right, -pi.Jup * 120 * Time.fixedDeltaTime);
-
 				transform.parent = null;
 
 				transform.position = Vector3.Slerp(transform.position, firstPerspect.transform.position, 0.2f);
 
-				transform.rotation = Quaternion.Slerp(transform.rotation, model.transform.rotation, Time.fixedDeltaTime * 2.0f);
-			}
+				if (transform.eulerAngles.x > 0.01f && !canRotate)		//	transform.eulerAngles　->	自身の回転角度を獲得できる
+				{
+					transform.rotation = Quaternion.Slerp(transform.rotation, firstPerspect.transform.rotation, Time.fixedDeltaTime * 12.0f);
+					tempEulerX = 0.0f;
+				}
+                else
+                {
+                    canRotate = true;
+                    ac.moveSpeed = 2.0f;
+					tempEulerX -= pi.Jup * verticalSpeed * 3.0f * Time.fixedDeltaTime;
+					transform.Rotate(Vector3.up, pi.Jright * 120 * Time.fixedDeltaTime);
+					tempEulerX = Mathf.Clamp(tempEulerX, -80, 80);                  //  縦の回転角を制限する
+					transform.localEulerAngles = new Vector3(tempEulerX, transform.localEulerAngles.y, 0);
+
+					smr.enabled = false;
+                }
+            }
 			else if (!pi.isAimStatus && !pi.lockJumpStatus && !ac.isUnrivaled && !ac.isDead)  //	not Aiming and not jumping
 			{
-				pi.inputEnabled = true;
 				Vector3 tempModelEuler = model.transform.eulerAngles;
 				playerHandle.transform.Rotate(Vector3.up, pi.Jright * horizontalSpeed * Time.fixedDeltaTime);
 				tempEulerX -= pi.Jup * verticalSpeed * Time.fixedDeltaTime;
-				tempEulerX = Mathf.Clamp(tempEulerX, -25, 15);
+				tempEulerX = Mathf.Clamp(tempEulerX, -25, 15);                      //  縦の回転角を制限する
 
-				cameraHandle.transform.localEulerAngles = new Vector3(tempEulerX, 0, 0);   //  縦の回転角を制限する
+				cameraHandle.transform.localEulerAngles = new Vector3(tempEulerX, 0, 0);   
 
 				model.transform.eulerAngles = tempModelEuler;
 
-				transform.SetParent(cameraHandle.transform);
+				transform.parent = cameraHandle.transform;
+				canRotate = false;
+				smr.enabled = true;
+				pi.inputEnabled = true;
+				ac.moveSpeed = 5.0f;
 
 				//  位置を戻る
 				transform.position = Vector3.Slerp(transform.position, cameraBackPos.transform.position, 0.05f);
 
-				transform.rotation = Quaternion.Slerp(transform.rotation, cameraBackPos.transform.rotation, Time.fixedDeltaTime * 2.0f);
+				transform.rotation = Quaternion.Slerp(transform.rotation, cameraBackPos.transform.rotation, Time.fixedDeltaTime * 6.0f);
 			}
 			else if (pi.lockJumpStatus) //	is jumping
 			{

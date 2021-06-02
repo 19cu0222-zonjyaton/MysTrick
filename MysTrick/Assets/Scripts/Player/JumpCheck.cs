@@ -26,6 +26,7 @@ public class JumpCheck : MonoBehaviour
     public GameObject playerHandle;
     public GameObject playerModule;
 
+    private Animator anim;
     private GameObject hintUI;
     private PlayerInput pi;
     private Rigidbody rigid;
@@ -40,6 +41,8 @@ public class JumpCheck : MonoBehaviour
         pi = GameObject.Find("PlayerHandle").GetComponent<PlayerInput>();
 
         rigid = GameObject.Find("PlayerHandle").GetComponent<Rigidbody>();
+
+        anim = GameObject.Find("PlayerModule").GetComponent<Animator>();
 
         hintUI = transform.Find("hintUI").gameObject;
 
@@ -87,6 +90,8 @@ public class JumpCheck : MonoBehaviour
 
                 if (isJump)
                 {
+                    anim.SetTrigger("Jump");
+
                     rigid.AddForce(jumpPowerX, jumpPowerY, jumpPowerZ);
 
                     isJump = false;
@@ -104,7 +109,7 @@ public class JumpCheck : MonoBehaviour
                 {                  
                     timeCount = 0.3f;
 
-                    pi.moveSpeed = 0.1f;
+                    pi.moveToTargetTime = 0.1f;
 
                     pi.lockJumpStatus = false;
 
@@ -127,7 +132,7 @@ public class JumpCheck : MonoBehaviour
                 pi.Dup = 0.0f;          //	シングルを0にする
                 pi.Dright = 0.0f;
                 pi.Dmag = 0.0f;
-                pi.moveSpeed = 0.0f;
+                pi.moveToTargetTime = 0.0f;
                 pi.inputEnabled = false;
 
                 collider.transform.localPosition = new Vector3((float)Math.Round((double)transform.position.x, 1), collider.transform.position.y, (float)Math.Round((double)transform.position.z, 1));
