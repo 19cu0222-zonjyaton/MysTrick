@@ -12,11 +12,11 @@ public class WeaponController : MonoBehaviour
     private GameObject playerPos;   //  プレイヤーの位置を獲得するため
     private PlayerInput pi;         //  攻撃ができるかどうかの判断
     public GameObject model;       //  プレイヤーの回転方向を獲得するため
-    private GameObject playerCamera;
     private Animator anim;
     private Vector3 tempVec;
     private float speedDown;        //  戻る時の速度
     private float timeCount;
+    private CameraController cc;
 
     void Awake()
     {
@@ -28,9 +28,9 @@ public class WeaponController : MonoBehaviour
 
         pi = GameObject.Find("PlayerHandle").GetComponent<PlayerInput>();
 
-        playerCamera = GameObject.Find("Main Camera");
-
         anim = GameObject.Find("PlayerModule").GetComponent<Animator>();
+
+        cc = GameObject.Find("Main Camera").GetComponent<CameraController>();
     }
 
     void Start()
@@ -40,10 +40,9 @@ public class WeaponController : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (!pi.canAttack)
+        if (!pi.canAttack && cc.canThrowWeapon)
         {
             timeCount += Time.fixedDeltaTime;
-
             anim.SetLayerWeight(anim.GetLayerIndex("Throw"), 1.0f);
 
             if (timeCount >= 0.1f)
@@ -53,41 +52,21 @@ public class WeaponController : MonoBehaviour
 
                 transform.Rotate(0.0f, rotateSpeed, 0.0f);
 
-                speed -= 1.5f;
-
-                if (!pi.isAimStatus)
+                if (speed > 0.0f)
                 {
-                    if (speed > 0.0f)
-                    {
-                        gameObject.transform.tag = "Weapon";
+                    gameObject.transform.tag = "Weapon";
 
-                        rigidbody.position += tempVec * speed * Time.fixedDeltaTime;     //  プレイヤーの正方向に一定距離を移動する
-                    }
-                    else
-                    {
-                        gameObject.transform.tag = "Untagged";
+                    rigidbody.position += tempVec * speed * Time.fixedDeltaTime;     //  プレイヤーの正方向に一定距離を移動する
 
-                        speedDown += 0.004f;
-
-                        transform.position = Vector3.Lerp(transform.position, playerPos.transform.position + new Vector3(0.0f, 1.0f, 0.0f), speedDown);     //  プレイヤーの位置に戻る
-                    }
+                    speed -= 1.5f;
                 }
                 else
                 {
-                    if (speed > 0.0f)
-                    {
-                        gameObject.transform.tag = "Weapon";
+                    gameObject.transform.tag = "Untagged";
 
-                        rigidbody.position += playerCamera.transform.forward * speed * Time.fixedDeltaTime;     //  カメラの正方向に一定距離を移動する
-                    }
-                    else
-                    {
-                        gameObject.transform.tag = "Untagged";
+                    speedDown += 0.004f;
 
-                        speedDown += 0.004f;
-
-                        transform.position = Vector3.Lerp(transform.position, playerPos.transform.position, speedDown);     //  プレイヤーの位置に戻る
-                    }
+                    transform.position = Vector3.Lerp(transform.position, playerPos.transform.position + new Vector3(0.0f, 1.0f, 0.0f), speedDown);     //  プレイヤーの位置に戻る
                 }
             }
             else
@@ -96,23 +75,29 @@ public class WeaponController : MonoBehaviour
                 tempVec = model.transform.forward;
             }
         }
+
     }
 
     void OnTriggerEnter(Collider collider)
     {
         if (collider.transform.tag == "Player" && speed <= 0.0f)
         {
-            transform.parent = rightHand.transform;
+            if (pi.isAimStatus)
+            {
+                gameObject.GetComponent<MeshRenderer>().enabled = false;
+            }
 
             pi.canAttack = true;
+            cc.canThrowWeapon = true;
 
-            timeCount = 0.0f;
+            transform.parent = rightHand.transform;
+
             speedDown = 0.0f;
             speed = 40.0f;
-
+            timeCount = 0.0f;
             anim.SetLayerWeight(anim.GetLayerIndex("Throw"), 0.0f);
-            transform.localPosition = new Vector3(-0.2f, 0.06f, 1.12f);
-            transform.localEulerAngles = new Vector3(16.0f, 67.0f, 170.0f);
+            transform.localPosition = new Vector3(-0.2f, 0.06f, 1.12f);             //  親に相対の座標を設定する
+            transform.localEulerAngles = new Vector3(16.0f, 67.0f, 170.0f);         //  親に相対の角度を設定する
             rigidbody.constraints = RigidbodyConstraints.FreezeAll;
         }
     }

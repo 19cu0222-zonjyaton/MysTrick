@@ -17,6 +17,8 @@ public class CameraController : MonoBehaviour
 	public GameObject[] targetPos;
 	public GameObject firstPerspect;
 	public GameObject weapon;
+	public GameObject usingWeapon;              //	今手が持っている武器
+	public bool canThrowWeapon = true;
 
 	private ActorController ac;
 	private GameObject cameraHandle;
@@ -57,7 +59,7 @@ public class CameraController : MonoBehaviour
 	{
 		countTime -= Time.fixedDeltaTime;
 
-		if (countTime <= 10.0f && countTime > 6.0f)
+		if (countTime <= 9.0f && countTime > 6.0f)
 		{
 			//  親関係を解除
 			transform.parent = null;
@@ -195,6 +197,8 @@ public class CameraController : MonoBehaviour
 				{
 					Instantiate(weapon, transform.position + transform.forward * 1.5f, transform.rotation);
 
+					canThrowWeapon = false;
+
 					pi.canAttack = false;
 
 					pi.isAttacking = false;
@@ -204,7 +208,7 @@ public class CameraController : MonoBehaviour
 
 				transform.position = Vector3.Slerp(transform.position, firstPerspect.transform.position, 0.2f);
 
-				if (transform.eulerAngles.x > 0.01f && !canRotate)		//	transform.eulerAngles　->	自身の回転角度を獲得できる
+				if (transform.eulerAngles.x > 0.01f && !canRotate)		//	transform.eulerAngles　->	自身の回転角度を獲得できる		視点切り替え途中は回転できない
 				{
 					transform.rotation = Quaternion.Slerp(transform.rotation, firstPerspect.transform.rotation, Time.fixedDeltaTime * 12.0f);
 					tempEulerX = 0.0f;
@@ -218,7 +222,7 @@ public class CameraController : MonoBehaviour
 					tempEulerX = Mathf.Clamp(tempEulerX, -80, 80);                  //  縦の回転角を制限する
 					transform.localEulerAngles = new Vector3(tempEulerX, transform.localEulerAngles.y, 0);
 
-					smr.enabled = false;
+                    smr.enabled = false;
                 }
             }
 			else if (!pi.isAimStatus && !pi.lockJumpStatus && !ac.isUnrivaled && !ac.isDead)  //	not Aiming and not jumping

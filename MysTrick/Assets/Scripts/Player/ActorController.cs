@@ -141,6 +141,7 @@ public class ActorController : MonoBehaviour
 
 		if (isDead)
 		{
+			anim.enabled = false;
 			pi.inputEnabled = false;
 			transform.position = new Vector3(10.0f, -125.0f, 50.0f);
 			rigid.useGravity = false;

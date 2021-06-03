@@ -32,8 +32,6 @@ public class StairController : MonoBehaviour
 	{
 		if (moveToHere)
 		{
-			//transform.localPosition = Vector3.Lerp(transform.localPosition, new Vector3(0, 0, 0), 0.01f);
-
 			transform.position = Vector3.MoveTowards(this.transform.position, new Vector3(this.transform.position.x, movePosY, this.transform.position.z), moveSpeed / 2.0f * Time.deltaTime);	//	2秒で指定された位置に移動する
 		}
 	}

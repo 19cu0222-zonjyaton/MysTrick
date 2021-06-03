@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6409419675674254849}
   - component: {fileID: 6260097348797109204}
   - component: {fileID: 349449106854145785}
-  - component: {fileID: 9102104106233600480}
+  - component: {fileID: 6665290396262645940}
   m_Layer: 0
   m_Name: Weapon
   m_TagString: Weapon
@@ -30,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 4896021154492923860}
   m_LocalRotation: {x: -0, y: -0, z: -0.09623566, w: 0.99535865}
   m_LocalPosition: {x: 0.0002640104, y: 12.11968, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -111,7 +111,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.2496378, y: 0.28032187, z: 0.43189675}
   m_Center: {x: -0.0015250146, y: 0.0018742979, z: 0.000000044703484}
---- !u!114 &9102104106233600480
+--- !u!114 &6665290396262645940
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -120,7 +120,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4896021154492923860}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e574aa0e7fd33534080f4f62d4f33b39, type: 3}
+  m_Script: {fileID: 11500000, guid: b78531ee14b25784ba2a53b79cd851cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   rotateSpeed: 30

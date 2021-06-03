@@ -16,16 +16,23 @@ public class TriggerController : MonoBehaviour
 	public bool isTriggered;
 	private PlayerInput Player;
 	public GameObject hintUI;
-	public float timeCount = 1.2f;				//	Triggerを出すまでの時間
+	public float timeCount = 1.2f;              //	Triggerを出すまでの時間
+	public GameObject[] handle;					//	Triggerのスイッチ
 
 	private bool hadDone;						//	一回だけ実行する
-	private bool cameraCanMoveToStair;			//	カメラ視点を移動し始めます
+	private bool cameraCanMoveToStair;          //	カメラ視点を移動し始めます
+	private Vector3 tempHandlePos;				//	Handleの座標保存用
 
 	void Awake()
 	{
 		Player = GameObject.Find("PlayerHandle").GetComponent<PlayerInput>();
 
 		hintUI = transform.Find("hintUI").gameObject;
+
+		if (handle.Length != 0 && transform.gameObject.tag == "Key")
+		{
+			tempHandlePos = handle[0].transform.position - new Vector3(0.0f, 0.5f, 0.0f);		//	Keyを押す距離
+		}
 	}
 
 	void Update()
@@ -42,6 +49,21 @@ public class TriggerController : MonoBehaviour
 				cameraCanMoveToStair = false;
 
 				timeCount = 1.2f;
+			}
+		}
+
+		if (isTriggered)
+		{
+			if (handle.Length != 0)
+			{
+				if (transform.gameObject.tag == "Device")
+				{
+					handle[0].transform.rotation = Quaternion.Lerp(handle[0].transform.rotation, handle[1].transform.rotation, Time.fixedDeltaTime * 3.0f);
+				}
+				else if (transform.gameObject.tag == "Key")
+				{
+					handle[0].transform.position = Vector3.Lerp(handle[0].transform.position, tempHandlePos, 0.3f);
+				}
 			}
 		}
 	}
@@ -100,13 +122,18 @@ public class TriggerController : MonoBehaviour
 					{
 						if (!hadDone)
 						{
+							if (this.gameObject.name == "sDevice003")
+							{
+								Destroy(GameObject.Find("TempCollider"));
+							}
+
 							cameraCanMoveToStair = true;
 
 							hadDone = true;
 						}
 						this.transform.GetChild(2).gameObject.SetActive(true);
 
-					this.transform.BroadcastMessage("DeviceOnTriggered", "sCamera");
+						this.transform.BroadcastMessage("DeviceOnTriggered", "sCamera");
 					}
 				}
 				Player.isTriggered = false;
