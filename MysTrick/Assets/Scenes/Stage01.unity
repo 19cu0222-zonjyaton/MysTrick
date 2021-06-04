@@ -3336,7 +3336,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1695933876
 Transform:
   m_ObjectHideFlags: 0
@@ -3729,6 +3729,7 @@ MonoBehaviour:
   speed: 40
   rightHand: {fileID: 2099560828}
   model: {fileID: 1363094117}
+  backToHand: 0
 --- !u!1 &2099560828 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -8152517256492414210, guid: 12d50109dc4199a4d8fcde73607632ef,

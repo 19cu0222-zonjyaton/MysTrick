@@ -58,11 +58,6 @@ public class ThrowWeaponController : MonoBehaviour
 
             playerCamera.GetComponent<CameraController>().canThrowWeapon = true;
 
-            if (!pi.isAimStatus)
-            {
-                swordWeapon.GetComponent<MeshRenderer>().enabled = true;
-            }                    
-
             Destroy(this.gameObject);
         }
     }

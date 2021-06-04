@@ -17,6 +17,7 @@ public class WeaponController : MonoBehaviour
     private float speedDown;        //  戻る時の速度
     private float timeCount;
     private CameraController cc;
+    public bool backToHand;
 
     void Awake()
     {
@@ -40,42 +41,58 @@ public class WeaponController : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (!pi.canAttack && cc.canThrowWeapon)
+        if (cc.canThrowWeapon)
         {
-            timeCount += Time.fixedDeltaTime;
-            anim.SetLayerWeight(anim.GetLayerIndex("Throw"), 1.0f);
-
-            if (timeCount >= 0.1f)
+            if (!pi.canAttack)
             {
-                transform.parent = null;
-                rigidbody.constraints = RigidbodyConstraints.None;
+                timeCount += Time.fixedDeltaTime;
+                anim.SetLayerWeight(anim.GetLayerIndex("Throw"), 1.0f);
 
-                transform.Rotate(0.0f, rotateSpeed, 0.0f);
-
-                if (speed > 0.0f)
+                if (timeCount >= 0.1f)
                 {
-                    gameObject.transform.tag = "Weapon";
+                    transform.parent = null;
+                    rigidbody.constraints = RigidbodyConstraints.None;
 
-                    rigidbody.position += tempVec * speed * Time.fixedDeltaTime;     //  プレイヤーの正方向に一定距離を移動する
+                    transform.Rotate(0.0f, rotateSpeed, 0.0f);
 
-                    speed -= 1.5f;
+                    if (speed > 0.0f)
+                    {
+                        gameObject.transform.tag = "Weapon";
+
+                        rigidbody.position += tempVec * speed * Time.fixedDeltaTime;     //  プレイヤーの正方向に一定距離を移動する
+
+                        speed -= 1.5f;
+                    }
+                    else
+                    {
+                        gameObject.transform.tag = "Untagged";
+
+                        speedDown += 0.004f;
+
+                        transform.position = Vector3.Lerp(transform.position, playerPos.transform.position + new Vector3(0.0f, 1.0f, 0.0f), speedDown);     //  プレイヤーの位置に戻る
+                    }
                 }
                 else
                 {
-                    gameObject.transform.tag = "Untagged";
-
-                    speedDown += 0.004f;
-
-                    transform.position = Vector3.Lerp(transform.position, playerPos.transform.position + new Vector3(0.0f, 1.0f, 0.0f), speedDown);     //  プレイヤーの位置に戻る
+                    transform.localEulerAngles = new Vector3(0, 81.0f, 0);
+                    tempVec = model.transform.forward;
                 }
             }
-            else
-            {
-                transform.localEulerAngles = new Vector3(0, 81.0f, 0);
-                tempVec = model.transform.forward;
-            }
-        }
 
+            if (!pi.isAimStatus)           //  持っている武器を隠す処理
+            {
+                gameObject.GetComponent<MeshRenderer>().enabled = true;
+            }
+            else if (pi.isAimStatus && backToHand)
+            {
+                gameObject.GetComponent<MeshRenderer>().enabled = false;
+            }
+            backToHand = false;
+        }
+        else if (pi.isAimStatus)
+        {
+            gameObject.GetComponent<MeshRenderer>().enabled = false;
+        }
     }
 
     void OnTriggerEnter(Collider collider)
@@ -87,6 +104,7 @@ public class WeaponController : MonoBehaviour
                 gameObject.GetComponent<MeshRenderer>().enabled = false;
             }
 
+            backToHand = true;
             pi.canAttack = true;
             cc.canThrowWeapon = true;
 

@@ -193,17 +193,6 @@ public class CameraController : MonoBehaviour
 		{
 			if (pi.isAimStatus && !pi.lockJumpStatus)       //	Aiming and is not jumping
 			{
-				if (pi.isAttacking)
-				{
-					Instantiate(weapon, transform.position + transform.forward * 1.5f, transform.rotation);
-
-					canThrowWeapon = false;
-
-					pi.canAttack = false;
-
-					pi.isAttacking = false;
-				}
-
 				transform.parent = null;
 
 				transform.position = Vector3.Slerp(transform.position, firstPerspect.transform.position, 0.2f);
@@ -215,7 +204,18 @@ public class CameraController : MonoBehaviour
 				}
                 else
                 {
-                    canRotate = true;
+					if (pi.isAttacking)
+					{
+						Instantiate(weapon, transform.position + transform.forward * 1.5f, transform.rotation);
+
+						canThrowWeapon = false;
+
+						pi.canAttack = false;
+
+						pi.isAttacking = false;
+					}
+
+					canRotate = true;
                     ac.moveSpeed = 2.0f;
 					tempEulerX -= pi.Jup * verticalSpeed * 3.0f * Time.fixedDeltaTime;
 					transform.Rotate(Vector3.up, pi.Jright * 120 * Time.fixedDeltaTime);
