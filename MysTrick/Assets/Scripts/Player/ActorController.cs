@@ -16,7 +16,9 @@ public class ActorController : MonoBehaviour
 	public PlayerInput pi;
 	public GameObject weapon;       //	武器
 	public GameObject rightHand;	//	プレイヤーの右手
-	public int hp;
+	public int hp;					//	プレイヤーHP
+	public int coinCount;           //	獲得したコイン数
+	public bool coinUIAction;       //  コインUIを動くための信号
 	public bool isDead;
 
 	//============================

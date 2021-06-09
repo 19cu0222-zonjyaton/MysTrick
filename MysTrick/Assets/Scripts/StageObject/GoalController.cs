@@ -29,6 +29,11 @@ public class GoalController : MonoBehaviour
             radian += perRadian;                //  毎回弧度を0.01をプラスする
             float dy = Mathf.Cos(radian) * radius;
             transform.position = oldPos + new Vector3(0, dy, 0);
+
+            if (radian >= 360.0f)
+            {
+                radian = 0.0f;
+            }
         }
     }
 

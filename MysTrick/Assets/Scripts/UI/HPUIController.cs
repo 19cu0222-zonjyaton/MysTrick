@@ -3,34 +3,38 @@ using UnityEngine.UI;
 
 public class HPUIController : MonoBehaviour
 {
+    public Sprite[] sprite;     //  画像オブジェクト
+    public GameObject heart;    //  ハートのUI
+    private GameObject[] hp;    //  作るUIの用意場所
+    private GameObject hpUI;    //  親のオブジェクト
     private ActorController ac;
-    private Text textFrame;
-    private CanvasGroup canvasGroup;
 
     void Awake()
     {
         ac = GameObject.Find("PlayerHandle").GetComponent<ActorController>();
 
-        canvasGroup = GetComponent<CanvasGroup>();
+        hp = new GameObject[ac.hp];
 
-        textFrame = gameObject.GetComponent<Text>();
+        hpUI = GameObject.Find("HP").gameObject;
+    }
+
+    void Start()
+    {
+            //    動態にHP UIを作る
+            for (int i = 0; i < ac.hp; i++)
+            {
+                hp[i] = Instantiate(heart, transform.position + new Vector3(i * 80.0f, 0.0f, 0.0f), Quaternion.identity);
+
+                hp[i].transform.SetParent(hpUI.transform);
+            }
     }
 
     void Update()
     {
-        textFrame.text = "HP:" + ac.hp;
-
-        if (!ac.isDead)
+        //  減ったHPに応じて画像が変わる
+        for (int i = 2; i >= ac.hp; i--)
         {
-            canvasGroup.alpha = 1;
-            canvasGroup.interactable = true;
-            canvasGroup.blocksRaycasts = true;
-        }
-        else
-        {
-            canvasGroup.alpha = 0;
-            canvasGroup.interactable = false;
-            canvasGroup.blocksRaycasts = false;
+            hp[i].GetComponent<Image>().sprite = sprite[1];
         }
     }
 }
