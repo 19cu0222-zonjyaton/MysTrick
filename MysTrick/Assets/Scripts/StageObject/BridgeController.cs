@@ -29,9 +29,9 @@ public class BridgeController : MonoBehaviour
 
 			if (timeCount <= 0.0f)
 			{
-				this.transform.rotation = Quaternion.Slerp(transform.rotation, targetEuAng, Time.deltaTime * speed);
-
 				targetEuAng = Quaternion.Euler(targetAng);
+				this.transform.rotation = Quaternion.Slerp(transform.rotation, targetEuAng, Time.deltaTime * speed);
+				
 				//Debug.Log(this.transform.eulerAngles.z);
 				//this.transform.Rotate(0f, 0f, angle);
 			}
