@@ -62,12 +62,12 @@ public class FootPlateController : MonoBehaviour
 		}
 	}
 
-	/*public void DeviceOnTriggered(string msg)
+	public void DeviceOnTriggered(string msg)
 	{
 		if (msg == "sFootPlate")
 		{
 			if (!isTriggered) isTriggered = true;
 			//Debug.Log("Receive the message.");
 		}
-	}*/
+	}
 }

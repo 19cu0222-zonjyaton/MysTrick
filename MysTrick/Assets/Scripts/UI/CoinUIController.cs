@@ -14,14 +14,14 @@ public class CoinUIController : MonoBehaviour
     {
         ac = GameObject.Find("PlayerHandle").GetComponent<ActorController>();
 
-        textFrame = gameObject.GetComponent<Text>();
+        textFrame = GameObject.Find("CoinText2").GetComponent<Text>();
 
         oldPos = transform.localPosition;
     }
 
     void Update()
     {
-        textFrame.text = "Coin×" + ac.coinCount;
+        textFrame.text = ac.coinCount.ToString();
 
         if (ac.coinUIAction)    //  UIの振れ処理
         {

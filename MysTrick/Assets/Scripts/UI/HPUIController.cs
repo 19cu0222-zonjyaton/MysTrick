@@ -20,7 +20,7 @@ public class HPUIController : MonoBehaviour
 
     void Start()
     {
-            //    動態にHP UIを作る
+            //   動態にHP UIを作る
             for (int i = 0; i < ac.hp; i++)
             {
                 hp[i] = Instantiate(heart, transform.position + new Vector3(i * 80.0f, 0.0f, 0.0f), Quaternion.identity);

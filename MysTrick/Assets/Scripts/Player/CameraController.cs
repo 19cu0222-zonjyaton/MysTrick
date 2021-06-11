@@ -51,7 +51,7 @@ public class CameraController : MonoBehaviour
 	// Update is called once per frame
 	void LateUpdate()
 	{
-		checkCameraStatic();
+        checkCameraStatic();
     }
 
 	//  カメラ移動関数
@@ -110,57 +110,34 @@ public class CameraController : MonoBehaviour
 	private void checkCameraStatic()
 	{
 		//  When Trigger are Stairs
-		if (stair[0].isTriggered && !stair[0].hasDone)
+		for (int i = 0; i < stair.Length; i++)
 		{
-			cameraStatic = "MoveToStair1";
-
-			pi.inputEnabled = false;
-
-			stair[0].hasDone = true;
+			if (stair[i].isTriggered && !stair[i].hasDone)
+			{
+				cameraStatic = "MoveToStair" + (i + 1);
+				pi.inputEnabled = false;
+				stair[i].hasDone = true;
+			}
 		}
-		else if (stair[1].isTriggered && !stair[1].hasDone)
-		{
-			cameraStatic = "MoveToStair2";
-
-			pi.inputEnabled = false;
-
-			stair[1].hasDone = true;
-		}
-		else if (stair[2].isTriggered && !stair[2].hasDone)
-		{
-			cameraStatic = "MoveToStair3";
-
-			pi.inputEnabled = false;
-
-			stair[2].hasDone = true;
-		}
-
 		//  When Trigger are doors
-		if (door[0].isTriggered && !door[0].hasDone)
+		for (int i = 0; i < door.Length; i++)
 		{
-			cameraStatic = "MoveToDoor1";
-
-			pi.inputEnabled = false;
-
-			door[0].hasDone = true;
+			if (door[i].isTriggered && !door[i].hasDone)
+			{
+				cameraStatic = "MoveToDoor" + (i + 1);
+				pi.inputEnabled = false;
+				door[i].hasDone = true;
+			}
 		}
-		else if (door[1].isTriggered && !door[1].hasDone)
-		{
-			cameraStatic = "MoveToDoor2";
-
-			pi.inputEnabled = false;
-
-			door[1].hasDone = true;
-		}
-
 		//  When Trigger are bridges
-		if (bridge[0].isTriggered && !bridge[0].hasDone)
+		for (int i = 0; i < bridge.Length; i++)
 		{
-			cameraStatic = "MoveToBridge1";
-
-			pi.inputEnabled = false;
-
-			bridge[0].hasDone = true;
+			if (bridge[i].isTriggered && !bridge[i].hasDone)
+			{
+				cameraStatic = "MoveToBridge" + (i + 1);
+				pi.inputEnabled = false;
+				bridge[i].hasDone = true;
+			}
 		}
 
 		if (cameraStatic == "MoveToStair1")
@@ -275,3 +252,5 @@ public class CameraController : MonoBehaviour
 		}
 	}
 }
+
+

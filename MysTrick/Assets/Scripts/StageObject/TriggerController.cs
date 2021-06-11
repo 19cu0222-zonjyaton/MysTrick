@@ -27,7 +27,7 @@ public class TriggerController : MonoBehaviour
 	{
 		Player = GameObject.Find("PlayerHandle").GetComponent<PlayerInput>();
 
-		hintUI = transform.Find("hintUI").gameObject;
+		//hintUI = transform.Find("hintUI").gameObject;
 
 		if (handle.Length != 0 && transform.gameObject.tag == "Key")
 		{
@@ -87,17 +87,12 @@ public class TriggerController : MonoBehaviour
 					}
 					else
 					{
-						/*if (!hadDone)
+						if (!hadDone)
 						{
-							if (this.gameObject.name == "sDevice003")
-							{
-								Destroy(GameObject.Find("TempCollider"));
-							}
-
 							cameraCanMoveToStair = true;
 
 							hadDone = true;
-						}*/
+						}
 						this.transform.GetChild(2).gameObject.SetActive(true);
 
 						this.transform.BroadcastMessage("DeviceOnTriggered", "sCamera");
@@ -161,7 +156,7 @@ public class TriggerController : MonoBehaviour
 					{
 						if (!hadDone)
 						{
-							if (this.gameObject.name == "sDevice003")
+							if (this.gameObject.name == "sDevice002")
 							{
 								Destroy(GameObject.Find("TempCollider"));
 							}

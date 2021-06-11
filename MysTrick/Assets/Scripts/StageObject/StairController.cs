@@ -17,7 +17,6 @@ public class StairController : MonoBehaviour
 	private float movePosY;
 	private float moveSpeed;
 
-	// Start is called before the first frame update
 	void Awake()
 	{
 		this.gameObject.SetActive(false);
