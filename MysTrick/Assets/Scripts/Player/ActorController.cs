@@ -35,6 +35,7 @@ public class ActorController : MonoBehaviour
 
 	[SerializeField]
 	private Animator anim;
+	private Animation animation;
 	private Rigidbody rigid;
 	private Vector3 movingVec;
 	private GoalController gc;
@@ -46,9 +47,15 @@ public class ActorController : MonoBehaviour
 	void Awake()
 	{
 		pi = GetComponent<PlayerInput>();
+
 		anim = model.GetComponent<Animator>();
+
+		animation = GameObject.Find("R_Shoulder").GetComponent<Animation>();
+
 		rigid = GetComponent<Rigidbody>();
+
 		gc = GameObject.Find("Goal").GetComponent<GoalController>();
+
 		mesh = GameObject.Find("Model").GetComponent<SkinnedMeshRenderer>();
 	}
 
@@ -64,7 +71,6 @@ public class ActorController : MonoBehaviour
 		}
 		else if (pi.Dmag > 0.1f && pi.isAimStatus)
 		{
-			//model.transform.forward = pi.Dvec;
 			movingVec = pi.Dmag * pi.Dvec;
 		}
 		else
@@ -74,13 +80,27 @@ public class ActorController : MonoBehaviour
 		
         if (pi.isThrowing && !pi.isAimStatus)
         {
-			//shootStart = true;
-
 			anim.SetTrigger("Throw");
 
             pi.canThrow = false;
 
 			pi.isThrowing = false;
+		}
+
+        if (pi.isAttacking)
+        {
+			animation.Play();
+			
+			pi.isAttacking = false;
+		}
+
+		if (animation.isPlaying)
+		{
+			weapon.transform.tag = "Weapon";
+		}
+		else
+		{
+			weapon.transform.tag = "Untagged";
 		}
 
 		checkIsUnderDamage();
