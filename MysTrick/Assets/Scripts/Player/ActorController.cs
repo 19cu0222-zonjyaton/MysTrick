@@ -72,15 +72,15 @@ public class ActorController : MonoBehaviour
 			movingVec = pi.Dmag * model.transform.forward;
 		}
 		
-        if (pi.isAttacking && !pi.isAimStatus)
+        if (pi.isThrowing && !pi.isAimStatus)
         {
 			//shootStart = true;
 
 			anim.SetTrigger("Throw");
 
-            pi.canAttack = false;
+            pi.canThrow = false;
 
-			pi.isAttacking = false;
+			pi.isThrowing = false;
 		}
 
 		checkIsUnderDamage();

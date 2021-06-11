@@ -528,7 +528,7 @@ GameObject:
   m_Component:
   - component: {fileID: 265387106}
   m_Layer: 0
-  m_Name: GoalCamera
+  m_Name: Goal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1224,8 +1224,9 @@ MonoBehaviour:
   keyJRight: right
   keyJLeft: left
   keyTrigger: b
-  keyAttack: j
+  keyThrow: j
   keyCamera: Left Shift
+  keyAttack: j
   Dup: 0
   Dright: 0
   Dmag: 0
@@ -1238,8 +1239,9 @@ MonoBehaviour:
   isTriggered: 0
   isJumping: 0
   lockJumpStatus: 0
+  isThrowing: 0
   isAttacking: 0
-  canAttack: 1
+  canThrow: 1
   isAimStatus: 0
   ca: {fileID: 963194229}
   targetDup: 0
@@ -2056,14 +2058,16 @@ MonoBehaviour:
   - {fileID: 1342033731}
   bridge:
   - {fileID: 3390627141092689543}
-  targetPos:
+  lookAtStair:
   - {fileID: 894091825}
   - {fileID: 1904582440}
   - {fileID: 463662856}
+  lookAtDoor:
   - {fileID: 142236631}
   - {fileID: 327837109}
+  lookAtBridge:
   - {fileID: 455930050}
-  - {fileID: 265387105}
+  lookAtGoal: {fileID: 265387105}
   firstPerspect: {fileID: 525202988}
   weapon: {fileID: 4896021154492923860, guid: 603f11a32496ff64db2bc6b39ecaefb3, type: 3}
   usingWeapon: {fileID: 2039161747}

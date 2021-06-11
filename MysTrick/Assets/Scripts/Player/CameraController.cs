@@ -14,7 +14,10 @@ public class CameraController : MonoBehaviour
 	public StairController[] stair;
 	public DoorController[] door;
 	public BridgeController[] bridge;
-	public GameObject[] targetPos;
+	public GameObject[] lookAtStair;
+	public GameObject[] lookAtDoor;
+	public GameObject[] lookAtBridge;
+	public GameObject lookAtGoal;
 	public GameObject firstPerspect;
 	public GameObject weapon;
 	public GameObject usingWeapon;              //	今手が持っている武器
@@ -54,59 +57,6 @@ public class CameraController : MonoBehaviour
         checkCameraStatic();
     }
 
-	//  カメラ移動関数
-	private void cameraMove(Vector3 movePos, StairController stair, DoorController door, BridgeController bridge)
-	{
-		countTime -= Time.fixedDeltaTime;
-
-		if (countTime <= 9.0f && countTime > 6.0f)
-		{
-			//  親関係を解除
-			transform.parent = null;
-
-			transform.position = Vector3.Slerp(transform.position, movePos, 0.02f);
-
-			// 補完スピードを決める
-			float speed = 0.08f;
-			if (stair != null)
-			{
-				// ターゲット方向のベクトルを取得
-				relativePos = stair.transform.position - this.transform.position;
-			}
-			else if (door != null)
-			{
-				relativePos = door.transform.position - this.transform.position;
-			}
-			else if (bridge != null)
-			{
-				relativePos = bridge.transform.position - this.transform.position;
-			}
-			// 方向を、回転情報に変換
-			Quaternion rotation = Quaternion.LookRotation(relativePos);
-			// 現在の回転情報と、ターゲット方向の回転情報を補完する
-			transform.rotation = Quaternion.Slerp(this.transform.rotation, rotation, speed);
-		}
-		else if (countTime <= 4.0f && countTime >= 0.0f)
-		{
-			//  親関係になる
-			transform.SetParent(cameraHandle.transform);
-
-			//  位置を戻る
-			transform.position = Vector3.Slerp(transform.position, cameraBackPos.transform.position, 0.02f);
-
-			//  角度を戻る
-			transform.rotation = Quaternion.Slerp(transform.rotation, cameraBackPos.transform.rotation, Time.fixedDeltaTime * 1.0f);
-		}
-		else if (countTime < 0.0f)
-		{
-			cameraStatic = "Idle";
-
-			countTime = 10.0f;
-
-			pi.inputEnabled = true;
-		}
-	}
-
 	private void checkCameraStatic()
 	{
 		//  When Trigger are Stairs
@@ -118,6 +68,11 @@ public class CameraController : MonoBehaviour
 				pi.inputEnabled = false;
 				stair[i].hasDone = true;
 			}
+
+			if (cameraStatic == "MoveToStair" + (i + 1))
+			{
+				cameraMove(lookAtStair[i].transform.position, stair[i], null, null);
+			}
 		}
 		//  When Trigger are doors
 		for (int i = 0; i < door.Length; i++)
@@ -127,6 +82,11 @@ public class CameraController : MonoBehaviour
 				cameraStatic = "MoveToDoor" + (i + 1);
 				pi.inputEnabled = false;
 				door[i].hasDone = true;
+			}
+
+			if (cameraStatic == "MoveToDoor" + (i + 1))
+			{
+				cameraMove(lookAtDoor[i].transform.position, null, door[i], null);
 			}
 		}
 		//  When Trigger are bridges
@@ -138,33 +98,12 @@ public class CameraController : MonoBehaviour
 				pi.inputEnabled = false;
 				bridge[i].hasDone = true;
 			}
-		}
 
-		if (cameraStatic == "MoveToStair1")
-		{
-			cameraMove(targetPos[0].transform.position, stair[0], null, null);
+			if (cameraStatic == "MoveToBridge" + (i + 1))
+			{
+				cameraMove(lookAtBridge[i].transform.position, null, null, bridge[i]);
+			}
 		}
-		else if (cameraStatic == "MoveToStair2")
-		{
-			cameraMove(targetPos[1].transform.position, stair[1], null, null);
-		}
-		else if (cameraStatic == "MoveToStair3")
-		{
-			cameraMove(targetPos[2].transform.position, stair[2], null, null);
-		}
-		else if (cameraStatic == "MoveToDoor1")
-		{
-			cameraMove(targetPos[3].transform.position, null, door[0], null);
-		}
-		else if (cameraStatic == "MoveToDoor2")
-		{
-			cameraMove(targetPos[4].transform.position, null, door[1], null);
-		}
-		else if (cameraStatic == "MoveToBridge1")
-		{
-			cameraMove(targetPos[5].transform.position, null, null, bridge[0]);
-		}
-
 
 		if (!goal.gameClear && cameraStatic == "Idle")
 		{
@@ -181,15 +120,15 @@ public class CameraController : MonoBehaviour
 				}
                 else
                 {
-					if (pi.isAttacking)
+					if (pi.isThrowing)
 					{
 						Instantiate(weapon, transform.position + transform.forward * 1.5f, transform.rotation);
 
 						canThrowWeapon = false;
 
-						pi.canAttack = false;
+						pi.canThrow = false;
 
-						pi.isAttacking = false;
+						pi.isThrowing = false;
 					}
 
 					canRotate = true;
@@ -241,14 +180,67 @@ public class CameraController : MonoBehaviour
 			transform.SetParent(null);
 			cameraStatic = "GameClear";
 
-			transform.position = Vector3.Slerp(transform.position, targetPos[6].transform.position, 0.2f);
-			transform.rotation = Quaternion.Slerp(transform.rotation, targetPos[6].transform.rotation, Time.fixedDeltaTime * 3.0f);
+			transform.position = Vector3.Slerp(transform.position, lookAtStair[6].transform.position, 0.2f);
+			transform.rotation = Quaternion.Slerp(transform.rotation, lookAtStair[6].transform.rotation, Time.fixedDeltaTime * 3.0f);
 		}
 		
 		if (ac.isDead)
 		{
 			model.transform.localRotation = new Quaternion(0.0f, 180.0f, 90.0f, 0.0f);
 			gameObject.GetComponent<Camera>().fieldOfView = 20.0f;
+		}
+	}
+
+	//  カメラ移動関数
+	private void cameraMove(Vector3 movePos, StairController stair, DoorController door, BridgeController bridge)
+	{
+		countTime -= Time.fixedDeltaTime;
+
+		if (countTime <= 9.0f && countTime > 6.0f)
+		{
+			//  親関係を解除
+			transform.parent = null;
+
+			transform.position = Vector3.Slerp(transform.position, movePos, 0.02f);
+
+			// 補完スピードを決める
+			float speed = 0.08f;
+			if (stair != null)
+			{
+				// ターゲット方向のベクトルを取得
+				relativePos = stair.transform.position - this.transform.position;
+			}
+			else if (door != null)
+			{
+				relativePos = door.transform.position - this.transform.position;
+			}
+			else if (bridge != null)
+			{
+				relativePos = bridge.transform.position - this.transform.position;
+			}
+			// 方向を、回転情報に変換
+			Quaternion rotation = Quaternion.LookRotation(relativePos);
+			// 現在の回転情報と、ターゲット方向の回転情報を補完する
+			transform.rotation = Quaternion.Slerp(this.transform.rotation, rotation, speed);
+		}
+		else if (countTime <= 4.0f && countTime >= 0.0f)
+		{
+			//  親関係になる
+			transform.SetParent(cameraHandle.transform);
+
+			//  位置を戻る
+			transform.position = Vector3.Slerp(transform.position, cameraBackPos.transform.position, 0.02f);
+
+			//  角度を戻る
+			transform.rotation = Quaternion.Slerp(transform.rotation, cameraBackPos.transform.rotation, Time.fixedDeltaTime * 1.0f);
+		}
+		else if (countTime < 0.0f)
+		{
+			cameraStatic = "Idle";
+
+			countTime = 10.0f;
+
+			pi.inputEnabled = true;
 		}
 	}
 }

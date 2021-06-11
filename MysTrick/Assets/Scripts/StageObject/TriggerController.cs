@@ -27,7 +27,7 @@ public class TriggerController : MonoBehaviour
 	{
 		Player = GameObject.Find("PlayerHandle").GetComponent<PlayerInput>();
 
-		//hintUI = transform.Find("hintUI").gameObject;
+		hintUI = transform.Find("hintUI").gameObject;
 
 		if (handle.Length != 0 && transform.gameObject.tag == "Key")
 		{

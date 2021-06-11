@@ -11,7 +11,6 @@ public class CoinController : MonoBehaviour
     private new Rigidbody rigidbody;
     private ActorController ac;
     private bool getByPlayer;       //  プレイヤーと当たったflag
-    private float countTime;
 
     void Awake()
     {
@@ -36,7 +35,6 @@ public class CoinController : MonoBehaviour
                 radian = 0.0f;
             }
         }
-
 
         if (getByPlayer && transform.position.y < oldPos.y - 1.0f)
         {
