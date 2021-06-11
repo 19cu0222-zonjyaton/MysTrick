@@ -15,7 +15,7 @@ public class ObjectController : MonoBehaviour
 	{
 		OneWayMove,
 		TwoWayMove,
-		RotatePerSecond,
+		RotatePerAngle,
 		RotateToTarget,
 		WaitToStart
 	}
@@ -46,17 +46,24 @@ public class ObjectController : MonoBehaviour
 	private Vector3 nextTarget;
 	private float startSpeed;
 	private bool timeFlag = true;
-	private bool liftingFin;		// エレベーター使用完了フラグ
+	// エレベーター使用完了フラグ
+	private bool liftingFin;
+	// 回転可能フラグ
+	private bool canRotate = false;
+	// 回転開始までに準備時間
+	public float timeCount = 2.0f;
+	// 回転初期時間
+	private float timeReset;
 
 	// Start is called before the first frame update
 	void Start()
 	{
-		moveData.targetEuAng = Quaternion.Euler(moveData.targetAng);
 		moveData.startPosition = this.transform.position;
 		nextTarget = moveData.targetA.position;
 		startSpeed = moveData.speed;
 		ElevTimer = gameObject.GetComponent<TimerController>();
 		liftingFin = false;
+		timeReset = timeCount;
 	}
 
 	// Update is called once per frame
@@ -90,9 +97,23 @@ public class ObjectController : MonoBehaviour
 					}
 				}
 				break;
-			case Trajectory.RotatePerSecond:
+			case Trajectory.RotatePerAngle:
 				break;
 			case Trajectory.RotateToTarget:
+				if (canRotate)
+				{
+					timeCount -= Time.deltaTime;
+					// 回転開始
+					if (timeCount <= 0.0f)
+					{
+						moveData.targetEuAng = Quaternion.Euler(moveData.targetAng);
+						this.transform.rotation = Quaternion.Slerp(transform.rotation, moveData.targetEuAng, Time.deltaTime * moveData.speed);
+					}
+					else
+					{
+						timeCount = timeReset;
+					}
+				}
 				break;
 			case Trajectory.WaitToStart:
 				Vector3 currPosition = this.transform.position;

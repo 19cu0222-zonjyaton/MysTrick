@@ -24,7 +24,7 @@ public class TimeDelay : MonoBehaviour
 
 	private void InvokeDelayFunc()
 	{
-		//Debug.Log("Time Up!");
+		Debug.Log("Time Up!");
 		timeFlag = true;
 	}
 }

@@ -68,6 +68,45 @@ public class TriggerController : MonoBehaviour
 		}
 	}
 
+	private void OnCollisionEnter(Collision other)
+	{
+		// 武器に当たり
+		if (other.transform.tag == "Weapon")
+		{
+			if (this.transform.tag == "Device")
+			{
+				// 子オブジェクトに受け渡すメッセージ
+				this.transform.BroadcastMessage("DeviceOnTriggered", "sFootPlate");
+
+				// 子オブジェクトが存在し、階段が隠れた状態だったら、階段を示して稼働する
+				if (this.transform.childCount > 1)
+				{
+					if (this.transform.GetChild(2).gameObject.activeSelf)
+					{
+						this.transform.GetChild(2).gameObject.SetActive(false);
+					}
+					else
+					{
+						/*if (!hadDone)
+						{
+							if (this.gameObject.name == "sDevice003")
+							{
+								Destroy(GameObject.Find("TempCollider"));
+							}
+
+							cameraCanMoveToStair = true;
+
+							hadDone = true;
+						}*/
+						this.transform.GetChild(2).gameObject.SetActive(true);
+
+						this.transform.BroadcastMessage("DeviceOnTriggered", "sCamera");
+					}
+				}
+			}
+		}
+	}
+
 	private void OnCollisionStay(Collision other)
 	{
 		if (other.transform.tag == "Player")
