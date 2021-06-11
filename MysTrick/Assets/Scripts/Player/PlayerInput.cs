@@ -128,7 +128,7 @@ public class PlayerInput : MonoBehaviour
             isThrowing = true;
 		}
 
-        if ((Input.GetKeyDown(keyAttack)) && inputEnabled)
+        if ((Input.GetKeyDown(keyAttack) || Input.GetButtonDown("attack")) && canThrow && inputEnabled)
         {
             isAttacking = true;
         }
