@@ -27,7 +27,7 @@ public class ObjectController : MonoBehaviour
 	{
 		[Tooltip("For One Way Move")]
 		public Vector3 target;
-		[Tooltip("For Rotate To Target")]
+		[Tooltip("For Rotate To Target and Rotate Per Ang")]
 		public Vector3 targetAng;
 		[HideInInspector]
 		public Quaternion targetEuAng;
@@ -41,19 +41,31 @@ public class ObjectController : MonoBehaviour
 		public float speed;
 	}
 	public MoveData moveData;
-	public TriggerController triggerController;
+	public TriggerController Device;
 	public TimerController ElevTimer;
 	private Vector3 nextTarget;
 	private float startSpeed;
 	private bool timeFlag = true;
 	// エレベーター使用完了フラグ
 	private bool liftingFin;
+
+	//--------------------------------
+	// RotatePerAng用変数
+
 	// 回転可能フラグ
 	private bool canRotate = false;
 	// 回転開始までに準備時間
 	public float timeCount = 2.0f;
 	// 回転初期時間
 	private float timeReset;
+	private Vector3 nextEuAng;
+	//--------------------------------
+
+	void Awake()
+	{
+		moveData.targetEuAng = Quaternion.Euler(moveData.targetAng);
+		nextEuAng = transform.rotation.eulerAngles + moveData.targetAng;
+	}
 
 	// Start is called before the first frame update
 	void Start()
@@ -79,7 +91,7 @@ public class ObjectController : MonoBehaviour
 				break;
 			case Trajectory.TwoWayMove:
 				Vector3 curPosition = this.transform.position;
-				if (triggerController.isTriggered)
+				if (Device.isTriggered)
 				{
 					if (Mathf.Abs(curPosition.magnitude - nextTarget.magnitude) > 0.1f)
 					{
@@ -98,22 +110,32 @@ public class ObjectController : MonoBehaviour
 				}
 				break;
 			case Trajectory.RotatePerAngle:
-				break;
-			case Trajectory.RotateToTarget:
+				if (Device.isTriggered) canRotate = true;
+				Debug.Log(transform.rotation);
+				Debug.Log(transform.rotation.eulerAngles);
+				Debug.Log(moveData.targetAng);
+				Debug.Log(moveData.targetEuAng);
+				Debug.Log(nextEuAng);
+
 				if (canRotate)
 				{
 					timeCount -= Time.deltaTime;
 					// 回転開始
-					if (timeCount <= 0.0f)
+					if (timeCount >= -3.0f && timeCount <= 0.0f)
 					{
-						moveData.targetEuAng = Quaternion.Euler(moveData.targetAng);
-						this.transform.rotation = Quaternion.Slerp(transform.rotation, moveData.targetEuAng, Time.deltaTime * moveData.speed);
+						
+						this.transform.rotation = Quaternion.Slerp(this.transform.rotation, moveData.targetEuAng, Time.deltaTime * moveData.speed);
 					}
-					else
+					// 回転停止
+					else if (timeCount < -3.0f)
 					{
 						timeCount = timeReset;
+						canRotate = false;
+
 					}
 				}
+				break;
+			case Trajectory.RotateToTarget:
 				break;
 			case Trajectory.WaitToStart:
 				Vector3 currPosition = this.transform.position;

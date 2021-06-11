@@ -117,14 +117,14 @@ public class TriggerController : MonoBehaviour
 			{
 				isTriggered = true;
 				Player.isTriggered = false;
+				Debug.Log(this.transform.name + " has touched.");
 			}
 
 			if (this.transform.tag == "Key" && Player.isTriggered)
 			{
 				isTriggered = true;
-				Debug.Log(this.transform.name + " has touched.");
 				if (!kDoor.isTriggered) kDoor.isTriggered = true;
-				//Destroy(this.gameObject);
+				Debug.Log(this.transform.name + " has touched.");
 			}
 		}
 	}
