@@ -43,7 +43,7 @@ public class WeaponController : MonoBehaviour
     {
         if (cc.canThrowWeapon)
         {
-            if (!pi.canAttack)
+            if (!pi.canThrow)
             {
                 timeCount += Time.fixedDeltaTime;
                 anim.SetLayerWeight(anim.GetLayerIndex("Throw"), 1.0f);
@@ -105,7 +105,7 @@ public class WeaponController : MonoBehaviour
             }
 
             backToHand = true;
-            pi.canAttack = true;
+            pi.canThrow = true;
             cc.canThrowWeapon = true;
 
             transform.parent = rightHand.transform;

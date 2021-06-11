@@ -22,8 +22,9 @@ public class PlayerInput : MonoBehaviour
 	public string keyJLeft;
 
 	public string keyTrigger = "b";				
-	public string keyAttack = "j";
+	public string keyThrow = "j";
 	public string keyCamera = "LeftShift";
+	public string keyAttack = "k";
 
 	[Header("======= Output Signals =======")]
 	public float Dup;
@@ -36,13 +37,14 @@ public class PlayerInput : MonoBehaviour
 	public float Jright;
 
 	public bool inputEnabled = true;
-	public bool aimUI = false;
-	public bool isTriggered = false;
-	public bool isJumping = false;
-	public bool lockJumpStatus = false;
-	public bool isAttacking = false;
-	public bool canAttack = true;
-	public bool isAimStatus = false;
+	public bool aimUI;
+	public bool isTriggered;
+	public bool isJumping;
+	public bool lockJumpStatus;
+	public bool isThrowing;
+	public bool isAttacking;
+	public bool canThrow = true;
+	public bool isAimStatus;
 	public CameraController ca;
 	private GameObject playerCamera;
 
@@ -121,9 +123,14 @@ public class PlayerInput : MonoBehaviour
 			isJumping = false;
 		}
 
-        if ((Input.GetKeyDown(keyAttack) || Input.GetAxis("attack") == 1) && canAttack && inputEnabled)
+        if ((Input.GetKeyDown(keyThrow) || Input.GetAxis("throw") == 1) && canThrow && inputEnabled)
         {
-            isAttacking = true;
+            isThrowing = true;
+		}
+
+		if ((Input.GetKeyDown(keyAttack)) && inputEnabled)
+		{
+			isAttacking = true;
 		}
 
 		Dup = Mathf.SmoothDamp(Dup, targetDup, ref velocityDup, moveToTargetTime);

@@ -7,7 +7,6 @@ public class ThrowWeaponController : MonoBehaviour
     public float rotateSpeed;       //  回転速度
     public float speed;             //  スタートの移動速度
     
-    private GameObject swordWeapon;
     private new Rigidbody rigidbody;
     private GameObject playerPos;   //  プレイヤーの位置を獲得するため
     private PlayerInput pi;         //  攻撃ができるかどうかの判断
@@ -17,8 +16,6 @@ public class ThrowWeaponController : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        swordWeapon = GameObject.Find("UsingWeapon");
-
         rigidbody = gameObject.GetComponent<Rigidbody>();
 
         playerPos = GameObject.Find("PlayerHandle");
@@ -54,7 +51,7 @@ public class ThrowWeaponController : MonoBehaviour
     {
         if (collider.transform.tag == "Player")
         {
-            pi.canAttack = true;
+            pi.canThrow = true;
 
             playerCamera.GetComponent<CameraController>().canThrowWeapon = true;
 
