@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:MysTrick/Assets/Sprites/HeartUI.meta
 guid: 41c8e3b16a7646743a55ac0dc9e5f82e
+=======
+guid: 51dc2a7c44312604a88a8863485a08f1
+>>>>>>> stage2:MysTrick/Assets/Free Character Pack/Prefabs/Models.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}

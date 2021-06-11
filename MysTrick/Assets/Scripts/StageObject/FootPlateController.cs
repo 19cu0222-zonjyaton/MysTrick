@@ -29,26 +29,30 @@ public class FootPlateController : MonoBehaviour
 	{
 		if (isTriggered)
 		{
+			// 上昇開始
 			if (nextUpward)
 			{
 				// 上昇後の最終座標になるまで直線移動
-				if (this.transform.position.y != targetUp.position.y)
+				if (this.transform.position.x != targetUp.position.x || this.transform.position.y != targetUp.position.y)
 				{
 					this.transform.position = Vector3.MoveTowards(this.transform.position, targetUp.position, moveSpeed);
 				}
+				// 上昇終了、降下状態を準備
 				else
 				{
 					isTriggered = false;
 					nextUpward = false;
 				}
 			}
+			// 降下開始
 			else if (!nextUpward)
 			{
 				// 降下後の最終座標になるまで直線移動
-				if (this.transform.position.y != targetDown.position.y)
+				if (this.transform.position.x != targetDown.position.x || this.transform.position.y != targetDown.position.y)
 				{
 					this.transform.position = Vector3.MoveTowards(this.transform.position, targetDown.position, moveSpeed);
 				}
+				// 降下終了、上昇状態を準備
 				else
 				{
 					isTriggered = false;
@@ -58,12 +62,12 @@ public class FootPlateController : MonoBehaviour
 		}
 	}
 
-	public void DeviceOnTriggered(string msg)
+	/*public void DeviceOnTriggered(string msg)
 	{
 		if (msg == "sFootPlate")
 		{
 			if (!isTriggered) isTriggered = true;
 			//Debug.Log("Receive the message.");
 		}
-	}
+	}*/
 }
