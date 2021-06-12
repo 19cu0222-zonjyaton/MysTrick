@@ -11,6 +11,7 @@ public class ThrowWeaponController : MonoBehaviour
     private GameObject playerPos;   //  プレイヤーの位置を獲得するため
     private PlayerInput pi;         //  攻撃ができるかどうかの判断
     private GameObject playerCamera;
+    private WeaponController wc;
     private float speedDown;        //  戻る時の速度
 
     // Start is called before the first frame update
@@ -23,12 +24,15 @@ public class ThrowWeaponController : MonoBehaviour
         pi = GameObject.Find("PlayerHandle").GetComponent<PlayerInput>();
 
         playerCamera = GameObject.Find("Main Camera");
+
+        wc = GameObject.Find("UsingWeapon").GetComponent<WeaponController>();
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
         transform.Rotate(0.0f, rotateSpeed, 0.0f);
+        wc.backToHand = false;
         if (speed > 0.0f)
         {
             gameObject.transform.tag = "Weapon";
@@ -41,9 +45,9 @@ public class ThrowWeaponController : MonoBehaviour
         {
             gameObject.transform.tag = "Untagged";
 
-            speedDown += 0.004f;
+            speedDown += 0.2f;
 
-            transform.position = Vector3.Lerp(transform.position, playerPos.transform.position, speedDown);     //  プレイヤーの位置に戻る
+            transform.position = Vector3.Lerp(transform.position, playerPos.transform.position, speedDown * Time.fixedDeltaTime);     //  プレイヤーの位置に戻る
         }
     }
 
@@ -52,6 +56,8 @@ public class ThrowWeaponController : MonoBehaviour
         if (collider.transform.tag == "Player")
         {
             pi.canThrow = true;
+
+            wc.backToHand = true;
 
             playerCamera.GetComponent<CameraController>().canThrowWeapon = true;
 

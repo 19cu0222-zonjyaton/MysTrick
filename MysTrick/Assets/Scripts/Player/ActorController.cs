@@ -66,7 +66,7 @@ public class ActorController : MonoBehaviour
 
 		if (pi.Dmag > 0.1f && !pi.isAimStatus)
 		{
-			model.transform.forward = Vector3.Slerp(model.transform.forward, pi.Dvec, 0.3f);
+			model.transform.forward = Vector3.Slerp(model.transform.forward, pi.Dvec, 10.0f * Time.deltaTime);
 			movingVec = pi.Dmag * model.transform.forward;
 		}
 		else if (pi.Dmag > 0.1f && pi.isAimStatus)
@@ -83,7 +83,7 @@ public class ActorController : MonoBehaviour
 			anim.SetTrigger("Throw");
 
             pi.canThrow = false;
-
+			
 			pi.isThrowing = false;
 		}
 

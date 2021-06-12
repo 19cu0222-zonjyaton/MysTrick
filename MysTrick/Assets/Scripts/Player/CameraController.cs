@@ -111,7 +111,7 @@ public class CameraController : MonoBehaviour
 			{
 				transform.parent = null;
 
-				transform.position = Vector3.Slerp(transform.position, firstPerspect.transform.position, 0.2f);
+				transform.position = Vector3.Slerp(transform.position, firstPerspect.transform.position, 20.0f * Time.fixedDeltaTime);
 
 				if (transform.eulerAngles.x > 0.01f && !canRotate)		//	transform.eulerAngles　->	自身の回転角度を獲得できる		視点切り替え途中は回転できない
 				{
@@ -159,7 +159,7 @@ public class CameraController : MonoBehaviour
 				ac.moveSpeed = 5.0f;
 
 				//  位置を戻る
-				transform.position = Vector3.Slerp(transform.position, cameraBackPos.transform.position, 0.05f);
+				transform.position = Vector3.Slerp(transform.position, cameraBackPos.transform.position, 5.0f * Time.fixedDeltaTime);
 
 				transform.rotation = Quaternion.Slerp(transform.rotation, cameraBackPos.transform.rotation, Time.fixedDeltaTime * 6.0f);
 			}
@@ -180,7 +180,7 @@ public class CameraController : MonoBehaviour
 			transform.SetParent(null);
 			cameraStatic = "GameClear";
 
-			transform.position = Vector3.Slerp(transform.position, lookAtStair[6].transform.position, 0.2f);
+			transform.position = Vector3.Slerp(transform.position, lookAtStair[6].transform.position, 20.0f * Time.fixedDeltaTime);
 			transform.rotation = Quaternion.Slerp(transform.rotation, lookAtStair[6].transform.rotation, Time.fixedDeltaTime * 3.0f);
 		}
 		
@@ -201,7 +201,7 @@ public class CameraController : MonoBehaviour
 			//  親関係を解除
 			transform.parent = null;
 
-			transform.position = Vector3.Slerp(transform.position, movePos, 0.02f);
+			transform.position = Vector3.Slerp(transform.position, movePos, 2.0f * Time.fixedDeltaTime);
 
 			// 補完スピードを決める
 			float speed = 0.08f;
@@ -229,7 +229,7 @@ public class CameraController : MonoBehaviour
 			transform.SetParent(cameraHandle.transform);
 
 			//  位置を戻る
-			transform.position = Vector3.Slerp(transform.position, cameraBackPos.transform.position, 0.02f);
+			transform.position = Vector3.Slerp(transform.position, cameraBackPos.transform.position, 2.0f * Time.fixedDeltaTime);
 
 			//  角度を戻る
 			transform.rotation = Quaternion.Slerp(transform.rotation, cameraBackPos.transform.rotation, Time.fixedDeltaTime * 1.0f);
