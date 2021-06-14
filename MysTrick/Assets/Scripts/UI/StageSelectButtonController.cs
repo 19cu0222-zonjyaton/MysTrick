@@ -2,15 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
 
 public class StageSelectButtonController : MonoBehaviour
 {
-    public bool canSelected;
-    public Button btn;
-    public Image img;
-    private Vector3 startPos;
+    public bool canSelected;                    //  クリアしたかどうか
+    public GameObject confirmPanel;
+    public static string selectStageName;       //  選択したステージ名
+    private Button btn;
+    private Image img;
+    private Vector3 startPos;                   //  始点の位置
 
     void Awake()
     {
@@ -18,15 +19,17 @@ public class StageSelectButtonController : MonoBehaviour
 
         btn = gameObject.GetComponent<Button>();
 
-        btn.onClick.AddListener(StageSelect);
+        btn.onClick.AddListener(StageSelect);   //  監視メソッド
 
         startPos = transform.parent.position;
+
+        Application.targetFrameRate = 60;   //	FPSを60に固定する
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (!canSelected)
+        if (!canSelected)       //  画像の色
         {
             img.color = Color.grey;
         }
@@ -35,7 +38,7 @@ public class StageSelectButtonController : MonoBehaviour
             img.color = Color.white;
         }
 
-        if (EventSystem.current.currentSelectedGameObject.name == "Stage04")
+        if (EventSystem.current.currentSelectedGameObject.name == "Stage04")        //  button位置の移動処理
         {
             gameObject.transform.parent.position = Vector3.MoveTowards(transform.parent.position, startPos - new Vector3(300.0f, 0.0f, 0.0f), 500.0f * Time.deltaTime);
         }
@@ -47,24 +50,12 @@ public class StageSelectButtonController : MonoBehaviour
 
     public void StageSelect()
     {
-        if (canSelected)
+        if (canSelected)        //  確認画面に入る前の処理
         {
-            if (gameObject.name == "Stage01")
-            {
-                SceneManager.LoadScene("Stage01");
-            }
-            else if (gameObject.name == "Stage02")
-            {
-                SceneManager.LoadScene("Stage02");
-            }
-            else if (gameObject.name == "Stage03")
-            {
-                SceneManager.LoadScene("Stage03");
-            }
-            else if (gameObject.name == "Stage04")
-            {
-                SceneManager.LoadScene("Stage04");
-            }
+            confirmPanel.SetActive(true);
+            EventSystem.current.SetSelectedGameObject(GameObject.Find("OK"));       //  OKボタンを選択状態にする
+
+            selectStageName = gameObject.name;
         }
     }
 }
