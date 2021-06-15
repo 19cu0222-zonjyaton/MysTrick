@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class GoalController : MonoBehaviour
 {
-    private PlayerInput pi;
     public bool gameClear;
+    public ParticleSystem ps;
 
     public float perRadian;         //  毎回変化の弧度
     public float radius;
     public float radian;               //  弧度
     private Vector3 oldPos;
+    private PlayerInput pi;
 
     // Start is called before the first frame update
     void Awake()
@@ -46,6 +47,8 @@ public class GoalController : MonoBehaviour
             gameClear = true;
 
             pi.inputEnabled = false;
+
+            ps.Play();
         }
     }
 }

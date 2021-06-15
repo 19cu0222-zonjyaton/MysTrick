@@ -183,8 +183,8 @@ public class CameraController : MonoBehaviour
 			transform.SetParent(null);
 			cameraStatic = "GameClear";
 
-			transform.position = Vector3.Slerp(transform.position, lookAtStair[6].transform.position, 20.0f * Time.fixedDeltaTime);
-			transform.rotation = Quaternion.Slerp(transform.rotation, lookAtStair[6].transform.rotation, Time.fixedDeltaTime * 3.0f);
+			transform.position = Vector3.Slerp(transform.position, lookAtGoal.transform.position, 20.0f * Time.fixedDeltaTime);
+			transform.rotation = Quaternion.Slerp(transform.rotation, lookAtGoal.transform.rotation, Time.fixedDeltaTime * 3.0f);
 		}
 		
 		if (ac.isDead)
