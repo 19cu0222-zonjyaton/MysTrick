@@ -22,7 +22,7 @@ public class GoalController : MonoBehaviour
 
     void Update()
     {
-        if (!gameClear)
+        if (!gameClear && Time.deltaTime != 0)
         {
             transform.Rotate(0, 2.0f, 0);
 

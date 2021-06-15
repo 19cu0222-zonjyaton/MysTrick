@@ -7,9 +7,11 @@ using UnityEngine.EventSystems;
 
 public class StageSelectConfirmUIController : MonoBehaviour
 {
+    public GameObject maskPanel;
     public Animator animator;
     private Button btn;
     private bool isCancel;
+    private bool isOK;
     private float timeCount = 0.5f;
 
     void Awake()
@@ -27,11 +29,20 @@ public class StageSelectConfirmUIController : MonoBehaviour
             timeCount -= Time.deltaTime;
             if (timeCount < 0.0f)
             {
-                gameObject.transform.parent.gameObject.SetActive(false);
-                EventSystem.current.SetSelectedGameObject(GameObject.Find("Stage01"));       //  Stage01ボタンを選択状態にする
+                EventSystem.current.SetSelectedGameObject(GameObject.Find(StageSelectButtonController.selectStageName));       //  Stage01ボタンを選択状態にする
                 isCancel = false;
                 timeCount = 0.5f;
+                gameObject.transform.parent.gameObject.SetActive(false);
             }
+        }
+
+        if (isOK)
+        {
+            timeCount -= Time.deltaTime;
+            if (timeCount < -0.3f)
+            {
+                SceneManager.LoadScene(StageSelectButtonController.selectStageName);
+            }        
         }
     }
 
@@ -39,7 +50,8 @@ public class StageSelectConfirmUIController : MonoBehaviour
     {
         if (gameObject.name == "OK")
         {
-            SceneManager.LoadScene(StageSelectButtonController.selectStageName);
+            maskPanel.SetActive(true);
+            isOK = true;
         }
         else
         {

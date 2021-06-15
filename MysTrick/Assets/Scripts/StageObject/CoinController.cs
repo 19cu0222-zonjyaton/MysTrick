@@ -23,16 +23,19 @@ public class CoinController : MonoBehaviour
 
     void Update()
     {
-        transform.Rotate(0, 2.0f, 0);
-        if (!getByPlayer)
+        if (Time.deltaTime != 0)
         {
-            radian += perRadian;                //  毎回弧度を0.01をプラスする
-            float dy = Mathf.Cos(radian) * radius;
-            transform.position = oldPos + new Vector3(0, dy, 0);
-
-            if (radian >= 360.0f)
+            transform.Rotate(0, 2.0f, 0);
+            if (!getByPlayer)
             {
-                radian = 0.0f;
+                radian += perRadian;                //  毎回弧度を0.01をプラスする
+                float dy = Mathf.Cos(radian) * radius;
+                transform.position = oldPos + new Vector3(0, dy, 0);
+
+                if (radian >= 360.0f)
+                {
+                    radian = 0.0f;
+                }
             }
         }
 

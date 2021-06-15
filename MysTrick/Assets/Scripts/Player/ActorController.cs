@@ -35,7 +35,7 @@ public class ActorController : MonoBehaviour
 
 	[SerializeField]
 	private Animator anim;
-	private Animation animation;
+	private new Animation animation;
 	private Rigidbody rigid;
 	private Vector3 movingVec;
 	private GoalController gc;

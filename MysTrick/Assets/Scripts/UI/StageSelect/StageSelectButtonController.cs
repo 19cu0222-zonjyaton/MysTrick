@@ -23,7 +23,7 @@ public class StageSelectButtonController : MonoBehaviour
 
         startPos = transform.parent.position;
 
-        Application.targetFrameRate = 60;   //	FPSを60に固定する
+        Application.targetFrameRate = 60;       //	FPSを60に固定する
     }
 
     // Update is called once per frame
@@ -40,7 +40,7 @@ public class StageSelectButtonController : MonoBehaviour
 
         if (EventSystem.current.currentSelectedGameObject.name == "Stage04")        //  button位置の移動処理
         {
-            gameObject.transform.parent.position = Vector3.MoveTowards(transform.parent.position, startPos - new Vector3(300.0f, 0.0f, 0.0f), 500.0f * Time.deltaTime);
+            gameObject.transform.parent.position = Vector3.MoveTowards(transform.parent.position, startPos - new Vector3(600.0f, 0.0f, 0.0f), 500.0f * Time.deltaTime);
         }
         else if (EventSystem.current.currentSelectedGameObject.name == "Stage03")
         {

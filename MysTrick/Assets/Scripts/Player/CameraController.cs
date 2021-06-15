@@ -54,7 +54,10 @@ public class CameraController : MonoBehaviour
 	// Update is called once per frame
 	void LateUpdate()
 	{
-        checkCameraStatic();
+		if (Time.deltaTime != 0)
+		{
+			checkCameraStatic();
+		}
     }
 
 	private void checkCameraStatic()
