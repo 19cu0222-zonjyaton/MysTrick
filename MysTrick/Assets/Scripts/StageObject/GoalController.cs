@@ -1,24 +1,32 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GoalController : MonoBehaviour
 {
     public bool gameClear;
     public ParticleSystem ps;
+    public GameObject clearMask;
 
     public float perRadian;         //  毎回変化の弧度
     public float radius;
     public float radian;               //  弧度
+    public static string clearStageName = "";
     private Vector3 oldPos;
     private PlayerInput pi;
+    private CanvasGroup canvasGroup;
+    private float timeCount = 10.0f;
+    private bool doOnce;
 
     // Start is called before the first frame update
     void Awake()
     {
         pi = GameObject.Find("PlayerHandle").GetComponent<PlayerInput>();
 
-        oldPos = transform.position;        //  最初の位置    
+        oldPos = transform.position;        //  最初の位置 
+
+        canvasGroup = GetComponent<CanvasGroup>();
     }
 
     void Update()
@@ -34,6 +42,22 @@ public class GoalController : MonoBehaviour
             if (radian >= 360.0f)
             {
                 radian = 0.0f;
+            }
+        }
+       
+        if (gameClear)
+        {
+            clearMask.GetComponent<CanvasGroup>().alpha = 1;
+
+            timeCount -= Time.deltaTime;
+            if (timeCount >= 0.0f && timeCount < 3.0f)
+            {
+                clearMask.GetComponent<Animation>().Play();
+            }
+            else if (timeCount < 0.0f)
+            {
+                clearStageName = StageSelectButtonController.selectStageName;
+                SceneManager.LoadScene("StageSelect");
             }
         }
     }

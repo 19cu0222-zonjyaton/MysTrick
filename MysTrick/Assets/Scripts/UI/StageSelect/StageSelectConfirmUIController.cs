@@ -29,6 +29,7 @@ public class StageSelectConfirmUIController : MonoBehaviour
             timeCount -= Time.deltaTime;
             if (timeCount < 0.0f)
             {
+                StageSelectButtonController.outputConfirmUI = false;
                 EventSystem.current.SetSelectedGameObject(GameObject.Find(StageSelectButtonController.selectStageName));       //  Stage01ボタンを選択状態にする
                 isCancel = false;
                 timeCount = 0.5f;
@@ -41,6 +42,7 @@ public class StageSelectConfirmUIController : MonoBehaviour
             timeCount -= Time.deltaTime;
             if (timeCount < -0.3f)
             {
+                StageSelectButtonController.outputConfirmUI = false;
                 SceneManager.LoadScene(StageSelectButtonController.selectStageName);
             }        
         }

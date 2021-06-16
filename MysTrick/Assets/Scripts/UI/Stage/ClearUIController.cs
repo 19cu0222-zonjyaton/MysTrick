@@ -4,14 +4,13 @@ using UnityEngine;
 
 public class ClearUIController : MonoBehaviour
 {
-    private PlayerInput pi;
     private CameraController cc;
     private CanvasGroup canvasGroup;
+    private bool playAnim;
+    private bool doOnce;
 
     void Awake()
     {
-        pi = GameObject.Find("PlayerHandle").GetComponent<PlayerInput>();
-
         cc = GameObject.Find("Main Camera").GetComponent<CameraController>();
 
         canvasGroup = GetComponent<CanvasGroup>();
@@ -24,12 +23,13 @@ public class ClearUIController : MonoBehaviour
             canvasGroup.alpha = 1;
             canvasGroup.interactable = true;
             canvasGroup.blocksRaycasts = true;
+            playAnim = true;
         }
-        else
+
+        if (playAnim && !doOnce)
         {
-            canvasGroup.alpha = 0;
-            canvasGroup.interactable = false;
-            canvasGroup.blocksRaycasts = false;
+            gameObject.GetComponent<Animation>().Play();
+            doOnce = true;
         }
     }
 }
