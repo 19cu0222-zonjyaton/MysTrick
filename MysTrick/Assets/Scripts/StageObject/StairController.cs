@@ -24,7 +24,7 @@ public class StairController : MonoBehaviour
 
 	void Awake()
 	{
-		this.gameObject.SetActive(false);
+		//this.gameObject.SetActive(false);
 		isTriggered = false;
 		movePosY = this.transform.position.y + 9.3f;
 

@@ -114,13 +114,14 @@ public class TriggerController : MonoBehaviour
 				// 子オブジェクトに受け渡すメッセージ
 				this.transform.BroadcastMessage("DeviceOnTriggered", "sFootPlate");
 
+				isTriggered = true;
+
 				// TimerControllerを使用（武器に二重当たられることを防止）
 				try			// TimerControllerが的確に設置したか
 				{
 					// カウント終了
 					if (timeController.isFinish)
 					{
-
 						// 表示になった場合
 						if (Stair.transform.gameObject.activeSelf)
 						{
