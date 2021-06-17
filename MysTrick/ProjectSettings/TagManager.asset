@@ -11,7 +11,8 @@ TagManager:
   - FootPlate
   - Enemy
   - Weapon
-  - MovePoint
+  - RightPoint
+  - LeftPoint
   layers:
   - Default
   - TransparentFX

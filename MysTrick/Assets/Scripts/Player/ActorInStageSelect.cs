@@ -27,7 +27,7 @@ public class ActorInStageSelect : MonoBehaviour
             {
                 if (selectBtn < 4)
                 {
-                    if (Input.GetKeyDown(KeyCode.RightArrow))
+                    if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetAxis("axisX") > 0)
                     {
                         goRight = true;
                         selectBtn++;
@@ -36,7 +36,7 @@ public class ActorInStageSelect : MonoBehaviour
 
                 if (selectBtn > 1)
                 {
-                    if (Input.GetKeyDown(KeyCode.LeftArrow))
+                    if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetAxis("axisX") < 0)
                     {
                         goLeft = true;
                         selectBtn--;
@@ -107,11 +107,24 @@ public class ActorInStageSelect : MonoBehaviour
 
     void OnTriggerEnter(Collider collider)      //  止まる判定
     {
-        if (collider.transform.tag == "MovePoint")
+        if (collider.transform.tag == "RightPoint" && goRight)
+        {
+            isMove = false;
+            goRight = false;
+            animator.SetFloat("Forward", 0.0f);
+
+            for (int i = 0; i < btn.Length; i++)
+            {
+                btn[i].enabled = true;
+            }
+
+            EventSystem.current.SetSelectedGameObject(btn[selectBtn - 1].gameObject);
+        }
+
+        if (collider.transform.tag == "LeftPoint" && goLeft)
         {
             isMove = false;
             goLeft = false;
-            goRight = false;
             animator.SetFloat("Forward", 0.0f);
 
             for (int i = 0; i < btn.Length; i++)
