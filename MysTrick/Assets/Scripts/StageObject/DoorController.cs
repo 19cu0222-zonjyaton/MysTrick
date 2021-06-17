@@ -5,7 +5,7 @@ using UnityEngine;
 public class DoorController : MonoBehaviour
 {
 	public Vector3 dest;
-	public float speed;
+	public float speed = 5.0f;
 	public bool isTriggered;
 	public bool hasDone;				//	カメラ用参数
 	public float timeCount = 1.8f;		//	Triggerを出すまでの時間

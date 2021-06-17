@@ -4,6 +4,7 @@
 // 作成者			：鍾家同
 // 更新内容			：2021/04/13 作成
 //					：2021/05/23 更新　エレベーター用移動方法の変更
+//					：2021/06/11 更新　回転制御の追加（RotatePerAng）
 //-------------------------------------------------
 using System.Collections;
 using System.Collections.Generic;
@@ -15,27 +16,31 @@ public class ObjectController : MonoBehaviour
 	{
 		OneWayMove,
 		TwoWayMove,
+		AutoTwoWayMove,
 		RotatePerAngle,
 		RotateToTarget,
 		WaitToStart
 	}
+
+	//===調整用値===
 	[Header("移動方法")]
+	[Header("===調整用===")]
 	public Trajectory trajectory;
 
 	[System.Serializable]
 	public struct MoveData
 	{
-		[Tooltip("For One Way Move")]
-		public Vector3 target;
-		[Tooltip("For Rotate To Target and Rotate Per Ang")]
+		[Tooltip("For OneWayMove")]
+		public Transform target;
+		[Tooltip("For RotateToTarget, RotatePerAng")]
 		public Vector3 targetAng;
 		[HideInInspector]
 		public Quaternion targetEuAng;
 		[HideInInspector]
 		public Vector3 startPosition;
-		[Tooltip("For Two Way Move and Wait to Start")]
+		[Tooltip("For TwoWayMove, AutoWayMove, WaitToStart")]
 		public Transform targetA;
-		[Tooltip("For Two Way Move and Wait to Start")]
+		[Tooltip("For TwoWayMove, AutoWayMove, WaitToStart")]
 		public Transform targetB;
 		[Tooltip("For All")]
 		public float speed;
@@ -43,39 +48,43 @@ public class ObjectController : MonoBehaviour
 	public MoveData moveData;
 	public TriggerController Device;
 	public TimerController ElevTimer;
+	//==============
+
 	private Vector3 nextTarget;
 	private float startSpeed;
 	private bool timeFlag = true;
 	// エレベーター使用完了フラグ
 	private bool liftingFin;
 
-	//--------------------------------
 	// RotatePerAng用変数
-
+	//--------------------------------
 	// 回転可能フラグ
 	private bool canRotate = false;
 	// 回転開始までに準備時間
-	public float timeCount = 2.0f;
+	[Tooltip("For RotateToAng: The time before start rotating. ( <0: need preparing time.)")]
+	public float timeCount = -2.0f;
+	[Tooltip("For RotateToAng: The maximum time.")]
+	public float timeMax = 3.0f;
 	// 回転初期時間
 	private float timeReset;
-	private Vector3 nextEuAng;
+	private Vector3 nextAng;
 	//--------------------------------
 
 	void Awake()
 	{
 		moveData.targetEuAng = Quaternion.Euler(moveData.targetAng);
-		nextEuAng = transform.rotation.eulerAngles + moveData.targetAng;
-	}
-
-	// Start is called before the first frame update
-	void Start()
-	{
+		nextAng = transform.rotation.eulerAngles + moveData.targetAng;
 		moveData.startPosition = this.transform.position;
-		nextTarget = moveData.targetA.position;
+		if (moveData.targetB != null) nextTarget = moveData.targetB.position;
 		startSpeed = moveData.speed;
-		ElevTimer = gameObject.GetComponent<TimerController>();
 		liftingFin = false;
 		timeReset = timeCount;
+	}
+
+	void Start()
+	{
+		ElevTimer = gameObject.GetComponent<TimerController>();
+
 	}
 
 	// Update is called once per frame
@@ -85,12 +94,35 @@ public class ObjectController : MonoBehaviour
 		//Debug.Log(moveData.targetA.localPosition);
 		//Debug.Log(this.transform.position);
 		//Debug.Log(this.transform.localPosition);
+		Vector3 curPosition = this.transform.position;
 		switch (trajectory)
 		{
 			case Trajectory.OneWayMove:
+				if (Device.isTriggered)
+				{
+					if (Mathf.Abs(this.transform.localPosition.magnitude - nextTarget.magnitude) > 0.01f)
+					{
+						this.transform.localPosition = Vector3.MoveTowards(this.transform.localPosition, moveData.target.localPosition, moveData.speed * Time.deltaTime);
+					}
+					else Device.isTriggered = false;
+				}
 				break;
 			case Trajectory.TwoWayMove:
-				Vector3 curPosition = this.transform.position;
+				if (Device.isTriggered)
+				{
+					if (Mathf.Abs(this.transform.position.magnitude - nextTarget.magnitude) > 0.01f)
+					{
+						this.transform.position = Vector3.MoveTowards(this.transform.position, nextTarget, moveData.speed * Time.deltaTime);
+					}
+					else
+					{
+						Device.isTriggered = false;
+						if (nextTarget == moveData.targetB.position) nextTarget = moveData.targetA.position;
+						else nextTarget = moveData.targetB.position;
+					}
+				}
+				break;
+			case Trajectory.AutoTwoWayMove:
 				if (Device.isTriggered)
 				{
 					if (Mathf.Abs(curPosition.magnitude - nextTarget.magnitude) > 0.1f)
@@ -110,28 +142,30 @@ public class ObjectController : MonoBehaviour
 				}
 				break;
 			case Trajectory.RotatePerAngle:
+				//Debug.Log(transform.rotation);
+				//Debug.Log(transform.rotation.eulerAngles);
+				//Debug.Log(nextAng);
 				if (Device.isTriggered) canRotate = true;
-				Debug.Log(transform.rotation);
-				Debug.Log(transform.rotation.eulerAngles);
-				Debug.Log(moveData.targetAng);
-				Debug.Log(moveData.targetEuAng);
-				Debug.Log(nextEuAng);
-
 				if (canRotate)
 				{
-					timeCount -= Time.deltaTime;
+					// 回転開始までにカウントダウン
+					timeCount += Time.deltaTime;
 					// 回転開始
-					if (timeCount >= -3.0f && timeCount <= 0.0f)
+					if (timeCount <= timeMax && timeCount >= 0.0f)
 					{
-						
-						this.transform.rotation = Quaternion.Slerp(this.transform.rotation, moveData.targetEuAng, Time.deltaTime * moveData.speed);
+						// Quaternion.Slerp(Quaternion From, Quaternion To, Speed * deltaTime)
+						this.transform.rotation = Quaternion.Slerp(this.transform.rotation, Quaternion.Euler(nextAng), moveData.speed * Time.deltaTime);
 					}
 					// 回転停止
-					else if (timeCount < -3.0f)
+					else if (timeCount > timeMax)
 					{
+						// 角度の補正
+						if (this.transform.rotation != Quaternion.Euler(nextAng)) this.transform.rotation = Quaternion.Euler(nextAng);
+						nextAng += moveData.targetAng;
+						// 初期値に戻す
 						timeCount = timeReset;
 						canRotate = false;
-
+						Device.isTriggered = false;
 					}
 				}
 				break;

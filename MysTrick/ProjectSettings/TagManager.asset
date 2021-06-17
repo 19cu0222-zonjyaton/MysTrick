@@ -12,6 +12,7 @@ TagManager:
   - Enemy
   - Weapon
   - MovePoint
+  - Ladder
   layers:
   - Default
   - TransparentFX
