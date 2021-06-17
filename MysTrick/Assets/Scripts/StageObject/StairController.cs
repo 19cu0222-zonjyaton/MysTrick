@@ -34,8 +34,11 @@ public class StairController : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
-		if (Device.isCameraTriggered) isTriggered = true;
-		if (Device.isStairTriggered) moveToHere = true;
+		if (Device != null)
+		{
+			if (Device.isCameraTriggered) isTriggered = true;
+			if (Device.isStairTriggered) moveToHere = true;
+		}
 
 		if (moveToHere)
 		{
@@ -43,16 +46,16 @@ public class StairController : MonoBehaviour
 		}
 	}
 
-	/*public void DeviceOnTriggered(string msg)
-	{
-		if (msg == "sDevice")
-		{
-			moveToHere = true;
-		}
+	//public void DeviceOnTriggered(string msg)
+	//{
+	//	if (msg == "sDevice")
+	//	{
+	//		moveToHere = true;
+	//	}
 		
-		if (msg == "sCamera")
-		{
-			isTriggered = true;
-		}
-	}*/
+	//	if (msg == "sCamera")
+	//	{
+	//		isTriggered = true;
+	//	}
+	//}
 }
