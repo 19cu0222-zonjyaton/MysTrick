@@ -10,9 +10,14 @@ using UnityEngine;
 
 public class StairController : MonoBehaviour
 {
+
+	[Header("===調整用===")]
+	public TriggerController Device;
+
+	[Header("===監視用===")]
 	public bool isTriggered;
 	public bool moveToHere;				//	カメラ用参数
-	public bool hasDone;                //	カメラ用参数
+	public bool hasDone;				//	カメラ用参数
 
 	private float movePosY;
 	private float moveSpeed;
@@ -29,13 +34,16 @@ public class StairController : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
+		if (Device.isCameraTriggered) isTriggered = true;
+		if (Device.isStairTriggered) moveToHere = true;
+
 		if (moveToHere)
 		{
 			transform.position = Vector3.MoveTowards(this.transform.position, new Vector3(this.transform.position.x, movePosY, this.transform.position.z), moveSpeed / 2.0f * Time.deltaTime);	//	2秒で指定された位置に移動する
 		}
 	}
 
-	public void DeviceOnTriggered(string msg)
+	/*public void DeviceOnTriggered(string msg)
 	{
 		if (msg == "sDevice")
 		{
@@ -46,5 +54,5 @@ public class StairController : MonoBehaviour
 		{
 			isTriggered = true;
 		}
-	}
+	}*/
 }

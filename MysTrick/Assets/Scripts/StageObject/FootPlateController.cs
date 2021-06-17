@@ -10,6 +10,7 @@ using UnityEngine;
 
 public class FootPlateController : MonoBehaviour
 {
+	[Header("===調整用===")]
 	public Transform targetUp;			// 上昇後の最終座標
 	public Transform targetDown;		// 降下後の最終座標
 	public float moveSpeed = 0.01f;		// 移動速度
