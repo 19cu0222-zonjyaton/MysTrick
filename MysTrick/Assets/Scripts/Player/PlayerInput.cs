@@ -128,12 +128,12 @@ public class PlayerInput : MonoBehaviour
             isThrowing = true;
 		}
 
-        if ((Input.GetKeyDown(keyAttack) || Input.GetButtonDown("attack")) && canThrow && inputEnabled)
-        {
-            isAttacking = true;
-        }
+		if ((Input.GetKeyDown(keyAttack)) && inputEnabled)
+		{
+			isAttacking = true;
+		}
 
-        Dup = Mathf.SmoothDamp(Dup, targetDup, ref velocityDup, moveToTargetTime);
+		Dup = Mathf.SmoothDamp(Dup, targetDup, ref velocityDup, moveToTargetTime);
 		Dright = Mathf.SmoothDamp(Dright, targetDright, ref velocityDright, moveToTargetTime);
 
 		Vector2 tempDAxis = SquareToCircle(new Vector2(Dright, Dup));
@@ -141,12 +141,13 @@ public class PlayerInput : MonoBehaviour
 		float Dup2 = tempDAxis.y;
 
 		Dmag = Mathf.Sqrt((Dup2 * Dup2) + (Dright2 * Dright2));
-		if (Input.GetKey(KeyCode.LeftShift) || Input.GetButton("perspect"))		//	第一人視点を切り替え
+		//Dvec = Dright * transform.right + Dup * transform.forward;
+		if (Input.GetKey(KeyCode.LeftShift) || Input.GetButton("perspect"))
 		{
 			isAimStatus = true;
 			Dvec = Dright * playerCamera.transform.right + Dup * playerCamera.transform.forward;
 		}
-		else                                                                    //	第三人視点を切り替え
+		else
 		{
 			isAimStatus = false;
 			Dvec = Dright * transform.right + Dup * transform.forward;

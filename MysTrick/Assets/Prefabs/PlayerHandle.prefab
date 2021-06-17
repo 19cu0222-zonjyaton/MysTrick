@@ -691,9 +691,8 @@ MonoBehaviour:
   keyJRight: right
   keyJLeft: left
   keyTrigger: b
-  keyThrow: j
+  keyAttack: j
   keyCamera: Left Shift
-  keyAttack: k
   Dup: 0
   Dright: 0
   Dmag: 0
@@ -706,9 +705,8 @@ MonoBehaviour:
   isTriggered: 0
   isJumping: 0
   lockJumpStatus: 0
-  isThrowing: 0
   isAttacking: 0
-  canThrow: 1
+  canAttack: 1
   isAimStatus: 0
   ca: {fileID: 6563069688815288606}
   targetDup: 0
@@ -979,7 +977,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6563069688034356541}
-  - component: {fileID: 3058530906818590558}
   m_Layer: 0
   m_Name: R_Shoulder
   m_TagString: Untagged
@@ -1002,22 +999,6 @@ Transform:
   m_Father: {fileID: 6563069687170502506}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!111 &3058530906818590558
-Animation:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6563069688034356540}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Animation: {fileID: 7400000, guid: 2478dc63156bdae4c97f3b9505fe04e0, type: 2}
-  m_Animations:
-  - {fileID: 7400000, guid: 2478dc63156bdae4c97f3b9505fe04e0, type: 2}
-  m_WrapMode: 0
-  m_PlayAutomatically: 1
-  m_AnimatePhysics: 0
-  m_CullingType: 0
 --- !u!1 &6563069688124640819
 GameObject:
   m_ObjectHideFlags: 0
@@ -1359,8 +1340,8 @@ MonoBehaviour:
   rotateSpeed: 30
   speed: 40
   rightHand: {fileID: 6563069686944227443}
-  backToHand: 0
   model: {fileID: 6563069687167480267}
+  backToHand: 0
 --- !u!1 &6563069688780958413
 GameObject:
   m_ObjectHideFlags: 0
@@ -1499,10 +1480,7 @@ MonoBehaviour:
   stair: []
   door: []
   bridge: []
-  lookAtStair: []
-  lookAtDoor: []
-  lookAtBridge: []
-  lookAtGoal: {fileID: 0}
+  targetPos: []
   firstPerspect: {fileID: 6563069688358266861}
   weapon: {fileID: 4896021154492923860, guid: 603f11a32496ff64db2bc6b39ecaefb3, type: 3}
   usingWeapon: {fileID: 6563069688636543343}

@@ -15,7 +15,7 @@ public class ActorController : MonoBehaviour
 	public GameObject model;
 	public PlayerInput pi;
 	public GameObject weapon;       //	武器
-	public GameObject rightHand;    //	プレイヤーの右手
+	public GameObject rightHand;	//	プレイヤーの右手
 	public int hp;					//	プレイヤーHP
 	public int coinCount;           //	獲得したコイン数
 	public bool coinUIAction;       //  コインUIを動くための信号
@@ -35,7 +35,6 @@ public class ActorController : MonoBehaviour
 
 	[SerializeField]
 	private Animator anim;
-	private new Animation animation;
 	private Rigidbody rigid;
 	private Vector3 movingVec;
 	private GoalController gc;
@@ -47,15 +46,9 @@ public class ActorController : MonoBehaviour
 	void Awake()
 	{
 		pi = GetComponent<PlayerInput>();
-
 		anim = model.GetComponent<Animator>();
-
-		animation = GameObject.Find("R_Shoulder").GetComponent<Animation>();
-
 		rigid = GetComponent<Rigidbody>();
-
 		gc = GameObject.Find("Goal").GetComponent<GoalController>();
-
 		mesh = GameObject.Find("Model").GetComponent<SkinnedMeshRenderer>();
 	}
 
@@ -66,11 +59,12 @@ public class ActorController : MonoBehaviour
 
 		if (pi.Dmag > 0.1f && !pi.isAimStatus)
 		{
-			model.transform.forward = Vector3.Slerp(model.transform.forward, pi.Dvec, 10.0f * Time.deltaTime);
+			model.transform.forward = Vector3.Slerp(model.transform.forward, pi.Dvec, 0.3f);
 			movingVec = pi.Dmag * model.transform.forward;
 		}
 		else if (pi.Dmag > 0.1f && pi.isAimStatus)
 		{
+			//model.transform.forward = pi.Dvec;
 			movingVec = pi.Dmag * pi.Dvec;
 		}
 		else
@@ -80,27 +74,13 @@ public class ActorController : MonoBehaviour
 		
         if (pi.isThrowing && !pi.isAimStatus)
         {
+			//shootStart = true;
+
 			anim.SetTrigger("Throw");
 
             pi.canThrow = false;
-			
+
 			pi.isThrowing = false;
-		}
-
-        if (pi.isAttacking)
-        {
-			animation.Play();
-			
-			pi.isAttacking = false;
-		}
-
-		if (animation.isPlaying)
-		{
-			weapon.transform.tag = "Weapon";
-		}
-		else
-		{
-			weapon.transform.tag = "Untagged";
 		}
 
 		checkIsUnderDamage();
