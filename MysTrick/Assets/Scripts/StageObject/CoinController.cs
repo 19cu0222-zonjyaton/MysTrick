@@ -7,7 +7,7 @@ public class CoinController : MonoBehaviour
     public float perRadian;         //  毎回変化の弧度
     public float radius;
     public float radian;            //  弧度
-    private Vector3 startPos;
+    private Vector3 oldPos;
     private new Rigidbody rigidbody;
     private ActorController ac;
     private bool getByPlayer;       //  プレイヤーと当たったflag
@@ -15,7 +15,7 @@ public class CoinController : MonoBehaviour
 
     void Awake()
     {
-        startPos = transform.position;        //  最初の位置    
+        oldPos = transform.position;        //  最初の位置    
 
         rigidbody = gameObject.GetComponent<Rigidbody>();
 
@@ -31,7 +31,7 @@ public class CoinController : MonoBehaviour
             {
                 radian += perRadian;                //  毎回弧度を0.01をプラスする
                 float dy = Mathf.Cos(radian) * radius;
-                transform.position = startPos + new Vector3(0, dy, 0);
+                transform.position = oldPos + new Vector3(0, dy, 0);
 
                 if (radian >= 360.0f)
                 {
@@ -40,7 +40,7 @@ public class CoinController : MonoBehaviour
             }
         }
 
-        if (getByPlayer && transform.position.y < startPos.y - 0.7f)
+        if (getByPlayer && transform.position.y < oldPos.y - 0.7f)
         {
             Destroy(this.gameObject);
         }

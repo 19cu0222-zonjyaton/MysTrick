@@ -4,58 +4,64 @@ using UnityEngine;
 
 public class ThrowWeaponController : MonoBehaviour
 {
-	public float rotateSpeed;       //  回転速度
-	public float speed;             //  スタートの移動速度
-	
-	private new Rigidbody rigidbody;
-	private GameObject playerPos;   //  プレイヤーの位置を獲得するため
-	private PlayerInput pi;         //  攻撃ができるかどうかの判断
-	private GameObject playerCamera;
-	private float speedDown;        //  戻る時の速度
+    public float rotateSpeed;       //  回転速度
+    public float speed;             //  スタートの移動速度
+    
+    private new Rigidbody rigidbody;
+    private GameObject playerPos;   //  プレイヤーの位置を獲得するため
+    private PlayerInput pi;         //  攻撃ができるかどうかの判断
+    private GameObject playerCamera;
+    private WeaponController wc;
+    private float speedDown;        //  戻る時の速度
 
-	// Start is called before the first frame update
-	void Awake()
-	{
-		rigidbody = gameObject.GetComponent<Rigidbody>();
+    // Start is called before the first frame update
+    void Awake()
+    {
+        rigidbody = gameObject.GetComponent<Rigidbody>();
 
-		playerPos = GameObject.Find("PlayerHandle");
+        playerPos = GameObject.Find("PlayerHandle");
 
-		pi = GameObject.Find("PlayerHandle").GetComponent<PlayerInput>();
+        pi = GameObject.Find("PlayerHandle").GetComponent<PlayerInput>();
 
-		playerCamera = GameObject.Find("Main Camera");
-	}
+        playerCamera = GameObject.Find("Main Camera");
 
-	// Update is called once per frame
-	void FixedUpdate()
-	{
-		transform.Rotate(0.0f, rotateSpeed, 0.0f);
-		if (speed > 0.0f)
-		{
-			gameObject.transform.tag = "Weapon";
+        wc = GameObject.Find("UsingWeapon").GetComponent<WeaponController>();
+    }
 
-			rigidbody.position += playerCamera.transform.forward * speed * Time.fixedDeltaTime;     //  カメラの正方向に一定距離を移動する
+    // Update is called once per frame
+    void FixedUpdate()
+    {
+        transform.Rotate(0.0f, rotateSpeed, 0.0f);
+        wc.backToHand = false;
+        if (speed > 0.0f)
+        {
+            gameObject.transform.tag = "Weapon";
 
-			speed -= 1.5f;
-		}
-		else
-		{
-			gameObject.transform.tag = "Untagged";
+            rigidbody.position += playerCamera.transform.forward * speed * Time.fixedDeltaTime;     //  カメラの正方向に一定距離を移動する
 
-			speedDown += 0.004f;
+            speed -= 1.5f;
+        }
+        else
+        {
+            gameObject.transform.tag = "Untagged";
 
-			transform.position = Vector3.Lerp(transform.position, playerPos.transform.position, speedDown);     //  プレイヤーの位置に戻る
-		}
-	}
+            speedDown += 0.2f;
 
-	void OnTriggerEnter(Collider collider)
-	{
-		if (collider.transform.tag == "Player")
-		{
-			pi.canThrow = true;
+            transform.position = Vector3.Lerp(transform.position, playerPos.transform.position, speedDown * Time.fixedDeltaTime);     //  プレイヤーの位置に戻る
+        }
+    }
 
-			playerCamera.GetComponent<CameraController>().canThrowWeapon = true;
+    void OnTriggerEnter(Collider collider)
+    {
+        if (collider.transform.tag == "Player")
+        {
+            pi.canThrow = true;
 
-			Destroy(this.gameObject);
-		}
-	}
+            wc.backToHand = true;
+
+            playerCamera.GetComponent<CameraController>().canThrowWeapon = true;
+
+            Destroy(this.gameObject);
+        }
+    }
 }
