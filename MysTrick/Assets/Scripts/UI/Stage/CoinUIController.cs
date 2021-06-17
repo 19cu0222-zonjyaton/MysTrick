@@ -28,19 +28,19 @@ public class CoinUIController : MonoBehaviour
             countTime += Time.deltaTime;
             if (countTime <= 0.08f)
             {
-                transform.localPosition = Vector3.MoveTowards(transform.localPosition, transform.localPosition + new Vector3(0.0f, 4.0f, 0.0f), 20.0f * Time.deltaTime);
+                transform.localPosition = Vector3.MoveTowards(transform.localPosition, transform.localPosition + new Vector3(0.0f, 4.0f, 0.0f), 200.0f * Time.deltaTime);
             }
             else if (countTime > 0.08f && countTime <= 0.16f)
             {
-                transform.localPosition = Vector3.MoveTowards(transform.localPosition, oldPos, 45.0f * Time.deltaTime);
+                transform.localPosition = Vector3.MoveTowards(transform.localPosition, oldPos, 450.0f * Time.deltaTime);
             }
             else if (countTime > 0.16f && countTime <= 0.18f)
             {
-                transform.localPosition = Vector3.MoveTowards(transform.localPosition, transform.localPosition + new Vector3(0.0f, 2.5f, 0.0f), 60.0f * Time.deltaTime);
+                transform.localPosition = Vector3.MoveTowards(transform.localPosition, transform.localPosition + new Vector3(0.0f, 2.5f, 0.0f), 600.0f * Time.deltaTime);
             }
             else if (countTime > 0.18f && countTime <= 0.2f)
             {
-                transform.localPosition = Vector3.MoveTowards(transform.localPosition, oldPos, 100.0f * Time.deltaTime);
+                transform.localPosition = Vector3.MoveTowards(transform.localPosition, oldPos, 1000.0f * Time.deltaTime);
             }
             else
             {
