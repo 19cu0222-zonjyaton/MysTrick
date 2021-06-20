@@ -17,6 +17,8 @@ public class WeaponController : MonoBehaviour
     private Vector3 tempVec;
     private float speedDown;        //  戻る時の速度
     private float timeCount;
+    private Vector3 startPos;
+    private Vector3 startRot;
     private CameraController cc;
 
     void Awake()
@@ -30,6 +32,10 @@ public class WeaponController : MonoBehaviour
         pi = GameObject.Find("PlayerHandle").GetComponent<PlayerInput>();
 
         anim = GameObject.Find("PlayerModule").GetComponent<Animator>();
+
+        startPos = transform.localPosition;
+
+        startRot = transform.localEulerAngles;
 
         cc = GameObject.Find("Main Camera").GetComponent<CameraController>();
     }
@@ -105,8 +111,8 @@ public class WeaponController : MonoBehaviour
             speed = 40.0f;
             timeCount = 0.0f;
             anim.SetLayerWeight(anim.GetLayerIndex("Throw"), 0.0f);
-            transform.localPosition = new Vector3(-0.2f, 0.06f, 1.12f);             //  親に相対の座標を設定する
-            transform.localEulerAngles = new Vector3(16.0f, 67.0f, 170.0f);         //  親に相対の角度を設定する
+            transform.localPosition = startPos;                     //  親に相対の座標を設定する
+            transform.localEulerAngles = startRot;                  //  親に相対の角度を設定する   
             rigidbody.constraints = RigidbodyConstraints.FreezeAll;
         }
     }

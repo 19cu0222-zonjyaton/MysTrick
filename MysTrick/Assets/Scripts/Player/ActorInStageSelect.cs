@@ -70,15 +70,15 @@ public class ActorInStageSelect : MonoBehaviour
 
                 if (selectBtn == 1)
                 {
-                    transform.rotation = Quaternion.Lerp(transform.rotation, target[0].transform.rotation, 15.0f * Time.deltaTime);
+                    transform.rotation = Quaternion.Lerp(transform.rotation, target[0].transform.rotation, 5.0f * Time.deltaTime);
                 }
                 else if (selectBtn == 2)
                 {
-                     transform.rotation = Quaternion.Lerp(transform.rotation, target[5].transform.rotation, 15.0f * Time.deltaTime);
+                     transform.rotation = Quaternion.Lerp(transform.rotation, target[5].transform.rotation, 5.0f * Time.deltaTime);
                 }
                 else if (selectBtn == 3)
                 {
-                    transform.rotation = Quaternion.Lerp(transform.rotation, target[4].transform.rotation, 15.0f * Time.deltaTime);
+                    transform.rotation = Quaternion.Lerp(transform.rotation, target[4].transform.rotation, 5.0f * Time.deltaTime);
                 }
             }
             else if (goRight)
@@ -90,15 +90,15 @@ public class ActorInStageSelect : MonoBehaviour
 
                 if (selectBtn == 2)
                 {                    
-                    transform.rotation = Quaternion.Lerp(transform.rotation, target[1].transform.rotation, 15.0f * Time.deltaTime);
+                    transform.rotation = Quaternion.Lerp(transform.rotation, target[1].transform.rotation, 5.0f * Time.deltaTime);
                 }
                 else if (selectBtn == 3)
                 {
-                    transform.rotation = Quaternion.Lerp(transform.rotation, target[2].transform.rotation, 15.0f * Time.deltaTime);
+                    transform.rotation = Quaternion.Lerp(transform.rotation, target[2].transform.rotation, 5.0f * Time.deltaTime);
                 }
                 else if (selectBtn == 4)
                 {
-                    transform.rotation = Quaternion.Lerp(transform.rotation, target[3].transform.rotation, 15.0f * Time.deltaTime);
+                    transform.rotation = Quaternion.Lerp(transform.rotation, target[3].transform.rotation, 5.0f * Time.deltaTime);
                 }
             }
         }
