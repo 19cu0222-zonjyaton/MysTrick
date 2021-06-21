@@ -16691,6 +16691,16 @@ PrefabInstance:
       propertyPath: dest.z
       value: 1.91
       objectReference: {fileID: 0}
+    - target: {fileID: 8573539571656462562, guid: ecd98b321cd675f4bbb4fb7d45afbb5a,
+        type: 3}
+      propertyPath: cameraBackTime
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8573539571656462562, guid: ecd98b321cd675f4bbb4fb7d45afbb5a,
+        type: 3}
+      propertyPath: cameraMoveTime
+      value: 9
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ecd98b321cd675f4bbb4fb7d45afbb5a, type: 3}
 --- !u!1 &1761402439
@@ -19377,6 +19387,8 @@ MonoBehaviour:
   isTriggered: 0
   moveToHere: 0
   hasDone: 0
+  cameraMoveTime: 9
+  cameraBackTime: 4
 --- !u!1 &2292561678080782655
 GameObject:
   m_ObjectHideFlags: 0
@@ -19810,6 +19822,16 @@ PrefabInstance:
       propertyPath: dest.z
       value: -8.9884
       objectReference: {fileID: 0}
+    - target: {fileID: 8573539571656462562, guid: ecd98b321cd675f4bbb4fb7d45afbb5a,
+        type: 3}
+      propertyPath: cameraBackTime
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8573539571656462562, guid: ecd98b321cd675f4bbb4fb7d45afbb5a,
+        type: 3}
+      propertyPath: cameraMoveTime
+      value: 9
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ecd98b321cd675f4bbb4fb7d45afbb5a, type: 3}
 --- !u!4 &2932322015339704146
@@ -20172,6 +20194,8 @@ MonoBehaviour:
   speed: 5
   hasDone: 0
   timeCount: 1.8
+  cameraMoveTime: 9
+  cameraBackTime: 4
 --- !u!33 &3402121951656632165
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -20702,6 +20726,8 @@ MonoBehaviour:
   isTriggered: 0
   moveToHere: 0
   hasDone: 0
+  cameraMoveTime: 9
+  cameraBackTime: 4
 --- !u!1 &4512840776047424802
 GameObject:
   m_ObjectHideFlags: 0
@@ -22209,6 +22235,8 @@ MonoBehaviour:
   isTriggered: 0
   moveToHere: 0
   hasDone: 0
+  cameraMoveTime: 9
+  cameraBackTime: 4
 --- !u!4 &7318597132522485294
 Transform:
   m_ObjectHideFlags: 0

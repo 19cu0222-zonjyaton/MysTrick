@@ -16,9 +16,11 @@ public class ActorController : MonoBehaviour
 	public PlayerInput pi;
 	public GameObject weapon;       //	武器
 	public GameObject rightHand;    //	プレイヤーの右手
+	public ClimbCheck cc;
 	public int hp;					//	プレイヤーHP
 	public int coinCount;           //	獲得したコイン数
 	public bool coinUIAction;       //  コインUIを動くための信号
+	public bool climbEnd;
 	public bool isDead;
 
 	//============================
@@ -156,7 +158,7 @@ public class ActorController : MonoBehaviour
 
 	private void checkPlayerIsDead()	//	死亡処理
 	{
-		if (hp <= 0 || transform.position.y < -10.0f)
+		if (hp <= 0 || transform.position.y < -20.0f)
 		{
 			isDead = true;
 		}
@@ -176,6 +178,19 @@ public class ActorController : MonoBehaviour
 		{
 			isInTrigger = true;
 		}
+
+		if (cc != null)
+		{
+			if ((cc.nowLayer == 1 || cc.nowLayer == 3) && collider.transform.name == "ClimbStart1")
+			{
+				climbEnd = true;
+			}
+			else if(cc.nowLayer == 2 && collider.transform.name == "ClimbFinish1")
+			{
+				climbEnd = true;
+			}
+		}
+
 	}
 
 	private void OnTriggerExit(Collider collider)

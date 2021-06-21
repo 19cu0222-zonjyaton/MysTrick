@@ -94,7 +94,7 @@ public class WeaponController : MonoBehaviour
             {
                 gameObject.GetComponent<MeshRenderer>().enabled = true;
             }
-        }    
+        }
     }
 
     void OnTriggerEnter(Collider collider)
