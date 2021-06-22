@@ -15,10 +15,12 @@ public class CameraController : MonoBehaviour
 	public DoorController[] door;
 	public BridgeController[] bridge;
 	public LadderController[] ladder;
+	public ObjectController[] ob;
 	public GameObject[] lookAtStair;
 	public GameObject[] lookAtDoor;
 	public GameObject[] lookAtBridge;
 	public GameObject[] lookAtLadder;
+	public GameObject[] lookAtObject;
 	public GameObject lookAtGoal;
 	public GameObject firstPerspect;
 	public GameObject weapon;
@@ -28,7 +30,8 @@ public class CameraController : MonoBehaviour
 	private ActorController ac;
 	private GameObject cameraHandle;
 	private GameObject playerHandle;
-	private float tempEulerX;
+	private float aimEulerX;					//	狙う状態のカメラX軸回転値
+	private float idleEulerX;
 	private GameObject model;
 	private SkinnedMeshRenderer smr;
 	private float countTime = 10.0f;            //  カメラ視角切り替えの時間
@@ -76,7 +79,7 @@ public class CameraController : MonoBehaviour
 
 			if (cameraStatic == "MoveToStair" + (i + 1))
 			{
-				cameraMove(lookAtStair[i].transform.position, stair[i], null, null, null);
+				cameraMove(lookAtStair[i].transform.position, stair[i].gameObject);
 			}
 		}
 		//  When Trigger are doors
@@ -91,7 +94,7 @@ public class CameraController : MonoBehaviour
 
 			if (cameraStatic == "MoveToDoor" + (i + 1))
 			{
-				cameraMove(lookAtDoor[i].transform.position, null, door[i], null, null);
+				cameraMove(lookAtDoor[i].transform.position, door[i].gameObject);
 			}
 		}
 		//  When Trigger are bridges
@@ -106,7 +109,7 @@ public class CameraController : MonoBehaviour
 
 			if (cameraStatic == "MoveToBridge" + (i + 1))
 			{
-				cameraMove(lookAtBridge[i].transform.position, null, null, bridge[i], null);
+				cameraMove(lookAtBridge[i].transform.position, bridge[i].gameObject);
 			}
 		}
 
@@ -122,7 +125,23 @@ public class CameraController : MonoBehaviour
 
 			if (cameraStatic == "MoveToLadder" + (i + 1))
 			{
-				cameraMove(lookAtLadder[i].transform.position, null, null, null, ladder[i]);
+				cameraMove(lookAtLadder[i].transform.position, ladder[i].gameObject);
+			}
+		}
+
+		//  When Trigger are object
+		for (int i = 0; i < ob.Length; i++)
+		{
+			if (ob[i].isTrigger && !ob[i].hasDone)
+			{
+				cameraStatic = "MoveToObject" + (i + 1);
+				pi.inputEnabled = false;
+				ob[i].hasDone = true;
+			}
+
+			if (cameraStatic == "MoveToObject" + (i + 1))
+			{
+				cameraMove(lookAtObject[i].transform.position, ob[i].gameObject);
 			}
 		}
 
@@ -137,7 +156,7 @@ public class CameraController : MonoBehaviour
 				if (transform.eulerAngles.x > 0.01f && !canRotate)      //	transform.eulerAngles　->	自身の回転角度を獲得できる		視点切り替え途中は回転できない
 				{
 					transform.rotation = Quaternion.Slerp(transform.rotation, firstPerspect.transform.rotation, Time.fixedDeltaTime * 12.0f);
-					tempEulerX = 0.0f;
+					aimEulerX = 0.0f;
 				}
 				else
 				{
@@ -154,10 +173,10 @@ public class CameraController : MonoBehaviour
 
 					canRotate = true;
 					ac.moveSpeed = 2.0f;
-					tempEulerX -= pi.Jup * verticalSpeed * 3.0f * Time.fixedDeltaTime;
-					transform.Rotate(Vector3.up, pi.Jright * 120 * Time.fixedDeltaTime);
-					tempEulerX = Mathf.Clamp(tempEulerX, -80, 80);                  //  縦の回転角を制限する
-					transform.localEulerAngles = new Vector3(tempEulerX, transform.localEulerAngles.y, 0);
+					aimEulerX -= pi.Jup * verticalSpeed * 2.0f * Time.fixedDeltaTime;
+					transform.Rotate(Vector3.up, pi.Jright * 80 * Time.fixedDeltaTime);
+					aimEulerX = Mathf.Clamp(aimEulerX, -80, 80);                  //  縦の回転角を制限する
+					transform.localEulerAngles = new Vector3(aimEulerX, transform.localEulerAngles.y, 0);
 
 					smr.enabled = false;
 				}
@@ -166,10 +185,10 @@ public class CameraController : MonoBehaviour
 			{
 				Vector3 tempModelEuler = model.transform.eulerAngles;
 				playerHandle.transform.Rotate(Vector3.up, pi.Jright * horizontalSpeed * Time.fixedDeltaTime);
-				tempEulerX -= pi.Jup * verticalSpeed * Time.fixedDeltaTime;
-				tempEulerX = Mathf.Clamp(tempEulerX, -25, 15);                      //  縦の回転角を制限する
+				idleEulerX -= pi.Jup * verticalSpeed * Time.fixedDeltaTime;
+				idleEulerX = Mathf.Clamp(idleEulerX, -25, 15);                      //  縦の回転角を制限する
 
-				cameraHandle.transform.localEulerAngles = new Vector3(tempEulerX, 0, 0);
+				cameraHandle.transform.localEulerAngles = new Vector3(idleEulerX, 0, 0);
 
 				model.transform.eulerAngles = tempModelEuler;
 
@@ -182,16 +201,16 @@ public class CameraController : MonoBehaviour
 				//  位置を戻る
 				transform.position = Vector3.Slerp(transform.position, cameraBackPos.transform.position, 5.0f * Time.fixedDeltaTime);
 
-				transform.rotation = Quaternion.Slerp(transform.rotation, cameraBackPos.transform.rotation, Time.fixedDeltaTime * 6.0f);
+				transform.rotation = Quaternion.Slerp(transform.rotation, cameraBackPos.transform.rotation, 6.0f * Time.fixedDeltaTime);
 			}
 			else if (pi.lockJumpStatus) //	is jumping
 			{
 				Vector3 tempModelEuler = model.transform.eulerAngles;
 				playerHandle.transform.Rotate(Vector3.up, pi.Jright * horizontalSpeed * Time.fixedDeltaTime);
-				tempEulerX -= pi.Jup * verticalSpeed * Time.fixedDeltaTime;
-				tempEulerX = Mathf.Clamp(tempEulerX, -25, 15);
+				idleEulerX -= pi.Jup * verticalSpeed * Time.fixedDeltaTime;
+				idleEulerX = Mathf.Clamp(idleEulerX, -25, 15);
 
-				cameraHandle.transform.localEulerAngles = new Vector3(tempEulerX, 0, 0);   //  縦の回転角を制限する
+				cameraHandle.transform.localEulerAngles = new Vector3(idleEulerX, 0, 0);   //  縦の回転角を制限する
 
 				model.transform.eulerAngles = tempModelEuler;
 			}
@@ -202,7 +221,8 @@ public class CameraController : MonoBehaviour
 			cameraStatic = "GameClear";
 
 			transform.position = Vector3.Slerp(transform.position, lookAtGoal.transform.position, 20.0f * Time.fixedDeltaTime);
-			transform.rotation = Quaternion.Slerp(transform.rotation, lookAtGoal.transform.rotation, Time.fixedDeltaTime * 3.0f);
+			transform.rotation = Quaternion.Slerp(transform.rotation, lookAtGoal.transform.rotation, 3.0f * Time.fixedDeltaTime);
+			transform.LookAt(playerHandle.transform);
 		}
 		
 		if (ac.isDead)
@@ -213,9 +233,9 @@ public class CameraController : MonoBehaviour
 	}
 
 	//  カメラ移動関数
-	private void cameraMove(Vector3 movePos, StairController stair, DoorController door, BridgeController bridge, LadderController ladder)
+	private void cameraMove(Vector3 movePos, GameObject target)
 	{
-		countTime -= Time.fixedDeltaTime;
+		countTime -= Time.fixedDeltaTime * 1.2f;
 
 		if (countTime <= 9.0f && countTime > 6.0f)
 		{
@@ -226,22 +246,10 @@ public class CameraController : MonoBehaviour
 
 			// 補完スピードを決める
 			float speed = 0.08f;
-			if (stair != null)
+			if (target != null)
 			{
 				// ターゲット方向のベクトルを取得
-				relativePos = stair.transform.position - this.transform.position;
-			}
-			else if (door != null)
-			{
-				relativePos = door.transform.position - this.transform.position;
-			}
-			else if (bridge != null)
-			{
-				relativePos = bridge.transform.position - this.transform.position;
-			}
-			else if (ladder != null)
-			{
-				relativePos = ladder.transform.position - this.transform.position;
+				relativePos = target.transform.position - this.transform.position;
 			}
 			// 方向を、回転情報に変換
 			Quaternion rotation = Quaternion.LookRotation(relativePos);
@@ -257,7 +265,7 @@ public class CameraController : MonoBehaviour
 			transform.position = Vector3.Slerp(transform.position, cameraBackPos.transform.position, 4.0f * Time.fixedDeltaTime);
 
 			//  角度を戻る
-			transform.rotation = Quaternion.Slerp(transform.rotation, cameraBackPos.transform.rotation, Time.fixedDeltaTime * 2.0f);
+			transform.rotation = Quaternion.Slerp(transform.rotation, cameraBackPos.transform.rotation, 2.0f * Time.fixedDeltaTime);
 		}
 		else if (countTime < 2.0f)
 		{

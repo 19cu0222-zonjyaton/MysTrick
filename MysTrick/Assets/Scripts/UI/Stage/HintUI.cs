@@ -7,7 +7,7 @@ public class HintUI : MonoBehaviour
     public float perRadian = 0.01f;         //  毎回変化の弧度
     public float radius = 0.1f;
     private float radian = 0;               //  弧度
-    private Vector3 oldPos;
+    public Vector3 oldPos;
 
     private ActorController actorController;
     private PlayerInput pi;
@@ -19,7 +19,7 @@ public class HintUI : MonoBehaviour
 
         pi = GameObject.Find("PlayerHandle").GetComponent<PlayerInput>();
 
-        oldPos = transform.position;        //  最初の位置     
+        oldPos = transform.localPosition;        //  最初の位置     
     }
 
     void Update()
@@ -28,7 +28,7 @@ public class HintUI : MonoBehaviour
         {
             radian += perRadian;                //  毎回弧度を0.01をプラスする
             float dy = Mathf.Cos(radian) * radius;
-            transform.position = oldPos + new Vector3(0, dy, 0);
+            transform.localPosition = oldPos + new Vector3(0, dy, 0);
         }
     }
 }

@@ -48,6 +48,8 @@ public class ObjectController : MonoBehaviour
 	public MoveData moveData;
 	public TriggerController Device;
 	public TimerController ElevTimer;
+	public bool isTrigger;      //	カメラ用flag
+	public bool hasDone;		//	カメラ用flag	
 	//==============
 
 	private Vector3 nextTarget;
@@ -100,22 +102,41 @@ public class ObjectController : MonoBehaviour
 			case Trajectory.OneWayMove:
 				if (Device.isTriggered)
 				{
-					if (Mathf.Abs(this.transform.localPosition.magnitude - nextTarget.magnitude) > 0.01f)
+					isTrigger = true;
+					timeCount += Time.deltaTime;
+					// 移動開始
+					if (timeCount <= timeMax && timeCount >= 0.0f)
 					{
-						this.transform.localPosition = Vector3.MoveTowards(this.transform.localPosition, moveData.target.localPosition, moveData.speed * Time.deltaTime);
+						if (Mathf.Abs(this.transform.localPosition.magnitude - nextTarget.magnitude) > 0.01f)
+						{
+							this.transform.localPosition = Vector3.MoveTowards(this.transform.localPosition, moveData.target.localPosition, moveData.speed * Time.deltaTime);
+						}
 					}
-					else Device.isTriggered = false;
+					else if (timeCount > timeMax) 
+					{
+						Device.isTriggered = false;
+					}
 				}
 				break;
 			case Trajectory.TwoWayMove:
 				if (Device.isTriggered)
 				{
-					if (Mathf.Abs(this.transform.position.magnitude - nextTarget.magnitude) > 0.01f)
+					isTrigger = true;
+					timeCount += Time.deltaTime;
+					// 移動開始
+					if (timeCount <= timeMax && timeCount >= 0.0f)
 					{
-						this.transform.position = Vector3.MoveTowards(this.transform.position, nextTarget, moveData.speed * Time.deltaTime);
+						if (Mathf.Abs(this.transform.position.magnitude - nextTarget.magnitude) > 0.01f)
+						{
+							this.transform.position = Vector3.MoveTowards(this.transform.position, nextTarget, moveData.speed * Time.deltaTime);
+						}
 					}
-					else
+					else if (timeCount > timeMax)
 					{
+						if (isTrigger)    //	一回が行ったらDelay時間をなしにする
+						{
+							timeCount = 0.0f;
+						}
 						Device.isTriggered = false;
 						if (nextTarget == moveData.targetB.position) nextTarget = moveData.targetA.position;
 						else nextTarget = moveData.targetB.position;
@@ -125,6 +146,7 @@ public class ObjectController : MonoBehaviour
 			case Trajectory.AutoTwoWayMove:
 				if (Device.isTriggered)
 				{
+					isTrigger = true;
 					if (Mathf.Abs(curPosition.magnitude - nextTarget.magnitude) > 0.1f)
 					{
 						moveData.speed += Time.deltaTime * 10.0f;
@@ -148,6 +170,7 @@ public class ObjectController : MonoBehaviour
 				if (Device.isTriggered) canRotate = true;
 				if (canRotate)
 				{
+					isTrigger = true;
 					// 回転開始までにカウントダウン
 					timeCount += Time.deltaTime;
 					// 回転開始
@@ -163,7 +186,11 @@ public class ObjectController : MonoBehaviour
 						if (this.transform.rotation != Quaternion.Euler(nextAng)) this.transform.rotation = Quaternion.Euler(nextAng);
 						nextAng += moveData.targetAng;
 						// 初期値に戻す
-						timeCount = timeReset;
+						if (isTrigger)    //	一回が行ったらDelay時間をなしにする
+						{
+							timeCount = 0.0f;
+						}
+						//timeCount = timeReset;
 						canRotate = false;
 						Device.isTriggered = false;
 					}

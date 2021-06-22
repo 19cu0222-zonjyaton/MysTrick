@@ -15,6 +15,7 @@ public class ClimbCheck : MonoBehaviour
     public bool climbStart;
     public bool needTrigger;        //  false -> いつでも使えるladder
     public int nowLayer = 2;        //  プレイヤー今の階層
+    public GameObject hintUI;
 
     private GameObject playerModule;
     private PlayerInput pi;
@@ -56,9 +57,7 @@ public class ClimbCheck : MonoBehaviour
 
         if (ac.climbEnd)    //  登り終わる
         {
-            //tempPos = startPos;
-            //startPos = endPos;
-            //endPos = tempPos;
+            //Vector3 aaa = hintUI.GetComponent<HintUI>().oldPos;
             if (player.transform.position.y < -6.0f)
             {
                 nowLayer = 1;
@@ -87,17 +86,30 @@ public class ClimbCheck : MonoBehaviour
 
     void OnTriggerStay(Collider collider)
     {
-        if (collider.transform.tag == "Player" && pi.isTriggered && lc.rotateFinish && (lc.i == 1 || lc.i == 3))
+        if (collider.transform.tag == "Player" && (lc.i == 1 || lc.i == 3))
         {
-            if (nowLayer == 2)
+            hintUI.SetActive(true);
+            ac.isInTrigger = true;
+            if (pi.isTriggered && lc.rotateFinish)
             {
-                player.transform.position = startPos.transform.position;
+                if (nowLayer == 2)
+                {
+                    player.transform.position = startPos.transform.position;
+                }
+                else
+                {
+                    player.transform.position = endPos.transform.position;
+                }
+                climbStart = true;
             }
-            else
-            {
-                player.transform.position = endPos.transform.position;
-            }
-            climbStart = true;
+        }
+    }
+
+    void OnTriggerExit(Collider collider)
+    {
+        if (collider.transform.tag == "Player")
+        {
+            hintUI.SetActive(false);
         }
     }
 }

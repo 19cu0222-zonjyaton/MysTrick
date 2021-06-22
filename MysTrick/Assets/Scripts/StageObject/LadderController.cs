@@ -56,7 +56,7 @@ public class LadderController : MonoBehaviour
 				Device.isTriggered = false;
 				canRotate = false;
 				rotateFinish = true;
-				timeCount = timeReset;
+				timeCount = 0;
 				i = (i + 1) % 4;
 				// 要素数超えたら、初期値に戻す
 				try

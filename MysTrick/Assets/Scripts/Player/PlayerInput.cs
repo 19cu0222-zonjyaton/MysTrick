@@ -23,7 +23,7 @@ public class PlayerInput : MonoBehaviour
 
 	public string keyTrigger = "b";				
 	public string keyThrow = "j";
-	public string keyCamera = "LeftShift";
+	public string keyccmera = "LeftShift";
 	public string keyAttack = "k";
 
 	[Header("======= Output Signals =======")]
@@ -45,8 +45,8 @@ public class PlayerInput : MonoBehaviour
 	public bool isAttacking;
 	public bool canThrow = true;
 	public bool isAimStatus;
-	public CameraController ca;
-	private GameObject playerCamera;
+	public CameraController cc;
+	private GameObject playercamera;
 
 	public float targetDup;
 	public float targetDright;
@@ -76,7 +76,7 @@ public class PlayerInput : MonoBehaviour
 
 		playerModel = GameObject.Find("PlayerModule");
 
-		playerCamera = GameObject.Find("Main Camera");
+		playercamera = GameObject.Find("Main Camera");
 	}  
 
 	void Update()
@@ -107,7 +107,7 @@ public class PlayerInput : MonoBehaviour
 			targetDright = 0;
 		}
 
-		if ((Input.GetKeyDown(keyTrigger) || Input.GetButtonDown("action")) && ca.cameraStatic == "Idle" && !isAimStatus)
+		if ((Input.GetKeyDown(keyTrigger) || Input.GetButtonDown("action")) && cc.cameraStatic == "Idle" && !isAimStatus)
 		{
 			isTriggered = true;
 			if (!isJumping && !lockJumpStatus)
@@ -141,10 +141,10 @@ public class PlayerInput : MonoBehaviour
 		float Dup2 = tempDAxis.y;
 
 		Dmag = Mathf.Sqrt((Dup2 * Dup2) + (Dright2 * Dright2));
-		if (Input.GetKey(KeyCode.LeftShift) || Input.GetButton("perspect"))		//	第一人視点を切り替え
+		if ((Input.GetKey(KeyCode.LeftShift) || Input.GetButton("perspect")) && cc.cameraStatic == "Idle")		//	第一人視点を切り替え
 		{
 			isAimStatus = true;
-			Dvec = Dright * playerCamera.transform.right + Dup * playerCamera.transform.forward;
+			Dvec = Dright * playercamera.transform.right + Dup * playercamera.transform.forward;
 		}
 		else                                                                    //	第三人視点を切り替え
 		{

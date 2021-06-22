@@ -692,7 +692,7 @@ MonoBehaviour:
   keyJLeft: left
   keyTrigger: b
   keyThrow: j
-  keyCamera: Left Shift
+  keyccmera: LeftShift
   keyAttack: k
   Dup: 0
   Dright: 0
@@ -710,7 +710,7 @@ MonoBehaviour:
   isAttacking: 0
   canThrow: 1
   isAimStatus: 0
-  ca: {fileID: 6563069688815288606}
+  cc: {fileID: 0}
   targetDup: 0
   targetDright: 0
 --- !u!114 &6563069687783362542
@@ -729,9 +729,11 @@ MonoBehaviour:
   pi: {fileID: 0}
   weapon: {fileID: 6563069688636543343}
   rightHand: {fileID: 0}
+  cc: {fileID: 0}
   hp: 3
   coinCount: 0
   coinUIAction: 0
+  climbEnd: 0
   isDead: 0
   keys: 
   devices: 
@@ -1359,7 +1361,7 @@ MonoBehaviour:
   rotateSpeed: 30
   speed: 40
   rightHand: {fileID: 6563069686944227443}
-  backToHand: 0
+  backToHand: 1
   model: {fileID: 6563069687167480267}
 --- !u!1 &6563069688780958413
 GameObject:
@@ -1499,9 +1501,13 @@ MonoBehaviour:
   stair: []
   door: []
   bridge: []
+  ladder: []
+  ob: []
   lookAtStair: []
   lookAtDoor: []
   lookAtBridge: []
+  lookAtLadder: []
+  lookAtObject: []
   lookAtGoal: {fileID: 0}
   firstPerspect: {fileID: 6563069688358266861}
   weapon: {fileID: 4896021154492923860, guid: 603f11a32496ff64db2bc6b39ecaefb3, type: 3}

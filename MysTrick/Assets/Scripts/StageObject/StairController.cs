@@ -19,16 +19,15 @@ public class StairController : MonoBehaviour
 	public bool moveToHere;				//	カメラ用参数
 	public bool hasDone;                //	カメラ用参数
 
-	private float movePosY;
+	public float movePosY;
 	private float moveSpeed;
 
 	void Awake()
 	{
 		//this.gameObject.SetActive(false);
 		isTriggered = false;
-		movePosY = this.transform.position.y + 9.3f;
 
-		moveSpeed = Vector3.Distance(this.transform.position, new Vector3(this.transform.position.x, movePosY, this.transform.position.z));
+		moveSpeed = Vector3.Distance(this.transform.localPosition, new Vector3(this.transform.localPosition.x, movePosY, this.transform.localPosition.z));
 	}
 
 	// Update is called once per frame
@@ -39,7 +38,7 @@ public class StairController : MonoBehaviour
 
 		if (moveToHere)
 		{
-			transform.position = Vector3.MoveTowards(this.transform.position, new Vector3(this.transform.position.x, movePosY, this.transform.position.z), moveSpeed / 2.0f * Time.deltaTime);	//	2秒で指定された位置に移動する
+			transform.localPosition = Vector3.MoveTowards(this.transform.localPosition, new Vector3(this.transform.localPosition.x, movePosY, this.transform.localPosition.z), moveSpeed / 2.0f * Time.deltaTime);	//	2秒で指定された位置に移動する
 		}
 	}
 

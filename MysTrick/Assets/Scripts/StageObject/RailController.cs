@@ -12,7 +12,6 @@ public class RailController : MonoBehaviour
 {
 	[Header("===調整用===")]
 	public LadderController Ladder;
-	public GameObject hintUI;
 	public int[] numToMove;			// 移動タイミング
 	public float moveDis = 1.8f;	// 移動距離
 	private int i = 0;				// 要素数
@@ -69,22 +68,6 @@ public class RailController : MonoBehaviour
 				timeCount = timeReset;
 				canPlayerMove = false;
 			}
-		}
-	}
-
-	private void OnCollisionStay(Collision other)
-	{
-		if (other.transform.tag == "Player")
-		{
-			if (canPlayerMove) hintUI.SetActive(true);
-		}
-	}
-
-	private void OnCollisionExit(Collision other)
-	{
-		if (other.transform.tag == "Player")
-		{
-			hintUI.SetActive(false);
 		}
 	}
 }
