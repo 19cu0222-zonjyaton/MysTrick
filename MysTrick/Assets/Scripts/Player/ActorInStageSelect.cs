@@ -10,6 +10,7 @@ public class ActorInStageSelect : MonoBehaviour
     public Button[] btn;
     public Animator animator;
     public static int selectBtn = 1;      //  選択しているボタン標記
+    public int skyboxIndex;
     private bool goLeft;
     private bool goRight;
     private bool isMove;
@@ -118,6 +119,7 @@ public class ActorInStageSelect : MonoBehaviour
                 btn[i].enabled = true;
             }
 
+            skyboxIndex++;
             EventSystem.current.SetSelectedGameObject(btn[selectBtn - 1].gameObject);
         }
 
@@ -132,6 +134,7 @@ public class ActorInStageSelect : MonoBehaviour
                 btn[i].enabled = true;
             }
 
+            skyboxIndex--;
             EventSystem.current.SetSelectedGameObject(btn[selectBtn - 1].gameObject);
         }
     }
