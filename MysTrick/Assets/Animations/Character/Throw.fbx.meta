@@ -49,19 +49,75 @@ ModelImporter:
       loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 1
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
+      loopBlendPositionY: 1
+      loopBlendPositionXZ: 1
       keepOriginalOrientation: 1
       keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
+      keepOriginalPositionXZ: 1
+      heightFromFeet: 1
       mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      bodyMask: 00000000010000000100000000000000000000000100000001000000010000000100000000000000000000000100000001000000
       curves: []
       events: []
-      transformMask: []
-      maskType: 3
-      maskSource: {instanceID: 0}
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Model
+        weight: 1
+      - path: Root
+        weight: 1
+      - path: Root/L_Leg
+        weight: 0
+      - path: Root/L_Leg/L_Knee
+        weight: 0
+      - path: Root/L_Leg/L_Knee/L_Foot
+        weight: 0
+      - path: Root/Pelvis
+        weight: 1
+      - path: Root/Pelvis/Spine1
+        weight: 1
+      - path: Root/Pelvis/Spine1/Spine2
+        weight: 1
+      - path: Root/Pelvis/Spine1/Spine2/L_Shoulder
+        weight: 1
+      - path: Root/Pelvis/Spine1/Spine2/L_Shoulder/L_Elbow
+        weight: 1
+      - path: Root/Pelvis/Spine1/Spine2/L_Shoulder/L_Elbow/L_Hand
+        weight: 1
+      - path: Root/Pelvis/Spine1/Spine2/Neck
+        weight: 1
+      - path: Root/Pelvis/Spine1/Spine2/Neck/Head
+        weight: 1
+      - path: Root/Pelvis/Spine1/Spine2/Neck/Head/L_Ear1
+        weight: 1
+      - path: Root/Pelvis/Spine1/Spine2/Neck/Head/L_Ear1/L_Ear2
+        weight: 1
+      - path: Root/Pelvis/Spine1/Spine2/Neck/Head/L_Ear1/L_Ear2/L_Ear3
+        weight: 1
+      - path: Root/Pelvis/Spine1/Spine2/Neck/Head/L_Ear1/L_Ear2/L_Ear3/L_Ear4
+        weight: 1
+      - path: Root/Pelvis/Spine1/Spine2/Neck/Head/R_Ear1
+        weight: 1
+      - path: Root/Pelvis/Spine1/Spine2/Neck/Head/R_Ear1/R_Ear2
+        weight: 1
+      - path: Root/Pelvis/Spine1/Spine2/Neck/Head/R_Ear1/R_Ear2/R_Ear3
+        weight: 1
+      - path: Root/Pelvis/Spine1/Spine2/Neck/Head/R_Ear1/R_Ear2/R_Ear3/R_Ear4
+        weight: 1
+      - path: Root/Pelvis/Spine1/Spine2/R_Shoulder
+        weight: 1
+      - path: Root/Pelvis/Spine1/Spine2/R_Shoulder/R_Elbow
+        weight: 1
+      - path: Root/Pelvis/Spine1/Spine2/R_Shoulder/R_Elbow/R_Hand
+        weight: 1
+      - path: Root/R_Leg
+        weight: 0
+      - path: Root/R_Leg/R_Knee
+        weight: 0
+      - path: Root/R_Leg/R_Knee/R_Foot
+        weight: 0
+      maskType: 1
+      maskSource: {fileID: 31900000, guid: fd6f0d92b7f6e90478c63d6eb99efaef, type: 2}
       additiveReferencePoseFrame: 0
     isReadable: 0
   meshes:
@@ -104,290 +160,121 @@ ModelImporter:
   importAnimation: 1
   humanDescription:
     serializedVersion: 3
-    human:
-    - boneName: Root
-      humanName: Hips
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
-    - boneName: L_Leg
-      humanName: LeftUpperLeg
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
-    - boneName: R_Leg
-      humanName: RightUpperLeg
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
-    - boneName: L_Knee
-      humanName: LeftLowerLeg
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
-    - boneName: R_Knee
-      humanName: RightLowerLeg
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
-    - boneName: L_Foot
-      humanName: LeftFoot
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
-    - boneName: R_Foot
-      humanName: RightFoot
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
-    - boneName: Pelvis
-      humanName: Spine
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
-    - boneName: Spine1
-      humanName: Chest
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
-    - boneName: Neck
-      humanName: Neck
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
-    - boneName: Head
-      humanName: Head
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
-    - boneName: L_Shoulder
-      humanName: LeftUpperArm
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
-    - boneName: R_Shoulder
-      humanName: RightUpperArm
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
-    - boneName: L_Elbow
-      humanName: LeftLowerArm
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
-    - boneName: R_Elbow
-      humanName: RightLowerArm
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
-    - boneName: L_Hand
-      humanName: LeftHand
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
-    - boneName: R_Hand
-      humanName: RightHand
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
-    - boneName: L_Ear1
-      humanName: LeftEye
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
-    - boneName: R_Ear1
-      humanName: RightEye
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
-    - boneName: Spine2
-      humanName: UpperChest
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
+    human: []
     skeleton:
-    - name: Throw(Clone)
+    - name: Idle(Clone)
       parentName: 
       position: {x: 0, y: 0, z: 0}
       rotation: {x: 0, y: 0, z: 0, w: 1}
       scale: {x: 1, y: 1, z: 1}
     - name: Model
-      parentName: Throw(Clone)
+      parentName: Idle(Clone)
       position: {x: -0, y: 0, z: 0}
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
     - name: Root
-      parentName: Throw(Clone)
-      position: {x: -0.09160542, y: 0.6696749, z: -0.27319103}
-      rotation: {x: 0.071024634, y: 0.20243262, z: 0.0048723463, w: 0.9767051}
+      parentName: Idle(Clone)
+      position: {x: -0, y: 0.59390783, z: -0.20899972}
+      rotation: {x: -0, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
     - name: Pelvis
       parentName: Root
       position: {x: -0, y: 0.08819121, z: 0.2115224}
-      rotation: {x: -0.000000002910383, y: 0.00000002328306, z: -0.0000000014551913,
-        w: 1}
-      scale: {x: 1, y: 0.99999994, z: 1}
+      rotation: {x: -0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
     - name: Spine1
       parentName: Pelvis
       position: {x: -0, y: 0.25829306, z: -0.0033985926}
-      rotation: {x: 0.000000008731149, y: -0.00000003492459, z: -0.0000000043655737,
-        w: 1}
-      scale: {x: 1, y: 1.0000001, z: 1}
+      rotation: {x: -0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
     - name: Spine2
       parentName: Spine1
       position: {x: -0, y: 0.27528602, z: 0.0012369195}
-      rotation: {x: -0.000000017462295, y: -0, z: 0.0000000145519135, w: 1}
+      rotation: {x: -0, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
     - name: Neck
       parentName: Spine2
       position: {x: -0, y: 0.27380738, z: 0.0003104563}
       rotation: {x: -0, y: -0, z: -0, w: 1}
-      scale: {x: 0.99999994, y: 0.99999994, z: 1}
+      scale: {x: 1, y: 1, z: 1}
     - name: Head
       parentName: Neck
       position: {x: -0, y: 0.32448584, z: -1.4210854e-16}
-      rotation: {x: 0.000000017462295, y: -0.000000011641532, z: -0.00000001164153,
-        w: 1}
-      scale: {x: 1.0000001, y: 1, z: 1}
+      rotation: {x: -0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
     - name: L_Ear1
       parentName: Head
       position: {x: -0.17887545, y: 0.25925523, z: 0}
-      rotation: {x: -0.000000011641532, y: 0.00000002328306, z: 0.000000002910382,
-        w: 1}
+      rotation: {x: -0, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
     - name: L_Ear2
       parentName: L_Ear1
       position: {x: -0, y: 0.32250157, z: -2.5562885e-16}
-      rotation: {x: -0, y: 0.000000023283064, z: -0.000000012369129, w: 1}
+      rotation: {x: -0, y: -0, z: -0.000000005820765, w: 1}
       scale: {x: 1, y: 1, z: 1}
     - name: L_Ear3
       parentName: L_Ear2
       position: {x: -0, y: 0.2595887, z: -0.06721493}
-      rotation: {x: -0.000000010186336, y: -0, z: -0.000000022555469, w: 1}
-      scale: {x: 1, y: 1, z: 0.99999994}
+      rotation: {x: -0, y: -0, z: 0.000000017462298, w: 1}
+      scale: {x: 1, y: 1, z: 1}
     - name: L_Ear4
       parentName: L_Ear3
       position: {x: -0, y: 0.26190645, z: -0.07880371}
       rotation: {x: -0, y: -0, z: -0, w: 1}
-      scale: {x: 1, y: 1.0000001, z: 1}
+      scale: {x: 1, y: 1, z: 1}
     - name: R_Ear1
       parentName: Head
       position: {x: 0.178875, y: 0.2592586, z: -4.3022502e-10}
-      rotation: {x: -0.000000017462296, y: 0.000000011641532, z: -0.000000002910383,
-        w: 1}
-      scale: {x: 0.99999994, y: 1, z: 1}
+      rotation: {x: -0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
     - name: R_Ear2
       parentName: R_Ear1
       position: {x: -0, y: 0.3225, z: 8.19419e-20}
-      rotation: {x: 0.000000023283064, y: 0.00000002328306, z: 0.000000011641531,
-        w: 1}
-      scale: {x: 1, y: 0.99999994, z: 1}
+      rotation: {x: -0, y: -0, z: -0, w: 1}
+      scale: {x: 0.99999994, y: 0.99999994, z: 1}
     - name: R_Ear3
       parentName: R_Ear2
       position: {x: -0, y: 0.25959, z: -0.06721496}
-      rotation: {x: -0.00000002328307, y: 0.000000011641529, z: -0.000000005820766,
-        w: 1}
-      scale: {x: 1, y: 0.9999999, z: 0.99999994}
+      rotation: {x: -0, y: -0, z: 0.000000005820765, w: 1}
+      scale: {x: 1, y: 1, z: 1}
     - name: R_Ear4
       parentName: R_Ear3
       position: {x: -0, y: 0.2619, z: -0.0788035}
-      rotation: {x: -0, y: -0, z: -1.7303869e-16, w: 1}
+      rotation: {x: -0, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
     - name: L_Shoulder
       parentName: Spine2
-      position: {x: -0.45384517, y: -0.001440944, z: -0.06953746}
-      rotation: {x: -0.000000004813268, y: -0.16956735, z: 0.008234935, w: 0.98548424}
-      scale: {x: 1.0000001, y: 1.0000002, z: 1}
+      position: {x: -0.44927502, y: 0.015738515, z: 0}
+      rotation: {x: -0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
     - name: L_Elbow
       parentName: L_Shoulder
       position: {x: -0.28315428, y: 0, z: 0}
-      rotation: {x: 0.00000004656613, y: 0.000000023283064, z: 0.000000017462298,
-        w: 1}
-      scale: {x: 0.9999998, y: 0.9999999, z: 1}
+      rotation: {x: -0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
     - name: L_Hand
       parentName: L_Elbow
       position: {x: -0.30866364, y: 0.0025509393, z: 0}
-      rotation: {x: -0, y: -0, z: 6.9215467e-16, w: 1}
-      scale: {x: 1.0000001, y: 1.0000001, z: 1}
+      rotation: {x: -0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
     - name: R_Shoulder
       parentName: Spine2
-      position: {x: 0.45240203, y: 0.029310336, z: 0.054921295}
-      rotation: {x: -0.00000004951675, y: -0.1695673, z: 0.008235095, w: 0.98548424}
-      scale: {x: 1.0000002, y: 0.99999994, z: 1.0000002}
+      position: {x: 0.44927502, y: 0.01574185, z: -1.2800201e-10}
+      rotation: {x: -0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
     - name: R_Elbow
       parentName: R_Shoulder
       position: {x: 0.28315398, y: 0, z: 0}
-      rotation: {x: -0.0000000058207643, y: 0.000000034924597, z: -2.1829324e-15,
-        w: 1}
-      scale: {x: 0.9999997, y: 1, z: 0.99999976}
+      rotation: {x: -0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
     - name: R_Hand
       parentName: R_Elbow
       position: {x: 0.30866098, y: 0.0025499999, z: -3.465976e-20}
-      rotation: {x: -0, y: -0, z: -6.617445e-23, w: 1}
-      scale: {x: 1.0000001, y: 0.99999994, z: 1.0000002}
+      rotation: {x: -0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
     - name: L_Leg
       parentName: Root
-      position: {x: -0.2298942, y: -0.14818051, z: 0.14999999}
+      position: {x: -0.2298942, y: -0.14818051, z: 0.21103507}
       rotation: {x: -0, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
     - name: L_Knee
@@ -402,7 +289,7 @@ ModelImporter:
       scale: {x: 1, y: 1, z: 1}
     - name: R_Leg
       parentName: Root
-      position: {x: 0.16783315, y: -0.14818086, z: 0.4707213}
+      position: {x: 0.229894, y: -0.14818086, z: 0.21103507}
       rotation: {x: -0, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
     - name: R_Knee
@@ -423,15 +310,16 @@ ModelImporter:
     legStretch: 0.05
     feetSpacing: 0
     globalScale: 1
-    rootMotionBoneName: 
+    rootMotionBoneName: Root
     hasTranslationDoF: 0
     hasExtraRoot: 1
     skeletonHasParents: 1
-  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: 12d50109dc4199a4d8fcde73607632ef,
+    type: 3}
   autoGenerateAvatarMappingIfUnspecified: 1
-  animationType: 3
+  animationType: 2
   humanoidOversampling: 1
-  avatarSetup: 1
+  avatarSetup: 2
   additionalBone: 0
   userData: 
   assetBundleName: 

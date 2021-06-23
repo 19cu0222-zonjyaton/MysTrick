@@ -21,12 +21,7 @@ ModelImporter:
     rigImportErrors: 
     rigImportWarnings: 
     animationImportErrors: 
-    animationImportWarnings: "\nClip 'Take 001' has import animation warnings that
-      might lower retargeting quality:\nNote: Activate translation DOF on avatar
-      to improve retargeting quality.\n\t'L_Shoulder' has translation animation that
-      will be discarded.\n\t'R_Shoulder' has translation animation that will be discarded.\n\t'L_Leg'
-      has translation animation that will be discarded.\n\t'R_Leg' has translation
-      animation that will be discarded.\n"
+    animationImportWarnings: 
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
@@ -64,8 +59,64 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events: []
-      transformMask: []
-      maskType: 3
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Model
+        weight: 0
+      - path: Root
+        weight: 1
+      - path: Root/L_Leg
+        weight: 1
+      - path: Root/L_Leg/L_Knee
+        weight: 1
+      - path: Root/L_Leg/L_Knee/L_Foot
+        weight: 1
+      - path: Root/Pelvis
+        weight: 1
+      - path: Root/Pelvis/Spine1
+        weight: 1
+      - path: Root/Pelvis/Spine1/Spine2
+        weight: 1
+      - path: Root/Pelvis/Spine1/Spine2/L_Shoulder
+        weight: 1
+      - path: Root/Pelvis/Spine1/Spine2/L_Shoulder/L_Elbow
+        weight: 1
+      - path: Root/Pelvis/Spine1/Spine2/L_Shoulder/L_Elbow/L_Hand
+        weight: 1
+      - path: Root/Pelvis/Spine1/Spine2/Neck
+        weight: 1
+      - path: Root/Pelvis/Spine1/Spine2/Neck/Head
+        weight: 1
+      - path: Root/Pelvis/Spine1/Spine2/Neck/Head/L_Ear1
+        weight: 1
+      - path: Root/Pelvis/Spine1/Spine2/Neck/Head/L_Ear1/L_Ear2
+        weight: 0
+      - path: Root/Pelvis/Spine1/Spine2/Neck/Head/L_Ear1/L_Ear2/L_Ear3
+        weight: 0
+      - path: Root/Pelvis/Spine1/Spine2/Neck/Head/L_Ear1/L_Ear2/L_Ear3/L_Ear4
+        weight: 0
+      - path: Root/Pelvis/Spine1/Spine2/Neck/Head/R_Ear1
+        weight: 1
+      - path: Root/Pelvis/Spine1/Spine2/Neck/Head/R_Ear1/R_Ear2
+        weight: 0
+      - path: Root/Pelvis/Spine1/Spine2/Neck/Head/R_Ear1/R_Ear2/R_Ear3
+        weight: 0
+      - path: Root/Pelvis/Spine1/Spine2/Neck/Head/R_Ear1/R_Ear2/R_Ear3/R_Ear4
+        weight: 0
+      - path: Root/Pelvis/Spine1/Spine2/R_Shoulder
+        weight: 1
+      - path: Root/Pelvis/Spine1/Spine2/R_Shoulder/R_Elbow
+        weight: 1
+      - path: Root/Pelvis/Spine1/Spine2/R_Shoulder/R_Elbow/R_Hand
+        weight: 1
+      - path: Root/R_Leg
+        weight: 1
+      - path: Root/R_Leg/R_Knee
+        weight: 1
+      - path: Root/R_Leg/R_Knee/R_Foot
+        weight: 1
+      maskType: 0
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     isReadable: 0
@@ -109,167 +160,7 @@ ModelImporter:
   importAnimation: 1
   humanDescription:
     serializedVersion: 3
-    human:
-    - boneName: Root
-      humanName: Hips
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
-    - boneName: L_Leg
-      humanName: LeftUpperLeg
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
-    - boneName: R_Leg
-      humanName: RightUpperLeg
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
-    - boneName: L_Knee
-      humanName: LeftLowerLeg
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
-    - boneName: R_Knee
-      humanName: RightLowerLeg
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
-    - boneName: L_Foot
-      humanName: LeftFoot
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
-    - boneName: R_Foot
-      humanName: RightFoot
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
-    - boneName: Pelvis
-      humanName: Spine
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
-    - boneName: Spine1
-      humanName: Chest
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
-    - boneName: Neck
-      humanName: Neck
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
-    - boneName: Head
-      humanName: Head
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
-    - boneName: L_Shoulder
-      humanName: LeftUpperArm
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
-    - boneName: R_Shoulder
-      humanName: RightUpperArm
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
-    - boneName: L_Elbow
-      humanName: LeftLowerArm
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
-    - boneName: R_Elbow
-      humanName: RightLowerArm
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
-    - boneName: L_Hand
-      humanName: LeftHand
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
-    - boneName: R_Hand
-      humanName: RightHand
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
-    - boneName: L_Ear1
-      humanName: LeftEye
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
-    - boneName: R_Ear1
-      humanName: RightEye
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
-    - boneName: Spine2
-      humanName: UpperChest
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
+    human: []
     skeleton:
     - name: Jump(Clone)
       parentName: 
@@ -434,9 +325,9 @@ ModelImporter:
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   autoGenerateAvatarMappingIfUnspecified: 1
-  animationType: 3
+  animationType: 2
   humanoidOversampling: 1
-  avatarSetup: 1
+  avatarSetup: 0
   additionalBone: 0
   userData: 
   assetBundleName: 

@@ -6,8 +6,8 @@ AvatarMask:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Throw
-  m_Mask: 00000000010000000100000000000000000000000100000001000000010000000100000000000000000000000100000001000000
+  m_Name: Walk
+  m_Mask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
   m_Elements:
   - m_Path: 
     m_Weight: 1
@@ -16,11 +16,11 @@ AvatarMask:
   - m_Path: Root
     m_Weight: 1
   - m_Path: Root/L_Leg
-    m_Weight: 0
+    m_Weight: 1
   - m_Path: Root/L_Leg/L_Knee
-    m_Weight: 0
+    m_Weight: 1
   - m_Path: Root/L_Leg/L_Knee/L_Foot
-    m_Weight: 0
+    m_Weight: 1
   - m_Path: Root/Pelvis
     m_Weight: 1
   - m_Path: Root/Pelvis/Spine1
@@ -60,8 +60,8 @@ AvatarMask:
   - m_Path: Root/Pelvis/Spine1/Spine2/R_Shoulder/R_Elbow/R_Hand
     m_Weight: 1
   - m_Path: Root/R_Leg
-    m_Weight: 0
+    m_Weight: 1
   - m_Path: Root/R_Leg/R_Knee
-    m_Weight: 0
+    m_Weight: 1
   - m_Path: Root/R_Leg/R_Knee/R_Foot
-    m_Weight: 0
+    m_Weight: 1
