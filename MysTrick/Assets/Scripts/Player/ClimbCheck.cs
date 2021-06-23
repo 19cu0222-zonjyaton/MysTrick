@@ -6,17 +6,17 @@ public class ClimbCheck : MonoBehaviour
 {
     public GameObject player;
     public LadderController lc;
-    public GameObject camera;
-    public GameObject cameraPos;    //  登る時カメラの位置
-    public GameObject startPos;     //  登る始点
-    public GameObject endPos;       //  登る終点
-    public GameObject[] landPos;      //  到着位置
+    public GameObject cameraStartPos;
+    public GameObject cameraTargetPos;    //  登る時カメラの位置
+    public GameObject startPos;             //  登る始点
+    public GameObject endPos;               //  登る終点
+    public GameObject[] landPos;            //  到着位置
     public GameObject checkPos;
     public bool climbStart;
-    public int nowLayer = 2;        //  プレイヤー今の階層
+    public int nowLayer = 2;                //  プレイヤー今の階層
     public GameObject hintUI;
+    public GameObject playerModule;
 
-    private GameObject playerModule;
     private PlayerInput pi;
     private ActorController ac;
     private CameraController cc;
@@ -24,13 +24,11 @@ public class ClimbCheck : MonoBehaviour
 
     void Awake()
     {
-        playerModule = GameObject.Find("PlayerModule");
-
         pi = player.GetComponent<PlayerInput>();
 
         ac = player.GetComponent<ActorController>();
 
-        cc = camera.GetComponent<CameraController>();
+        cc = cameraStartPos.GetComponent<CameraController>();
     }
 
     // Update is called once per frame
@@ -42,8 +40,8 @@ public class ClimbCheck : MonoBehaviour
             playerModule.transform.rotation = transform.rotation;
             pi.inputEnabled = false;
             ac.isClimbing = true;
-            camera.transform.position = Vector3.Slerp(camera.transform.position, cameraPos.transform.position, 5.0f * Time.deltaTime);
-            camera.transform.LookAt(player.transform);
+            cameraStartPos.transform.position = Vector3.Slerp(cameraStartPos.transform.position, cameraTargetPos.transform.position, 5.0f * Time.deltaTime);
+            cameraStartPos.transform.LookAt(player.transform);
             player.GetComponent<Rigidbody>().useGravity = false;
             if (nowLayer == 1 || nowLayer == 3)
             {

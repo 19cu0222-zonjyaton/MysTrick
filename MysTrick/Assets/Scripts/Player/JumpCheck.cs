@@ -25,9 +25,9 @@ public class JumpCheck : MonoBehaviour
 
     public GameObject playerHandle;
     public GameObject playerModule;
+    public GameObject hintUI;
 
     private Animator anim;
-    private GameObject hintUI;
     private PlayerInput pi;
     private ActorController ac;
     private Rigidbody rigid;
@@ -46,8 +46,6 @@ public class JumpCheck : MonoBehaviour
         rigid = playerHandle.GetComponent<Rigidbody>();
 
         anim = playerModule.GetComponent<Animator>();
-
-        hintUI = transform.Find("hintUI").gameObject;
 
         tempJumpCount = jumpCount;
 
