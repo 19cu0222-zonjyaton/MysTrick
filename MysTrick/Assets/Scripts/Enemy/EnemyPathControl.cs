@@ -39,8 +39,6 @@ public class EnemyPathControl : MonoBehaviour
                 Move();
             }
         }
-
-        ReleaseAttackedFlag();
     }
 
     bool LockOn()
@@ -99,9 +97,9 @@ public class EnemyPathControl : MonoBehaviour
         head.LookAt(targetPosition);
     }
 
-    void ReleaseAttackedFlag()
+    void OnCollisionEnter(Collision collision)      
     {
-        if (player.transform.position.y - transform.position.y > 1.0f)
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
         {
             isAttackedByPlayer = false;
         }

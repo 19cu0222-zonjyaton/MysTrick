@@ -13,7 +13,6 @@ public class ClimbCheck : MonoBehaviour
     public GameObject[] landPos;      //  到着位置
     public GameObject checkPos;
     public bool climbStart;
-    public bool needTrigger;        //  false -> いつでも使えるladder
     public int nowLayer = 2;        //  プレイヤー今の階層
     public GameObject hintUI;
 
@@ -42,6 +41,7 @@ public class ClimbCheck : MonoBehaviour
             cc.cameraStatic = "LookAtPlayer";
             playerModule.transform.rotation = transform.rotation;
             pi.inputEnabled = false;
+            ac.isClimbing = true;
             camera.transform.position = Vector3.Slerp(camera.transform.position, cameraPos.transform.position, 5.0f * Time.deltaTime);
             camera.transform.LookAt(player.transform);
             player.GetComponent<Rigidbody>().useGravity = false;
@@ -57,7 +57,6 @@ public class ClimbCheck : MonoBehaviour
 
         if (ac.climbEnd)    //  登り終わる
         {
-            //Vector3 aaa = hintUI.GetComponent<HintUI>().oldPos;
             if (player.transform.position.y < -6.0f)
             {
                 nowLayer = 1;
@@ -77,6 +76,7 @@ public class ClimbCheck : MonoBehaviour
                 checkPos.transform.position = landPos[2].transform.position;
             }
             pi.inputEnabled = true;
+            ac.isClimbing = false;
             cc.cameraStatic = "Idle";
             player.GetComponent<Rigidbody>().useGravity = true;            
             climbStart = false;

@@ -33,7 +33,9 @@ public class ActorController : MonoBehaviour
 	public float moveSpeed = 5.0f;
 	public bool isInTrigger;
 	public bool isUnrivaled;        //	無敵Time
-	public bool shootStart;			//	武器発射flag
+	public bool shootStart;         //	武器発射flag
+	public bool isJumping;			//	ジャンプflag
+	public bool isClimbing;			//	登るflag
 
 	[SerializeField]
 	private Animator anim;
