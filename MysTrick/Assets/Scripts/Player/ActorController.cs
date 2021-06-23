@@ -107,6 +107,15 @@ public class ActorController : MonoBehaviour
 			weapon.transform.tag = "Untagged";
 		}
 
+		if (isClimbing)
+		{
+			anim.SetBool("Climb", true);
+		}
+		else
+		{
+			anim.SetBool("Climb", false);
+		}
+
 		checkIsUnderDamage();
 
 		checkPlayerIsDead();

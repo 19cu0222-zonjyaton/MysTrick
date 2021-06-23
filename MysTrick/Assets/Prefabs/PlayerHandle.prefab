@@ -1366,6 +1366,8 @@ MonoBehaviour:
   backToHand: 1
   playerPos: {fileID: 6563069687783362545}
   model: {fileID: 6563069687167480267}
+  otherPos: []
+  startPos: []
 --- !u!1 &6563069688780958413
 GameObject:
   m_ObjectHideFlags: 0

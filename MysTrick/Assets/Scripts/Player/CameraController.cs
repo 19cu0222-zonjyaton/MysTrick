@@ -53,7 +53,7 @@ public class CameraController : MonoBehaviour
 
 		cameraBackPos = GameObject.Find("CameraPos");
 
-		ac = GameObject.Find("PlayerHandle").GetComponent<ActorController>();
+		ac = playerHandle.GetComponent<ActorController>();
 	}
 
 	// Update is called once per frame
