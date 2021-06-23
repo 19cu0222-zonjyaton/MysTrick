@@ -8,10 +8,10 @@ public class WeaponController : MonoBehaviour
     public float speed;             //  スタートの移動速度
     public GameObject rightHand;    //  プレイヤーの右手
     public bool backToHand = true;
+    public GameObject playerPos;   //  プレイヤーの位置を獲得するため
     public GameObject model;       //  プレイヤーの回転方向を獲得するため
 
     private new Rigidbody rigidbody;
-    private GameObject playerPos;   //  プレイヤーの位置を獲得するため
     private PlayerInput pi;         //  攻撃ができるかどうかの判断
     private Animator anim;
     private Vector3 tempVec;
@@ -25,13 +25,9 @@ public class WeaponController : MonoBehaviour
     {
         rigidbody = gameObject.GetComponent<Rigidbody>();
 
-        playerPos = GameObject.Find("PlayerHandle");
+        pi = playerPos.GetComponent<PlayerInput>();
 
-        model = GameObject.Find("PlayerModule");
-
-        pi = GameObject.Find("PlayerHandle").GetComponent<PlayerInput>();
-
-        anim = GameObject.Find("PlayerModule").GetComponent<Animator>();
+        anim = model.GetComponent<Animator>();
 
         startPos = transform.localPosition;
 

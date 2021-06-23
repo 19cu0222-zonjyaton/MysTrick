@@ -29,6 +29,7 @@ public class JumpCheck : MonoBehaviour
     private Animator anim;
     private GameObject hintUI;
     private PlayerInput pi;
+    private ActorController ac;
     private Rigidbody rigid;
 
     private int tempJumpCount;  //  階段数を保存するため
@@ -38,15 +39,15 @@ public class JumpCheck : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        pi = GameObject.Find("PlayerHandle").GetComponent<PlayerInput>();
+        pi = playerHandle.GetComponent<PlayerInput>();
 
-        rigid = GameObject.Find("PlayerHandle").GetComponent<Rigidbody>();
+        ac = playerHandle.GetComponent<ActorController>();
 
-        anim = GameObject.Find("PlayerModule").GetComponent<Animator>();
+        rigid = playerHandle.GetComponent<Rigidbody>();
+
+        anim = playerModule.GetComponent<Animator>();
 
         hintUI = transform.Find("hintUI").gameObject;
-
-        playerModule = GameObject.Find("PlayerModule");
 
         tempJumpCount = jumpCount;
 
@@ -57,7 +58,8 @@ public class JumpCheck : MonoBehaviour
     void FixedUpdate()
     {
         if (isJumpStart)
-        {            
+        {
+            ac.isJumping = true;
             if (timeCount < 0.0f)   //  データ精度のためにディレイする
             {
                 jumpStart();
@@ -108,6 +110,8 @@ public class JumpCheck : MonoBehaviour
                 if (jumpCount == 0)
                 {                  
                     timeCount = 0.3f;
+
+                    ac.isJumping = false;
 
                     pi.moveToTargetTime = 0.1f;
 

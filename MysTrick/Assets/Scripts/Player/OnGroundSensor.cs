@@ -14,7 +14,6 @@ public class OnGroundSensor : MonoBehaviour
     private float radius;
     private ActorController ac;
 
-    // Start is called before the first frame update
     void Awake()
     {
         radius = capcol.radius;
@@ -31,9 +30,9 @@ public class OnGroundSensor : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        point1 = transform.position + transform.up * radius;                                            //  最高点
-        point2 = transform.position + transform.up * capcol.height - transform.up * radius * 3.5f;      //  最低点
-
+        point1 = transform.position + transform.up * radius;      //  最高点
+        point2 = transform.position - transform.up * radius;      //  最低点
+        
         Collider[] outputCols = Physics.OverlapCapsule(point1, point2 ,radius, LayerMask.GetMask("Ground"));        //  Groundという名前の階層と当てますか
 
         if (outputCols.Length == 0)

@@ -65,5 +65,6 @@ MonoBehaviour:
   jumpTime: 0.55
   jumpCount: 5
   playerRotation: 180
-  playerHandle: {fileID: 0}
+  playerHandle: {fileID: 6563069687783362545, guid: deb5c94de91a32e4ca21d16c24db72a9,
+    type: 3}
   playerModule: {fileID: 0}

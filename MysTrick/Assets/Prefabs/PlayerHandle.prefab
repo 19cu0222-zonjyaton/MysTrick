@@ -741,6 +741,8 @@ MonoBehaviour:
   isInTrigger: 0
   isUnrivaled: 0
   shootStart: 0
+  isJumping: 0
+  isClimbing: 0
   anim: {fileID: 0}
 --- !u!1 &6563069687854978686
 GameObject:
@@ -1362,6 +1364,7 @@ MonoBehaviour:
   speed: 40
   rightHand: {fileID: 6563069686944227443}
   backToHand: 1
+  playerPos: {fileID: 6563069687783362545}
   model: {fileID: 6563069687167480267}
 --- !u!1 &6563069688780958413
 GameObject:

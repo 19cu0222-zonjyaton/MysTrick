@@ -11742,6 +11742,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2033591661703270484, guid: e584402443364444b96082e2f015a392,
         type: 3}
+      propertyPath: playerHandle
+      value: 
+      objectReference: {fileID: 2084379620}
+    - target: {fileID: 2033591661703270484, guid: e584402443364444b96082e2f015a392,
+        type: 3}
+      propertyPath: playerModule
+      value: 
+      objectReference: {fileID: 409858416}
+    - target: {fileID: 2033591661703270484, guid: e584402443364444b96082e2f015a392,
+        type: 3}
       propertyPath: playerRotation
       value: 90
       objectReference: {fileID: 0}
@@ -11995,6 +12005,16 @@ PrefabInstance:
       propertyPath: jumpPowerZ
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2033591661703270484, guid: e584402443364444b96082e2f015a392,
+        type: 3}
+      propertyPath: playerHandle
+      value: 
+      objectReference: {fileID: 2084379620}
+    - target: {fileID: 2033591661703270484, guid: e584402443364444b96082e2f015a392,
+        type: 3}
+      propertyPath: playerModule
+      value: 
+      objectReference: {fileID: 409858416}
     - target: {fileID: 2033591661703270484, guid: e584402443364444b96082e2f015a392,
         type: 3}
       propertyPath: playerRotation
@@ -19876,17 +19896,17 @@ PrefabInstance:
     - target: {fileID: 6563069687783362538, guid: deb5c94de91a32e4ca21d16c24db72a9,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -15.7
+      value: 6.99
       objectReference: {fileID: 0}
     - target: {fileID: 6563069687783362538, guid: deb5c94de91a32e4ca21d16c24db72a9,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.43
+      value: 9.94
       objectReference: {fileID: 0}
     - target: {fileID: 6563069687783362538, guid: deb5c94de91a32e4ca21d16c24db72a9,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 11.68
+      value: 13.25
       objectReference: {fileID: 0}
     - target: {fileID: 6563069687783362538, guid: deb5c94de91a32e4ca21d16c24db72a9,
         type: 3}
@@ -19947,6 +19967,11 @@ PrefabInstance:
         type: 3}
       propertyPath: backToHand
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6563069688636543343, guid: deb5c94de91a32e4ca21d16c24db72a9,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6563069688815288606, guid: deb5c94de91a32e4ca21d16c24db72a9,
         type: 3}
