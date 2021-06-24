@@ -48,15 +48,15 @@ public class ObjectController : MonoBehaviour
 	public MoveData moveData;
 	public TriggerController Device;
 	public TimerController ElevTimer;
-	public bool isTrigger;		//	カメラ用flag
-	public bool hasDone;		//	カメラ用flag
+	public bool isTrigger;				//	カメラ用flag
+	public bool hasDone;				//	カメラ用flag
 	//==============
 
 	private Vector3 nextTarget;
 	private float startSpeed;
 	private bool timeFlag = true;
-	// エレベーター使用完了フラグ
-	private bool liftingFin;
+	private bool liftingFin;			// エレベーター使用完了フラグ
+	private int pressCount = 0;			// 押し回数
 
 	// RotatePerAng用変数
 	//--------------------------------
@@ -68,7 +68,7 @@ public class ObjectController : MonoBehaviour
 	[Tooltip("For RotateToAng: The maximum time.")]
 	public float timeMax = 3.0f;
 	// 回転初期時間
-	private float timeReset;
+	//private float timeReset;
 	private Vector3 nextAng;
 	//--------------------------------
 
@@ -80,7 +80,7 @@ public class ObjectController : MonoBehaviour
 		if (moveData.targetB != null) nextTarget = moveData.targetB.position;
 		startSpeed = moveData.speed;
 		liftingFin = false;
-		timeReset = timeCount;
+		//timeReset = timeCount;
 	}
 
 	void Start()
@@ -130,14 +130,17 @@ public class ObjectController : MonoBehaviour
 							this.transform.position = Vector3.MoveTowards(this.transform.position, nextTarget, moveData.speed * Time.deltaTime);
 						}
 					}
+					// 移動停止
 					else if (timeCount > timeMax)
 					{
+						++pressCount;
 						if (isTrigger)				//	一回が行ったらDelay時間をなしにする
 						{
 							timeCount = 0.0f;
 						}
 						Device.isTriggered = false;
-						if (nextTarget == moveData.targetB.position) nextTarget = moveData.targetA.position;
+						// 押し回数により次のターゲットを決定する
+						if (pressCount % 2 == 1) nextTarget = moveData.targetA.position;
 						else nextTarget = moveData.targetB.position;
 					}
 				}
