@@ -34,7 +34,7 @@ public class RailController : MonoBehaviour
 		curPosition = this.transform.localPosition;
 		timeCount = Ladder.timeCount;
 		timeMax = Ladder.timeMax;
-		timeReset = timeCount;
+		timeReset = 0.0f;
 		moveSpeed = Ladder.speed;
 	}
 
@@ -42,8 +42,7 @@ public class RailController : MonoBehaviour
 	{
 		// 梯子の値により移動を行う
 		if (Ladder.canRotate) canRailMove = true;
-		else canRailMove = false;
-
+		
 		// 移動開始
 		if (canRailMove)
 		{
@@ -67,6 +66,7 @@ public class RailController : MonoBehaviour
 				i = (i + 1) % 4;
 				timeCount = timeReset;
 				canPlayerMove = false;
+				canRailMove = false;
 			}
 		}
 	}

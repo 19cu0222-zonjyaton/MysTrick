@@ -17,7 +17,7 @@ public class LadderController : MonoBehaviour
 	public int i = 0;					// 要素数
 	private Vector3 nextAng;			// 次の角度
 	[HideInInspector]
-	public bool canRotate;              // 回転開始フラグ
+	public bool canRotate;				// 回転開始フラグ
 	public bool rotateFinish;			// 回転終了フラグ
 
 	[Tooltip("The initial time for rotation")]
@@ -25,12 +25,12 @@ public class LadderController : MonoBehaviour
 	[Tooltip("The maximun time for rotation")]
 	public float timeMax;				// 回転時間（最大値）
 	private float timeReset;			// 回転時間（リセット）
-	public float speed;                 // 回転スピード
-	public bool hasDone;                //	カメラ用参数
+	public float speed;					// 回転スピード
+	public bool hasDone;				//	カメラ用参数
 
 	void Start()
 	{
-		timeReset = timeCount;
+		timeReset = 0.0f;
 		nextAng = targetAngs[i + 1];
 		canRotate = false;
 	}
@@ -56,7 +56,7 @@ public class LadderController : MonoBehaviour
 				Device.isTriggered = false;
 				canRotate = false;
 				rotateFinish = true;
-				timeCount = 0;
+				timeCount = timeReset;
 				i = (i + 1) % 4;
 				// 要素数超えたら、初期値に戻す
 				try

@@ -48,8 +48,8 @@ public class ObjectController : MonoBehaviour
 	public MoveData moveData;
 	public TriggerController Device;
 	public TimerController ElevTimer;
-	public bool isTrigger;      //	カメラ用flag
-	public bool hasDone;		//	カメラ用flag	
+	public bool isTrigger;		//	カメラ用flag
+	public bool hasDone;		//	カメラ用flag
 	//==============
 
 	private Vector3 nextTarget;
@@ -86,7 +86,6 @@ public class ObjectController : MonoBehaviour
 	void Start()
 	{
 		ElevTimer = gameObject.GetComponent<TimerController>();
-
 	}
 
 	// Update is called once per frame
@@ -133,7 +132,7 @@ public class ObjectController : MonoBehaviour
 					}
 					else if (timeCount > timeMax)
 					{
-						if (isTrigger)    //	一回が行ったらDelay時間をなしにする
+						if (isTrigger)				//	一回が行ったらDelay時間をなしにする
 						{
 							timeCount = 0.0f;
 						}
