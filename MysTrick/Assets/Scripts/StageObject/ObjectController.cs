@@ -48,8 +48,6 @@ public class ObjectController : MonoBehaviour
 	public MoveData moveData;
 	public TriggerController Device;
 	public TimerController ElevTimer;
-	public bool isTrigger;				//	カメラ用flag
-	public bool hasDone;				//	カメラ用flag
 	//==============
 
 	private Vector3 nextTarget;
@@ -71,6 +69,12 @@ public class ObjectController : MonoBehaviour
 	//private float timeReset;
 	private Vector3 nextAng;
 	//--------------------------------
+
+	//===監視用値===
+	[Header("監視用")]
+	public bool isTrigger;				//	カメラ用フラグ
+	public bool hasDone;				//	カメラ用フラグ
+	//==============
 
 	void Awake()
 	{
@@ -125,10 +129,7 @@ public class ObjectController : MonoBehaviour
 					// 移動開始
 					if (timeCount <= timeMax && timeCount >= 0.0f)
 					{
-						if (Mathf.Abs(this.transform.position.magnitude - nextTarget.magnitude) > 0.01f)
-						{
-							this.transform.position = Vector3.MoveTowards(this.transform.position, nextTarget, moveData.speed * Time.deltaTime);
-						}
+						this.transform.position = Vector3.MoveTowards(this.transform.position, nextTarget, moveData.speed * Time.deltaTime);
 					}
 					// 移動停止
 					else if (timeCount > timeMax)

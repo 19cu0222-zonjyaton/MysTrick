@@ -705,6 +705,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Stairs002
       objectReference: {fileID: 0}
+    - target: {fileID: 2158508200901069272, guid: 502e29beec65a2842a4835ecb20e3b94,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2158508200901069275, guid: 502e29beec65a2842a4835ecb20e3b94,
         type: 3}
       propertyPath: Device
@@ -11243,10 +11248,10 @@ MonoBehaviour:
     speed: 2
   Device: {fileID: 1759507964}
   ElevTimer: {fileID: 0}
-  isTrigger: 0
-  hasDone: 0
   timeCount: 0
   timeMax: 2.5
+  isTrigger: 0
+  hasDone: 0
 --- !u!1001 &725445161
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13262,10 +13267,10 @@ MonoBehaviour:
     speed: 2
   Device: {fileID: 1759507964}
   ElevTimer: {fileID: 0}
-  isTrigger: 0
-  hasDone: 0
   timeCount: -2
   timeMax: 2.5
+  isTrigger: 0
+  hasDone: 0
 --- !u!1 &61678247048875339
 GameObject:
   m_ObjectHideFlags: 0
@@ -13544,10 +13549,10 @@ MonoBehaviour:
     speed: 12
   Device: {fileID: 3854850234988634221}
   ElevTimer: {fileID: 0}
-  isTrigger: 0
-  hasDone: 0
   timeCount: -1.5
   timeMax: 1
+  isTrigger: 0
+  hasDone: 0
 --- !u!1 &919132149131441534
 GameObject:
   m_ObjectHideFlags: 0
@@ -14466,10 +14471,10 @@ MonoBehaviour:
     speed: 4
   Device: {fileID: 2509059252469474625}
   ElevTimer: {fileID: 0}
-  isTrigger: 0
-  hasDone: 0
   timeCount: -1.5
   timeMax: 2
+  isTrigger: 0
+  hasDone: 0
 --- !u!114 &2509059252469474625
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15882,10 +15887,10 @@ MonoBehaviour:
     speed: 2
   Device: {fileID: 1759507964}
   ElevTimer: {fileID: 0}
-  isTrigger: 0
-  hasDone: 0
   timeCount: -2
   timeMax: 2.5
+  isTrigger: 0
+  hasDone: 0
 --- !u!4 &3383301905599686409
 Transform:
   m_ObjectHideFlags: 0
@@ -16947,10 +16952,10 @@ MonoBehaviour:
     speed: 4
   Device: {fileID: 4161399995436198171}
   ElevTimer: {fileID: 0}
-  isTrigger: 0
-  hasDone: 0
   timeCount: -2
   timeMax: 3
+  isTrigger: 0
+  hasDone: 0
 --- !u!4 &5528002886276533286
 Transform:
   m_ObjectHideFlags: 0
@@ -17184,10 +17189,10 @@ MonoBehaviour:
     speed: 2
   Device: {fileID: 1759507964}
   ElevTimer: {fileID: 0}
-  isTrigger: 0
-  hasDone: 0
   timeCount: -2
   timeMax: 2.5
+  isTrigger: 0
+  hasDone: 0
 --- !u!4 &6169257741537981163
 Transform:
   m_ObjectHideFlags: 0
@@ -17256,6 +17261,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Stairs001
+      objectReference: {fileID: 0}
+    - target: {fileID: 2158508200901069272, guid: 502e29beec65a2842a4835ecb20e3b94,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2158508200901069275, guid: 502e29beec65a2842a4835ecb20e3b94,
         type: 3}
@@ -17383,7 +17393,7 @@ PrefabInstance:
     - target: {fileID: 6563069687783362538, guid: deb5c94de91a32e4ca21d16c24db72a9,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -12.15
+      value: -13.35
       objectReference: {fileID: 0}
     - target: {fileID: 6563069687783362538, guid: deb5c94de91a32e4ca21d16c24db72a9,
         type: 3}
@@ -17393,7 +17403,7 @@ PrefabInstance:
     - target: {fileID: 6563069687783362538, guid: deb5c94de91a32e4ca21d16c24db72a9,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 8.41
+      value: 9.16
       objectReference: {fileID: 0}
     - target: {fileID: 6563069687783362538, guid: deb5c94de91a32e4ca21d16c24db72a9,
         type: 3}
