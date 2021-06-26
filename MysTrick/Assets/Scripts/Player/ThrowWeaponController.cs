@@ -63,5 +63,10 @@ public class ThrowWeaponController : MonoBehaviour
 
             Destroy(this.gameObject);
         }
+
+        if (collider.gameObject.layer == LayerMask.NameToLayer("Ground"))
+        {
+            speed = 0.0f;
+        }
     }
 }

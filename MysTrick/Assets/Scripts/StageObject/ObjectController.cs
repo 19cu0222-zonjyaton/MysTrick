@@ -73,7 +73,7 @@ public class ObjectController : MonoBehaviour
 	//===監視用値===
 	[Header("監視用")]
 	public bool isTrigger;				//	カメラ用フラグ
-	public bool hasDone;				//	カメラ用フラグ
+	public bool hasDone;                //	カメラ用フラグ
 	//==============
 
 	void Awake()
@@ -129,12 +129,13 @@ public class ObjectController : MonoBehaviour
 					// 移動開始
 					if (timeCount <= timeMax && timeCount >= 0.0f)
 					{
-						this.transform.position = Vector3.MoveTowards(this.transform.position, nextTarget, moveData.speed * Time.deltaTime);
+						this.transform.position = Vector3.MoveTowards(this.transform.position, nextTarget, moveData.speed * Time.deltaTime);					
 					}
 					// 移動停止
 					else if (timeCount > timeMax)
 					{
 						++pressCount;
+						++Device.launchCount;
 						if (isTrigger)				//	一回が行ったらDelay時間をなしにする
 						{
 							timeCount = 0.0f;

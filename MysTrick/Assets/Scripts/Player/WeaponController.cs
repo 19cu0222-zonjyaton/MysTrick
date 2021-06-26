@@ -132,5 +132,10 @@ public class WeaponController : MonoBehaviour
             anim.SetLayerWeight(anim.GetLayerIndex("Throw"), 0.0f);
             rigidbody.constraints = RigidbodyConstraints.FreezeAll;
         }
+
+        if (collider.gameObject.layer == LayerMask.NameToLayer("Ground"))
+        {
+            speed = 0.0f;
+        }
     }
 }

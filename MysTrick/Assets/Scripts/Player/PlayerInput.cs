@@ -45,6 +45,7 @@ public class PlayerInput : MonoBehaviour
 	public bool isAttacking;
 	public bool canThrow = true;
 	public bool isAimStatus;
+	public bool overDistance;           //	壁の距離が近いかどうか
 	public CameraController cc;
 	private GameObject playercamera;
 
@@ -123,7 +124,7 @@ public class PlayerInput : MonoBehaviour
 			isJumping = false;
 		}
 
-        if ((Input.GetKeyDown(keyThrow) || Input.GetAxis("throw") == 1) && canThrow && inputEnabled)
+        if ((Input.GetKeyDown(keyThrow) || Input.GetAxis("throw") == 1) && canThrow && !overDistance && inputEnabled)
         {
             isThrowing = true;
 		}

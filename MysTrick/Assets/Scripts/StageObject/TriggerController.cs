@@ -19,11 +19,11 @@ public class TriggerController : MonoBehaviour
 	public TimeController timeController;
 	public GameObject hintUI;
 	public float timeCount = 1.2f;				//	Triggerを出すまでの時間
-	public GameObject[] handle;					//	Triggerのスイッチ
+	public GameObject handle;                   //	Triggerのスイッチ
+	public int launchCount;						//	Triggerの状態(0 -> 最初の状態 1 -> 発動した状態)
 
 	private bool hadDone;						//	一回だけ実行する
 	private bool cameraCanMoveToStair;			//	カメラ視点を移動し始めます
-	private Vector3 tempHandlePos;				//	Handleの座標保存用
 
 	[Header("===監視用===")]
 	public bool isTriggered;
@@ -33,13 +33,7 @@ public class TriggerController : MonoBehaviour
 	private PlayerInput Player;
 	void Awake()
 	{
-		Player = GameObject.Find("PlayerHandle").GetComponent<PlayerInput>();
-		//hintUI = transform.Find("hintUI").gameObject;
-
-		if (handle.Length != 0 && transform.gameObject.tag == "Key")
-		{
-			tempHandlePos = handle[0].transform.position - new Vector3(0.0f, 0.5f, 0.0f);		//	Keyを押す距離
-		}
+		Player = GameObject.Find("PlayerHandle").GetComponent<PlayerInput>();	
 	}
 
 	void Update()
@@ -58,17 +52,32 @@ public class TriggerController : MonoBehaviour
 			}
 		}
 
-		if (isTriggered)
+		if (isTriggered)	//	Handleの動き
 		{
-			if (handle.Length != 0)
+			if (handle != null)
 			{
-				if (transform.gameObject.tag == "Device")
+				if (launchCount % 2 == 0)
 				{
-					handle[0].transform.rotation = Quaternion.Lerp(handle[0].transform.rotation, handle[1].transform.rotation, Time.fixedDeltaTime * 3.0f);
+					if (handle.transform.gameObject.tag == "Device")
+					{
+						handle.transform.localRotation = Quaternion.Lerp(handle.transform.localRotation, Quaternion.Euler(0.0f, 0.0f, -70.0f), 3.0f * Time.deltaTime);
+					}
+					else if (handle.transform.gameObject.tag == "Key")
+					{
+						handle.transform.localPosition = Vector3.MoveTowards(handle.transform.localPosition, new Vector3(0.0f, -0.5f, 0.0f), 3.0f * Time.deltaTime);
+					}
 				}
-				else if (transform.gameObject.tag == "Key")
+				else
 				{
-					handle[0].transform.position = Vector3.Lerp(handle[0].transform.position, tempHandlePos, 0.3f);
+					if (handle.transform.gameObject.tag == "Device")
+					{
+						handle.transform.localRotation = Quaternion.Lerp(handle.transform.localRotation, Quaternion.Euler(0.0f, 0.0f, 0.0f), 3.0f * Time.deltaTime);
+					}
+					else if (handle.transform.gameObject.tag == "Key")
+					{
+						handle.transform.localPosition = Vector3.MoveTowards(handle.transform.localPosition, new Vector3(0.0f, 0.0f, 0.0f), 3.0f * Time.deltaTime);
+
+					}
 				}
 			}
 		}

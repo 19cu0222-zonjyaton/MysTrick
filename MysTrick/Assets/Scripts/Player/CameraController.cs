@@ -176,17 +176,6 @@ public class CameraController : MonoBehaviour
 				}
 				else
 				{
-					if (pi.isThrowing)
-					{
-						Instantiate(weapon, transform.position + transform.forward * 1.5f, transform.rotation);
-
-						canThrowWeapon = false;
-
-						pi.canThrow = false;
-
-						pi.isThrowing = false;
-					}
-
 					canRotate = true;
 					ac.moveSpeed = 2.0f;
 					aimEulerX -= pi.Jup * verticalSpeed * 2.0f * Time.fixedDeltaTime;
@@ -195,6 +184,27 @@ public class CameraController : MonoBehaviour
 					transform.localEulerAngles = new Vector3(aimEulerX, transform.localEulerAngles.y, 0);
 
 					smr.enabled = false;
+
+					if (aimEulerX < 35.0f)      //	角度が一定範囲だけ打つことができる
+					{
+						if (pi.isThrowing)
+						{
+							Instantiate(weapon, transform.position + transform.forward * 1.5f, transform.rotation);
+
+							canThrowWeapon = false;
+
+							pi.canThrow = false;
+
+							pi.isThrowing = false;
+						}
+					}
+					else
+					{
+						if (pi.isThrowing)
+						{
+							pi.isThrowing = false;      //	撃つ信号をなくす
+						}
+					}
 				}
 			}
 			else if (!pi.isAimStatus && !pi.lockJumpStatus && !ac.isUnrivaled && !ac.isDead)  //	not Aiming and not jumping
