@@ -133,7 +133,7 @@ public class WeaponController : MonoBehaviour
             rigidbody.constraints = RigidbodyConstraints.FreezeAll;
         }
 
-        if (collider.gameObject.layer == LayerMask.NameToLayer("Ground"))
+        if (collider.gameObject.layer == LayerMask.NameToLayer("Wall"))
         {
             speed = 0.0f;
         }

@@ -10,16 +10,15 @@ public class BridgeController : MonoBehaviour
 	public Vector3 targetAng;
 	private Quaternion targetEuAng;
 	public float speed = 5.0f;
-	public bool hasDone;                //	カメラ用参数
-	private float timeCount = 3.6f;      //	Triggerを出すまでの時間
-	private int pressCount = 0;         // 押し回数
+	public bool hasDone;				//	カメラ用参数
+	private float timeCount = 3.6f;		//	Triggerを出すまでの時間
+	private int pressCount = 0;			// 押し回数
 
 	void Start()
 	{
 		
 	}
 
-	// Update is called once per frame
 	void Update()
 	{
 		if (Device.isTriggered)
@@ -45,7 +44,7 @@ public class BridgeController : MonoBehaviour
 				}
 				else
 				{ 
-				targetAng = new Vector3(0.0f, 0.0f, 0.0f);
+					targetAng = new Vector3(0.0f, 0.0f, 0.0f);
 				}
 
 				timeCount = 1.8f;

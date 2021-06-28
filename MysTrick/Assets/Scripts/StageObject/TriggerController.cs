@@ -19,9 +19,7 @@ public class TriggerController : MonoBehaviour
 	public TimeController timeController;
 	public GameObject hintUI;
 	public float timeCount = 1.2f;				//	Triggerを出すまでの時間
-	public GameObject handle;                   //	Triggerのスイッチ
-	public int launchCount;						//	Triggerの状態(0 -> 最初の状態 1 -> 発動した状態)
-
+	public GameObject handle;					//	Triggerのスイッチ
 	private bool hadDone;						//	一回だけ実行する
 	private bool cameraCanMoveToStair;			//	カメラ視点を移動し始めます
 
@@ -29,8 +27,9 @@ public class TriggerController : MonoBehaviour
 	public bool isTriggered;
 	public bool isStairTriggered;
 	public bool isCameraTriggered;
-	
+	public int launchCount;						//	Triggerの状態(0 -> 最初の状態 1 -> 発動した状態)
 	private PlayerInput Player;
+
 	void Awake()
 	{
 		Player = GameObject.Find("PlayerHandle").GetComponent<PlayerInput>();	

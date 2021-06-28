@@ -7,8 +7,8 @@ ModelImporter:
       74: 1827226128182048838
     second: enemy_bat_move
   - first:
-      74: -3862788651586386429
-    second: enemy_bat_attack
+      74: -6489897756429932399
+    second: enemy_bat_damage
   - first:
       74: 537535590212783425
     second: enemy_bat_dead
@@ -52,7 +52,7 @@ ModelImporter:
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 0
+      loopTime: 1
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
@@ -70,7 +70,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: enemy_bat_attack
+      name: enemy_bat_damage
       takeName: Take 001
       internalID: 0
       firstFrame: 60

@@ -20,7 +20,7 @@ public class ThrowDistanceCheck : MonoBehaviour
 
 	void OnTriggerStay(Collider collider)
 	{
-        if (collider.gameObject.layer == LayerMask.NameToLayer("Ground"))
+        if (collider.gameObject.layer == LayerMask.NameToLayer("Wall"))
         {
             pi.overDistance = true;
         }
@@ -28,7 +28,7 @@ public class ThrowDistanceCheck : MonoBehaviour
 
     void OnTriggerExit(Collider collider)
     {
-        if (collider.gameObject.layer == LayerMask.NameToLayer("Ground"))
+        if (collider.gameObject.layer == LayerMask.NameToLayer("Wall"))
         {
             pi.overDistance = false;
         }
