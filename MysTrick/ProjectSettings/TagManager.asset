@@ -15,6 +15,7 @@ TagManager:
   - RightPoint
   - LeftPoint
   - MovePoint
+  - GapCheck
   layers:
   - Default
   - TransparentFX
