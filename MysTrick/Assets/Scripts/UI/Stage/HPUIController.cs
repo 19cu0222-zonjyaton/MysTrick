@@ -5,7 +5,7 @@ public class HPUIController : MonoBehaviour
 {
     public Sprite[] sprite;     //  画像オブジェクト
     public GameObject heart;    //  ハートのUI
-    private GameObject[] hp;    //  作るUIの用意場所
+    public GameObject[] hp;    //  作るUIの用意場所
     private GameObject hpUI;    //  親のオブジェクト
     private ActorController ac;
 
@@ -31,10 +31,17 @@ public class HPUIController : MonoBehaviour
 
     void Update()
     {
-        //  減ったHPに応じて画像が変わる
-        for (int i = 2; i >= ac.hp; i--)
+        if (!ac.isDead)
         {
-            hp[i].GetComponent<Image>().sprite = sprite[1];
+            //  減ったHPに応じて画像が変わる
+            for (int i = 2; i >= ac.hp; i--)
+            {
+                hp[i].GetComponent<Image>().sprite = sprite[1];
+            }
+        }
+        else
+        {
+            hp[0].GetComponent<Image>().sprite = sprite[1];
         }
     }
 }

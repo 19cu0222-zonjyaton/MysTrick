@@ -5,12 +5,15 @@ using UnityEngine;
 public class AimUIController : MonoBehaviour
 {
     private PlayerInput pi;
+    private ActorController ac;
     private CameraController cc;
     private CanvasGroup canvasGroup;
 
     void Awake()
     {
         pi = GameObject.Find("PlayerHandle").GetComponent<PlayerInput>();
+
+        ac = GameObject.Find("PlayerHandle").GetComponent<ActorController>();
 
         cc = GameObject.Find("Main Camera").GetComponent<CameraController>();
 
@@ -19,7 +22,7 @@ public class AimUIController : MonoBehaviour
 
     void Update()
     {
-        if (pi.isAimStatus && cc.cameraStatic == "Idle")
+        if (pi.isAimStatus && cc.cameraStatic == "Idle" && !ac.isDead)
         {
             canvasGroup.alpha = 1;
             canvasGroup.interactable = true;

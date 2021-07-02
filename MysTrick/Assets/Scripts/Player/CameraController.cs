@@ -25,6 +25,7 @@ public class CameraController : MonoBehaviour
 	public GameObject firstPerspect;
 	public GameObject weapon;
 	public GameObject usingWeapon;              //	今手が持っている武器
+	public GameObject deadPos;					//	プレイヤーが死亡したら視点の位置
 	public bool canThrowWeapon = true;
 
 	private ActorController ac;
@@ -145,7 +146,7 @@ public class CameraController : MonoBehaviour
 			}
 		}
 
-		if (!goal.gameClear && cameraStatic == "Idle")
+		if (!goal.gameClear && cameraStatic == "Idle" && !ac.isDead && !ac.isFall)
 		{
 			if (pi.isAimStatus && !pi.lockJumpStatus)       //	Aiming and is not jumping
 			{
@@ -241,7 +242,7 @@ public class CameraController : MonoBehaviour
 				model.transform.eulerAngles = tempModelEuler;
 			}
 		}
-		else if (goal.gameClear)
+		else if (goal.gameClear)    //	プレイヤーがクリアしたらカメラの処理
 		{
 			transform.SetParent(null);
 			cameraStatic = "GameClear";
@@ -250,11 +251,18 @@ public class CameraController : MonoBehaviour
 			transform.rotation = Quaternion.Slerp(transform.rotation, lookAtGoal.transform.rotation, 3.0f * Time.fixedDeltaTime);
 			transform.LookAt(playerHandle.transform);
 		}
-		
-		if (ac.isDead)
+		else if (ac.isDead)         //	プレイヤーが死亡したらカメラの処理
 		{
-			model.transform.localRotation = new Quaternion(0.0f, 180.0f, 90.0f, 0.0f);
-			gameObject.GetComponent<Camera>().fieldOfView = 20.0f;
+			transform.SetParent(null);
+			deadPos.transform.SetParent(null);
+			cameraStatic = "GameOver";
+
+			transform.position = deadPos.transform.position;
+			transform.LookAt(playerHandle.transform);
+		}
+		else if (ac.isFall)			//	プレイヤーが外に落ちたらカメラの処理
+		{
+			transform.SetParent(null);
 		}
 	}
 

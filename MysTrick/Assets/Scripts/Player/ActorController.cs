@@ -13,16 +13,19 @@ using UnityEngine;
 public class ActorController : MonoBehaviour
 {
 	public GameObject model;
+	public GameObject weapon;				//	武器
+	public GameObject playerHand;			//  攻撃時武器の親オブジェクト
+	public GameObject playerNeck;			//	通常時武器の親オブジェクト
+	public SkinnedMeshRenderer modelMesh;	//	プレイヤーモデルのmesh
+	public MeshRenderer weaponMesh;			//	武器のmesh
+	public ClimbCheck climbCheck;			//	昇るチェック
 	public PlayerInput pi;
-	public GameObject weapon;       //	武器
-	public ClimbCheck cc;
-	public GameObject playerHand;   //  攻撃時武器の親オブジェクト
-	public GameObject playerNeck;   //	通常時武器の親オブジェクト
-	public int hp;					//	プレイヤーHP
-	public int coinCount;           //	獲得したコイン数
-	public bool coinUIAction;       //  コインUIを動くための信号
+	public int hp;							//	プレイヤーHP
+	public int coinCount;					//	獲得したコイン数
+	public bool coinUIAction;				//  コインUIを動くための信号
 	public bool climbEnd;
-	public bool isDead;
+	public bool isDead;                //	プレイヤーが死亡flag
+	public bool isFall;                //	外に落ちるflag
 
 	//============================
 	// 作成者：鍾家同
@@ -44,10 +47,10 @@ public class ActorController : MonoBehaviour
 	private Rigidbody rigid;
 	private Vector3 movingVec;
 	private GoalController gc;
-	private SkinnedMeshRenderer mesh;
-	private int shortTimeCount;   //	点滅用タイムカウント
-	private Vector3 weaponStartPos;
+	private int shortTimeCount;			//	点滅用タイムカウント
+	private Vector3 weaponStartPos;		//	武器の位置保存用
 	private Vector3 weaponStartRot;
+	private Vector3 damageRot;			//	ダメージを受ける時の回転角度
 	private float timeCount;
 	private bool doOnce;
 
@@ -67,69 +70,70 @@ public class ActorController : MonoBehaviour
 		weaponStartPos = weapon.transform.localPosition;
 
 		weaponStartRot = weapon.transform.localEulerAngles;
-
-		mesh = GameObject.Find("Model").GetComponent<SkinnedMeshRenderer>();
 	}
 
 	// Update is called once per frame
 	void Update()
 	{
 		anim.SetFloat("Forward", pi.Dmag);
+		if (!isDead)
+		{
+			if (pi.Dmag > 0.1f && !pi.isAimStatus)      //	移動方向と移動速度を設定
+			{
+				model.transform.forward = Vector3.Slerp(model.transform.forward, pi.Dvec, 10.0f * Time.deltaTime);
+				movingVec = pi.Dmag * model.transform.forward;
+			}
+			else if (pi.Dmag > 0.1f && pi.isAimStatus)
+			{
+				movingVec = pi.Dmag * pi.Dvec;
+			}
+			else
+			{
+				movingVec = pi.Dmag * model.transform.forward;
+			}
 
-		if (pi.Dmag > 0.1f && !pi.isAimStatus)		//	移動方向と移動速度を設定
-		{
-			model.transform.forward = Vector3.Slerp(model.transform.forward, pi.Dvec, 10.0f * Time.deltaTime);
-			movingVec = pi.Dmag * model.transform.forward;
-		}
-		else if (pi.Dmag > 0.1f && pi.isAimStatus)
-		{
-			movingVec = pi.Dmag * pi.Dvec;
-		}
-		else
-		{
-			movingVec = pi.Dmag * model.transform.forward;
-		}
-		
-        if (pi.isThrowing && !pi.isAimStatus)	//	第三視点の投げる処理
-        {
-			anim.SetTrigger("Throw");
+			if (pi.isThrowing && !pi.isAimStatus)   //	第三視点の投げる処理
+			{
+				anim.SetTrigger("Throw");
 
-            pi.canThrow = false;
-			
-			pi.isThrowing = false;
-		}
+				pi.canThrow = false;
 
-		if (pi.isAttacking)                     //	近戦攻撃処理
-		{
-			animation.Play();
+				pi.isThrowing = false;
+			}
 
-			pi.isAttacking = false;
-		}
+			if (pi.isAttacking)                     //	近戦攻撃処理
+			{
+				animation.Play();
 
-		if (animation.isPlaying)                //	攻撃する時tagを有効にする
-		{
-			weapon.transform.SetParent(playerHand.transform);
-			weapon.transform.localPosition = new Vector3(-0.229f, 0.019f, 1.117f);
-			weapon.transform.localEulerAngles = new Vector3(0, 81.0f, 0);
-			weapon.transform.tag = "Weapon";
-			doOnce = true;
-		}
-		else if(doOnce)
-		{
-			weapon.transform.SetParent(playerNeck.transform);
-			weapon.transform.localPosition = weaponStartPos;                     //  親に相対の座標を設定する
-			weapon.transform.localEulerAngles = weaponStartRot;                  //  親に相対の角度を設定する   
-			weapon.transform.tag = "Untagged";
-			doOnce = false;
-		}
-		
-		if (isClimbing)							//	登る処理
-		{
-			anim.SetBool("Climb", true);
-		}
-		else
-		{
-			anim.SetBool("Climb", false);
+				pi.isAttacking = false;
+			}
+
+			if (animation.isPlaying)                //	攻撃する時tagを有効にする
+			{
+				weapon.transform.SetParent(playerHand.transform);
+				weapon.transform.localPosition = new Vector3(-0.146f, 0.091f, 1.137f);
+				weapon.transform.localEulerAngles = new Vector3(22.826f, -291.228f, 167.892f);
+				weapon.transform.tag = "Weapon";
+				doOnce = true;
+			}
+			else if (doOnce)
+			{
+				weapon.transform.SetParent(playerNeck.transform);
+				weapon.transform.localPosition = weaponStartPos;                     //  親に相対の座標を設定する
+				weapon.transform.localEulerAngles = weaponStartRot;                  //  親に相対の角度を設定する   
+				weapon.transform.tag = "Untagged";
+				doOnce = false;
+			}
+
+			if (isClimbing)                         //	登る処理
+			{
+				anim.SetBool("Climb", true);
+			}
+			else
+			{
+				anim.SetBool("Climb", false);
+			}
+
 		}
 
 		checkIsUnderDamage();
@@ -154,70 +158,78 @@ public class ActorController : MonoBehaviour
 
 	private void checkIsUnderDamage()   //	敵と当たると時間内で無敵状態になる
 	{
-		if (isUnrivaled)
+		if (isUnrivaled && !isDead)
 		{
 			timeCount += Time.deltaTime;
-			if (timeCount >= 0.1f)
+			
+			if (timeCount >= 0.15f && timeCount < 0.3f)		//	点滅処理
 			{
-				mesh.enabled = true;
+				modelMesh.enabled = true;
+				weaponMesh.enabled = true;
 			}
-
-			if (timeCount >= 0.2f)
+			else if (timeCount >= 0.3f)
 			{
-				mesh.enabled = false;
-				shortTimeCount++;
+				modelMesh.enabled = false;
+				weaponMesh.enabled = false;
 				timeCount = 0.0f;
+				shortTimeCount++;
 			}
 
-			if (shortTimeCount >= 8)
+			if (shortTimeCount >= 6 && timeCount >= 0.15f)                //	点滅が終わったら
 			{
 				shortTimeCount = 0;
-				mesh.enabled = true;
+				modelMesh.enabled = true;
+				weaponMesh.enabled = true;
 				isUnrivaled = false;
 			}
-			else if (shortTimeCount > 2)	//	プレイヤー操作を解禁
+			else if (shortTimeCount > 2) //	プレイヤー操作を解禁
 			{
 				pi.inputEnabled = true;
 			}
-
 		}
 	}
 
 	private void checkPlayerIsDead()	//	死亡処理
 	{
-		if (hp <= 0 || transform.position.y < -20.0f)
+		if (hp <= 0)
 		{
 			isDead = true;
 		}
 
 		if (isDead)
 		{
+			Time.timeScale = 0.4f;
+			movingVec = Vector3.zero;
 			anim.enabled = false;
 			pi.inputEnabled = false;
-			transform.position = new Vector3(10.0f, -125.0f, 50.0f);
-			rigid.useGravity = false;
+			model.transform.localRotation = Quaternion.Lerp(model.transform.localRotation, Quaternion.Euler(-90.0f, damageRot.y, damageRot.z), 3.0f * Time.deltaTime);
+			transform.tag = "Untagged";
 		}
 	}
 
-	private void OnTriggerEnter(Collider collider)
+	private void OnTriggerStay(Collider collider)
 	{
-		if (collider.transform.tag == "Device")
+		if (collider.transform.tag == "Device")		
 		{
 			isInTrigger = true;
 		}
 
-		if (cc != null)
+		if (collider.transform.tag == "DeadCheck")
 		{
-			if ((cc.nowLayer == 1 || cc.nowLayer == 3) && collider.transform.name == "ClimbStart1")
+			isFall = true;
+		}
+
+		if (climbCheck != null)		//	回転できる梯子の始点と終点処理
+		{
+			if ((climbCheck.nowLayer == 1 || climbCheck.nowLayer == 3) && collider.transform.name == "ClimbStart1")
 			{
 				climbEnd = true;
 			}
-			else if(cc.nowLayer == 2 && collider.transform.name == "ClimbFinish1")
+			else if(climbCheck.nowLayer == 2 && collider.transform.name == "ClimbFinish1")
 			{
 				climbEnd = true;
 			}
 		}
-
 	}
 
 	private void OnTriggerExit(Collider collider)
@@ -233,12 +245,21 @@ public class ActorController : MonoBehaviour
 		if (collision.transform.tag == "Enemy" && !isUnrivaled)     //	敵と当たる処理
 		{
 			hp--;
-			if (hp > 0)
+			damageRot = model.transform.localEulerAngles;
+			if (hp >= 0)
 			{
 				pi.inputEnabled = false;
-				mesh.enabled = false;
-				rigid.AddForce(0.0f, 500.0f, 0.0f);
-				rigid.AddExplosionForce(300.0f, collision.transform.position, 5.0f);
+				modelMesh.enabled = false;
+				weaponMesh.enabled = false;
+				if (hp == 0)
+				{
+					rigid.AddForce(0.0f, 200.0f, 0.0f);
+				}
+				else
+				{
+					rigid.AddForce(0.0f, 50.0f, 0.0f);
+				}		
+				rigid.AddExplosionForce(500.0f, collision.transform.position - new Vector3(0.0f, 1.5f, 0.0f), 5.0f, 3.0f);		//	爆発の位置を矯正
 				isUnrivaled = true;
 			}
 		}
