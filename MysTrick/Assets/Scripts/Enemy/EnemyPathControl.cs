@@ -37,21 +37,22 @@ public class EnemyPathControl : MonoBehaviour
         {
             if (LockOn())
             {
-                ray = new Ray(transform.position, (player.transform.position - head.transform.position).normalized);
+                ray = new Ray(transform.position, ((player.transform.position + new Vector3(0, 1.5f, 0)) - head.transform.position).normalized);
                 Debug.DrawRay(ray.origin, ray.direction * 100, Color.red, 0.1f);
             }
-            else if(!ac.isDead || !ac.isFall)
+            else
             {
                 ray = new Ray(transform.position, head.forward);
                 Debug.DrawRay(ray.origin, ray.direction * 100, Color.red, 0.1f);
             }
 
-            if (Physics.Raycast(ray, out hit, Mathf.Infinity))
+            Physics.Raycast(ray, out hit, Mathf.Infinity);
+
+            if (hit.collider != null)       //  空を見てフリーズの対策
             {
-                //もしrayとhitが衝突した場合の処理内容
-                if (hit.collider.gameObject.transform.tag == "Player")
+                hit.collider.enabled = true;
+                if (!(hit.collider.gameObject.layer == LayerMask.NameToLayer("Wall")) && LockOn())
                 {
-                    //視線はもしプレイヤーと当たったら処理内容
                     Move();
                 }
                 else
@@ -79,11 +80,11 @@ public class EnemyPathControl : MonoBehaviour
                 headAngle = head.transform.localEulerAngles.y;
                 if (targetPosition.z < transform.position.z)
                 {
-                    oppositeAngle = Mathf.Acos((targetPosition.x - transform.position.x) / Vector3.Distance(targetPosition, transform.position)) * Mathf.Rad2Deg;
+                    oppositeAngle = Mathf.Acos((targetPosition.x - transform.position.x) / Vector3.Distance(targetPosition, transform.position + new Vector3(0, 1.5f, 0))) * Mathf.Rad2Deg;
                 }
                 else if (targetPosition.z > transform.position.z)
                 {
-                    oppositeAngle = -Mathf.Acos((targetPosition.x - transform.position.x) / Vector3.Distance(targetPosition, transform.position)) * Mathf.Rad2Deg;
+                    oppositeAngle = -Mathf.Acos((targetPosition.x - transform.position.x) / Vector3.Distance(targetPosition, transform.position + new Vector3(0, 1.5f, 0))) * Mathf.Rad2Deg;
                 }
                 if (oppositeAngle <= 0 && oppositeAngle >= -180.0f)
                 {
@@ -105,7 +106,7 @@ public class EnemyPathControl : MonoBehaviour
     void Patrol()
     {
         //targetIsLost = false;
-        transform.Translate((pathPositions[index].position - transform.position).normalized * Time.deltaTime * speed );
+        transform.Translate((pathPositions[index].position - transform.position).normalized * Time.deltaTime * speed);
         Vector3 targetPosition = pathPositions[index].transform.position;
         targetPosition.y = head.position.y;
         head.LookAt(targetPosition);
@@ -129,28 +130,5 @@ public class EnemyPathControl : MonoBehaviour
             isAttackedByPlayer = false;
         }
     }
-
-    //void OnCollisionStay(Collision collision)
-    //{
-    //    if (collision.gameObject.layer == LayerMask.NameToLayer("Wall") && LockOn())
-    //    {
-    //        countTime += Time.deltaTime;
-    //        if (countTime > 1.0f)
-    //        {
-    //            print(targetIsLost);
-    //            targetIsLost = true;
-    //            countTime = 0.0f;
-    //        }
-    //    }
-    //}
-
-    //void OnCollisionExit(Collision collision)
-    //{
-    //    if (collision.gameObject.layer == LayerMask.NameToLayer("Wall"))
-    //    {
-    //        targetIsLost = false;
-    //        countTime = 0.0f;
-    //    }
-    //}
 }
 

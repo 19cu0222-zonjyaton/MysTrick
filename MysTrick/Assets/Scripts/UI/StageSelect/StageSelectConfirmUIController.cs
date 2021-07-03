@@ -12,7 +12,7 @@ public class StageSelectConfirmUIController : MonoBehaviour
     private Button btn;
     private bool isCancel;
     private bool isOK;
-    private float timeCount = 0.5f;
+    private float timeCount = 0.5f;     //  ステージに移動するまで暗いマスクの時間
 
     void Awake()
     {
@@ -24,20 +24,18 @@ public class StageSelectConfirmUIController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (isCancel)
+        if (isCancel)   //  メニューをキャンセルの処理
         {
-            timeCount -= Time.deltaTime;
-            if (timeCount < 0.0f)
+            if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f && animator.GetCurrentAnimatorStateInfo(0).IsName("Stage_Confirm_Minus"))   
             {
                 StageSelectButtonController.outputConfirmUI = false;
                 EventSystem.current.SetSelectedGameObject(GameObject.Find(StageSelectButtonController.selectStageName));       //  Stage01ボタンを選択状態にする
                 isCancel = false;
-                timeCount = 0.5f;
                 gameObject.transform.parent.gameObject.SetActive(false);
             }
         }
 
-        if (isOK)
+        if (isOK)       //  ステージに移動処理
         {
             timeCount -= Time.deltaTime;
             if (timeCount < -0.3f)
@@ -48,7 +46,7 @@ public class StageSelectConfirmUIController : MonoBehaviour
         }
     }
 
-    void StageConfirm()
+    void StageConfirm()     //  ボタンを監視メソッド
     {
         if (gameObject.name == "OK")
         {
