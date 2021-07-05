@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 349449106854145785}
   - component: {fileID: 6665290396262645940}
   m_Layer: 0
-  m_Name: Weapon
+  m_Name: ThrowWeapon
   m_TagString: Weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -124,4 +124,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotateSpeed: 30
-  speed: 40
+  speed: 45
