@@ -316,7 +316,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6563069687167480264}
   - component: {fileID: 6563069687167480265}
-  - component: {fileID: 406870269525796392}
   m_Layer: 0
   m_Name: PlayerModule
   m_TagString: Player
@@ -364,20 +363,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!136 &406870269525796392
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6563069687167480267}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 2.5
-  m_Direction: 1
-  m_Center: {x: 0, y: 1.25, z: 0}
 --- !u!1 &6563069687170502509
 GameObject:
   m_ObjectHideFlags: 0
@@ -809,13 +794,14 @@ MonoBehaviour:
   playerNeck: {fileID: 6563069687012103071}
   modelMesh: {fileID: 6563069687901137003}
   weaponMesh: {fileID: 6177237905814406097}
-  cc: {fileID: 0}
+  climbCheck: {fileID: 0}
   pi: {fileID: 6563069687783362543}
   hp: 3
   coinCount: 0
   coinUIAction: 0
   climbEnd: 0
   isDead: 0
+  isFall: 0
   keys: 
   devices: 
   moveSpeed: 5
