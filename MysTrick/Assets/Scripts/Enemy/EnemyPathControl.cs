@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class EnemyPathControl : MonoBehaviour
 {
-    public float speed = 1.5f;
-    public float field = 20.0f;
+    public float speed;
+    public float field;
     public GameObject player;
     public Transform[] pathPositions;
     public Transform head;
@@ -48,12 +48,16 @@ public class EnemyPathControl : MonoBehaviour
 
             Physics.Raycast(ray, out hit, Mathf.Infinity);
 
-            if (hit.collider != null)       //  空を見てフリーズの対策
+            if (hit.collider != null && edc.canMove)       //  空を見てフリーズの対策
             {
                 hit.collider.enabled = true;
-                if (!(hit.collider.gameObject.layer == LayerMask.NameToLayer("Wall")) && LockOn())
+                if (!(hit.collider.gameObject.layer == LayerMask.NameToLayer("Wall")) && LockOn() || isAttackedByPlayer)
                 {
                     Move();
+                    if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Wall"))
+                    {
+                        isAttackedByPlayer = false;
+                    }
                 }
                 else
                 {

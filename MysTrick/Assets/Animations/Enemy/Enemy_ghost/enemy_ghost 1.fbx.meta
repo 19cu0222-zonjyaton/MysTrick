@@ -1,23 +1,29 @@
 fileFormatVersion: 2
-guid: 109fa737e988e4141adfcc65849e2f2c
+guid: 3c91997683370334d8aa412fe785c5a7
 ModelImporter:
-  serializedVersion: 19301
+  serializedVersion: 20200
   internalIDToNameTable:
   - first:
       74: 1827226128182048838
-    second: enemy_ghost_move
+    second: Move
   - first:
-      74: 9166941439444477778
-    second: enemy_ghost_attack
+      74: -5405653242291790180
+    second: Take 001 (1)
   - first:
-      74: -8108469755436872082
-    second: enemy_ghost_damage
+      74: 4854180139978558704
+    second: Take 001 (2)
   - first:
-      74: -116744052473299076
-    second: enemy_ghost_dead
+      74: 1389121407789637250
+    second: Dead
+  - first:
+      74: 6720303635017113406
+    second: Attack
+  - first:
+      74: 3651350446308603674
+    second: Damage
   externalObjects: {}
   materials:
-    materialImportMode: 1
+    materialImportMode: 2
     materialName: 0
     materialSearch: 1
     materialLocation: 1
@@ -44,11 +50,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: enemy_ghost_move
+      name: Move
       takeName: Take 001
       internalID: 0
-      firstFrame: 0
-      lastFrame: 60
+      firstFrame: 5
+      lastFrame: 65
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -73,11 +79,11 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: enemy_ghost_attack
+      name: Attack
       takeName: Take 001
       internalID: 0
-      firstFrame: 60
-      lastFrame: 120
+      firstFrame: 65
+      lastFrame: 130
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -102,11 +108,11 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: enemy_ghost_damage
+      name: Damage
       takeName: Take 001
       internalID: 0
-      firstFrame: 120
-      lastFrame: 180
+      firstFrame: 130
+      lastFrame: 190
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -131,11 +137,11 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: enemy_ghost_dead
+      name: Dead
       takeName: Take 001
       internalID: 0
-      firstFrame: 180
-      lastFrame: 240
+      firstFrame: 190
+      lastFrame: 250
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -177,6 +183,7 @@ ModelImporter:
     useFileUnits: 1
     keepQuads: 0
     weldVertices: 1
+    bakeAxisConversion: 0
     preserveHierarchy: 0
     skinWeightsMode: 0
     maxBonesPerVertex: 4
@@ -186,6 +193,9 @@ ModelImporter:
     secondaryUVAngleDistortion: 8
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88
+    secondaryUVMarginMethod: 1
+    secondaryUVMinLightmapResolution: 40
+    secondaryUVMinObjectScale: 1
     secondaryUVPackMargin: 4
     useFileScale: 1
   tangentSpace:
@@ -219,6 +229,7 @@ ModelImporter:
   animationType: 2
   humanoidOversampling: 1
   avatarSetup: 0
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 1
   additionalBone: 0
   userData: 
   assetBundleName: 
