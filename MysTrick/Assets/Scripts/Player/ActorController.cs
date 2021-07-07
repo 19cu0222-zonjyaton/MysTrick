@@ -43,7 +43,7 @@ public class ActorController : MonoBehaviour
 
 	[SerializeField]
 	private Animator anim;
-	private new Animation animation;
+	private new Animation attack_anim;
 	private Rigidbody rigid;
 	private Vector3 movingVec;
 	private GoalController gc;
@@ -61,7 +61,7 @@ public class ActorController : MonoBehaviour
 
 		anim = model.GetComponent<Animator>();
 
-		animation = GameObject.Find("R_Shoulder").GetComponent<Animation>();
+		attack_anim = GameObject.Find("R_Shoulder").GetComponent<Animation>();
 
 		rigid = GetComponent<Rigidbody>();
 
@@ -92,7 +92,13 @@ public class ActorController : MonoBehaviour
 				movingVec = pi.Dmag * model.transform.forward;
 			}
 
-			if (pi.isThrowing && !pi.isAimStatus)   //	第三視点の投げる処理
+			if (pi.isAttacking)                     //	近戦攻撃処理
+			{
+				attack_anim.Play();
+
+				pi.isAttacking = false;
+			}
+			else if (pi.isThrowing && !pi.isAimStatus && !attack_anim.isPlaying)   //	第三視点の投げる処理
 			{
 				anim.SetTrigger("Throw");
 
@@ -101,14 +107,7 @@ public class ActorController : MonoBehaviour
 				pi.isThrowing = false;
 			}
 
-			if (pi.isAttacking)                     //	近戦攻撃処理
-			{
-				animation.Play();
-
-				pi.isAttacking = false;
-			}
-
-			if (animation.isPlaying)                //	攻撃する時tagを有効にする
+			if (attack_anim.isPlaying)                //	攻撃する時tagを有効にする
 			{
 				weapon.transform.SetParent(playerHand.transform);
 				weapon.transform.localPosition = new Vector3(-0.146f, 0.091f, 1.137f);

@@ -16,8 +16,6 @@ public class EnemyPathControl : MonoBehaviour
     private int index = 1;
     private bool islock = false;
     private bool isAttackedByPlayer;
-    private float countTime;
-    private bool targetIsLost;
     private Ray ray;
     private RaycastHit hit;
 
@@ -109,7 +107,6 @@ public class EnemyPathControl : MonoBehaviour
     }
     void Patrol()
     {
-        //targetIsLost = false;
         transform.Translate((pathPositions[index].position - transform.position).normalized * Time.deltaTime * speed);
         Vector3 targetPosition = pathPositions[index].transform.position;
         targetPosition.y = head.position.y;

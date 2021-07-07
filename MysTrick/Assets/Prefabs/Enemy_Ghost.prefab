@@ -817,6 +817,8 @@ MonoBehaviour:
   enemyHp: 3
   canMove: 1
   anim: {fileID: 3732579793331291161}
+  coin: {fileID: 1508819288172737369, guid: 41feb14abde802a49baf21fd497df38e, type: 3}
+  ac: {fileID: 6563069687783362542, guid: deb5c94de91a32e4ca21d16c24db72a9, type: 3}
 --- !u!114 &8827939731133930569
 MonoBehaviour:
   m_ObjectHideFlags: 0

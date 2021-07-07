@@ -18,7 +18,6 @@ public class WeaponController : MonoBehaviour
 
     private new Rigidbody rigidbody;
     private PlayerInput pi;         //  攻撃ができるかどうかの判断
-    private ActorController ac;
     private Vector3 throwRot;
     private float speedDown;        //  戻る時の速度
     private float timeCount;
@@ -34,8 +33,6 @@ public class WeaponController : MonoBehaviour
         rigidbody = gameObject.GetComponent<Rigidbody>();
 
         pi = playerPos.GetComponent<PlayerInput>();
-
-        ac = playerPos.GetComponent<ActorController>();
 
         startPos[0] = transform.localPosition;
 

@@ -14,6 +14,7 @@ public class ActorInStageSelect : MonoBehaviour
     private bool goLeft;
     private bool goRight;
     private bool isMove;
+    private bool aaa;
 
     void Awake()
     {
@@ -49,6 +50,16 @@ public class ActorInStageSelect : MonoBehaviour
         {
             if (selectBtn < 4)
             {
+                if (selectBtn == 2)
+                {
+                    transform.position = new Vector3(1.5f, -4.0f, -340.0f);
+                    transform.localEulerAngles = new Vector3(0, 85.0f, 0);
+                }
+                else if (selectBtn == 3)
+                {
+                    transform.position = new Vector3(9.5f, -4.0f, -340.0f);
+                    transform.localEulerAngles = new Vector3(0, 115.0f, 0);
+                }
                 goRight = true;
                 selectBtn++;
                 btn[selectBtn - 1].GetComponent<StageSelectButtonController>().canSelected = true;
