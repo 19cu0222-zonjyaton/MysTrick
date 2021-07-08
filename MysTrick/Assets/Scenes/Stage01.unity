@@ -8058,17 +8058,17 @@ PrefabInstance:
     - target: {fileID: 6563069687783362538, guid: deb5c94de91a32e4ca21d16c24db72a9,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 13.16
+      value: 13.24
       objectReference: {fileID: 0}
     - target: {fileID: 6563069687783362538, guid: deb5c94de91a32e4ca21d16c24db72a9,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 10.91
+      value: 10.16
       objectReference: {fileID: 0}
     - target: {fileID: 6563069687783362538, guid: deb5c94de91a32e4ca21d16c24db72a9,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 6.78
+      value: 7.24
       objectReference: {fileID: 0}
     - target: {fileID: 6563069687783362538, guid: deb5c94de91a32e4ca21d16c24db72a9,
         type: 3}
@@ -20165,6 +20165,11 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 688578659}
+    - target: {fileID: 8827939731133930571, guid: 19f866164458f0b4689c692e1c39b025,
+        type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
     - target: {fileID: 8827939731133930574, guid: 19f866164458f0b4689c692e1c39b025,
         type: 3}
       propertyPath: ac
@@ -22014,6 +22019,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Goal
       objectReference: {fileID: 0}
+    - target: {fileID: 5053185077567357723, guid: 0902f90c8ad98e24f83a2e3a27996cf1,
+        type: 3}
+      propertyPath: ac
+      value: 
+      objectReference: {fileID: 688578660}
     - target: {fileID: 5053185077567357723, guid: 0902f90c8ad98e24f83a2e3a27996cf1,
         type: 3}
       propertyPath: ps

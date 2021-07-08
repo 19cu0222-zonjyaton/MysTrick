@@ -8,16 +8,16 @@ public class GoalController : MonoBehaviour
     public bool gameClear;
     public ParticleSystem ps;
     public GameObject clearMask;
-
+    public ActorController ac;
     public float perRadian;         //  毎回変化の弧度
     public float radius;
     public float radian;               //  弧度
     public static string clearStageName = "";
+    public static int[] getCount = new int[4];
+    private int[] tempGetCount = new int[4];
     private Vector3 oldPos;
     private PlayerInput pi;
-    private CanvasGroup canvasGroup;
     private float timeCount = 10.0f;
-    private bool doOnce;
 
     // Start is called before the first frame update
     void Awake()
@@ -25,8 +25,6 @@ public class GoalController : MonoBehaviour
         pi = GameObject.Find("PlayerHandle").GetComponent<PlayerInput>();
 
         oldPos = transform.position;        //  最初の位置 
-
-        canvasGroup = GetComponent<CanvasGroup>();
     }
 
     void Update()
@@ -48,6 +46,22 @@ public class GoalController : MonoBehaviour
         if (gameClear)
         {
             clearMask.GetComponent<CanvasGroup>().alpha = 1;
+
+            for (int i = 0; i < getCount.Length; i++)
+            {
+                if (StageSelectButtonController.selectStageName == "Stage0" + (i + 1))
+                {
+                    if (getCount[i] == 0)
+                    {
+                        getCount[i] = ac.coinCount;
+                        tempGetCount[i] = getCount[i];
+                    }
+                    else if (ac.coinCount > tempGetCount[i])
+                    {
+                        getCount[i] = ac.coinCount;
+                    }
+                }
+            }
 
             timeCount -= Time.deltaTime;
             if (timeCount >= 0.0f && timeCount < 3.0f)
