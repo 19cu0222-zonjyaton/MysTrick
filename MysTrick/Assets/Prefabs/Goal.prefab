@@ -107,6 +107,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameClear: 0
+  ps: {fileID: 0}
+  clearMask: {fileID: 0}
+  ac: {fileID: 6563069687783362542, guid: deb5c94de91a32e4ca21d16c24db72a9, type: 3}
   perRadian: 0.1
   radius: 0.2
   radian: 0
