@@ -10,13 +10,15 @@ public class BridgeController : MonoBehaviour
 	public Vector3 targetAng;
 	private Quaternion targetEuAng;
 	public float speed = 5.0f;
-	public bool hasDone;				//	カメラ用参数
+	public bool hasDone;                //	カメラ用参数
+	private new AudioSource audio;
+	private bool playOnce;
 	private float timeCount = 3.6f;		//	Triggerを出すまでの時間
 	private int pressCount = 0;			// 押し回数
 
-	void Start()
+	void Awake()
 	{
-		
+		audio = gameObject.GetComponent<AudioSource>();
 	}
 
 	void Update()
@@ -25,6 +27,12 @@ public class BridgeController : MonoBehaviour
 		{
 			isTriggered = true;
 			timeCount -= Time.deltaTime;
+			if (!playOnce)
+			{
+				audio.Play();
+				playOnce = true;
+			}
+
 			if (timeCount <= 1.8f && timeCount > 0.0f)
 			{
 				targetEuAng = Quaternion.Euler(targetAng);
@@ -48,6 +56,7 @@ public class BridgeController : MonoBehaviour
 				}
 
 				timeCount = 1.8f;
+				playOnce = false;
 				Device.isTriggered = false;
 			}
 		}

@@ -20,6 +20,7 @@ public class ActorController : MonoBehaviour
 	public MeshRenderer weaponMesh;			//	武器のmesh
 	public ClimbCheck climbCheck;			//	昇るチェック
 	public PlayerInput pi;
+	public AudioClip[] sounds;
 	public int hp;							//	プレイヤーHP
 	public int coinCount;					//	獲得したコイン数
 	public bool coinUIAction;				//  コインUIを動くための信号
@@ -39,11 +40,11 @@ public class ActorController : MonoBehaviour
 	public bool isUnrivaled;        //	無敵Time
 	public bool shootStart;         //	武器発射flag
 	public bool isJumping;			//	ジャンプflag
-	public bool isClimbing;			//	登るflag
+	public bool isClimbing;         //	登るflag
 
-	[SerializeField]
+	private AudioSource audio;
 	private Animator anim;
-	private new Animation attack_anim;
+	private Animation attack_anim;
 	private Rigidbody rigid;
 	private Vector3 movingVec;
 	private GoalController gc;
@@ -58,6 +59,8 @@ public class ActorController : MonoBehaviour
 	void Awake()
 	{
 		pi = GetComponent<PlayerInput>();
+
+		audio = gameObject.GetComponent<AudioSource>();
 
 		anim = model.GetComponent<Animator>();
 
@@ -96,11 +99,19 @@ public class ActorController : MonoBehaviour
 			{
 				attack_anim.Play();
 
+				if (!audio.isPlaying)
+				{
+					audio.pitch = 2.0f;
+					audio.PlayOneShot(sounds[0]);
+				}
+
 				pi.isAttacking = false;
 			}
 			else if (pi.isThrowing && !pi.isAimStatus && !attack_anim.isPlaying)   //	第三視点の投げる処理
 			{
 				anim.SetTrigger("Throw");
+
+				audio.PlayOneShot(sounds[1]);
 
 				pi.canThrow = false;
 
@@ -108,7 +119,7 @@ public class ActorController : MonoBehaviour
 			}
 
 			if (attack_anim.isPlaying)                //	攻撃する時tagを有効にする
-			{
+			{				
 				weapon.transform.SetParent(playerHand.transform);
 				weapon.transform.localPosition = new Vector3(-0.146f, 0.091f, 1.137f);
 				weapon.transform.localEulerAngles = new Vector3(22.826f, -291.228f, 167.892f);
@@ -121,6 +132,7 @@ public class ActorController : MonoBehaviour
 				weapon.transform.localPosition = weaponStartPos;                     //  親に相対の座標を設定する
 				weapon.transform.localEulerAngles = weaponStartRot;                  //  親に相対の角度を設定する   
 				weapon.transform.tag = "Untagged";
+				audio.pitch = 1.0f;
 				doOnce = false;
 			}
 
@@ -245,6 +257,7 @@ public class ActorController : MonoBehaviour
 		{
 			hp--;
 			damageRot = model.transform.localEulerAngles;
+			audio.PlayOneShot(sounds[2]);
 			if (hp >= 0)
 			{
 				pi.inputEnabled = false;
@@ -252,13 +265,13 @@ public class ActorController : MonoBehaviour
 				weaponMesh.enabled = false;
 				if (hp == 0)
 				{
-					rigid.AddForce(0.0f, 200.0f, 0.0f);
+					rigid.AddExplosionForce(800.0f, collision.transform.position - new Vector3(0.0f, 1.5f, 0.0f), 5.0f, 2.0f);      //	爆発の位置を矯正
 				}
 				else
 				{
-					rigid.AddForce(0.0f, 50.0f, 0.0f);
+					rigid.AddExplosionForce(500.0f, collision.transform.position - new Vector3(0.0f, 1.5f, 0.0f), 5.0f, 1.5f);      //	爆発の位置を矯正
 				}		
-				rigid.AddExplosionForce(500.0f, collision.transform.position - new Vector3(0.0f, 1.5f, 0.0f), 5.0f, 3.0f);		//	爆発の位置を矯正
+
 				isUnrivaled = true;
 			}
 		}

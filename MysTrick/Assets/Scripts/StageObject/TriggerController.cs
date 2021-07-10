@@ -25,14 +25,13 @@ public class TriggerController : MonoBehaviour
 
 	[Header("===監視用===")]
 	public bool isTriggered;
-	public bool isStairTriggered;
 	public bool isCameraTriggered;
 	public int launchCount;						//	Triggerの状態(0 -> 最初の状態 1 -> 発動した状態)
 	private PlayerInput Player;
 
 	void Awake()
 	{
-		Player = GameObject.Find("PlayerHandle").GetComponent<PlayerInput>();	
+		Player = GameObject.Find("PlayerHandle").GetComponent<PlayerInput>();
 	}
 
 	void Update()
@@ -43,8 +42,6 @@ public class TriggerController : MonoBehaviour
 
 			if (timeCount <= 0.0f)
 			{
-				isStairTriggered = true;
-
 				cameraCanMoveToStair = false;
 
 				timeCount = 1.2f;
@@ -130,14 +127,14 @@ public class TriggerController : MonoBehaviour
 					// カウント終了
 					if (timeController.isFinish)
 					{
-						// 表示になった場合
-						if (Stair.transform.gameObject.activeSelf)
-						{
-							Stair.transform.gameObject.SetActive(false);
-						}
+						//// 表示になった場合
+						//if (Stair.transform.gameObject.activeSelf)
+						//{
+						//	Stair.transform.gameObject.SetActive(false);
+						//}
 						// 表示になってない場合
-						else
-						{
+						//else
+						//{
 							Stair.transform.gameObject.SetActive(true);
 							isCameraTriggered = true;
 
@@ -146,7 +143,7 @@ public class TriggerController : MonoBehaviour
 								cameraCanMoveToStair = true;
 								hadDone = true;
 							}
-						}
+						//}
 						timeController.isFinish = false;
 						timeController.TimeDelay(0.0f, 0.5f);
 					}
@@ -174,14 +171,14 @@ public class TriggerController : MonoBehaviour
 
 				Player.isTriggered = false;
 
-				// 表示になった場合
-				if (Stair.transform.gameObject.activeSelf)
-				{
-					Stair.transform.gameObject.SetActive(false);
-				}
-				// 表示になってない場合
-				else
-				{
+				//// 表示になった場合
+				//if (Stair.transform.gameObject.activeSelf)
+				//{
+				//	Stair.transform.gameObject.SetActive(false);
+				//}
+				//// 表示になってない場合
+				//else
+				//{
 					Stair.transform.gameObject.SetActive(true);
 					isCameraTriggered = true;
 
@@ -194,7 +191,7 @@ public class TriggerController : MonoBehaviour
 						cameraCanMoveToStair = true;
 						hadDone = true;
 					}
-				}
+				//}
 			}
 		}
 	}
