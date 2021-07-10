@@ -26,13 +26,17 @@ public class LadderController : MonoBehaviour
 	public float timeMax;				// 回転時間（最大値）
 	private float timeReset;			// 回転時間（リセット）
 	public float speed;					// 回転スピード
-	public bool hasDone;				//	カメラ用参数
+	public bool hasDone;                //	カメラ用参数
+										
+	private new AudioSource audio;      //	Audioコンポーネント
+	private bool playOnce;				//	一回だけSEを流すフラグ
 
-	void Start()
+	void Awake()
 	{
 		timeReset = 0.0f;
 		nextAng = targetAngs[i + 1];
 		canRotate = false;
+		audio = gameObject.GetComponent<AudioSource>();
 	}
 
 	void Update()
@@ -42,6 +46,13 @@ public class LadderController : MonoBehaviour
 		if (canRotate)
 		{
 			timeCount += Time.deltaTime;
+
+			if (!playOnce)
+			{
+				audio.Play();
+				playOnce = true;
+			}
+
 			if (timeCount <= timeMax && timeCount >= 0.0f)
 			{
 				// Quaternion.Slerp(Quaternion From, Quaternion To, Speed * deltaTime)
@@ -56,6 +67,7 @@ public class LadderController : MonoBehaviour
 				Device.isTriggered = false;
 				canRotate = false;
 				rotateFinish = true;
+				playOnce = false;
 				timeCount = timeReset;
 				i = (i + 1) % 4;
 				// 要素数超えたら、初期値に戻す

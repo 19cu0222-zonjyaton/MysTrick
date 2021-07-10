@@ -14,9 +14,10 @@ public class GoalController : MonoBehaviour
     public float radian;               //  弧度
     public static string clearStageName = "";
     public static int[] getCount = new int[4];
-    private int[] tempGetCount = new int[4];
     private Vector3 oldPos;
     private PlayerInput pi;
+    private AudioSource audio;
+    private int[] tempGetCount = new int[4];
     private float timeCount = 10.0f;
 
     // Start is called before the first frame update
@@ -25,6 +26,8 @@ public class GoalController : MonoBehaviour
         pi = GameObject.Find("PlayerHandle").GetComponent<PlayerInput>();
 
         oldPos = transform.position;        //  最初の位置 
+
+        audio = gameObject.GetComponent<AudioSource>();
     }
 
     void Update()
@@ -43,10 +46,12 @@ public class GoalController : MonoBehaviour
             }
         }
        
+        //  ゲームクリア処理
         if (gameClear)
         {
             clearMask.GetComponent<CanvasGroup>().alpha = 1;
 
+            //  コインの獲得率を更新する処理
             for (int i = 0; i < getCount.Length; i++)
             {
                 if (StageSelectButtonController.selectStageName == "Stage0" + (i + 1))
@@ -85,6 +90,8 @@ public class GoalController : MonoBehaviour
             gameClear = true;
 
             pi.inputEnabled = false;
+
+            audio.Play();
 
             ps.Play();
         }

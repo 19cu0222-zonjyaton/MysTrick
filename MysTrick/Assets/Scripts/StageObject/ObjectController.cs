@@ -68,12 +68,17 @@ public class ObjectController : MonoBehaviour
 	// 回転初期時間
 	//private float timeReset;
 	private Vector3 nextAng;
+	//	Audioコンポーネント
+	private new AudioSource audio;
+	//	一回だけSEを流すフラグ
+	private bool playOnce;
 	//--------------------------------
 
 	//===監視用値===
 	[Header("監視用")]
 	public bool isTrigger;				//	カメラ用フラグ
 	public bool hasDone;                //	カメラ用フラグ
+	public float audioSpeed = 1.0f;     //	SEを流すスピード
 	//==============
 
 	void Awake()
@@ -84,12 +89,9 @@ public class ObjectController : MonoBehaviour
 		if (moveData.targetB != null) nextTarget = moveData.targetB.position;
 		startSpeed = moveData.speed;
 		liftingFin = false;
-		//timeReset = timeCount;
-	}
-
-	void Start()
-	{
+		audio = gameObject.GetComponent<AudioSource>();
 		ElevTimer = gameObject.GetComponent<TimerController>();
+		//timeReset = timeCount;
 	}
 
 	// Update is called once per frame
@@ -113,11 +115,18 @@ public class ObjectController : MonoBehaviour
 						if (Mathf.Abs(this.transform.localPosition.magnitude - nextTarget.magnitude) > 0.01f)
 						{
 							this.transform.localPosition = Vector3.MoveTowards(this.transform.localPosition, moveData.target.localPosition, moveData.speed * Time.deltaTime);
+							if (!playOnce)
+							{
+								audio.Play();
+								playOnce = true;
+							}
 						}
 					}
 					else if (timeCount > timeMax) 
 					{
 						Device.isTriggered = false;
+						isTrigger = false;
+						playOnce = false;
 					}
 				}
 				break;
@@ -129,7 +138,12 @@ public class ObjectController : MonoBehaviour
 					// 移動開始
 					if (timeCount <= timeMax && timeCount >= 0.0f)
 					{
-						this.transform.position = Vector3.MoveTowards(this.transform.position, nextTarget, moveData.speed * Time.deltaTime);					
+						this.transform.position = Vector3.MoveTowards(this.transform.position, nextTarget, moveData.speed * Time.deltaTime);
+						if (!playOnce)
+						{
+							audio.Play();
+							playOnce = true;
+						}
 					}
 					// 移動停止
 					else if (timeCount > timeMax)
@@ -139,7 +153,9 @@ public class ObjectController : MonoBehaviour
 						if (isTrigger)				//	一回が行ったらDelay時間をなしにする
 						{
 							timeCount = 0.0f;
+							isTrigger = false;
 						}
+						playOnce = false;
 						Device.isTriggered = false;
 						// 押し回数により次のターゲットを決定する
 						if (pressCount % 2 == 1) nextTarget = moveData.targetA.position;
@@ -177,6 +193,13 @@ public class ObjectController : MonoBehaviour
 					isTrigger = true;
 					// 回転開始までにカウントダウン
 					timeCount += Time.deltaTime;
+
+					if (!playOnce)
+					{
+						audio.Play();
+						playOnce = true;
+					}
+
 					// 回転開始
 					if (timeCount <= timeMax && timeCount >= 0.0f)
 					{
@@ -193,8 +216,10 @@ public class ObjectController : MonoBehaviour
 						if (isTrigger)    //	一回が行ったらDelay時間をなしにする
 						{
 							timeCount = 0.0f;
+							isTrigger = false;
 						}
 						//timeCount = timeReset;
+						playOnce = false;
 						canRotate = false;
 						Device.isTriggered = false;
 					}

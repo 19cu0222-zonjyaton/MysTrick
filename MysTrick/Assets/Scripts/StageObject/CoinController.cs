@@ -10,6 +10,7 @@ public class CoinController : MonoBehaviour
     private Vector3 oldPos;
     private new Rigidbody rigidbody;
     private ActorController ac;
+    private AudioSource audio;
     private bool getByPlayer;       //  プレイヤーと当たったflag
     private float rotateSpeed = 2.0f;
 
@@ -20,6 +21,8 @@ public class CoinController : MonoBehaviour
         rigidbody = gameObject.GetComponent<Rigidbody>();
 
         ac = GameObject.Find("PlayerHandle").GetComponent<ActorController>();
+
+        audio = gameObject.GetComponent<AudioSource>();
     }
 
     void Update()
@@ -51,6 +54,8 @@ public class CoinController : MonoBehaviour
         if (collider.transform.tag == "Player" && !getByPlayer)     //プレイヤーと当たる処理
         {
             getByPlayer = true;
+
+            audio.Play();
 
             rigidbody.AddForce(0.0f, 500.0f, 0.0f);
 

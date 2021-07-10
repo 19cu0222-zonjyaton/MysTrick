@@ -12,6 +12,7 @@ public class EnemyDamageController : MonoBehaviour
     public ActorController ac;              //  プレイヤーコントローラー
     private Rigidbody rigid;                //  プレイヤーに攻撃された処理用
     private CapsuleCollider capsuleCollider;//  衝突判定用
+    private AudioSource audio;              //  敵のSEオブジェクト
     private float timeCount;                //  コインを時間ごとにでる
     private int coinCount;                  //  コインの個数
     private float deadPosY;                 //  消滅されたY座標保存用
@@ -21,6 +22,8 @@ public class EnemyDamageController : MonoBehaviour
         rigid = gameObject.GetComponent<Rigidbody>();
 
         capsuleCollider = gameObject.GetComponent<CapsuleCollider>();
+
+        audio = gameObject.GetComponent<AudioSource>();
     }
 
     void Update()
@@ -62,6 +65,7 @@ public class EnemyDamageController : MonoBehaviour
         if (collider.transform.tag == "Weapon" && !isDamage)
         {
             enemyHp--;
+            audio.Play();
 
             if (enemyHp <= 0)
             {

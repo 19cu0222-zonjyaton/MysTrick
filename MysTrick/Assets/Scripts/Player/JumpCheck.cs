@@ -31,6 +31,7 @@ public class JumpCheck : MonoBehaviour
     private PlayerInput pi;
     private ActorController ac;
     private Rigidbody rigid;
+    private AudioSource audio;
 
     private int tempJumpCount;  //  階段数を保存するため
     private float tempJumpTime; //	ジャンプタイムを保存するため
@@ -46,6 +47,8 @@ public class JumpCheck : MonoBehaviour
         rigid = playerHandle.GetComponent<Rigidbody>();
 
         anim = playerModule.GetComponent<Animator>();
+
+        audio = gameObject.GetComponent<AudioSource>();
 
         tempJumpCount = jumpCount;
 
@@ -93,6 +96,8 @@ public class JumpCheck : MonoBehaviour
                     anim.SetTrigger("Jump");
 
                     rigid.AddForce(jumpPowerX, jumpPowerY, jumpPowerZ);
+
+                    audio.Play();
 
                     isJump = false;
                 }

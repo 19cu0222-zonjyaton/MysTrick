@@ -14,11 +14,12 @@ public class DoorController : MonoBehaviour
 
 	private float timeCount = 2.5f;      //	Triggerを出すまでの時間
 	private int pressCount = 0;         // 押し回数
+	private new AudioSource audio;
+	private bool playOnce;
 
-	// Start is called before the first frame update
-	void Start()
+	void Awake()
 	{
-
+		audio = gameObject.GetComponent<AudioSource>();
 	}
 
 	// Update is called once per frame
@@ -31,6 +32,11 @@ public class DoorController : MonoBehaviour
 			if (timeCount <= 1.0f && timeCount > 0.0f)
 			{
 				this.transform.position = Vector3.MoveTowards(this.transform.position, dest, 4.0f * Time.deltaTime);
+				if (!playOnce)
+				{
+					audio.Play();
+					playOnce = true;
+				}
 			}
 			else if (timeCount <= 0.0f)
 			{
@@ -47,6 +53,7 @@ public class DoorController : MonoBehaviour
 				}
 
 				timeCount = 1.0f;
+				playOnce = false;
 				Device.isTriggered = false;
 			}
 		}

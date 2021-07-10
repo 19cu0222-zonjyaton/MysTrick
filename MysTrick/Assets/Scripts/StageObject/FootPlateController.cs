@@ -19,7 +19,8 @@ public class FootPlateController : MonoBehaviour
 	[SerializeField]
 	private bool nextUpward = false;	// True:次は上昇、False:次は降下
 	[SerializeField]
-	public bool isTriggered = false;	// True:稼働中、False:停止中
+	public bool isTriggered = false;    // True:稼働中、False:停止中
+	private float timeCount;
 
 	void Start()
 	{
@@ -30,36 +31,43 @@ public class FootPlateController : MonoBehaviour
 	{
 		if (isTriggered)
 		{
-			// 上昇開始
-			if (nextUpward)
+			timeCount += Time.deltaTime;
+			if (timeCount <= 5.0f)
 			{
-				// 上昇後の最終座標になるまで直線移動
-				if (this.transform.position.x != targetUp.position.x || this.transform.position.y != targetUp.position.y)
+				// 上昇開始
+				if (nextUpward)
 				{
-					this.transform.position = Vector3.MoveTowards(this.transform.position, targetUp.position, moveSpeed);
+					// 上昇後の最終座標になるまで直線移動
+					if (this.transform.position.x != targetUp.position.x || this.transform.position.y != targetUp.position.y)
+					{
+						this.transform.position = Vector3.MoveTowards(this.transform.position, targetUp.position, moveSpeed);
+					}
+					// 上昇終了、降下状態を準備
+					else if(timeCount > 2.5f)
+					{
+						isTriggered = false;
+						nextUpward = false;
+						timeCount = 1.0f;
+					}
 				}
-				// 上昇終了、降下状態を準備
-				else
+				// 降下開始
+				else if (!nextUpward)
 				{
-					isTriggered = false;
-					nextUpward = false;
+					// 降下後の最終座標になるまで直線移動
+					if (this.transform.position.x != targetDown.position.x || this.transform.position.y != targetDown.position.y)
+					{
+						this.transform.position = Vector3.MoveTowards(this.transform.position, targetDown.position, moveSpeed);
+					}
+					// 降下終了、上昇状態を準備
+					else if (timeCount > 2.5f)
+					{
+						isTriggered = false;
+						nextUpward = true;
+						timeCount = 1.0f;
+					}
 				}
 			}
-			// 降下開始
-			else if (!nextUpward)
-			{
-				// 降下後の最終座標になるまで直線移動
-				if (this.transform.position.x != targetDown.position.x || this.transform.position.y != targetDown.position.y)
-				{
-					this.transform.position = Vector3.MoveTowards(this.transform.position, targetDown.position, moveSpeed);
-				}
-				// 降下終了、上昇状態を準備
-				else
-				{
-					isTriggered = false;
-					nextUpward = true;
-				}
-			}
+
 		}
 	}
 

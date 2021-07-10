@@ -16,6 +16,11 @@ TagManager:
   - LeftPoint
   - MovePoint
   - GapCheck
+  - Enemy_Ghost
+  - Coin
+  - Gear
+  - DeadCheck
+  - Door
   layers:
   - Default
   - TransparentFX

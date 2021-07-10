@@ -36,6 +36,7 @@ public class PlayerInput : MonoBehaviour
 	public float Jup;
 	public float Jright;
 
+	[Header("======= Player Static =======")]
 	public bool inputEnabled = true;
 	public bool aimUI;
 	public bool isTriggered;

@@ -12,15 +12,17 @@ public class EnemyPathControl : MonoBehaviour
     public EnemyDamageController edc;
     public CameraController cc;
 
+    private PlayerInput pi;
     private ActorController ac;
     private int index = 1;
     private bool islock = false;
     private bool isAttackedByPlayer;
     private Ray ray;
     private RaycastHit hit;
-
     void Awake()
     {
+        pi = player.GetComponent<PlayerInput>();
+
         ac = player.GetComponent<ActorController>();
     }
 
@@ -31,7 +33,7 @@ public class EnemyPathControl : MonoBehaviour
             isAttackedByPlayer = true;
         }
 
-        if (cc.cameraStatic == "Idle")
+        if (pi.inputEnabled)
         {
             if (LockOn())
             {

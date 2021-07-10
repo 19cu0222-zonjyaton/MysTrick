@@ -6,11 +6,8 @@ public class CameraController : MonoBehaviour
 {
 	public PlayerInput pi;
 	public GoalController goal;
-	public float horizontalSpeed = 50.0f;
-	public float verticalSpeed = 40.0f;
 	public GameObject cameraBackPos;            //  カメラ戻る時の位置
 	public Vector3 moveToPos;                   //  カメラ目標の位置
-	public string cameraStatic = "Idle";        //  カメラ状態
 	public StairController[] stair;
 	public DoorController[] door;
 	public BridgeController[] bridge;
@@ -25,19 +22,23 @@ public class CameraController : MonoBehaviour
 	public GameObject firstPerspect;
 	public GameObject weapon;
 	public GameObject usingWeapon;              //	今手が持っている武器
-	public GameObject deadPos;					//	プレイヤーが死亡したら視点の位置
+	public GameObject deadPos;                  //	プレイヤーが死亡したら視点の位置
 	public bool canThrowWeapon = true;
+	public string cameraStatic = "Idle";        //  カメラ状態
+	public float horizontalSpeed = 50.0f;
+	public float verticalSpeed = 40.0f;
 
 	private ActorController ac;
 	private GameObject cameraHandle;
 	private GameObject playerHandle;
-	private float aimEulerX;					//	狙う状態のカメラX軸回転値
-	private float idleEulerX;
 	private GameObject model;
 	private SkinnedMeshRenderer smr;
-	private float countTime = 10.0f;            //  カメラ視角切り替えの時間
-	private bool canRotate;						//	プレイヤー視点切り替えた後回転できるか
+	private AudioSource audio;
 	private Vector3 relativePos;
+	private float aimEulerX;					//	狙う状態のカメラX軸回転値
+	private float idleEulerX;
+	private float countTime = 10.0f;            //  カメラ視角切り替えの時間
+	private bool canRotate;                     //	プレイヤー視点切り替えた後回転できるか
 
 	// Start is called before the first frame update
 	void Awake()
@@ -55,6 +56,8 @@ public class CameraController : MonoBehaviour
 		cameraBackPos = GameObject.Find("CameraPos");
 
 		ac = playerHandle.GetComponent<ActorController>();
+
+		audio = gameObject.GetComponent<AudioSource>();
 	}
 
 	// Update is called once per frame
@@ -98,6 +101,7 @@ public class CameraController : MonoBehaviour
 				cameraMove(lookAtDoor[i].transform.position, door[i].gameObject);
 			}
 		}
+
 		//  When Trigger are bridges
 		for (int i = 0; i < bridge.Length; i++)
 		{
@@ -128,7 +132,7 @@ public class CameraController : MonoBehaviour
 			{
 				cameraMove(lookAtLadder[i].transform.position, ladder[i].gameObject);
 			}
-		}
+        }
 
 		//  When Trigger are object
 		for (int i = 0; i < ob.Length; i++)
@@ -191,6 +195,8 @@ public class CameraController : MonoBehaviour
 						if (pi.isThrowing)
 						{
 							Instantiate(weapon, transform.position + transform.forward * 1.5f, transform.rotation);
+
+							audio.Play();
 
 							canThrowWeapon = false;
 
@@ -269,10 +275,10 @@ public class CameraController : MonoBehaviour
 	//  カメラ移動関数
 	private void cameraMove(Vector3 movePos, GameObject target)
 	{
-		countTime -= Time.fixedDeltaTime * 1.2f;
+		countTime -= Time.fixedDeltaTime * 1.5f;
 
 		if (countTime <= 9.0f && countTime > 6.0f)
-		{
+		{	
 			//  親関係を解除
 			transform.parent = null;
 
