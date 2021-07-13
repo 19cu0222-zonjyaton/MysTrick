@@ -12,51 +12,50 @@ using UnityEngine;
 
 public class ActorController : MonoBehaviour
 {
-	public GameObject model;
-	public GameObject weapon;				//	武器
-	public GameObject playerHand;			//  攻撃時武器の親オブジェクト
-	public GameObject playerNeck;			//	通常時武器の親オブジェクト
-	public SkinnedMeshRenderer modelMesh;	//	プレイヤーモデルのmesh
-	public MeshRenderer weaponMesh;			//	武器のmesh
-	public ClimbCheck climbCheck;			//	昇るチェック
-	public PlayerInput pi;
-	public AudioClip[] sounds;
-	public int hp;							//	プレイヤーHP
-	public int coinCount;					//	獲得したコイン数
-	public bool coinUIAction;				//  コインUIを動くための信号
-	public bool climbEnd;
-	public bool isDead;                //	プレイヤーが死亡flag
-	public bool isFall;                //	外に落ちるflag
+    public GameObject model;                //	モデルオブジェクト
+    public GameObject weapon;               //	武器オブジェクト
+    public GameObject playerHand;           //  攻撃時武器の親オブジェクト
+    public GameObject playerNeck;           //	通常時武器の親オブジェクト
+    public SkinnedMeshRenderer modelMesh;   //	プレイヤーモデルのmesh
+    public MeshRenderer weaponMesh;         //	武器のmesh
+    public ClimbCheck climbCheck;           //	昇るチェック
+    public PlayerInput pi;                  //	入力コントローラー
+    public AudioClip[] sounds;              //	SEオブジェクト
+    public int hp;                          //	プレイヤーHP
+    public int coinCount;                   //	獲得したコイン数
+    public bool coinUIAction;               //  コインUIを動くための信号
+    public bool climbEnd;                   //	登るエンドフラグ
+    public bool isDead;                     //	プレイヤーが死亡flag
+    public bool isFall;                     //	外に落ちるflag
 
-	//============================
-	// 作成者：鍾家同
-	// Trigger用変数宣言
-	public bool[] keys;
-	public bool[] devices;
-	//============================
+    // 仕掛け用変数宣言
+    public bool[] keys;
+    public bool[] devices;
 
-	public float moveSpeed = 5.0f;
-	public bool isInTrigger;
-	public bool isUnrivaled;        //	無敵Time
-	public bool shootStart;         //	武器発射flag
-	public bool isJumping;			//	ジャンプflag
-	public bool isClimbing;         //	登るflag
+    public float moveSpeed = 5.0f;          //	移動スピード
+    public bool isInTrigger;                //	仕掛けスイッチを当たるフラグ
+    public bool isUnrivaled;                //	無敵Time
+    public bool shootStart;                 //	武器発射flag
+    public bool isJumping;                  //	ジャンプflag
+    public bool isClimbing;                 //	登るflag
 
-	private AudioSource audio;
-	private Animator anim;
-	private Animation attack_anim;
-	private Rigidbody rigid;
-	private Vector3 movingVec;
-	private GoalController gc;
-	private int shortTimeCount;			//	点滅用タイムカウント
-	private Vector3 weaponStartPos;		//	武器の位置保存用
-	private Vector3 weaponStartRot;
-	private Vector3 damageRot;			//	ダメージを受ける時の回転角度
-	private float timeCount;
-	private bool doOnce;
+    private new AudioSource audio;          //	SEのコンポーネント		
+    private Animator anim;                  //	アニメコントローラーコンポーネント
+    private Animation attack_anim;          //	アニメーションコントローラー
+    private Rigidbody rigid;                //	鋼体コンポーネント
+	private Vector3 movingVec;              //	移動方向
+    private GoalController gc;              //	ゴールコントローラー
+    private int shortTimeCount;             //	点滅用タイムカウント
+    private Vector3 weaponStartPos;         //	武器の初期位置座標保存用
+    private Vector3 weaponStartRot;         //	武器の初期回転角度保存用
+    private Vector3 weaponAttackPos = new Vector3(-0.146f, 0.091f, 1.137f);             //	武器攻撃する時位置座標保存用
+    private Vector3 weaponAttackRot = new Vector3(22.826f, -291.228f, 167.892f);        //	武器攻撃する時回転角度保存用
+    private Vector3 damageRot;              //	ダメージを受ける時の回転角度
+    private float timeCount;                //	タイムカウント
+    private bool doOnce;                    //	一回だけ実行するため使うフラグ
 
-	// Start is called before the first frame update
-	void Awake()
+    //	初期化
+    void Awake()
 	{
 		pi = GetComponent<PlayerInput>();
 
@@ -75,68 +74,73 @@ public class ActorController : MonoBehaviour
 		weaponStartRot = weapon.transform.localEulerAngles;
 	}
 
-	// Update is called once per frame
 	void Update()
 	{
+		//	歩くアニメーションの数値
 		anim.SetFloat("Forward", pi.Dmag);
+
 		if (!isDead)
-		{
-			if (pi.Dmag > 0.1f && !pi.isAimStatus)      //	移動方向と移動速度を設定
+		{			
+			if (pi.Dmag > 0.1f && !pi.isAimStatus)		//	1.移動の入力値が0.1を超える時	2.狙う状態ではない時	->	 移動方向を設定する
 			{
 				model.transform.forward = Vector3.Slerp(model.transform.forward, pi.Dvec, 10.0f * Time.deltaTime);
-				movingVec = pi.Dmag * model.transform.forward;
+				movingVec = pi.Dmag * model.transform.forward; 
 			}
-			else if (pi.Dmag > 0.1f && pi.isAimStatus)
+			else if (pi.Dmag > 0.1f && pi.isAimStatus)  //	1.移動の入力値が0.1を超える時	2.狙う状態の時	->	 移動方向を設定する
 			{
 				movingVec = pi.Dmag * pi.Dvec;
 			}
-			else
+			else										//	以外の状態時
 			{
 				movingVec = pi.Dmag * model.transform.forward;
 			}
 
-			if (pi.isAttacking)                     //	近戦攻撃処理
+			//	近戦攻撃処理
+			if (pi.isAttacking)							
 			{
-				attack_anim.Play();
+				attack_anim.Play();                     //	近戦アニメを流す
 
-				if (!audio.isPlaying)
+				if (!audio.isPlaying)					//	SEを流してない時
 				{
-					audio.pitch = 2.0f;
-					audio.PlayOneShot(sounds[0]);
+					audio.pitch = 2.0f;					//	音の大きさを調整
+					audio.PlayOneShot(sounds[0]);       //	近戦SEを流す
 				}
 
 				pi.isAttacking = false;
 			}
-			else if (pi.isThrowing && !pi.isAimStatus && !attack_anim.isPlaying)   //	第三視点の投げる処理
+			//	第三視点武器を投げる処理
+			else if (pi.isThrowing && !pi.isAimStatus && !attack_anim.isPlaying)   
 			{
 				anim.SetTrigger("Throw");
 
 				audio.PlayOneShot(sounds[1]);
 
-				pi.canThrow = false;
+				pi.canThrow = false;					//	武器を手に戻るまで投げれない設定
 
-				pi.isThrowing = false;
+				pi.isThrowing = false;					
 			}
 
-			if (attack_anim.isPlaying)                //	攻撃する時tagを有効にする
+			if (attack_anim.isPlaying)					//	攻撃する時tagを有効にする
 			{				
 				weapon.transform.SetParent(playerHand.transform);
-				weapon.transform.localPosition = new Vector3(-0.146f, 0.091f, 1.137f);
-				weapon.transform.localEulerAngles = new Vector3(22.826f, -291.228f, 167.892f);
+				//	武器の位置調整
+				weapon.transform.localPosition = weaponAttackPos;
+				weapon.transform.localEulerAngles = weaponAttackRot;
 				weapon.transform.tag = "Weapon";
 				doOnce = true;
 			}
-			else if (doOnce)
+			else if (doOnce)							//	一回だけ実行する
 			{
 				weapon.transform.SetParent(playerNeck.transform);
-				weapon.transform.localPosition = weaponStartPos;                     //  親に相対の座標を設定する
-				weapon.transform.localEulerAngles = weaponStartRot;                  //  親に相対の角度を設定する   
+				//	武器の位置を初期に戻る
+				weapon.transform.localPosition = weaponStartPos;
+				weapon.transform.localEulerAngles = weaponStartRot;  
 				weapon.transform.tag = "Untagged";
 				audio.pitch = 1.0f;
 				doOnce = false;
 			}
 
-			if (isClimbing)                         //	登る処理
+			if (isClimbing)                         //	梯子を登る処理
 			{
 				anim.SetBool("Climb", true);
 			}
@@ -152,6 +156,7 @@ public class ActorController : MonoBehaviour
 		checkPlayerIsDead();
     }
 
+	//	移動処理
 	void FixedUpdate()
 	{
 		rigid.position += movingVec * moveSpeed * Time.fixedDeltaTime;
@@ -167,13 +172,13 @@ public class ActorController : MonoBehaviour
 		}
 	}
 
-	private void checkIsUnderDamage()   //	敵と当たると時間内で無敵状態になる
+	private void checkIsUnderDamage()   //	敵と当たると時間内に無敵状態になる
 	{
 		if (isUnrivaled && !isDead)
 		{
 			timeCount += Time.deltaTime;
 			
-			if (timeCount >= 0.15f && timeCount < 0.3f)		//	点滅処理
+			if (timeCount >= 0.15f && timeCount < 0.3f)		//	メッシュの点滅処理
 			{
 				modelMesh.enabled = true;
 				weaponMesh.enabled = true;
@@ -186,21 +191,22 @@ public class ActorController : MonoBehaviour
 				shortTimeCount++;
 			}
 
-			if (shortTimeCount >= 6 && timeCount >= 0.15f)                //	点滅が終わったら
+			if (shortTimeCount >= 6 && timeCount >= 0.15f)	//	点滅が終わったら
 			{
 				shortTimeCount = 0;
 				modelMesh.enabled = true;
 				weaponMesh.enabled = true;
 				isUnrivaled = false;
 			}
-			else if (shortTimeCount > 2) //	プレイヤー操作を解禁
+			else if (shortTimeCount > 2)					//	プレイヤー入力可能
 			{
 				pi.inputEnabled = true;
 			}
 		}
 	}
 
-	private void checkPlayerIsDead()	//	死亡処理
+	//	死亡処理
+	private void checkPlayerIsDead()	
 	{
 		if (hp <= 0)
 		{
@@ -209,8 +215,8 @@ public class ActorController : MonoBehaviour
 
 		if (isDead)
 		{
-			Time.timeScale = 0.4f;
-			movingVec = Vector3.zero;
+			Time.timeScale = 0.4f;		//	時間の流すを遅くなるように
+			movingVec = Vector3.zero;	
 			anim.enabled = false;
 			pi.inputEnabled = false;
 			model.transform.localRotation = Quaternion.Lerp(model.transform.localRotation, Quaternion.Euler(-90.0f, damageRot.y, damageRot.z), 3.0f * Time.deltaTime);
@@ -258,6 +264,7 @@ public class ActorController : MonoBehaviour
 			hp--;
 			damageRot = model.transform.localEulerAngles;
 			audio.PlayOneShot(sounds[2]);
+			
 			if (hp >= 0)
 			{
 				pi.inputEnabled = false;

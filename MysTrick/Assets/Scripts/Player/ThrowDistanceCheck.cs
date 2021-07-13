@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ThrowDistanceCheck : MonoBehaviour
 {
-    public PlayerInput pi;
+    public PlayerInput pi;      //  プレイヤーの入力コントローラー
 
     // Start is called before the first frame update
     void Start()

@@ -429,7 +429,7 @@ public class EnemyBatController : MonoBehaviour
 			if (timeController.isFinish && canHurt)
 			{
 				// タイマー起動（二重ダメージ受けを防ぐため）
-				timeController.TimeDelay(0.0f, 1.5f, true);
+				//timeController.TimeDelay(0.0f, 1.5f, true);
 
 				// HP計算
 				if (health > 1)

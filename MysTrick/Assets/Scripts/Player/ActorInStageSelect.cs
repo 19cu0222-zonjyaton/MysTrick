@@ -6,21 +6,15 @@ using UnityEngine.EventSystems;
 
 public class ActorInStageSelect : MonoBehaviour
 {
-    public GameObject[] target;
-    public Button[] btn;
-    public Animator animator;
+    public GameObject[] target;           //  移動するターゲット
+    public Button[] btn;                  //  選択しているボタンオブジェクト
+    public Animator animator;             //  アニメコントローラーコンポーネント
     public static int selectBtn = 1;      //  選択しているボタン標記
-    public int skyboxIndex;
-    private bool goLeft;
-    private bool goRight;
-    private bool isMove;
-    private bool aaa;
+    public int skyboxIndex;               //  skyboxオブジェクト
+    private bool goLeft;                  //  左側に移動するフラグ
+    private bool goRight;                 //  右側に移動するフラグ
+    private bool isMove;                  //  移動しているかどうかフラグ
 
-    void Awake()
-    {
-    }
-
-    // Update is called once per frame
     void Update()
     {
         if (GoalController.clearStageName == "")        //  StageからStageSelectに飛びるではない場合

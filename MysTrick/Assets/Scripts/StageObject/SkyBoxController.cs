@@ -16,12 +16,19 @@ public class SkyBoxController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        for (int i = 0; i < boxs.Length; i++)
+        if (aiss != null)
         {
-            if (aiss.skyboxIndex == i)
+            for (int i = 0; i < boxs.Length; i++)
             {
-                RenderSettings.skybox = boxs[i];
+                if (aiss.skyboxIndex == i)
+                {
+                    RenderSettings.skybox = boxs[i];
+                }
             }
+        }
+        else
+        {
+            RenderSettings.skybox = boxs[0];
         }
     }
 }

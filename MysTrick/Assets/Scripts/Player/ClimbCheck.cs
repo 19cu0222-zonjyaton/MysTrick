@@ -4,24 +4,24 @@ using UnityEngine;
 
 public class ClimbCheck : MonoBehaviour
 {
-    public GameObject player;
-    public LadderController lc;
-    public GameObject cameraStartPos;
-    public GameObject cameraTargetPos;    //  登る時カメラの位置
+    public GameObject player;               //  プレイヤーオブジェクト
+    public LadderController lc;             //  梯子オブジェクト
+    public GameObject cameraStartPos;       //  登る前カメラに位置
+    public GameObject cameraTargetPos;      //  登る時カメラの位置
     public GameObject startPos;             //  登る始点
     public GameObject endPos;               //  登る終点
     public GameObject[] landPos;            //  到着位置
-    public GameObject checkPos;
-    public bool climbStart;
+    public GameObject checkPos;             //  梯子から降ろす位置
+    public bool climbStart;                 //  梯子スタートフラグ
     public int nowLayer = 2;                //  プレイヤー今の階層
-    public GameObject hintUI;
-    public GameObject playerModule;
+    public GameObject hintUI;               //  仕掛けのヒントUIオブジェクト
+    public GameObject playerModule;         //  プレイヤーモデルオブジェクト
 
-    private PlayerInput pi;
-    private ActorController ac;
-    private CameraController cc;
+    private PlayerInput pi;                 //  プレイヤー入力コントローラー
+    private ActorController ac;             //  プレイヤー挙動コントローラー
+    private CameraController cc;            //  カメラコントローラー
 
-
+    //  初期化
     void Awake()
     {
         pi = player.GetComponent<PlayerInput>();
@@ -31,7 +31,6 @@ public class ClimbCheck : MonoBehaviour
         cc = cameraStartPos.GetComponent<CameraController>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (climbStart)     //  登り始める

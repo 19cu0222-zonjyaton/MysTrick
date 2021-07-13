@@ -4,33 +4,33 @@ using UnityEngine;
 
 public class WeaponController : MonoBehaviour
 {
-    public float rotateSpeed;       //  回転速度
-    public float speed;             //  スタートの移動速度
-    public GameObject playerNeck;   //  平常時の親オブジェクト
-    public GameObject playerHand;   //  投げる時の親オブジェクト
-    public bool backToHand = true;
-    public GameObject playerPos;    //  プレイヤーの位置を獲得するため
-    public GameObject model;        //  プレイヤーの回転方向を獲得するため
-    public Animator throwAnim;      //  投げるアニメ
-    public Vector3[] otherPos;
-    public Vector3[] startPos;
-    public GameObject distanceCheck;
+    public float rotateSpeed;           //  回転速度
+    public float speed;                 //  スタートの移動速度
+    public GameObject playerNeck;       //  平常時の親オブジェクト
+    public GameObject playerHand;       //  投げる時の親オブジェクト
+    public bool backToHand = true;      //  投げる武器は手に戻るフラグ
+    public GameObject playerPos;        //  プレイヤーの位置を獲得するため
+    public GameObject model;            //  プレイヤーの回転方向を獲得するため
+    public Animator throwAnim;          //  投げるアニメ
+    public Vector3[] startPos;          //  武器の初期位置
+    public GameObject distanceCheck;    //  壁との距離検査用オブジェクト
 
-    private new Rigidbody rigidbody;
-    private PlayerInput pi;         //  攻撃ができるかどうかの判断
-    private Vector3 throwRot;
-    private float speedDown;        //  戻る時の速度
-    private float timeCount;
-    private CameraController cc;
+    private Rigidbody rigid;            //	武器の鋼体コンポーネント
+    private PlayerInput pi;             //  攻撃ができるかどうかの判断
+    private Vector3 throwRot;           //  投げる方向
+    private float speedDown;            //  戻る時の速度
+    private float timeCount;            //  タイムカウント
+    private CameraController cc;        //  カメラコントローラー
     
     //  操作感を上げるためのパラメータ
-    private bool canBack;           
-    private Vector3 distanceCheckPos;
-    private Vector3 distanceCheckRot;
+    private bool canBack;               //  一定距離を超えるから武器が戻れるフラグ(近距離で武器が壁に当たった瞬間に戻れないように)
+    private Vector3 distanceCheckPos;   //  距離検査オブジェクトの初期位置
+    private Vector3 distanceCheckRot;   //  距離検査オブジェクトの初期回転
 
+    //  初期化
     void Awake()
     {
-        rigidbody = gameObject.GetComponent<Rigidbody>();
+        rigid = gameObject.GetComponent<Rigidbody>();
 
         pi = playerPos.GetComponent<PlayerInput>();
 
@@ -47,7 +47,7 @@ public class WeaponController : MonoBehaviour
 
     void Start()
     {
-        rigidbody.constraints = RigidbodyConstraints.FreezeAll;
+        rigid.constraints = RigidbodyConstraints.FreezeAll;
     }
 
     void FixedUpdate()
@@ -61,7 +61,7 @@ public class WeaponController : MonoBehaviour
 
             if (timeCount >= 0.1f)
             {
-                rigidbody.constraints = RigidbodyConstraints.None;
+                rigid.constraints = RigidbodyConstraints.None;
 
                 transform.Rotate(0.0f, rotateSpeed, 0.0f);
 
@@ -71,7 +71,7 @@ public class WeaponController : MonoBehaviour
                 {
                     gameObject.transform.tag = "Weapon";
 
-                    rigidbody.position += throwRot * speed * Time.fixedDeltaTime;     //  プレイヤーの正方向に一定距離を移動する
+                    rigid.position += throwRot * speed * Time.fixedDeltaTime;     //  プレイヤーの正方向に一定距離を移動する
 
                     speed -= 1.5f;
                 }
@@ -132,7 +132,7 @@ public class WeaponController : MonoBehaviour
             speed = 40.0f;
             timeCount = 0.0f;
             throwAnim.SetLayerWeight(throwAnim.GetLayerIndex("Throw"), 0.0f);
-            rigidbody.constraints = RigidbodyConstraints.FreezeAll;
+            rigid.constraints = RigidbodyConstraints.FreezeAll;
         }
 
         if (collider.gameObject.layer == LayerMask.NameToLayer("Wall") && canBack)

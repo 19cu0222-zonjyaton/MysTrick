@@ -4,43 +4,43 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-	public PlayerInput pi;
-	public GoalController goal;
+	public PlayerInput pi;						//	プレイヤーの入力コントローラー
+	public GoalController goal;					//	ゴールコントローラー
 	public GameObject cameraBackPos;            //  カメラ戻る時の位置
 	public Vector3 moveToPos;                   //  カメラ目標の位置
-	public StairController[] stair;
-	public DoorController[] door;
-	public BridgeController[] bridge;
-	public LadderController[] ladder;
-	public ObjectController[] ob;
-	public GameObject[] lookAtStair;
-	public GameObject[] lookAtDoor;
-	public GameObject[] lookAtBridge;
-	public GameObject[] lookAtLadder;
-	public GameObject[] lookAtObject;
-	public GameObject lookAtGoal;
-	public GameObject firstPerspect;
-	public GameObject weapon;
+	public StairController[] stair;				//	階段オブジェクト
+	public DoorController[] door;				//	ドアオブジェクト
+	public BridgeController[] bridge;			//	梯オブジェクト
+	public LadderController[] ladder;			//	梯子オブジェクト
+	public ObjectController[] ob;				//	他のオブジェクト
+	public GameObject[] lookAtStair;			//	階段を注目する位置
+	public GameObject[] lookAtDoor;				//	ドアを注目する位置
+	public GameObject[] lookAtBridge;           //	梯を注目する位置
+	public GameObject[] lookAtLadder;           //	梯子を注目する位置
+	public GameObject[] lookAtObject;           //	他のオブジェクトを注目する位置
+	public GameObject lookAtGoal;				//	ゴールを注目する位置
+	public GameObject firstPerspect;			//	狙う状態に切り替える時移動の位置
+	public GameObject weapon;					//	武器オブジェクト
 	public GameObject usingWeapon;              //	今手が持っている武器
 	public GameObject deadPos;                  //	プレイヤーが死亡したら視点の位置
-	public bool canThrowWeapon = true;
+	public bool canThrowWeapon = true;			//	狙う状態で武器を投げる可能フラグ
 	public string cameraStatic = "Idle";        //  カメラ状態
-	public float horizontalSpeed = 50.0f;
-	public float verticalSpeed = 40.0f;
+	public float horizontalSpeed = 50.0f;		//	カメラ横移動のスピード
+	public float verticalSpeed = 40.0f;			//	カメラ縦移動のスピード
 
-	private ActorController ac;
-	private GameObject cameraHandle;
-	private GameObject playerHandle;
-	private GameObject model;
-	private SkinnedMeshRenderer smr;
-	private AudioSource audio;
-	private Vector3 relativePos;
+	private ActorController ac;					//	プレイヤーの挙動コントローラー
+	private GameObject cameraHandle;			//	カメラハンドルオブジェクト
+	private GameObject playerHandle;			//	プレイヤーハンドルオブジェクト
+	private GameObject model;					//	プレイヤーモデルオブジェクト
+	private SkinnedMeshRenderer smr;			//	プレイヤーメッシュコンポーネント
+	private new AudioSource audio;				//	SEコンポーネント
+	private Vector3 relativePos;				//	移動ターゲットの相対位置
 	private float aimEulerX;					//	狙う状態のカメラX軸回転値
-	private float idleEulerX;
+	private float idleEulerX;                   //	制限されたX軸の回転角度
 	private float countTime = 10.0f;            //  カメラ視角切り替えの時間
 	private bool canRotate;                     //	プレイヤー視点切り替えた後回転できるか
 
-	// Start is called before the first frame update
+	// 初期化
 	void Awake()
 	{
 		cameraHandle = transform.parent.gameObject;
@@ -60,7 +60,7 @@ public class CameraController : MonoBehaviour
 		audio = gameObject.GetComponent<AudioSource>();
 	}
 
-	// Update is called once per frame
+	//	カメラアップデート処理
 	void LateUpdate()
 	{
 		if (Time.deltaTime != 0)

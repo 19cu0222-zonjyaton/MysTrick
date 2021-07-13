@@ -4,71 +4,91 @@ using UnityEngine;
 
 public class EnemyPathControl : MonoBehaviour
 {
-    public float speed;
-    public float field;
-    public GameObject player;
-    public Transform[] pathPositions;
-    public Transform head;
-    public EnemyDamageController edc;
+    public float speed;                 //  敵の移動スピード  
+    public float field;                 //  敵の捜査範囲
+    public GameObject player;           //  プレイヤーオブジェクト
+    public Transform[] pathPositions;   //  敵の移動ルート
+    public Transform head;              //  敵の正方向を取るためのオブジェクト
+    public EnemyDamageController edc;   //  プレイヤーのカメラコントローラー
     public CameraController cc;
 
-    private PlayerInput pi;
-    private ActorController ac;
-    private int index = 1;
-    private bool islock = false;
-    private bool isAttackedByPlayer;
-    private Ray ray;
-    private RaycastHit hit;
+    private PlayerInput pi;             //  プレイヤーの入力コントローラー
+    private ActorController ac;         //  プレイヤーの挙動コントローラー
+    private int index = 1;              //  今向けて移動する位置
+    private bool islock = false;        //  プレイヤーが捜査範囲に入るフラグ
+    private bool isAttackedByPlayer;    //  プレイヤーに攻撃されたフラグ
+    private Ray ray;                    //  正方向から発射する光線(プレイヤーが捜査範囲に入っても壁に遮ったら元のルートに戻るように使う)
+    private RaycastHit hit;             //  光線にヒットしたオブジェクト
+
+    //	初期化
     void Awake()
     {
-        pi = player.GetComponent<PlayerInput>();
+        if (player != null)
+        {
+            pi = player.GetComponent<PlayerInput>();
 
-        ac = player.GetComponent<ActorController>();
+            ac = player.GetComponent<ActorController>();
+        }
     }
 
     void Update()
     {
+        //  プレイヤーに攻撃された処理
         if (edc.isDamage)
         {
             isAttackedByPlayer = true;
         }
 
-        if (pi.inputEnabled)
+        if (pi != null)
         {
-            if (LockOn())
+            //  敵のAI処理
+            if (pi.inputEnabled)
             {
-                ray = new Ray(transform.position, ((player.transform.position + new Vector3(0, 1.5f, 0)) - head.transform.position).normalized);
-                Debug.DrawRay(ray.origin, ray.direction * 100, Color.red, 0.1f);
-            }
-            else
-            {
-                ray = new Ray(transform.position, head.forward);
-                Debug.DrawRay(ray.origin, ray.direction * 100, Color.red, 0.1f);
-            }
-
-            Physics.Raycast(ray, out hit, Mathf.Infinity);
-
-            if (hit.collider != null && edc.canMove)       //  空を見てフリーズの対策
-            {
-                hit.collider.enabled = true;
-                if (!(hit.collider.gameObject.layer == LayerMask.NameToLayer("Wall")) && LockOn() || isAttackedByPlayer)
+                //  プレイヤーが捜査範囲に入った光線を出せる処理
+                if (LockOn())
                 {
-                    Move();
-                    if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Wall"))
-                    {
-                        isAttackedByPlayer = false;
-                    }
+                    ray = new Ray(transform.position, ((player.transform.position + new Vector3(0, 1.5f, 0)) - head.transform.position).normalized);
+                    Debug.DrawRay(ray.origin, ray.direction * 100, Color.red, 0.1f);
                 }
                 else
                 {
-                    Patrol();
+                    ray = new Ray(transform.position, head.forward);
+                    Debug.DrawRay(ray.origin, ray.direction * 100, Color.red, 0.1f);
+                }
+
+                Physics.Raycast(ray, out hit, Mathf.Infinity);
+
+                if (hit.collider != null && edc.canMove)       //  光線が何も当たっていない時の対策
+                {
+                    hit.collider.enabled = true;
+
+                    //  1.光線が壁に当たってない   2.捜査範囲に入った  3.攻撃された  -> プレイヤーの位置に移動する
+                    if (!(hit.collider.gameObject.layer == LayerMask.NameToLayer("Wall")) && LockOn() || isAttackedByPlayer)
+                    {
+                        Move();
+                        //  光線が壁に当たったら攻撃AIをキャンセル
+                        if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Wall"))
+                        {
+                            isAttackedByPlayer = false;
+                        }
+                    }
+                    else
+                    {
+                        Patrol();
+                    }
                 }
             }
         }
+        else
+        {
+            Patrol();
+        }
     }
 
+    //  プレイヤーを捜査範囲を設定する処理
     bool LockOn()
     {
+        //  Y軸の捜査範囲
         if (System.Math.Abs(player.transform.position.y - transform.position.y) >= 2.0f)
             islock = false;
         else
@@ -82,6 +102,8 @@ public class EnemyPathControl : MonoBehaviour
                 float headAngle;
                 float oppositeAngle = 0.0f;
                 headAngle = head.transform.localEulerAngles.y;
+
+                //  捜査範囲を設定する
                 if (targetPosition.z < transform.position.z)
                 {
                     oppositeAngle = Mathf.Acos((targetPosition.x - transform.position.x) / Vector3.Distance(targetPosition, transform.position + new Vector3(0, 1.5f, 0))) * Mathf.Rad2Deg;
@@ -90,11 +112,14 @@ public class EnemyPathControl : MonoBehaviour
                 {
                     oppositeAngle = -Mathf.Acos((targetPosition.x - transform.position.x) / Vector3.Distance(targetPosition, transform.position + new Vector3(0, 1.5f, 0))) * Mathf.Rad2Deg;
                 }
+
                 if (oppositeAngle <= 0 && oppositeAngle >= -180.0f)
                 {
                     oppositeAngle = 360 + oppositeAngle;
                 }
+
                 angle = oppositeAngle - headAngle + 90.0f;
+
                 if (angle <= 0.0f && angle >= -60.0f || angle <= 60.0f && angle > 0.0f || angle <= 360.0f && angle >= 300.0f)
                 {
                     islock = true;
@@ -107,31 +132,29 @@ public class EnemyPathControl : MonoBehaviour
         }
         return islock;
     }
+
+    //  ルートに沿って移動処理
     void Patrol()
     {
-        transform.Translate((pathPositions[index].position - transform.position).normalized * Time.deltaTime * speed);
+        transform.Translate((pathPositions[index].localPosition - transform.localPosition).normalized * Time.deltaTime * speed);
         Vector3 targetPosition = pathPositions[index].transform.position;
         targetPosition.y = head.position.y;
         head.LookAt(targetPosition);
-        if (Vector3.Distance(pathPositions[index].position, transform.position) < 0.2f)
+
+        //  次の点に移動する
+        if (Vector3.Distance(pathPositions[index].localPosition, transform.localPosition) < 0.2f)
             index++;
         if (index > pathPositions.Length - 1)
             index = 0;
     }
+
+    //  プレイヤーに移動する処理
     void Move()
     {
         transform.Translate((player.transform.position - transform.position).normalized * Time.deltaTime * speed);
         Vector3 targetPosition = player.transform.position;
         targetPosition.y = head.position.y;
         head.LookAt(targetPosition);
-    }
-
-    void OnCollisionEnter(Collision collision)      
-    {
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
-        {
-            isAttackedByPlayer = false;
-        }
     }
 }
 

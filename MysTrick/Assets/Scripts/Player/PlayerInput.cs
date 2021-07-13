@@ -37,28 +37,27 @@ public class PlayerInput : MonoBehaviour
 	public float Jright;
 
 	[Header("======= Player Static =======")]
-	public bool inputEnabled = true;
-	public bool aimUI;
-	public bool isTriggered;
-	public bool isJumping;
-	public bool lockJumpStatus;
-	public bool isThrowing;
-	public bool isAttacking;
-	public bool canThrow = true;
-	public bool isAimStatus;
+	public bool inputEnabled = true;	//	入力可能フラグ
+	public bool aimUI;					//	狙う時の中心UI
+	public bool isTriggered;			//	仕掛けスイッチに入いるフラグ
+	public bool isJumping;				//	ジャンプ中フラグ
+	public bool lockJumpStatus;			//	ジャンプ状態の時ロックするフラグ
+	public bool isThrowing;				//	武器を投げっているフラグ
+	public bool isAttacking;			//	アタックフラグ
+	public bool canThrow = true;		//	第三視点武器を投げる可能フラグ
+	public bool isAimStatus;			//	狙う状態のフラグ
 	public bool overDistance;           //	壁の距離が近いかどうか
-	public CameraController cc;
-	private GameObject playercamera;
-
+	public CameraController cc;			//	カメラコントローラー
+	//	入力Signalターゲット
 	public float targetDup;
 	public float targetDright;
+
 	private float velocityDup;
 	private float velocityDright;
+	private GameObject playercamera;    //	カメラオブジェクト
+	private bool isUsingJoyStick;       //  今使っているコントローラーを検査する
 
-	private bool isUsingJoyStick;       //  コントローラーを検査する
-
-	private GameObject playerModel;
-
+	//	初期化
 	void Awake()
 	{
 		string[] joystickNames = Input.GetJoystickNames();
@@ -75,8 +74,6 @@ public class PlayerInput : MonoBehaviour
 		}
 
 		Application.targetFrameRate = 60;   //	FPSを60に固定する
-
-		playerModel = GameObject.Find("PlayerModule");
 
 		playercamera = GameObject.Find("Main Camera");
 	}  

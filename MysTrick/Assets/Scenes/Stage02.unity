@@ -12177,8 +12177,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isFinish: 0
-  isStart: 0
-  timeStart: 0
 --- !u!114 &1128212545
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13615,6 +13613,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: enemy_bat
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 44e6aa039c8fe3846bce84740792ab39,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 44e6aa039c8fe3846bce84740792ab39,
         type: 3}
@@ -15131,8 +15134,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isFinish: 0
-  isStart: 0
-  timeStart: 0
 --- !u!1 &1940234160318734293
 GameObject:
   m_ObjectHideFlags: 0
@@ -17094,8 +17095,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isFinish: 0
-  isStart: 0
-  timeStart: 0
 --- !u!114 &4161399995436198171
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18536,6 +18535,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PlayerHandle
+      objectReference: {fileID: 0}
+    - target: {fileID: 6563069687783362545, guid: deb5c94de91a32e4ca21d16c24db72a9,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 6563069687901137002, guid: deb5c94de91a32e4ca21d16c24db72a9,
         type: 3}

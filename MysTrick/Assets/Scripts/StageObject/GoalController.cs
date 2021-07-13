@@ -5,36 +5,50 @@ using UnityEngine.SceneManagement;
 
 public class GoalController : MonoBehaviour
 {
-    public bool gameClear;
-    public ParticleSystem ps;
-    public GameObject clearMask;
-    public ActorController ac;
-    public float perRadian;         //  毎回変化の弧度
+    public bool gameClear;                      //  ゲームクリアフラグ
+    public ParticleSystem ps;                   //  
+    public GameObject clearMask;                //  
+    public ActorController ac;                  //  
+    public float perRadian;                     //  毎回変化の弧度
+    public float rotateSpeed;                   //  回転スピード
     public float radius;
-    public float radian;               //  弧度
+    public float radian;                        //  弧度
+    public bool isTitleGoal;                    //  タイトル画面のゴールフラグ
     public static string clearStageName = "";
     public static int[] getCount = new int[4];
+
     private Vector3 oldPos;
     private PlayerInput pi;
-    private AudioSource audio;
+    private AudioSource sound;
     private int[] tempGetCount = new int[4];
     private float timeCount = 10.0f;
 
-    // Start is called before the first frame update
+    // 初期化
     void Awake()
     {
-        pi = GameObject.Find("PlayerHandle").GetComponent<PlayerInput>();
+        if (pi != null)
+        {
+            pi = GameObject.Find("PlayerHandle").GetComponent<PlayerInput>();
+        }
 
-        oldPos = transform.position;        //  最初の位置 
+        if (!isTitleGoal)
+        {
+            oldPos = transform.position;
+        }
 
-        audio = gameObject.GetComponent<AudioSource>();
+        sound = gameObject.GetComponent<AudioSource>();
     }
 
     void Update()
     {
+        if (isTitleGoal)
+        {
+            oldPos = transform.position;
+        }
+
         if (!gameClear && Time.deltaTime != 0)
         {
-            transform.Rotate(0, 2.0f, 0);
+            transform.Rotate(0, rotateSpeed, 0);
 
             radian += perRadian;                //  毎回弧度を0.01をプラスする
             float dy = Mathf.Cos(radian) * radius;
@@ -91,7 +105,7 @@ public class GoalController : MonoBehaviour
 
             pi.inputEnabled = false;
 
-            audio.Play();
+            sound.Play();
 
             ps.Play();
         }

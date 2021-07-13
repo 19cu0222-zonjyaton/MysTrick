@@ -12,62 +12,68 @@ public class EnemyDamageController : MonoBehaviour
     public ActorController ac;              //  プレイヤーコントローラー
     private Rigidbody rigid;                //  プレイヤーに攻撃された処理用
     private CapsuleCollider capsuleCollider;//  衝突判定用
-    private AudioSource audio;              //  敵のSEオブジェクト
+    private AudioSource sound;              //  敵のSEオブジェクト
     private float timeCount;                //  コインを時間ごとにでる
     private int coinCount;                  //  コインの個数
     private float deadPosY;                 //  消滅されたY座標保存用
 
+    //	初期化
     void Awake()
     {
         rigid = gameObject.GetComponent<Rigidbody>();
 
         capsuleCollider = gameObject.GetComponent<CapsuleCollider>();
 
-        audio = gameObject.GetComponent<AudioSource>();
+        sound = gameObject.GetComponent<AudioSource>();
     }
 
     void Update()
     {
-        if (isDamage)       //  プレイヤーに攻撃された処理
+        //  プレイヤーに攻撃された処理
+        if (isDamage)               
         {
-            if (anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f && anim.GetCurrentAnimatorStateInfo(0).IsName("Damage"))   //  ダメージ動画が終わるまで二回目のダメージを受けられないにする
+            //  ダメージ動画が終わるまで二回目のダメージを受けられないにする
+            if (anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f && anim.GetCurrentAnimatorStateInfo(0).IsName("Damage"))   
             {
                 isDamage = false;
                 canMove = true;
             }
         }
 
-        if (enemyHp <= 0)           //  死亡処理
+        //  敵の死亡処理
+        if (enemyHp <= 0)           
         {
             anim.SetBool("IsDead", true);
             capsuleCollider.isTrigger = true;
-            capsuleCollider.tag = "Untagged";
+            capsuleCollider.tag = "Untagged";       //  Tagを無効化
 
             timeCount += Time.deltaTime;
-            if (timeCount > 0.2f)
+            if (timeCount > 0.2f)                     
             {
-                Instantiate(coin, new Vector3(transform.position.x, deadPosY, transform.position.z), Quaternion.identity);
+                Instantiate(coin, new Vector3(transform.position.x, deadPosY, transform.position.z), Quaternion.identity);      //  消滅されたらコインを排除する
                 ac.coinUIAction = true;
                 ac.coinCount++;
                 coinCount++;
                 timeCount = 0.0f;
             }
 
-            if (coinCount > 2)
+            if (coinCount > 2)  //  敵01を消滅したら3枚のコインを獲得する
             {
                 Destroy(this.gameObject);
             }
         }
     }
 
-    private void OnTriggerEnter(Collider collider)  //  衝突処理
+    //  敵の衝突処理
+    private void OnTriggerEnter(Collider collider)
     {
+        //  プレイヤーの武器と当たる処理
         if (collider.transform.tag == "Weapon" && !isDamage)
         {
             enemyHp--;
-            audio.Play();
+            sound.Play();
 
-            if (enemyHp <= 0)
+            if (enemyHp <= 0)   //  コインを排除するY座標を記録する
             {
                 deadPosY = transform.position.y;
             }
@@ -75,10 +81,10 @@ public class EnemyDamageController : MonoBehaviour
             anim.SetTrigger("IsDamage");
             isDamage = true;
             canMove = false;
-            //rigid.AddForce(0.0f, 300.0f, 0.0f);
             rigid.AddExplosionForce(500.0f, collider.transform.position, 3.0f, 3.0f);
         }
 
+        //  マップから落ちる処理
         if (collider.transform.tag == "DeadCheck")
         {
             ac.coinUIAction = true;

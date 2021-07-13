@@ -271,3 +271,5 @@ MonoBehaviour:
   perRadian: 0.1
   radius: 0.1
   radian: 0
+  rotateSpeed: 2
+  isTitleCoin: 0

@@ -4,24 +4,26 @@ using UnityEngine;
 
 public class EnemyCoinController : MonoBehaviour
 {
-    public float perRadian;         //  毎回変化の弧度
-    public float radius;
-    public float radian;            //  弧度
-    private Vector3 oldPos;
-    private new Rigidbody rigidbody;
-    private ActorController ac;
-    private bool getByPlayer;       //  プレイヤーと当たったflag
-    private float rotateSpeed = 12.0f;
+    public float perRadian;             //  毎回変化の弧度
+    public float radius;                //  半径
+    public float radian;                //  弧度
 
+    private Vector3 oldPos;             //  初期位置
+    private Rigidbody rigid;            //  鋼体コンポーネント
+    private ActorController ac;         //  プレイヤーの挙動コントローラー
+    private bool getByPlayer;           //  プレイヤーと当たったflag
+    private float rotateSpeed = 12.0f;  //  回転スピード
+
+    //  初期化
     void Awake()
     {
-        oldPos = transform.position;        //  最初の位置    
+        oldPos = transform.position; 
 
-        rigidbody = gameObject.GetComponent<Rigidbody>();
+        rigid = gameObject.GetComponent<Rigidbody>();
 
         ac = GameObject.Find("PlayerHandle").GetComponent<ActorController>();
 
-        rigidbody.AddForce(0.0f, 500.0f, 0.0f);
+        rigid.AddForce(0.0f, 500.0f, 0.0f);
     }
 
     void Update()

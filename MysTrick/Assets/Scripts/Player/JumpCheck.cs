@@ -11,33 +11,34 @@ using UnityEngine;
 
 public class JumpCheck : MonoBehaviour
 {
+    //  毎回ジャンプのPower
     public float jumpPowerX;
     public float jumpPowerY;
     public float jumpPowerZ;
 
-    public bool isJumpStart;
-    public bool isJump;
+    public bool isJumpStart;        //  ジャンプスタートフラグ
+    public bool isJump;             //  ジャンプ状態フラグ
 
-    public float jumpTime;
-    public int jumpCount;
+    public float jumpTime;          //  ジャンプの間隔時間
+    public int jumpCount;           //  ジャンプの回数
 
     public float playerRotation;    //  階段の正方向に向く
 
-    public GameObject playerHandle;
-    public GameObject playerModule;
-    public GameObject hintUI;
+    public GameObject playerHandle; //  プレイヤーハンドルオブジェクト
+    public GameObject playerModule; //  プレイヤーモデルオブジェクト
+    public GameObject hintUI;       //  仕掛けのヒントUIオブジェクト
 
-    private Animator anim;
-    private PlayerInput pi;
-    private ActorController ac;
-    private Rigidbody rigid;
-    private AudioSource audio;
+    private Animator anim;          //  プレイヤーアニメコントローラー
+    private PlayerInput pi;         //  プレイヤーの入力コントローラー
+    private ActorController ac;     //  プレイヤーの挙動コントローラー
+    private Rigidbody rigid;        //  プレイヤーの鋼体コンポーネント
+    private new AudioSource audio;  //  SEコンポーネント
 
-    private int tempJumpCount;  //  階段数を保存するため
-    private float tempJumpTime; //	ジャンプタイムを保存するため
-    private float timeCount = 0.3f;
+    private int tempJumpCount;      //  階段数を保存するため
+    private float tempJumpTime;     //	ジャンプタイムを保存するため
+    private float timeCount = 0.3f; //  タイムカウント
 
-    // Start is called before the first frame update
+    // 初期化
     void Awake()
     {
         pi = playerHandle.GetComponent<PlayerInput>();
@@ -55,7 +56,6 @@ public class JumpCheck : MonoBehaviour
         tempJumpTime = jumpTime;
     }
 
-    // Update is called once per frame
     void FixedUpdate()
     {
         if (isJumpStart)

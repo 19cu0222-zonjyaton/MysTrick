@@ -4,35 +4,49 @@ using UnityEngine;
 
 public class CoinController : MonoBehaviour
 {
-    public float perRadian;         //  毎回変化の弧度
-    public float radius;
-    public float radian;            //  弧度
-    private Vector3 oldPos;
-    private new Rigidbody rigidbody;
-    private ActorController ac;
-    private AudioSource audio;
-    private bool getByPlayer;       //  プレイヤーと当たったflag
-    private float rotateSpeed = 2.0f;
+    public float perRadian;             //  毎回変化の弧度
+    public float radius;                //  半径
+    public float radian;                //  弧度
+    public float rotateSpeed;           //  回転スピード
+    public bool isTitleCoin;            //  タイトル画面のコインフラグ
 
+    private Vector3 oldPos;             //  初期位置
+    private Rigidbody rigid;            //  鋼体コンポーネント
+    private ActorController ac;         //  プレイヤーのコントローラー
+    private AudioSource sound;          //  SEコンポーネント
+    private bool getByPlayer;           //  プレイヤーと当たったflag
+
+    //  初期化
     void Awake()
     {
-        oldPos = transform.position;        //  最初の位置    
+        if (!isTitleCoin)
+        {
+            oldPos = transform.position;
+        }
 
-        rigidbody = gameObject.GetComponent<Rigidbody>();
+        rigid = gameObject.GetComponent<Rigidbody>();
 
-        ac = GameObject.Find("PlayerHandle").GetComponent<ActorController>();
+        if (ac != null)
+        {
+            ac = GameObject.Find("PlayerHandle").GetComponent<ActorController>();
+        }
 
-        audio = gameObject.GetComponent<AudioSource>();
+        sound = gameObject.GetComponent<AudioSource>();
     }
 
     void Update()
     {
+        if (isTitleCoin)
+        {
+            oldPos = transform.position;
+        }
+
         if (Time.deltaTime != 0)
         {
             transform.Rotate(0, rotateSpeed, 0);
             if (!getByPlayer)
             {
-                radian += perRadian;                //  毎回弧度を0.01をプラスする
+                radian += perRadian;                //  弧度をプラスする
                 float dy = Mathf.Cos(radian) * radius;
                 transform.position = oldPos + new Vector3(0, dy, 0);
 
@@ -55,11 +69,11 @@ public class CoinController : MonoBehaviour
         {
             getByPlayer = true;
 
-            audio.Play();
+            sound.Play();
 
-            rigidbody.AddForce(0.0f, 500.0f, 0.0f);
+            rigid.AddForce(0.0f, 500.0f, 0.0f);
 
-            rigidbody.useGravity = true;
+            rigid.useGravity = true;
 
             ac.coinUIAction = true;
 

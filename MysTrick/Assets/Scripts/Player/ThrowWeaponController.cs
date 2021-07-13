@@ -7,17 +7,17 @@ public class ThrowWeaponController : MonoBehaviour
     public float rotateSpeed;       //  回転速度
     public float speed;             //  スタートの移動速度
     
-    private new Rigidbody rigidbody;
+    private Rigidbody rigid;        //	鋼体コンポーネント
     private GameObject playerPos;   //  プレイヤーの位置を獲得するため
     private PlayerInput pi;         //  攻撃ができるかどうかの判断
-    private GameObject playerCamera;
-    private WeaponController wc;
+    private GameObject playerCamera;//  カメラオブジェクト
+    private WeaponController wc;    //  武器のコントローラー
     private float speedDown;        //  戻る時の速度
 
-    // Start is called before the first frame update
+    // 初期化
     void Awake()
     {
-        rigidbody = gameObject.GetComponent<Rigidbody>();
+        rigid = gameObject.GetComponent<Rigidbody>();
 
         playerPos = GameObject.Find("PlayerHandle");
 
@@ -28,7 +28,6 @@ public class ThrowWeaponController : MonoBehaviour
         wc = GameObject.Find("UsingWeapon").GetComponent<WeaponController>();
     }
 
-    // Update is called once per frame
     void FixedUpdate()
     {
         transform.Rotate(0.0f, rotateSpeed, 0.0f);
@@ -37,7 +36,7 @@ public class ThrowWeaponController : MonoBehaviour
         {
             gameObject.transform.tag = "Weapon";
 
-            rigidbody.position += playerCamera.transform.forward * speed * Time.fixedDeltaTime;     //  カメラの正方向に一定距離を移動する
+            rigid.position += playerCamera.transform.forward * speed * Time.fixedDeltaTime;     //  カメラの正方向に一定距離を移動する
 
             speed -= 1.5f;
         }
