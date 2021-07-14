@@ -24,7 +24,8 @@ public class StageSelectConfirmUIController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (isCancel)   //  メニューをキャンセルの処理
+        //  メニューをキャンセルの処理
+        if (isCancel)
         {
             if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f && animator.GetCurrentAnimatorStateInfo(0).IsName("Stage_Confirm_Minus"))   
             {
@@ -35,7 +36,8 @@ public class StageSelectConfirmUIController : MonoBehaviour
             }
         }
 
-        if (isOK)       //  ステージに移動処理
+        //  ステージに移動処理
+        if (isOK)       
         {
             timeCount -= Time.deltaTime;
             if (timeCount < -0.3f)
@@ -46,7 +48,8 @@ public class StageSelectConfirmUIController : MonoBehaviour
         }
     }
 
-    void StageConfirm()     //  ボタンを監視メソッド
+    //  ボタンを監視メソッド
+    public void StageConfirm()     
     {
         if (gameObject.name == "OK")
         {

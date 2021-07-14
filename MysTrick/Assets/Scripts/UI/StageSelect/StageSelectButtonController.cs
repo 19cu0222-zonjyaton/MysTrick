@@ -30,7 +30,8 @@ public class StageSelectButtonController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!canSelected)       //  画像の色
+        //  画像の色
+        if (!canSelected)       
         {
             img.color = Color.grey;
         }
@@ -39,7 +40,8 @@ public class StageSelectButtonController : MonoBehaviour
             img.color = Color.white;
         }
 
-        if (ActorInStageSelect.selectBtn == 3)      //  Panelの移動処理
+        //  Panelの移動処理
+        if (ActorInStageSelect.selectBtn == 3)      
         {
             gameObject.transform.parent.position = Vector3.MoveTowards(transform.parent.position, startPos, 75.0f * Time.deltaTime);
         }
