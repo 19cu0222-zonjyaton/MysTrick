@@ -1,16 +1,28 @@
-﻿using System.Collections;
+﻿//-------------------------------------------------
+// ファイル名		：BridgeController.cs
+// 概要				：梯子の制御
+// 作成者			：鍾家同
+// 更新内容			：2021/04/12 作成
+//					：2021/07/15 更新　各角度を変更できるように修正
+//-------------------------------------------------
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class BridgeController : MonoBehaviour
 {
+	[Header("===変更用===")]
 	public TriggerController Device;
-	[SerializeField]
-	public bool isTriggered;
 	public Vector3 targetAng;
-	private Quaternion targetEuAng;
 	public float speed = 5.0f;
-	public bool hasDone;                //	カメラ用参数
+
+	[Header("===監視用===")]
+	public bool hasDone;				//	カメラ用参数
+	public bool isTriggered;
+
+	private Quaternion targetEuAng;		// 目標角度（オイラー角）
+	private Vector3 curAng;				// 現在角度
+	private Vector3 nextAng;			// 目標角度
 	private new AudioSource audio;
 	private bool playOnce;
 	private float timeCount = 3.6f;		//	Triggerを出すまでの時間
@@ -21,18 +33,25 @@ public class BridgeController : MonoBehaviour
 		audio = gameObject.GetComponent<AudioSource>();
 	}
 
+	void Start()
+	{
+		curAng = this.transform.rotation.eulerAngles;
+		nextAng = targetAng;
+	}
+
 	void Update()
 	{
 		if (Device.isTriggered)
 		{
 			isTriggered = true;
 			timeCount -= Time.deltaTime;
+			// 音を一度しか出さないようにする
 			if (!playOnce)
 			{
 				audio.Play();
 				playOnce = true;
 			}
-
+			// 回転開始
 			if (timeCount <= 1.8f && timeCount > 0.0f)
 			{
 				targetEuAng = Quaternion.Euler(targetAng);
@@ -41,19 +60,14 @@ public class BridgeController : MonoBehaviour
 				//Debug.Log(this.transform.eulerAngles.z);
 				//this.transform.Rotate(0f, 0f, angle);
 			}
+			// 回転停止、初期値に戻る
 			else if(timeCount <= 0.0f)
 			{
 				++pressCount;
 				++Device.launchCount;
 
-				if (pressCount % 2 == 1)
-				{
-					targetAng = new Vector3(0.0f, 0.0f, -90.0f);
-				}
-				else
-				{ 
-					targetAng = new Vector3(0.0f, 0.0f, 0.0f);
-				}
+				if (pressCount % 2 == 1) targetAng = curAng;
+				else targetAng = nextAng;
 
 				timeCount = 1.8f;
 				playOnce = false;

@@ -596,7 +596,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   capcol: {fileID: 6563069687783362540}
-  pi: {fileID: 0}
   goal: {fileID: 0}
   ca: {fileID: 0}
 --- !u!1 &6563069687687562307
@@ -1657,7 +1656,7 @@ MonoBehaviour:
   lookAtGoal: {fileID: 0}
   firstPerspect: {fileID: 6563069688358266861}
   weapon: {fileID: 4896021154492923860, guid: 31f5f897a1df73744a57545b6943eb20, type: 3}
-  usingWeapon: {fileID: 0}
+  usingWeapon: {fileID: 8482443360204759258}
   deadPos: {fileID: 7826886018794018392}
   canThrowWeapon: 1
   cameraStatic: Idle
@@ -1868,9 +1867,6 @@ MonoBehaviour:
   playerPos: {fileID: 6563069687783362545}
   model: {fileID: 6563069687167480267}
   throwAnim: {fileID: 6563069687167480265}
-  otherPos:
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
   startPos:
   - {x: 0, y: 0, z: 0}
   - {x: 0, y: 0, z: 0}
