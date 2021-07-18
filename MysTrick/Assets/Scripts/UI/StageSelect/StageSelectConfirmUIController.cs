@@ -29,7 +29,7 @@ public class StageSelectConfirmUIController : MonoBehaviour
         {
             if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f && animator.GetCurrentAnimatorStateInfo(0).IsName("Stage_Confirm_Minus"))   
             {
-                StageSelectButtonController.outputConfirmUI = false;
+                StageSelectButtonController.confirmMenuIsOpen = false;
                 EventSystem.current.SetSelectedGameObject(GameObject.Find(StageSelectButtonController.selectStageName));       //  Stage01ボタンを選択状態にする
                 isCancel = false;
                 gameObject.transform.parent.gameObject.SetActive(false);
@@ -42,9 +42,15 @@ public class StageSelectConfirmUIController : MonoBehaviour
             timeCount -= Time.deltaTime;
             if (timeCount < -0.3f)
             {
-                StageSelectButtonController.outputConfirmUI = false;
+                StageSelectButtonController.confirmMenuIsOpen = false;
                 SceneManager.LoadScene(StageSelectButtonController.selectStageName);
             }        
+        }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            animator.SetBool("Menu", false);
+            isCancel = true;
         }
     }
 
@@ -58,7 +64,7 @@ public class StageSelectConfirmUIController : MonoBehaviour
         }
         else
         {
-            animator.SetTrigger("Cancel");
+            animator.SetBool("Menu", false);
             isCancel = true;
         }
     }

@@ -42,12 +42,14 @@ public class MenuButtonController : MonoBehaviour
             Time.timeScale = 1;
             animator_Menu.SetTrigger("Cancel");
             animator_Menu.SetBool("Menu", false);
+            smc.animIsOver = false;
             smc.isOpenMenu = false;
         }
         else
         {
             Time.timeScale = 1;
             smc.isOpenMenu = false;
+            smc.animIsOver = false;
             animator_Mask.SetTrigger("WhiteToBlack");
         }
     }

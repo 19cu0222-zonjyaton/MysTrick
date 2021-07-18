@@ -9,13 +9,15 @@ public class StageSelectButtonController : MonoBehaviour
     public bool canSelected;                    //  クリアしたかどうか
     public GameObject confirmPanel;
     public static string selectStageName;       //  選択したステージ名(シン―を切り替えてもstatic dataに影響しない)
-    public static bool outputConfirmUI;
+    public static bool confirmMenuIsOpen;       //  共有プロパティ
     private Button btn;
     private Image img;
     private Vector3 startPos;                   //  始点の位置
 
     void Awake()
     {
+        selectStageName = "Stage01";
+
         img = gameObject.GetComponent<Image>();
 
         btn = gameObject.GetComponent<Button>();
@@ -55,11 +57,9 @@ public class StageSelectButtonController : MonoBehaviour
     {
         if (canSelected)        //  確認画面に入る前の処理
         {
-            outputConfirmUI = true;
+            confirmMenuIsOpen = true;
             confirmPanel.SetActive(true);
             EventSystem.current.SetSelectedGameObject(GameObject.Find("OK"));       //  OKボタンを選択状態にする
-
-            selectStageName = gameObject.name;
         }
     }
 }

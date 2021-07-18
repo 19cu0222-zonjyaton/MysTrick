@@ -9,6 +9,7 @@ public class ActorInStageSelect : MonoBehaviour
     public GameObject[] target;           //  移動するターゲット
     public Button[] btn;                  //  選択しているボタンオブジェクト
     public Animator animator;             //  アニメコントローラーコンポーネント
+    public ExitController ec;             //  タイトル画面に戻るUIコントローラー
     public static int selectBtn = 1;      //  選択しているボタン標記
     public int skyboxIndex;               //  skyboxオブジェクト
     private bool goLeft;                  //  左側に移動するフラグ
@@ -19,7 +20,7 @@ public class ActorInStageSelect : MonoBehaviour
     {
         if (GoalController.clearStageName == "")        //  StageからStageSelectに飛びるではない場合
         {
-            if (!isMove && !StageSelectButtonController.outputConfirmUI)
+            if (!isMove && !StageSelectButtonController.confirmMenuIsOpen && !ec.exitPanelIsOpen)
             {
                 if (selectBtn < 4)
                 {
@@ -38,6 +39,8 @@ public class ActorInStageSelect : MonoBehaviour
                         selectBtn--;
                     }
                 }
+
+                StageSelectButtonController.selectStageName = btn[selectBtn - 1].name;
             }
         }
         else                                            //  StageをクリアしてStageから飛びる場合
@@ -57,6 +60,7 @@ public class ActorInStageSelect : MonoBehaviour
                 goRight = true;
                 selectBtn++;
                 btn[selectBtn - 1].GetComponent<StageSelectButtonController>().canSelected = true;
+                StageSelectButtonController.selectStageName = btn[selectBtn - 1].name;
                 GoalController.clearStageName = "";
             }
         }

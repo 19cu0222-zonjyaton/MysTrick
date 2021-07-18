@@ -7,8 +7,8 @@ public class StageMenuController : MonoBehaviour
 {
     public bool isOpenMenu;                //   UIメニューは呼び出されたか
     public GameObject selectButton;        //   UIを出たらデフォルト選択するボタン
+    public bool animIsOver = true;        //   UIのアニメ終了フラグ
     private Animator animator;
-    private bool animIsOver = true;        //   UIのアニメ終了フラグ
 
     void Awake()
     {
