@@ -10,10 +10,8 @@ public class EnemyPathControl : MonoBehaviour
     public Transform[] pathPositions;   //  敵の移動ルート
     public Transform head;              //  敵の正方向を取るためのオブジェクト
     public EnemyDamageController edc;   //  プレイヤーのカメラコントローラー
-    public CameraController cc;
 
     private PlayerInput pi;             //  プレイヤーの入力コントローラー
-    private ActorController ac;         //  プレイヤーの挙動コントローラー
     private int index = 1;              //  今向けて移動する位置
     private bool islock = false;        //  プレイヤーが捜査範囲に入るフラグ
     private bool isAttackedByPlayer;    //  プレイヤーに攻撃されたフラグ
@@ -26,8 +24,6 @@ public class EnemyPathControl : MonoBehaviour
         if (player != null)
         {
             pi = player.GetComponent<PlayerInput>();
-
-            ac = player.GetComponent<ActorController>();
         }
     }
 
@@ -83,6 +79,7 @@ public class EnemyPathControl : MonoBehaviour
         {
             Patrol();
         }
+
     }
 
     //  プレイヤーを捜査範囲を設定する処理
@@ -125,7 +122,7 @@ public class EnemyPathControl : MonoBehaviour
                     islock = true;
                 }
                 else
-                { 
+                {
                     islock = false;
                 }
             }
@@ -142,7 +139,7 @@ public class EnemyPathControl : MonoBehaviour
         head.LookAt(targetPosition);
 
         //  次の点に移動する
-        if (Vector3.Distance(pathPositions[index].localPosition, transform.localPosition) < 0.2f)
+        if (Vector3.Distance(pathPositions[index].position, transform.position) < 0.2f)
             index++;
         if (index > pathPositions.Length - 1)
             index = 0;
