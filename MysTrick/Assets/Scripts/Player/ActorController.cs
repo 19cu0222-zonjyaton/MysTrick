@@ -34,7 +34,9 @@ public class ActorController : MonoBehaviour
 
     public float moveSpeed = 5.0f;          //	移動スピード
     public bool isInTrigger;                //	仕掛けスイッチを当たるフラグ
+	public bool isDamageByEnemy;			//	敵と衝突したフラグ
     public bool isUnrivaled;                //	無敵Time
+	public bool cameraCanMove;				//	ダメージを受けた後カメラ移動可能の時間
     public bool shootStart;                 //	武器発射flag
     public bool isJumping;                  //	ジャンプflag
     public bool isClimbing;                 //	登るflag
@@ -45,6 +47,7 @@ public class ActorController : MonoBehaviour
     private Rigidbody rigid;                //	鋼体コンポーネント
 	private Vector3 movingVec;              //	移動方向
     private GoalController gc;              //	ゴールコントローラー
+	private GameObject tempEnemyCollider;	//	一時衝突した敵のオブジェクト	
     private int shortTimeCount;             //	点滅用タイムカウント
     private Vector3 weaponStartPos;         //	武器の初期位置座標保存用
     private Vector3 weaponStartRot;         //	武器の初期回転角度保存用
@@ -191,16 +194,18 @@ public class ActorController : MonoBehaviour
 				shortTimeCount++;
 			}
 
-			if (shortTimeCount >= 6 && timeCount >= 0.15f)	//	点滅が終わったら
+			if (shortTimeCount >= 8 && timeCount >= 0.15f)	//	点滅が終わったら
 			{
 				shortTimeCount = 0;
 				modelMesh.enabled = true;
 				weaponMesh.enabled = true;
+				Physics.IgnoreCollision(gameObject.GetComponent<CapsuleCollider>(), tempEnemyCollider.GetComponent<CapsuleCollider>(), false);
 				isUnrivaled = false;
 			}
 			else if (shortTimeCount > 2)					//	プレイヤー入力可能
 			{
 				pi.inputEnabled = true;
+				cameraCanMove = true;
 			}
 		}
 	}
@@ -264,7 +269,11 @@ public class ActorController : MonoBehaviour
 			hp--;
 			damageRot = model.transform.localEulerAngles;
 			audio.PlayOneShot(sounds[2]);
-			
+			Physics.IgnoreCollision(gameObject.GetComponent<CapsuleCollider>(), collision.gameObject.GetComponent<CapsuleCollider>(), true);
+			tempEnemyCollider = collision.gameObject;
+			isDamageByEnemy = true;
+			cameraCanMove = false;
+
 			if (hp >= 0)
 			{
 				pi.inputEnabled = false;

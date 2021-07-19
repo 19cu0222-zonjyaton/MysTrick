@@ -214,7 +214,7 @@ public class CameraController : MonoBehaviour
 					}
 				}
 			}
-			else if (!pi.isAimStatus && !pi.lockJumpStatus && !ac.isUnrivaled && !ac.isDead)  //	not Aiming and not jumping
+			else if (!pi.isAimStatus && !pi.lockJumpStatus && ac.cameraCanMove && !ac.isDead)  //	not Aiming and not jumping
 			{
 				Vector3 tempModelEuler = model.transform.eulerAngles;
 				playerHandle.transform.Rotate(Vector3.up, pi.Jright * horizontalSpeed * Time.fixedDeltaTime);

@@ -906,7 +906,9 @@ MonoBehaviour:
   devices: 
   moveSpeed: 5
   isInTrigger: 0
+  isDamageByEnemy: 0
   isUnrivaled: 0
+  cameraCanMove: 1
   shootStart: 0
   isJumping: 0
   isClimbing: 0

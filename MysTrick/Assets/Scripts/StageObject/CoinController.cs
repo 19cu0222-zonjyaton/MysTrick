@@ -22,14 +22,11 @@ public class CoinController : MonoBehaviour
         if (!isTitleCoin)
         {
             oldPos = transform.position;
+
+            ac = GameObject.Find("PlayerHandle").GetComponent<ActorController>();
         }
 
         rigid = gameObject.GetComponent<Rigidbody>();
-
-        if (ac != null)
-        {
-            ac = GameObject.Find("PlayerHandle").GetComponent<ActorController>();
-        }
 
         sound = gameObject.GetComponent<AudioSource>();
     }
