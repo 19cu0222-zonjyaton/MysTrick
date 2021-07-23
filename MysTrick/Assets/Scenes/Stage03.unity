@@ -1400,6 +1400,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerHandle
       objectReference: {fileID: 0}
+    - target: {fileID: 6563069688815288605, guid: deb5c94de91a32e4ca21d16c24db72a9,
+        type: 3}
+      propertyPath: m_ClearFlags
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6563069688815288606, guid: deb5c94de91a32e4ca21d16c24db72a9,
         type: 3}
       propertyPath: goal
@@ -3772,7 +3777,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6616413889429027058}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -4296,7 +4301,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9049528709603199916}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: 3.2427242, z: 0.00008392334}
+  m_LocalPosition: {x: -0, y: 3.2427242, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2001114291733687246}
@@ -7899,6 +7904,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1162408178899440981}
+  - component: {fileID: 8669027862760032124}
+  - component: {fileID: 8669027862760032123}
   m_Layer: 0
   m_Name: liftDoor
   m_TagString: Untagged
@@ -7906,6 +7913,37 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!65 &8669027862760032123
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8669027862760032122}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 9.825981, z: 7.731681}
+  m_Center: {x: 0, y: -0.014962196, z: -0.044874668}
+--- !u!114 &8669027862760032124
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8669027862760032122}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 997809ba0a1937646b8fcaa8f285d6e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Doors: []
+  Pieces: []
+  HintUI: {fileID: 0}
+  openInterval: 0
+  openTimeCount: 0
+  openSpeed: 0
 --- !u!4 &8684189434185345796
 Transform:
   m_ObjectHideFlags: 0
