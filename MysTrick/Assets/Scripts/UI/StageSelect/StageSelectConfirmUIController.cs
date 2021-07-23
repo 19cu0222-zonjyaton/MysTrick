@@ -47,7 +47,7 @@ public class StageSelectConfirmUIController : MonoBehaviour
             }        
         }
 
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape) || Input.GetButtonDown("cancel"))
         {
             animator.SetBool("Menu", false);
             isCancel = true;

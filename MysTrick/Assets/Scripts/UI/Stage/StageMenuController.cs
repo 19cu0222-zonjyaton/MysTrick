@@ -18,7 +18,7 @@ public class StageMenuController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if ((Input.GetKeyDown(KeyCode.Escape) || Input.GetButtonDown("Menu")) && animIsOver)       
+        if ((Input.GetKeyDown(KeyCode.Escape) || Input.GetButtonDown("menu")) && animIsOver)       
         {
             if (isOpenMenu)           //  もう一度ESC或いはXBoxのMenuボタンでゲーム画面に戻る
             {

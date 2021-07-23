@@ -11,9 +11,10 @@ public class EnemyPathControl : MonoBehaviour
     public Transform head;              //  敵の正方向を取るためのオブジェクト
     public EnemyDamageController edc;   //  プレイヤーのカメラコントローラー
     public GameObject[] patrolPos;
+    public GameObject warning;
 
     private PlayerInput pi;             //  プレイヤーの入力コントローラー
-    private ActorController ac;
+    private CameraController cc;
     private Ray ray;                    //  正方向から発射する光線(プレイヤーが捜査範囲に入っても壁に遮ったら元のルートに戻るように使う)
     private RaycastHit hit;             //  光線にヒットしたオブジェクト
     private Vector3 targetPosition;
@@ -21,8 +22,9 @@ public class EnemyPathControl : MonoBehaviour
     private int index = 1;              //  今向けて移動する位置
     private bool islock = false;        //  プレイヤーが捜査範囲に入るフラグ
     private bool isAttackedByPlayer;    //  プレイヤーに攻撃されたフラグ
-    private bool lockOnPlayer;
     private float timeCount;
+    private bool hitWithWall;
+    private bool warningActive;
 
     //	初期化
     void Awake()
@@ -31,7 +33,7 @@ public class EnemyPathControl : MonoBehaviour
         {
             pi = player.GetComponent<PlayerInput>();
 
-            ac = player.GetComponent<ActorController>();
+            cc = GameObject.Find("Main Camera").GetComponent<CameraController>();
         }
     }
 
@@ -45,15 +47,36 @@ public class EnemyPathControl : MonoBehaviour
 
         if (pi != null)
         {
+            if (pi.inputEnabled && !edc.isDamage && !warning.GetComponent<Animation>().isPlaying)
+            {
+                edc.canMove = true;
+            }
+
+            if (!LockOn() && !isAttackedByPlayer && !edc.hitWithPlayer)
+            {
+                warningActive = false;
+            }
+            else if ((LockOn() || isAttackedByPlayer || edc.hitWithPlayer) && !warningActive && (edc.enemyHp > 0))
+            {
+                edc.canMove = false;
+                warning.SetActive(true);
+                warningActive = true;
+            }
+            
+            if (!warning.GetComponent<Animation>().isPlaying)
+            {
+                warning.SetActive(false);
+            }
+
             //  敵のAI処理
-            if (pi.inputEnabled)
+            if (edc.canMove && cc.cameraStatic == "Idle")
             {
                 if (!backToPatrol)
                 {
                     //  プレイヤーが捜査範囲に入った光線を出せる処理
-                    if (LockOn() || isAttackedByPlayer || ac.isDamageByEnemy)
+                    if (LockOn() || isAttackedByPlayer || edc.hitWithPlayer)
                     {
-                        ray = new Ray(transform.position, ((player.transform.position + new Vector3(0, 1.5f, 0)) - head.transform.position).normalized);
+                        ray = new Ray(transform.position - new Vector3(0.5f, 0, 0), ((player.transform.position + new Vector3(0, 1.5f, 0)) - head.transform.position).normalized);
                         Debug.DrawRay(ray.origin, ray.direction * 100, Color.red, 0.1f);
                     }
                     else
@@ -79,13 +102,16 @@ public class EnemyPathControl : MonoBehaviour
                     }
                 }
 
-                if (hit.collider != null && edc.canMove)       //  光線が何も当たっていない時の対策
+                if (hit.collider != null)       //  光線が何も当たっていない時の対策
                 {
                     hit.collider.enabled = true;
 
                     //  1.光線が壁に当たってない   2.捜査範囲に入った  3.攻撃された  -> プレイヤーの位置に移動する
-                    if ((!(hit.collider.gameObject.layer == LayerMask.NameToLayer("Wall")) && LockOn()) || isAttackedByPlayer || ac.isDamageByEnemy)
+                    if ((!(hit.collider.gameObject.layer == LayerMask.NameToLayer("Wall")) && LockOn()) || isAttackedByPlayer || edc.hitWithPlayer)
                     {
+                        gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
+                        hitWithWall = true;
+
                         Move();
                         //  光線が壁に当たったら攻撃AIをキャンセル
                         if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Wall"))
@@ -97,12 +123,17 @@ public class EnemyPathControl : MonoBehaviour
                             {
                                 isAttackedByPlayer = false;
 
-                                ac.isDamageByEnemy = false;
+                                edc.hitWithPlayer = false;
 
                                 backToPatrol = true;
 
                                 timeCount = 0.0f;
                             }
+                        }
+                        else
+                        {
+                            hitWithWall = false;
+                            timeCount = 0.0f;
                         }
                     }
                     else
@@ -110,7 +141,7 @@ public class EnemyPathControl : MonoBehaviour
                         Patrol();
                     }
                 }
-                else if(edc.canMove)
+                else if (edc.canMove && !isAttackedByPlayer && !edc.hitWithPlayer)
                 {
                     Patrol();
                 }
@@ -128,7 +159,13 @@ public class EnemyPathControl : MonoBehaviour
     {
         //  Y軸の捜査範囲
         if (System.Math.Abs(player.transform.position.y - transform.position.y) >= 2.0f)
+        {
             islock = false;
+
+            isAttackedByPlayer = false;
+
+            edc.hitWithPlayer = false;
+        }
         else
         {
             Vector3 targetPosition = player.transform.position;
@@ -158,7 +195,7 @@ public class EnemyPathControl : MonoBehaviour
 
                 angle = oppositeAngle - headAngle + 90.0f;
 
-                if (angle <= 0.0f && angle >= -60.0f || angle <= 60.0f && angle > 0.0f || angle <= 360.0f && angle >= 300.0f)
+                if ((angle <= 0.0f && angle >= -60.0f || angle <= 60.0f && angle > 0.0f || angle <= 360.0f && angle >= 300.0f && !hitWithWall) || isAttackedByPlayer || edc.hitWithPlayer)
                 {
                     islock = true;
                 }
@@ -199,7 +236,6 @@ public class EnemyPathControl : MonoBehaviour
             if (index > pathPositions.Length - 1)
                 index = 0;
         }
-
     }
 }
 
