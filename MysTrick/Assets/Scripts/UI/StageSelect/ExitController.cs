@@ -25,7 +25,7 @@ public class ExitController : MonoBehaviour
     {
         if (gameObject.name == "Canvas")
         {
-            if ((Input.GetKeyDown(KeyCode.Escape) || Input.GetButtonDown("Menu")) && !StageSelectButtonController.confirmMenuIsOpen)
+            if ((Input.GetKeyDown(KeyCode.Escape) || Input.GetButtonDown("menu") || Input.GetButtonDown("cancel")) && !StageSelectButtonController.confirmMenuIsOpen)
             {
                 if (!exitPanelIsOpen)
                 {

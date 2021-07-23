@@ -670,6 +670,9 @@ MonoBehaviour:
   isTriggered: 0
   moveVec: 0
   hasDone: 0
+  moveTargetA: 0
+  moveTargetB: 0
+  movePos: 0
 --- !u!1 &2792768056480234642
 GameObject:
   m_ObjectHideFlags: 0

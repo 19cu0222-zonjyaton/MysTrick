@@ -156,22 +156,6 @@ public class CameraController : MonoBehaviour
 			{
 				transform.parent = null;
 
-				//指定した方向とか指定したゲームオブジェクトからレーザー光線をだせる機能です
-				//Ray ray = new Ray(transform.position, transform.forward);
-
-				//RaycastHit hit; //レイが衝突したオブジェクト
-
-				//if (Physics.Raycast(ray, out hit, Mathf.Infinity))
-
-				//{
-				//	//もしrayとhitが衝突した場合．．．の処理内容
-				//	if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Ground"))
-				//	{
-				//		//もしhitのレイヤーが指定した"レイヤーの名前"と一致していた場合．．．の処理内容
-				//	}
-				//	Debug.DrawRay(ray.origin, ray.direction * 100, Color.red, 0.1f);
-				//}
-
 				transform.position = Vector3.Slerp(transform.position, firstPerspect.transform.position, 20.0f * Time.fixedDeltaTime);
 
 				if (transform.eulerAngles.x > 0.01f && !canRotate)      //	transform.eulerAngles　->	自身の回転角度を獲得できる		視点切り替え途中は回転できない
@@ -266,9 +250,18 @@ public class CameraController : MonoBehaviour
 			transform.position = deadPos.transform.position;
 			transform.LookAt(playerHandle.transform);
 		}
-		else if (ac.isFall)			//	プレイヤーが外に落ちたらカメラの処理
+		else if (ac.isFall)         //	プレイヤーが外に落ちたらカメラの処理
 		{
 			transform.SetParent(null);
+		}
+
+		if (ac.isClimbing)
+		{
+			gameObject.GetComponent<Camera>().fieldOfView = 30.0f;
+		}
+		else
+		{
+			gameObject.GetComponent<Camera>().fieldOfView = 60.0f;
 		}
 	}
 

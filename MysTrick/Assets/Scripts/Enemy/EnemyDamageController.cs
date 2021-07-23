@@ -7,6 +7,7 @@ public class EnemyDamageController : MonoBehaviour
     public bool isDamage;                   //  ダメージをを受けたフラグ
     public int enemyHp;                     //  エネミーのHP
     public bool canMove;                    //  プレイヤーに攻撃されたら時間内で -> false
+    public bool hitWithPlayer;
     public Animator anim;                   //  アニメコントローラー
     public GameObject coin;                 //  コインオブジェクト
     public ActorController ac;              //  プレイヤーコントローラー
@@ -65,7 +66,7 @@ public class EnemyDamageController : MonoBehaviour
     }
 
     //  敵の衝突処理
-    private void OnTriggerEnter(Collider collider)
+    void OnTriggerEnter(Collider collider)
     {
         //  プレイヤーの武器と当たる処理
         if (collider.transform.tag == "Weapon" && !isDamage)
@@ -90,6 +91,18 @@ public class EnemyDamageController : MonoBehaviour
             ac.coinUIAction = true;
             ac.coinCount += 3;
             Destroy(this.gameObject);
+        }
+    }
+
+    void OnCollisionStay(Collision collision)
+    {
+        if (collision.transform.tag == "Player")
+        {
+            hitWithPlayer = true;
+
+            canMove = false;
+
+            gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;           //	11111111111111111111111111111111111111111111111111111111111111111111111111111111111
         }
     }
 }

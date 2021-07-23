@@ -43,7 +43,8 @@ public class PlayerInput : MonoBehaviour
 	public bool isJumping;				//	ジャンプ中フラグ
 	public bool lockJumpStatus;			//	ジャンプ状態の時ロックするフラグ
 	public bool isThrowing;				//	武器を投げっているフラグ
-	public bool isAttacking;			//	アタックフラグ
+	public bool isAttacking;            //	アタックフラグ
+	public bool canAttack = true;        //	攻撃可能フラグ
 	public bool canThrow = true;		//	第三視点武器を投げる可能フラグ
 	public bool isAimStatus;			//	狙う状態のフラグ
 	public bool overDistance;           //	壁の距離が近いかどうか
@@ -126,7 +127,7 @@ public class PlayerInput : MonoBehaviour
         {
             isThrowing = true;
 		}
-        else if ((Input.GetKeyDown(keyAttack) || Input.GetButtonDown("attack")) && canThrow && inputEnabled)
+        else if ((Input.GetKeyDown(keyAttack) || Input.GetButtonDown("attack")) && canThrow && canAttack && inputEnabled)
         {
             isAttacking = true;
         }

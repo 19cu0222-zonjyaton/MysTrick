@@ -674,7 +674,7 @@ GameObject:
   - component: {fileID: 2614032214511581777}
   - component: {fileID: 6563069687783362543}
   - component: {fileID: 6563069687783362542}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: PlayerHandle
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -866,6 +866,7 @@ MonoBehaviour:
   lockJumpStatus: 0
   isThrowing: 0
   isAttacking: 0
+  canAttack: 1
   canThrow: 1
   isAimStatus: 0
   overDistance: 0
@@ -906,7 +907,6 @@ MonoBehaviour:
   devices: 
   moveSpeed: 5
   isInTrigger: 0
-  isDamageByEnemy: 0
   isUnrivaled: 0
   cameraCanMove: 1
   shootStart: 0
@@ -1766,8 +1766,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8482443360204759258}
-  m_LocalRotation: {x: -0.21160078, y: -0.58740586, z: 0.7411666, w: 0.24668126}
-  m_LocalPosition: {x: -0.07, y: -0.031, z: -0.567}
+  m_LocalRotation: {x: -0.21160081, y: -0.5874059, z: 0.74116653, w: 0.24668127}
+  m_LocalPosition: {x: -0.0699992, y: -0.030999929, z: -0.5670006}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children: []
   m_Father: {fileID: 6563069687012103068}
@@ -1847,8 +1847,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.2405691, y: 0.28032187, z: 0.43189675}
-  m_Center: {x: -0.006060628, y: 0.0018742961, z: 0.00000035998417}
+  m_Size: {x: 1.6572901, y: 0.28032187, z: 0.43189675}
+  m_Center: {x: -0.21442132, y: 0.0018743217, z: 0.00000045099262}
 --- !u!114 &4063294895243107442
 MonoBehaviour:
   m_ObjectHideFlags: 0
