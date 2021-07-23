@@ -31,10 +31,12 @@ public class ActorController : MonoBehaviour
 	public float moveSpeed = 5.0f;			//	移動スピード
 	public bool isInTrigger;				//	仕掛けスイッチを当たるフラグ
 	public bool isDamageByEnemy;			//	敵と衝突したフラグ
-	public bool isUnrivaled;				//	無敵Time
+	public bool isUnrivaled;                //	無敵Time
+	public bool cameraCanMove;              //	ダメージを受けた後カメラ移動可能の時間
 	public bool shootStart;					//	武器発射flag
 	public bool isJumping;					//	ジャンプflag
-	public bool isClimbing;					//	登るflag
+	public bool isClimbing;                 //	登るflag
+	public Vector3 climbLandPos;
 
 	//---鍾家同(2021/07/19)---
 	public struct HaveKeys
@@ -59,15 +61,17 @@ public class ActorController : MonoBehaviour
 	private Rigidbody rigid;				//	鋼体コンポーネント
 	private Vector3 movingVec;				//	移動方向
 	private GoalController gc;				//	ゴールコントローラー
-	private GameObject tempEnemyCollider;	//	一時衝突した敵のオブジェクト
 	private int shortTimeCount;				//	点滅用タイムカウント
 	private Vector3 weaponStartPos;			//	武器の初期位置座標保存用
-	private Vector3 weaponStartRot;			//	武器の初期回転角度保存用
-	private Vector3 weaponAttackPos = new Vector3(-0.146f, 0.091f, 1.137f);				//	武器攻撃する時位置座標保存用
-	private Vector3 weaponAttackRot = new Vector3(22.826f, -291.228f, 167.892f);		//	武器攻撃する時回転角度保存用
+	private Vector3 weaponStartRot;         //	武器の初期回転角度保存用
+	private Vector3 weaponAttackPos = new Vector3(0.96f, 0.316f, -0.447f);             //	武器攻撃する時位置座標保存用			//
+	private Vector3 weaponAttackRot = new Vector3(195.201f, -142.271f, -167.015f);        //	武器攻撃する時回転角度保存用
 	private Vector3 damageRot;				//	ダメージを受ける時の回転角度
-	private float timeCount;				//	タイムカウント
-	private bool doOnce;					//	一回だけ実行するため使うフラグ
+	private float timeCount;                //	タイムカウント
+	private Vector3 nowPos;            //	
+	private Vector3 damagePos;            //	
+	private float damageTimeCount;          //	
+	private bool doOnce;
 
 	//	初期化
 	void Awake()
@@ -141,35 +145,40 @@ public class ActorController : MonoBehaviour
 				pi.isThrowing = false;					
 			}
 
-			if (attack_anim.isPlaying)					//	攻撃する時tagを有効にする
-			{				
+			if (attack_anim.isPlaying)                  //	攻撃する時tagを有効にする
+			{
 				weapon.transform.SetParent(playerHand.transform);
 				//	武器の位置調整
 				weapon.transform.localPosition = weaponAttackPos;
 				weapon.transform.localEulerAngles = weaponAttackRot;
 				weapon.transform.tag = "Weapon";
-				doOnce = true;
+				pi.canAttack = false;           //	
 			}
-			else if (doOnce)							//	一回だけ実行する
+			else if (!pi.canAttack)                         //	一回だけ実行する
 			{
 				weapon.transform.SetParent(playerNeck.transform);
 				//	武器の位置を初期に戻る
 				weapon.transform.localPosition = weaponStartPos;
-				weapon.transform.localEulerAngles = weaponStartRot;  
+				weapon.transform.localEulerAngles = weaponStartRot;
 				weapon.transform.tag = "Untagged";
 				audio.pitch = 1.0f;
-				doOnce = false;
+				pi.canAttack = true;            //	
 			}
 
-			if (isClimbing)								//	梯子を登る処理
+
+			if (isClimbing && (Input.GetKey(pi.keyUp) || Input.GetKey(pi.keyDown)))                         //	梯子を登る処理
 			{
+				anim.speed = 1.0f;
 				anim.SetBool("Climb", true);
 			}
-			else
+			else if (isClimbing)
 			{
-				anim.SetBool("Climb", false);
+				anim.SetBool("Climb", true);
+				if (anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f && anim.GetCurrentAnimatorStateInfo(0).IsName("Climb"))
+				{
+					anim.speed = 0.0f;
+				}
 			}
-
 		}
 
 		checkIsUnderDamage();
@@ -217,11 +226,31 @@ public class ActorController : MonoBehaviour
 				shortTimeCount = 0;
 				modelMesh.enabled = true;
 				weaponMesh.enabled = true;
+				Physics.IgnoreLayerCollision(11, 13, false);//	
 				isUnrivaled = false;
+				damageTimeCount = 0.0f;         //	
+				doOnce = false;
 			}
 			else if (shortTimeCount > 2)					//	プレイヤー入力可能
 			{
 				pi.inputEnabled = true;
+				cameraCanMove = true;           //	
+				rigid.constraints = RigidbodyConstraints.FreezeRotation;
+			}
+
+			if (damageTimeCount >= 0.05f && !doOnce)
+			{
+				damagePos = transform.position;
+
+				if (Vector3.Distance(damagePos, nowPos) >= 0.8f)
+				{
+					rigid.constraints = ~RigidbodyConstraints.FreezePositionY;      //	~ -> Y軸以外の移動と回転を止める
+				}
+				doOnce = true;
+			}
+			else if (damageTimeCount < 0.05f)
+			{
+				damageTimeCount += Time.deltaTime;
 			}
 		}
 	}
@@ -288,16 +317,12 @@ public class ActorController : MonoBehaviour
 			isFall = true;
 		}
 
-		if (climbCheck != null)		//	回転できる梯子の始点と終点処理
+		if (collider.transform.tag == "ClimbOver")  //	
 		{
-			if ((climbCheck.nowLayer == 1 || climbCheck.nowLayer == 3) && collider.transform.name == "ClimbStart1")
-			{
-				climbEnd = true;
-			}
-			else if(climbCheck.nowLayer == 2 && collider.transform.name == "ClimbFinish1")
-			{
-				climbEnd = true;
-			}
+			climbEnd = true;
+			climbLandPos = collider.gameObject.transform.position;
+			rigid.useGravity = true;
+			anim.SetBool("Climb", false);
 		}
 	}
 
@@ -316,9 +341,8 @@ public class ActorController : MonoBehaviour
 			hp--;
 			damageRot = model.transform.localEulerAngles;
 			audio.PlayOneShot(sounds[2]);
-			Physics.IgnoreCollision(gameObject.GetComponent<CapsuleCollider>(), collision.gameObject.GetComponent<CapsuleCollider>(), true);
-			tempEnemyCollider = collision.gameObject;
-			isDamageByEnemy = true;
+			Physics.IgnoreLayerCollision(11, 13, true);//	
+			cameraCanMove = false;//
 
 			if (hp >= 0)
 			{
@@ -331,7 +355,8 @@ public class ActorController : MonoBehaviour
 				}
 				else
 				{
-					rigid.AddExplosionForce(500.0f, collision.transform.position - new Vector3(0.0f, 1.5f, 0.0f), 5.0f, 1.5f);		//	爆発の位置を矯正
+					rigid.AddExplosionForce(500.0f, collision.transform.position - new Vector3(0.0f, 1.5f, 0.0f), 5.0f, 1.5f);      //	爆発の位置を矯正
+					nowPos = transform.position;
 				}		
 
 				isUnrivaled = true;

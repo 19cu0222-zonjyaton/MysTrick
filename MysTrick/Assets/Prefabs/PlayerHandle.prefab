@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 510751107909344000}
   - component: {fileID: 1521311063858829785}
   - component: {fileID: 1257963828533646109}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: ThrowCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -903,15 +903,15 @@ MonoBehaviour:
   climbEnd: 0
   isDead: 0
   isFall: 0
-  keys: 
-  devices: 
   moveSpeed: 5
   isInTrigger: 0
+  isDamageByEnemy: 0
   isUnrivaled: 0
   cameraCanMove: 1
   shootStart: 0
   isJumping: 0
   isClimbing: 0
+  climbLandPos: {x: 0, y: 0, z: 0}
 --- !u!1 &6563069687854978686
 GameObject:
   m_ObjectHideFlags: 0
@@ -1674,7 +1674,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6578548812169416638}
   - component: {fileID: 9058365846734146575}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: DistanceCheck
   m_TagString: GapCheck
   m_Icon: {fileID: 0}

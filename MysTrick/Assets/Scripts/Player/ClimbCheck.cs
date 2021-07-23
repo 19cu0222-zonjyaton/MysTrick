@@ -16,13 +16,6 @@ public class ClimbCheck : MonoBehaviour
     private PlayerInput pi;                 //  プレイヤー入力コントローラー
     private ActorController ac;             //  プレイヤー挙動コントローラー
 
-    public LadderType ladderType;
-    public enum LadderType
-    {
-        rotateLadder,
-        normalLadder
-    }
-
     //  初期化
     void Awake()
     {
@@ -38,7 +31,7 @@ public class ClimbCheck : MonoBehaviour
             playerModule.transform.rotation = transform.rotation;
             pi.inputEnabled = false;
             ac.isClimbing = true;
-            player.GetComponent<Rigidbody>().useGravity = false;
+
             if (Input.GetKey(pi.keyUp))
             {
                 player.transform.position += new Vector3(0, 0.1f, 0);
@@ -51,10 +44,9 @@ public class ClimbCheck : MonoBehaviour
 
         if (ac.climbEnd && climbStart)    //  登り終わる
         {
-            player.transform.position = ac.climbLandPos + new Vector3(0, 0, 3.0f);
+            player.transform.position = ac.climbLandPos + new Vector3(0, 0, 4.2f);
             pi.inputEnabled = true;
-            ac.isClimbing = false;
-            player.GetComponent<Rigidbody>().useGravity = true;            
+            ac.isClimbing = false;           
             climbStart = false;
             ac.climbEnd = false;
         }
@@ -68,6 +60,7 @@ public class ClimbCheck : MonoBehaviour
             ac.isInTrigger = true;
             if (pi.isTriggered && lc.rotateFinish)
             {
+                player.GetComponent<Rigidbody>().useGravity = false;
                 ac.climbEnd = false;
                 if (lc.i != 3)
                 {
