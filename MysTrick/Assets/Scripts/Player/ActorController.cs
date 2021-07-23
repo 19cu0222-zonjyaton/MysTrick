@@ -3,7 +3,7 @@
 // 概要				：
 // 作成者			：曹飛
 // 更新内容			：2020/04/02 作成
-//					；2020/04/11 変数増加(keys,devices)
+//					；2020/07/19 更新　鍾家同　構造体宣言(鍵付き扉を開くため)
 //-------------------------------------------------
 
 using System.Collections;
@@ -12,53 +12,65 @@ using UnityEngine;
 
 public class ActorController : MonoBehaviour
 {
-    public GameObject model;                //	モデルオブジェクト
-    public GameObject weapon;               //	武器オブジェクト
-    public GameObject playerHand;           //  攻撃時武器の親オブジェクト
-    public GameObject playerNeck;           //	通常時武器の親オブジェクト
-    public SkinnedMeshRenderer modelMesh;   //	プレイヤーモデルのmesh
-    public MeshRenderer weaponMesh;         //	武器のmesh
-    public ClimbCheck climbCheck;           //	昇るチェック
-    public PlayerInput pi;                  //	入力コントローラー
-    public AudioClip[] sounds;              //	SEオブジェクト
-    public int hp;                          //	プレイヤーHP
-    public int coinCount;                   //	獲得したコイン数
-    public bool coinUIAction;               //  コインUIを動くための信号
-    public bool climbEnd;                   //	登るエンドフラグ
-    public bool isDead;                     //	プレイヤーが死亡flag
-    public bool isFall;                     //	外に落ちるflag
+	public GameObject model;				//	モデルオブジェクト
+	public GameObject weapon;				//	武器オブジェクト
+	public GameObject playerHand;			//	攻撃時武器の親オブジェクト
+	public GameObject playerNeck;			//	通常時武器の親オブジェクト
+	public SkinnedMeshRenderer modelMesh;	//	プレイヤーモデルのmesh
+	public MeshRenderer weaponMesh;			//	武器のmesh
+	public ClimbCheck climbCheck;			//	昇るチェック
+	public PlayerInput pi;					//	入力コントローラー
+	public AudioClip[] sounds;				//	SEオブジェクト
+	public int hp;							//	プレイヤーHP
+	public int coinCount;					//	獲得したコイン数
+	public bool coinUIAction;				//  コインUIを動くための信号
+	public bool climbEnd;					//	登るエンドフラグ
+	public bool isDead;						//	プレイヤーが死亡flag
+	public bool isFall;						//	外に落ちるflag
 
-    // 仕掛け用変数宣言
-    public bool[] keys;
-    public bool[] devices;
-
-    public float moveSpeed = 5.0f;          //	移動スピード
-    public bool isInTrigger;                //	仕掛けスイッチを当たるフラグ
+	public float moveSpeed = 5.0f;			//	移動スピード
+	public bool isInTrigger;				//	仕掛けスイッチを当たるフラグ
 	public bool isDamageByEnemy;			//	敵と衝突したフラグ
-    public bool isUnrivaled;                //	無敵Time
-	public bool cameraCanMove;				//	ダメージを受けた後カメラ移動可能の時間
-    public bool shootStart;                 //	武器発射flag
-    public bool isJumping;                  //	ジャンプflag
-    public bool isClimbing;                 //	登るflag
+	public bool isUnrivaled;				//	無敵Time
+	public bool shootStart;					//	武器発射flag
+	public bool isJumping;					//	ジャンプflag
+	public bool isClimbing;					//	登るflag
 
-    private new AudioSource audio;          //	SEのコンポーネント		
-    private Animator anim;                  //	アニメコントローラーコンポーネント
-    private Animation attack_anim;          //	アニメーションコントローラー
-    private Rigidbody rigid;                //	鋼体コンポーネント
-	private Vector3 movingVec;              //	移動方向
-    private GoalController gc;              //	ゴールコントローラー
-	private GameObject tempEnemyCollider;	//	一時衝突した敵のオブジェクト	
-    private int shortTimeCount;             //	点滅用タイムカウント
-    private Vector3 weaponStartPos;         //	武器の初期位置座標保存用
-    private Vector3 weaponStartRot;         //	武器の初期回転角度保存用
-    private Vector3 weaponAttackPos = new Vector3(-0.146f, 0.091f, 1.137f);             //	武器攻撃する時位置座標保存用
-    private Vector3 weaponAttackRot = new Vector3(22.826f, -291.228f, 167.892f);        //	武器攻撃する時回転角度保存用
-    private Vector3 damageRot;              //	ダメージを受ける時の回転角度
-    private float timeCount;                //	タイムカウント
-    private bool doOnce;                    //	一回だけ実行するため使うフラグ
+	//---鍾家同(2021/07/19)---
+	public struct HaveKeys
+	{
+		public bool BlueKey;				// 青いキー
+		public bool GreenKey;				// 緑キー
+	}
+	public HaveKeys havekeys;
 
-    //	初期化
-    void Awake()
+	public struct HavePieces
+	{
+		public bool RedPiece;				// 赤い欠片
+		public bool BluePiece;				// 青い欠片
+		public bool GreenPiece;				// 緑欠片
+	}
+	public HavePieces havePieces;
+	//-------------------------
+
+	private new AudioSource audio;			//	SEのコンポーネント
+	private Animator anim;					//	アニメコントローラーコンポーネント
+	private Animation attack_anim;			//	アニメーションコントローラー
+	private Rigidbody rigid;				//	鋼体コンポーネント
+	private Vector3 movingVec;				//	移動方向
+	private GoalController gc;				//	ゴールコントローラー
+	private GameObject tempEnemyCollider;	//	一時衝突した敵のオブジェクト
+	private int shortTimeCount;				//	点滅用タイムカウント
+	private Vector3 weaponStartPos;			//	武器の初期位置座標保存用
+	private Vector3 weaponStartRot;			//	武器の初期回転角度保存用
+	private Vector3 weaponAttackPos = new Vector3(-0.146f, 0.091f, 1.137f);				//	武器攻撃する時位置座標保存用
+	private Vector3 weaponAttackRot = new Vector3(22.826f, -291.228f, 167.892f);		//	武器攻撃する時回転角度保存用
+	private Vector3 damageRot;				//	ダメージを受ける時の回転角度
+	private float timeCount;				//	タイムカウント
+	private bool doOnce;					//	一回だけ実行するため使うフラグ
+
+	//	初期化
+	void Awake()
 	{
 		pi = GetComponent<PlayerInput>();
 
@@ -75,6 +87,12 @@ public class ActorController : MonoBehaviour
 		weaponStartPos = weapon.transform.localPosition;
 
 		weaponStartRot = weapon.transform.localEulerAngles;
+
+		havekeys.BlueKey = false;
+		havekeys.GreenKey = false;
+		havePieces.RedPiece = false;
+		havePieces.BluePiece = false;
+		havePieces.GreenPiece = false;
 	}
 
 	void Update()
@@ -101,12 +119,12 @@ public class ActorController : MonoBehaviour
 			//	近戦攻撃処理
 			if (pi.isAttacking)							
 			{
-				attack_anim.Play();                     //	近戦アニメを流す
+				attack_anim.Play();						//	近戦アニメを流す
 
 				if (!audio.isPlaying)					//	SEを流してない時
 				{
 					audio.pitch = 2.0f;					//	音の大きさを調整
-					audio.PlayOneShot(sounds[0]);       //	近戦SEを流す
+					audio.PlayOneShot(sounds[0]);		//	近戦SEを流す
 				}
 
 				pi.isAttacking = false;
@@ -143,7 +161,7 @@ public class ActorController : MonoBehaviour
 				doOnce = false;
 			}
 
-			if (isClimbing)                         //	梯子を登る処理
+			if (isClimbing)								//	梯子を登る処理
 			{
 				anim.SetBool("Climb", true);
 			}
@@ -157,7 +175,7 @@ public class ActorController : MonoBehaviour
 		checkIsUnderDamage();
 
 		checkPlayerIsDead();
-    }
+	}
 
 	//	移動処理
 	void FixedUpdate()
@@ -175,7 +193,7 @@ public class ActorController : MonoBehaviour
 		}
 	}
 
-	private void checkIsUnderDamage()   //	敵と当たると時間内に無敵状態になる
+	private void checkIsUnderDamage()	//	敵と当たると時間内に無敵状態になる
 	{
 		if (isUnrivaled && !isDead)
 		{
@@ -199,13 +217,11 @@ public class ActorController : MonoBehaviour
 				shortTimeCount = 0;
 				modelMesh.enabled = true;
 				weaponMesh.enabled = true;
-				Physics.IgnoreCollision(gameObject.GetComponent<CapsuleCollider>(), tempEnemyCollider.GetComponent<CapsuleCollider>(), false);
 				isUnrivaled = false;
 			}
 			else if (shortTimeCount > 2)					//	プレイヤー入力可能
 			{
 				pi.inputEnabled = true;
-				cameraCanMove = true;
 			}
 		}
 	}
@@ -228,6 +244,37 @@ public class ActorController : MonoBehaviour
 			transform.tag = "Untagged";
 		}
 	}
+
+	//---鍾家同(2021/07/19)---
+	private void OnTriggerEnter(Collider collider)
+	{
+		switch (collider.transform.tag)
+		{
+			case "BlueKey":
+				havekeys.BlueKey = true;
+				Destroy(collider.gameObject);
+				break;
+			case "GreenKey":
+				havekeys.GreenKey = true;
+				Destroy(collider.gameObject);
+				break;
+			case "RedPiece":
+				havePieces.RedPiece = true;
+				Destroy(collider.gameObject);
+				break;
+			case "BluePiece":
+				havePieces.BluePiece = true;
+				Destroy(collider.gameObject);
+				break;
+			case "GreenPiece":
+				havePieces.GreenPiece = true;
+				Destroy(collider.gameObject);
+				break;
+			default:
+				break;
+		}
+	}
+	//-------------------------
 
 	private void OnTriggerStay(Collider collider)
 	{
@@ -264,7 +311,7 @@ public class ActorController : MonoBehaviour
 
 	private void OnCollisionStay(Collision collision)
 	{
-		if (collision.transform.tag == "Enemy" && !isUnrivaled)     //	敵と当たる処理
+		if (collision.transform.tag == "Enemy" && !isUnrivaled)		//	敵と当たる処理
 		{
 			hp--;
 			damageRot = model.transform.localEulerAngles;
@@ -272,7 +319,6 @@ public class ActorController : MonoBehaviour
 			Physics.IgnoreCollision(gameObject.GetComponent<CapsuleCollider>(), collision.gameObject.GetComponent<CapsuleCollider>(), true);
 			tempEnemyCollider = collision.gameObject;
 			isDamageByEnemy = true;
-			cameraCanMove = false;
 
 			if (hp >= 0)
 			{
@@ -281,11 +327,11 @@ public class ActorController : MonoBehaviour
 				weaponMesh.enabled = false;
 				if (hp == 0)
 				{
-					rigid.AddExplosionForce(800.0f, collision.transform.position - new Vector3(0.0f, 1.5f, 0.0f), 5.0f, 2.0f);      //	爆発の位置を矯正
+					rigid.AddExplosionForce(800.0f, collision.transform.position - new Vector3(0.0f, 1.5f, 0.0f), 5.0f, 2.0f);		//	爆発の位置を矯正
 				}
 				else
 				{
-					rigid.AddExplosionForce(500.0f, collision.transform.position - new Vector3(0.0f, 1.5f, 0.0f), 5.0f, 1.5f);      //	爆発の位置を矯正
+					rigid.AddExplosionForce(500.0f, collision.transform.position - new Vector3(0.0f, 1.5f, 0.0f), 5.0f, 1.5f);		//	爆発の位置を矯正
 				}		
 
 				isUnrivaled = true;
