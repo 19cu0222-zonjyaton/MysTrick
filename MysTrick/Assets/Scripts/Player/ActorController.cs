@@ -64,12 +64,12 @@ public class ActorController : MonoBehaviour
 	private int shortTimeCount;				//	点滅用タイムカウント
 	private Vector3 weaponStartPos;			//	武器の初期位置座標保存用
 	private Vector3 weaponStartRot;         //	武器の初期回転角度保存用
-	private Vector3 weaponAttackPos = new Vector3(0.96f, 0.316f, -0.447f);             //	武器攻撃する時位置座標保存用			//
-	private Vector3 weaponAttackRot = new Vector3(195.201f, -142.271f, -167.015f);        //	武器攻撃する時回転角度保存用
+	private Vector3 weaponAttackPos = new Vector3(0.96f, 0.316f, -0.447f);					//	武器攻撃する時位置座標保存用
+	private Vector3 weaponAttackRot = new Vector3(195.201f, -142.271f, -167.015f);			//	武器攻撃する時回転角度保存用
 	private Vector3 damageRot;				//	ダメージを受ける時の回転角度
 	private float timeCount;                //	タイムカウント
-	private Vector3 nowPos;            //	
-	private Vector3 damagePos;            //	
+	private Vector3 nowPos;					//	
+	private Vector3 damagePos;				//	
 	private float damageTimeCount;          //	
 	private bool doOnce;
 
@@ -178,6 +178,10 @@ public class ActorController : MonoBehaviour
 				{
 					anim.speed = 0.0f;
 				}
+			}
+			else
+			{
+				anim.SetBool("Climb", false);
 			}
 		}
 
@@ -302,6 +306,13 @@ public class ActorController : MonoBehaviour
 			default:
 				break;
 		}
+
+		if (collider.transform.tag == "ClimbOver")  //	
+		{
+			climbEnd = true;
+			climbLandPos = collider.gameObject.transform.position;
+			rigid.useGravity = true;
+		}
 	}
 	//-------------------------
 
@@ -315,14 +326,6 @@ public class ActorController : MonoBehaviour
 		if (collider.transform.tag == "DeadCheck")
 		{
 			isFall = true;
-		}
-
-		if (collider.transform.tag == "ClimbOver")  //	
-		{
-			climbEnd = true;
-			climbLandPos = collider.gameObject.transform.position;
-			rigid.useGravity = true;
-			anim.SetBool("Climb", false);
 		}
 	}
 
