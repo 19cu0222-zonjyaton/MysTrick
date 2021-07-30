@@ -12,9 +12,16 @@ public class ActorInStageSelect : MonoBehaviour
     public ExitController ec;             //  タイトル画面に戻るUIコントローラー
     public static int selectBtn = 1;      //  選択しているボタン標記
     public int skyboxIndex;               //  skyboxオブジェクト
+    private AudioSource au;               //	SEのコンポーネント
     private bool goLeft;                  //  左側に移動するフラグ
     private bool goRight;                 //  右側に移動するフラグ
     private bool isMove;                  //  移動しているかどうかフラグ
+
+    //	初期化
+    void Awake()
+    {
+        au = gameObject.GetComponent<AudioSource>();
+    }
 
     void Update()
     {
@@ -28,6 +35,7 @@ public class ActorInStageSelect : MonoBehaviour
                     {
                         goRight = true;
                         selectBtn++;
+                        au.Play();
                     }
                 }
 
@@ -37,6 +45,7 @@ public class ActorInStageSelect : MonoBehaviour
                     {
                         goLeft = true;
                         selectBtn--;
+                        au.Play();
                     }
                 }
 

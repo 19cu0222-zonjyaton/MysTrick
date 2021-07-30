@@ -8,8 +8,10 @@ public class ExitController : MonoBehaviour
 {
     public GameObject exitPanel;
     public GameObject maskPanel;
+    public AudioClip[] sounds;				//	SEオブジェクト
     public bool exitPanelIsOpen;
 
+    private AudioSource au;                 //	SEのコンポーネント
     private Animator anim;
     private bool returnTitle;
     private float timeCount = 0.5f;
@@ -18,11 +20,18 @@ public class ExitController : MonoBehaviour
     void Start()
     {
         anim = exitPanel.GetComponent<Animator>();
+
+        au = gameObject.GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (EventSystem.current.currentSelectedGameObject == this.gameObject && !returnTitle)
+        {
+            au.Play();
+        }
+
         if (gameObject.name == "Canvas")
         {
             if ((Input.GetKeyDown(KeyCode.Escape) || Input.GetButtonDown("menu") || Input.GetButtonDown("cancel")) && !StageSelectButtonController.confirmMenuIsOpen)
@@ -35,6 +44,7 @@ public class ExitController : MonoBehaviour
                 }
                 else
                 {
+                    au.PlayOneShot(sounds[1]);
                     anim.SetBool("Menu", false);
                 }
             }
@@ -53,7 +63,6 @@ public class ExitController : MonoBehaviour
         {
             if (returnTitle)
             {
-
                 timeCount -= Time.deltaTime;
                 if (timeCount < -0.3f)
                 {
@@ -69,10 +78,13 @@ public class ExitController : MonoBehaviour
         {
             maskPanel.SetActive(true);
             returnTitle = true;
+            au.clip = sounds[1];
+            au.Play();
         }
         else
         {
             anim.SetBool("Menu", false);
+            au.PlayOneShot(sounds[1]);
         }
     }
 }

@@ -10,12 +10,14 @@ public class TitleButtonController : MonoBehaviour
     public GameObject titleLogo;        //  タイトルロゴオブジェクト
     public GameObject maskPanel;
     public GameObject arrow;
+    public AudioClip[] sounds;		    //	SEオブジェクト
     public float perRadian;             //  毎回変化の弧度
     public float radius;                //  半径
     public float radian;                //  弧度
     public Vector3 oldPos;              //  初期位置
     public bool gameStart;
 
+    private AudioSource au;             //	SEのコンポーネント
     private Button btn;
     private float timeCount_GameStart;
     private float timeCount_Text;
@@ -25,6 +27,8 @@ public class TitleButtonController : MonoBehaviour
         btn = gameObject.GetComponent<Button>();
 
         btn.onClick.AddListener(buttonListener);      //  監視メソッド
+
+        au = gameObject.GetComponent<AudioSource>();
     }
 
     void Update()
@@ -32,10 +36,16 @@ public class TitleButtonController : MonoBehaviour
         if (EventSystem.current.currentSelectedGameObject == this.gameObject)
         {
             arrow.SetActive(true);
+            if (!au.enabled)
+            {
+                au.enabled = true;
+                au.Play();
+            }
         }
         else
         {
             arrow.SetActive(false);
+            au.enabled = false;
         }
 
         if (gameStart)
@@ -75,9 +85,8 @@ public class TitleButtonController : MonoBehaviour
             titleLogo.transform.position = new Vector3(0, 35.0f, -30.0f);
             titleLogo.transform.eulerAngles = new Vector3(0, 180.0f, 0);
             titleLogo.GetComponent<Rigidbody>().useGravity = true;
-
-
             gameObject.GetComponent<Image>().enabled = false;
+            au.PlayOneShot(sounds[1]);
 
             if (gameObject.name == "Start")
             {
@@ -90,12 +99,9 @@ public class TitleButtonController : MonoBehaviour
 
             gameStart = true;
         }
-        else if (gameObject.name == "Continue")
-        { 
-        
-        }
-        else
+        else if (gameObject.name == "Exit")
         {
+            au.PlayOneShot(sounds[1]);
             Application.Quit();
         }
     }
