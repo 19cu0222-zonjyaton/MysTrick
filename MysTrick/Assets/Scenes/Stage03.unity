@@ -4447,7 +4447,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6616413889429027058}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -8689,6 +8689,7 @@ GameObject:
   - component: {fileID: 1162408178899440981}
   - component: {fileID: 8669027862760032124}
   - component: {fileID: 8669027862760032123}
+  - component: {fileID: 8669027862760032125}
   m_Layer: 0
   m_Name: liftDoor
   m_TagString: Untagged
@@ -8721,12 +8722,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 997809ba0a1937646b8fcaa8f285d6e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Doors: []
-  Pieces: []
+  Doors:
+  - {fileID: 0}
+  - {fileID: 0}
+  Pieces:
+  - {fileID: 6616413889429027058}
+  - {fileID: 7240048091578749421}
+  - {fileID: 8726543757279533910}
   HintUI: {fileID: 0}
-  openInterval: 0
-  openTimeCount: 0
-  openSpeed: 0
+  timeController: {fileID: 8669027862760032125}
+  openInterval: 1
+  openTimeCount: 1
+  openSpeed: 1
+--- !u!114 &8669027862760032125
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8669027862760032122}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 916a47ec6a0ee3f41828c96e81f75559, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isFinish: 0
 --- !u!4 &8684189434185345796
 Transform:
   m_ObjectHideFlags: 0

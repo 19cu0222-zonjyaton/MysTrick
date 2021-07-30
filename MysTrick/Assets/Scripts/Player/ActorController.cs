@@ -31,28 +31,22 @@ public class ActorController : MonoBehaviour
 	public float moveSpeed = 5.0f;			//	移動スピード
 	public bool isInTrigger;				//	仕掛けスイッチを当たるフラグ
 	public bool isDamageByEnemy;			//	敵と衝突したフラグ
-	public bool isUnrivaled;                //	無敵Time
-	public bool cameraCanMove;              //	ダメージを受けた後カメラ移動可能の時間
+	public bool isUnrivaled;				//	無敵Time
+	public bool cameraCanMove;				//	ダメージを受けた後カメラ移動可能の時間
 	public bool shootStart;					//	武器発射flag
 	public bool isJumping;					//	ジャンプflag
-	public bool isClimbing;                 //	登るflag
+	public bool isClimbing;					//	登るflag
 	public Vector3 climbLandPos;
 
 	//---鍾家同(2021/07/19)---
 	public struct HaveKeys
 	{
-		public bool BlueKey;				// 青いキー
-		public bool GreenKey;				// 緑キー
+		public bool BlueKey;
+		public bool GreenKey;
 	}
-	public HaveKeys havekeys;
+	public HaveKeys haveKeys;
 
-	public struct HavePieces
-	{
-		public bool RedPiece;				// 赤い欠片
-		public bool BluePiece;				// 青い欠片
-		public bool GreenPiece;				// 緑欠片
-	}
-	public HavePieces havePieces;
+	public bool[] havePieces = new bool[3];
 	//-------------------------
 
 	private new AudioSource audio;			//	SEのコンポーネント
@@ -92,11 +86,11 @@ public class ActorController : MonoBehaviour
 
 		weaponStartRot = weapon.transform.localEulerAngles;
 
-		havekeys.BlueKey = false;
-		havekeys.GreenKey = false;
-		havePieces.RedPiece = false;
+		haveKeys.BlueKey = false;
+		haveKeys.GreenKey = false;
+		/*havePieces.RedPiece = false;
 		havePieces.BluePiece = false;
-		havePieces.GreenPiece = false;
+		havePieces.GreenPiece = false;*/
 	}
 
 	void Update()
@@ -284,23 +278,23 @@ public class ActorController : MonoBehaviour
 		switch (collider.transform.tag)
 		{
 			case "BlueKey":
-				havekeys.BlueKey = true;
+				haveKeys.BlueKey = true;
 				Destroy(collider.gameObject);
 				break;
 			case "GreenKey":
-				havekeys.GreenKey = true;
+				haveKeys.GreenKey = true;
 				Destroy(collider.gameObject);
 				break;
 			case "RedPiece":
-				havePieces.RedPiece = true;
+				havePieces[0] = true;
 				Destroy(collider.gameObject);
 				break;
 			case "BluePiece":
-				havePieces.BluePiece = true;
+				havePieces[1] = true;
 				Destroy(collider.gameObject);
 				break;
 			case "GreenPiece":
-				havePieces.GreenPiece = true;
+				havePieces[2] = true;
 				Destroy(collider.gameObject);
 				break;
 			default:

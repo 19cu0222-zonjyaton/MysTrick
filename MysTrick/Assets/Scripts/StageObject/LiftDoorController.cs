@@ -10,9 +10,10 @@ using UnityEngine;
 
 public class LiftDoorController : MonoBehaviour
 {
-	public GameObject[] Doors;
-	public GameObject[] Pieces;
+	public GameObject[] Doors = new GameObject[2];
+	public GameObject[] Pieces = new GameObject[3];
 	public GameObject HintUI;
+	public TimeController timeController;
 	public float openInterval;		// 開門間隔
 	public float openTimeCount;
 	public float openSpeed;
@@ -25,8 +26,9 @@ public class LiftDoorController : MonoBehaviour
 
 	void Awake()
 	{
-		actorController = GetComponent<ActorController>();
-		player = GetComponent<PlayerInput>();
+		actorController = GameObject.Find("PlayerHandle").GetComponent<ActorController>();
+		player = GameObject.Find("PlayerHandle").GetComponent<PlayerInput>();
+		timeController = GetComponent<TimeController>();
 	}
 
 	void Start()
@@ -42,9 +44,15 @@ public class LiftDoorController : MonoBehaviour
 		{
 			for(int i = 0; i < 3; ++i)
 			{
-				if (!Pieces[i].GetComponent<MeshRenderer>().enabled)
+				// 手に持つ欠片を扉に嵌める
+				if (!Pieces[i].GetComponent<MeshRenderer>().enabled && actorController.havePieces[i])
 				{
-
+					if (timeController.isFinish)
+					{
+						Pieces[i].GetComponent<MeshRenderer>().enabled = true;
+						timeController.TimeDelay(0.0f, 1.0f);
+					}
+					
 				}
 			}
 		}
@@ -55,6 +63,14 @@ public class LiftDoorController : MonoBehaviour
 		if (other.transform.tag == "Player" && player.isTriggered)
 		{
 			isTriggered = true;
+		}
+	}
+
+	void OnCollisionExit(Collision other)
+	{
+		if (other.transform.tag == "Player")
+		{
+			isTriggered = false;
 		}
 	}
 }

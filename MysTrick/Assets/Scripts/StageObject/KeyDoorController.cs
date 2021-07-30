@@ -86,11 +86,11 @@ public class KeyDoorController : MonoBehaviour
 	{
 		if(other.transform.tag == "Player")
 		{
-			if (doorColor == DoorColor.Blue && other.GetComponent<ActorController>().havekeys.BlueKey == true)
+			if (doorColor == DoorColor.Blue && other.GetComponent<ActorController>().haveKeys.BlueKey == true)
 			{
 				canOpen = true;
 			}
-			else if (doorColor == DoorColor.Green && other.GetComponent<ActorController>().havekeys.GreenKey == true)
+			else if (doorColor == DoorColor.Green && other.GetComponent<ActorController>().haveKeys.GreenKey == true)
 			{
 				canOpen = true;
 			}
