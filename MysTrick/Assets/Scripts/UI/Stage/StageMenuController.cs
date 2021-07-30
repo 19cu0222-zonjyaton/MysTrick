@@ -5,14 +5,17 @@ using UnityEngine.EventSystems;
 
 public class StageMenuController : MonoBehaviour
 {
-    public bool isOpenMenu;                //   UIメニューは呼び出されたか
-    public GameObject selectButton;        //   UIを出たらデフォルト選択するボタン
-    public bool animIsOver = true;        //   UIのアニメ終了フラグ
+    public bool isOpenMenu;                 //   UIメニューは呼び出されたか
+    public GameObject selectButton;         //   UIを出たらデフォルト選択するボタン
+    public bool animIsOver = true;          //   UIのアニメ終了フラグ
     private Animator animator;
+    private AudioSource au;                 //	SEのコンポーネント
 
     void Awake()
     {
         animator = gameObject.GetComponent<Animator>();
+
+        au = gameObject.GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -35,6 +38,8 @@ public class StageMenuController : MonoBehaviour
                 animator.SetBool("Menu", true);
                 isOpenMenu = true;
             }
+            
+            au.Play();
         }
 
         if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f && animIsOver)   //  normalizedTime == 0 -> スタート normalizedTime == 1 -> エンド 

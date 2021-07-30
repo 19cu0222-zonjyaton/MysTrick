@@ -9,21 +9,30 @@ public class StageSelectConfirmUIController : MonoBehaviour
 {
     public GameObject maskPanel;
     public Animator animator;
+    public AudioClip[] sounds;				//	SEオブジェクト
     private Button btn;
+    private AudioSource au;                 //	SEのコンポーネント
     private bool isCancel;
     private bool isOK;
-    private float timeCount = 0.5f;     //  ステージに移動するまで暗いマスクの時間
+    private float timeCount = 0.5f;         //  ステージに移動するまで暗いマスクの時間
 
     void Awake()
     {
         btn = gameObject.GetComponent<Button>();
 
         btn.onClick.AddListener(StageConfirm);      //  監視メソッド
+
+        au = gameObject.GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (EventSystem.current.currentSelectedGameObject == this.gameObject && !isOK)
+        {
+            au.Play();
+        }
+
         //  メニューをキャンセルの処理
         if (isCancel)
         {
@@ -47,8 +56,9 @@ public class StageSelectConfirmUIController : MonoBehaviour
             }        
         }
 
-        if (Input.GetKeyDown(KeyCode.Escape) || Input.GetButtonDown("cancel"))
+        if (Input.GetKeyDown(KeyCode.Escape) || Input.GetButtonDown("cancel") && !isCancel)
         {
+            au.PlayOneShot(sounds[1]);
             animator.SetBool("Menu", false);
             isCancel = true;
         }
@@ -61,11 +71,14 @@ public class StageSelectConfirmUIController : MonoBehaviour
         {
             maskPanel.SetActive(true);
             isOK = true;
+            au.clip = sounds[1];
+            au.Play();
         }
         else
         {
             animator.SetBool("Menu", false);
             isCancel = true;
+            au.PlayOneShot(sounds[1]);
         }
     }
 }

@@ -2,19 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
 public class MenuButtonController : MonoBehaviour
 {
     public GameObject menuPanel;
+    public AudioClip[] sounds;              //	SEオブジェクト
+    private AudioSource au;                 //	SEのコンポーネント
     private Button btn;
     private Animator animator_Menu;
     private Animator animator_Mask;
     private StageMenuController smc;
-    private float timeCount;
 
     void Awake()
     {
+        au = gameObject.GetComponent<AudioSource>();
+
         btn = gameObject.GetComponent<Button>();
 
         btn.onClick.AddListener(MenuListener);      //  監視メソッド
@@ -37,20 +41,23 @@ public class MenuButtonController : MonoBehaviour
 
     public void MenuListener()
     {
-        if (gameObject.name == "Continue")
+        if (Time.timeScale == 0)
         {
-            Time.timeScale = 1;
-            animator_Menu.SetTrigger("Cancel");
-            animator_Menu.SetBool("Menu", false);
-            smc.animIsOver = false;
-            smc.isOpenMenu = false;
-        }
-        else
-        {
-            Time.timeScale = 1;
-            smc.isOpenMenu = false;
-            smc.animIsOver = false;
-            animator_Mask.SetTrigger("WhiteToBlack");
+            if (gameObject.name == "Continue")
+            {
+                Time.timeScale = 1;
+                animator_Menu.SetTrigger("Cancel");
+                animator_Menu.SetBool("Menu", false);
+                smc.animIsOver = false;
+                smc.isOpenMenu = false;
+            }
+            else if (gameObject.name == "Back")
+            {
+                Time.timeScale = 1;
+                smc.isOpenMenu = false;
+                smc.animIsOver = false;
+                animator_Mask.SetTrigger("WhiteToBlack");
+            }
         }
     }
 }

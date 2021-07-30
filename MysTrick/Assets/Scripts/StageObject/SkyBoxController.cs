@@ -7,10 +7,9 @@ public class SkyBoxController : MonoBehaviour
     public Material[] boxs;
     public ActorInStageSelect aiss;
 
-    // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-        
+    
     }
 
     // Update is called once per frame

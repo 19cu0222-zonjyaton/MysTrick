@@ -6,9 +6,9 @@ public class HintUI : MonoBehaviour
 {
     public float perRadian = 0.01f;         //  毎回変化の弧度
     public float radius = 0.1f;
-    public GameObject cameraPos;
 
     private ActorController actorController;
+    private GameObject cameraPos;
     private PlayerInput pi;
     private float radian = 0;               //  弧度
     private Vector3 oldPos;
@@ -17,6 +17,8 @@ public class HintUI : MonoBehaviour
     void Awake()
     {
         actorController = GameObject.Find("PlayerHandle").GetComponent<ActorController>();
+
+        cameraPos = GameObject.Find("Main Camera");
 
         pi = GameObject.Find("PlayerHandle").GetComponent<PlayerInput>();
 
