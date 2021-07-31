@@ -37,25 +37,31 @@ public class MenuButtonController : MonoBehaviour
         {
             SceneManager.LoadScene("StageSelect");
         }
+
+        if (EventSystem.current.currentSelectedGameObject == this.gameObject && smc.isOpenMenu)
+        {
+            au.clip = sounds[0];
+            au.Play();
+        }
     }
 
     public void MenuListener()
     {
         if (Time.timeScale == 0)
         {
+            Time.timeScale = 1;
+            smc.animIsOver = false;
+            smc.isOpenMenu = false;
+            au.clip = sounds[1];
+            au.Play();
+
             if (gameObject.name == "Continue")
             {
-                Time.timeScale = 1;
                 animator_Menu.SetTrigger("Cancel");
                 animator_Menu.SetBool("Menu", false);
-                smc.animIsOver = false;
-                smc.isOpenMenu = false;
             }
             else if (gameObject.name == "Back")
             {
-                Time.timeScale = 1;
-                smc.isOpenMenu = false;
-                smc.animIsOver = false;
                 animator_Mask.SetTrigger("WhiteToBlack");
             }
         }

@@ -912,6 +912,7 @@ MonoBehaviour:
   isJumping: 0
   isClimbing: 0
   climbLandPos: {x: 0, y: 0, z: 0}
+  havePieces: 000000
 --- !u!1 &6563069687854978686
 GameObject:
   m_ObjectHideFlags: 0
@@ -1752,7 +1753,7 @@ GameObject:
   - component: {fileID: 3704986014312500981}
   - component: {fileID: 7703914114206478422}
   - component: {fileID: 4063294895243107442}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: UsingWeapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -29,7 +29,7 @@ public class StageMenuController : MonoBehaviour
                 animIsOver = false;
                 animator.SetTrigger("Cancel");
                 animator.SetBool("Menu", false);
-                isOpenMenu = false;            
+                isOpenMenu = false;
             }
             else　                 //   ESC或いはXBoxのMenuボタンで呼び出せる
             {
