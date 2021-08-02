@@ -77,8 +77,8 @@ public class ObjectController : MonoBehaviour
 	//===監視用値===
 	[Header("監視用")]
 	public bool isTrigger;				//	カメラ用フラグ
-	public bool hasDone;                //	カメラ用フラグ
-	public float audioSpeed = 1.0f;     //	SEを流すスピード
+	public bool hasDone;				//	カメラ用フラグ
+	public float audioSpeed = 1.0f;		//	SEを流すスピード
 	//==============
 
 	void Awake()
