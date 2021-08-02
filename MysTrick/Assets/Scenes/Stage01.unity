@@ -1083,7 +1083,7 @@ AudioSource:
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -1921,7 +1921,7 @@ GameObject:
   - component: {fileID: 415416056}
   - component: {fileID: 415416055}
   - component: {fileID: 415416054}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: BoxCollider_Rail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8391,7 +8391,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &880382781
 Transform:
   m_ObjectHideFlags: 0
@@ -10570,7 +10570,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1370752265
 Transform:
   m_ObjectHideFlags: 0

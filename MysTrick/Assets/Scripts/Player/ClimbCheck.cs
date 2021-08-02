@@ -32,12 +32,12 @@ public class ClimbCheck : MonoBehaviour
             playerModule.transform.rotation = transform.rotation;
             pi.inputEnabled = false;
             ac.isClimbing = true;
-
-            if (Input.GetKey(pi.keyUp))
+            
+            if (Input.GetKey(pi.keyUp) || Input.GetAxis("axisY") == -1.0f)
             {
                 player.transform.position += new Vector3(0, 0.1f, 0);
             }
-            else if(Input.GetKey(pi.keyDown))
+            else if(Input.GetKey(pi.keyDown) || Input.GetAxis("axisY") == 1.0f)
             {
                 player.transform.position -= new Vector3(0, 0.1f, 0);
             }
