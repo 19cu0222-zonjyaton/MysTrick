@@ -26733,7 +26733,7 @@ GameObject:
   - component: {fileID: 2666288612164920082}
   - component: {fileID: 2666288612164920081}
   - component: {fileID: 2666288612164920176}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: BoxCollider_Rail
   m_TagString: Untagged
   m_Icon: {fileID: 0}

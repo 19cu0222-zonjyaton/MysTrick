@@ -16,6 +16,7 @@ public class WeaponController : MonoBehaviour
     public GameObject distanceCheck;    //  壁との距離検査用オブジェクト
 
     private Rigidbody rigid;            //	武器の鋼体コンポーネント
+    private BoxCollider weaponCollider;
     private PlayerInput pi;             //  攻撃ができるかどうかの判断
     private Vector3 throwRot;           //  投げる方向
     private float speedDown;            //  戻る時の速度
@@ -31,6 +32,8 @@ public class WeaponController : MonoBehaviour
     void Awake()
     {
         rigid = gameObject.GetComponent<Rigidbody>();
+
+        weaponCollider = gameObject.GetComponent<BoxCollider>();
 
         pi = playerPos.GetComponent<PlayerInput>();
 
@@ -63,9 +66,11 @@ public class WeaponController : MonoBehaviour
             {
                 rigid.constraints = RigidbodyConstraints.None;
 
-                transform.Rotate(0.0f, rotateSpeed, 0.0f);
+                transform.localEulerAngles += new Vector3(0, 30.0f, 0);
 
                 transform.SetParent(null);
+
+                weaponCollider.size = new Vector3(0.5f, weaponCollider.size.y, weaponCollider.size.z);
 
                 if (speed > 0.0f)
                 {
@@ -88,7 +93,7 @@ public class WeaponController : MonoBehaviour
             {
                 transform.SetParent(playerHand.transform);
                 transform.localPosition = new Vector3(-0.229f, 0.019f, 1.117f);
-                transform.localEulerAngles = new Vector3(0, 81.0f, 0);
+                transform.localEulerAngles = new Vector3(-0.053f, 81.762f, 0.687f);
                 throwRot = model.transform.forward;
             }
         }
@@ -120,6 +125,7 @@ public class WeaponController : MonoBehaviour
             cc.canThrowWeapon = true;
             distanceCheck.transform.tag = "GapCheck";
             canBack = false;
+            weaponCollider.size = new Vector3(1.65f, weaponCollider.size.y, weaponCollider.size.z);
 
             //  チェックオブジェクトの位置を戻す
             distanceCheck.transform.SetParent(model.transform);   
