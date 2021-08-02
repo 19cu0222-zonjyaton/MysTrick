@@ -6080,6 +6080,36 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1180721541}
   m_Mesh: {fileID: -6546451453691191340, guid: 1511c25bbd14bec4aa3bdaeeed8cee5d, type: 3}
+--- !u!1 &1193304592
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1193304593}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1193304593
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1193304592}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -20.98456, y: 19.985817, z: 13.675334}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1231855933
 GameObject:
   m_ObjectHideFlags: 0
@@ -13996,6 +14026,7 @@ MonoBehaviour:
   ps: {fileID: 0}
   clearMask: {fileID: 0}
   ac: {fileID: 0}
+  pi: {fileID: 6563069687783362543, guid: deb5c94de91a32e4ca21d16c24db72a9, type: 3}
   perRadian: 0.03
   rotateSpeed: 1
   radius: 0.005

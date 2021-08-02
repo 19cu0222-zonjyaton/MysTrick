@@ -175,6 +175,7 @@ public class ActorController : MonoBehaviour
 			}
 			else
 			{
+				anim.speed = 1.0f;
 				anim.SetBool("Climb", false);
 			}
 		}

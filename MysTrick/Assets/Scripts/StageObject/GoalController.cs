@@ -15,7 +15,6 @@ public class GoalController : MonoBehaviour
     public float radius;
     public float radian;                        //  弧度
     public bool isTitleGoal;                    //  タイトル画面のゴールフラグ
-    public PlayerInput pi;
     public static string clearStageName = "";
     public static int[] getCount = new int[4];
 
