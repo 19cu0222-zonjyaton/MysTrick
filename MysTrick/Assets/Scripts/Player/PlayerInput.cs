@@ -74,6 +74,7 @@ public class PlayerInput : MonoBehaviour
 			}
 		}
 
+		QualitySettings.vSyncCount = 0;
 		Application.targetFrameRate = 60;   //	FPSを60に固定する
 
 		playercamera = GameObject.Find("Main Camera");

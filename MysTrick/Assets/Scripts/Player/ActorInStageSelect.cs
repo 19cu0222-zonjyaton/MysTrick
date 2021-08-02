@@ -20,6 +20,9 @@ public class ActorInStageSelect : MonoBehaviour
     //	初期化
     void Awake()
     {
+        QualitySettings.vSyncCount = 0;
+        Application.targetFrameRate = 60;//	FPSを60に固定する
+
         au = gameObject.GetComponent<AudioSource>();
 
         if (selectBtn == 2)
