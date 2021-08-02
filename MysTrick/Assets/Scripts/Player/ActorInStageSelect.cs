@@ -21,6 +21,19 @@ public class ActorInStageSelect : MonoBehaviour
     void Awake()
     {
         au = gameObject.GetComponent<AudioSource>();
+
+        if (selectBtn == 2)
+        {
+            transform.position = new Vector3(-0.2f, -4.0f, -340.0f);
+            transform.localEulerAngles = new Vector3(0, 85.0f, 0);
+        }
+        else if (selectBtn == 3)
+        {
+            transform.position = new Vector3(8.0f, -4.0f, -340.0f);
+            transform.localEulerAngles = new Vector3(0, 115.0f, 0);
+        }
+
+        EventSystem.current.SetSelectedGameObject(btn[selectBtn - 1].gameObject);
     }
 
     void Update()
@@ -120,8 +133,7 @@ public class ActorInStageSelect : MonoBehaviour
                     transform.rotation = Quaternion.Lerp(transform.rotation, target[3].transform.rotation, 5.0f * Time.deltaTime);
                 }
             }
-        }
-        
+        }       
     }
 
     void OnTriggerEnter(Collider collider)      //  止まる判定

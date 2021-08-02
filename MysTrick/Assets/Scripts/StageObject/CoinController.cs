@@ -10,6 +10,7 @@ public class CoinController : MonoBehaviour
     public float rotateSpeed;           //  回転スピード
     public bool isTitleCoin;            //  タイトル画面のコインフラグ
 
+    private Vector3 startPos;
     private Vector3 oldPos;             //  初期位置
     private Rigidbody rigid;            //  鋼体コンポーネント
     private ActorController ac;         //  プレイヤーのコントローラー
@@ -21,7 +22,7 @@ public class CoinController : MonoBehaviour
     {
         if (!isTitleCoin)
         {
-            oldPos = transform.position;
+            startPos = transform.position;
 
             ac = GameObject.Find("PlayerHandle").GetComponent<ActorController>();
         }
@@ -33,10 +34,7 @@ public class CoinController : MonoBehaviour
 
     void Update()
     {
-        if (isTitleCoin)
-        {
-            oldPos = transform.position;
-        }
+        oldPos = transform.position;
 
         if (Time.deltaTime != 0)
         {
@@ -54,7 +52,7 @@ public class CoinController : MonoBehaviour
             }
         }
 
-        if (getByPlayer && transform.position.y < oldPos.y - 0.7f)
+        if (getByPlayer && transform.position.y < startPos.y - 0.7f)
         {
             Destroy(this.gameObject);
         }

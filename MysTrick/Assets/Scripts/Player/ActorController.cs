@@ -160,7 +160,7 @@ public class ActorController : MonoBehaviour
 			}
 
 
-			if (isClimbing && (Input.GetKey(pi.keyUp) || Input.GetKey(pi.keyDown)))                         //	梯子を登る処理
+			if (isClimbing && (Input.GetKey(pi.keyUp) || Input.GetKey(pi.keyDown) || Input.GetAxis("axisY") != 0))                         //	梯子を登る処理
 			{
 				anim.speed = 1.0f;
 				anim.SetBool("Climb", true);
@@ -175,7 +175,6 @@ public class ActorController : MonoBehaviour
 			}
 			else
 			{
-				anim.speed = 1.0f;
 				anim.SetBool("Climb", false);
 			}
 		}

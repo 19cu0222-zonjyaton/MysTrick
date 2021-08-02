@@ -269,7 +269,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   perRadian: 0.1
-  radius: 0.1
+  radius: 0.03
   radian: 0
   rotateSpeed: 2
   isTitleCoin: 0

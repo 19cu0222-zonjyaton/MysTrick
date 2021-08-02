@@ -25,8 +25,6 @@ public class StageSelectButtonController : MonoBehaviour
         btn.onClick.AddListener(StageSelect);   //  監視メソッド
 
         startPos = transform.parent.position;
-
-        Application.targetFrameRate = 60;       //	FPSを60に固定する
     }
 
     // Update is called once per frame
