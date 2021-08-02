@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class TitleStageController : MonoBehaviour
 {
-    void Awake()
+    void Start()
     {
-        Application.targetFrameRate = 60;   //	FPSを60に固定する
+        QualitySettings.vSyncCount = 0;
+        Application.targetFrameRate = 60;//	FPSを60に固定する
     }
 
     // Update is called once per frame

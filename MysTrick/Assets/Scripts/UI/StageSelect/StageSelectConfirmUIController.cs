@@ -44,21 +44,22 @@ public class StageSelectConfirmUIController : MonoBehaviour
                 gameObject.transform.parent.gameObject.SetActive(false);
             }
         }
-
+        print(isOK);
         //  ステージに移動処理
         if (isOK)       
         {
-            timeCount -= Time.deltaTime;
+            timeCount -= 10 * Time.deltaTime;
+            StageSelectButtonController.confirmMenuIsOpen = false;
+            SceneManager.LoadScene(StageSelectButtonController.selectStageName);
             if (timeCount < -0.3f)
             {
-                StageSelectButtonController.confirmMenuIsOpen = false;
-                SceneManager.LoadScene(StageSelectButtonController.selectStageName);
+
             }        
         }
 
         if (Input.GetKeyDown(KeyCode.Escape) || Input.GetButtonDown("cancel") && !isCancel)
         {
-            au.PlayOneShot(sounds[1]);
+            //au.PlayOneShot(sounds[1]);
             animator.SetBool("Menu", false);
             isCancel = true;
         }

@@ -9,6 +9,7 @@ public class GoalController : MonoBehaviour
     public ParticleSystem ps;                   //  
     public GameObject clearMask;                //  
     public ActorController ac;                  //  
+    public PlayerInput pi;
     public float perRadian;                     //  毎回変化の弧度
     public float rotateSpeed;                   //  回転スピード
     public float radius;
@@ -18,7 +19,7 @@ public class GoalController : MonoBehaviour
     public static int[] getCount = new int[4];
 
     private Vector3 oldPos;
-    private PlayerInput pi;
+
     private AudioSource sound;
     private int[] tempGetCount = new int[4];
     private float timeCount = 10.0f;
@@ -26,11 +27,6 @@ public class GoalController : MonoBehaviour
     // 初期化
     void Awake()
     {
-        if (pi != null)
-        {
-            pi = GameObject.Find("PlayerHandle").GetComponent<PlayerInput>();
-        }
-
         if (!isTitleGoal)
         {
             oldPos = transform.position;

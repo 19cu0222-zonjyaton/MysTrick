@@ -3216,7 +3216,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b922d8027e1d73f4b9202f9630c1233f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canSelected: 0
+  canSelected: 1
   confirmPanel: {fileID: 284528741}
 --- !u!1 &1234758071
 GameObject:
@@ -3976,7 +3976,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b922d8027e1d73f4b9202f9630c1233f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canSelected: 0
+  canSelected: 1
   confirmPanel: {fileID: 284528741}
 --- !u!1 &1400621550
 GameObject:
@@ -4972,7 +4972,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b922d8027e1d73f4b9202f9630c1233f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canSelected: 0
+  canSelected: 1
   confirmPanel: {fileID: 284528741}
 --- !u!1 &1744203074
 GameObject:
