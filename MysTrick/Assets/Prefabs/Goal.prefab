@@ -105,11 +105,11 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: c77a9f0bed76aab4392c28cef388a3ce, type: 3}
-  m_PlayOnAwake: 0
+  m_audioClip: {fileID: 8300000, guid: d2458193fae3573449cd25838261e7b9, type: 3}
+  m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -207,8 +207,10 @@ MonoBehaviour:
   ps: {fileID: 0}
   clearMask: {fileID: 0}
   ac: {fileID: 6563069687783362542, guid: deb5c94de91a32e4ca21d16c24db72a9, type: 3}
+  pi: {fileID: 0}
   perRadian: 0.1
   rotateSpeed: 2
   radius: 0.2
   radian: 0
   isTitleGoal: 0
+  sound: {fileID: 8300000, guid: c77a9f0bed76aab4392c28cef388a3ce, type: 3}

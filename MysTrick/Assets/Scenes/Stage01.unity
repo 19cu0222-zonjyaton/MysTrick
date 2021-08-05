@@ -18804,7 +18804,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 730692382413179535}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1.3011696, y: 10.351582, z: 8}
@@ -19121,7 +19121,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1191087217829664653}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1.3011699, y: 10.35158, z: 8}
@@ -21128,6 +21128,11 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3787794846184598275, guid: 19f866164458f0b4689c692e1c39b025,
+        type: 3}
+      propertyPath: enemyHp
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 3787794846184598276, guid: 19f866164458f0b4689c692e1c39b025,
         type: 3}
       propertyPath: m_IsKinematic
@@ -21683,8 +21688,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5739794730190191544}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -13.14, y: -4.86, z: 6.02}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -13.14, y: 4.4, z: 6.02}
+  m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 3149278673516884947}
   - {fileID: 1415063575191139187}
@@ -22076,7 +22081,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: ce0278ebf3738224588c033cd854638b, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 3f0f647fd9d7ea04c9e7c0ea0ef46e70, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1.6

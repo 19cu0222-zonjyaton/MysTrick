@@ -68,40 +68,39 @@ public class EnemyPathControl : MonoBehaviour
                 warning.SetActive(false);
             }
 
-            //  敵のAI処理
-            if (edc.canMove && cc.cameraStatic == "Idle")
+            if (!backToPatrol)
             {
-                if (!backToPatrol)
+                //  プレイヤーが捜査範囲に入った光線を出せる処理
+                if (LockOn() || isAttackedByPlayer || edc.hitWithPlayer)
                 {
-                    //  プレイヤーが捜査範囲に入った光線を出せる処理
-                    if (LockOn() || isAttackedByPlayer || edc.hitWithPlayer)
-                    {
-                        ray = new Ray(transform.position - new Vector3(0.5f, 0, 0), ((player.transform.position + new Vector3(0, 1.5f, 0)) - head.transform.position).normalized);
-                        Debug.DrawRay(ray.origin, ray.direction * 100, Color.red, 0.1f);
-                    }
-                    else
-                    {
-                        ray = new Ray(transform.position, head.forward);
-                        Debug.DrawRay(ray.origin, ray.direction * 100, Color.red, 0.1f);
-                    }
-                    Physics.Raycast(ray, out hit, Mathf.Infinity);
+                    ray = new Ray(transform.position - new Vector3(0.5f, 0, 0), ((player.transform.position + new Vector3(0, 1.5f, 0)) - head.transform.position).normalized);
                 }
                 else
                 {
-                    for (int i = 0; i < patrolPos.Length; i++)
+                    ray = new Ray(transform.position, head.forward);
+                }
+                Debug.DrawRay(ray.origin, ray.direction * 100, Color.red, 0.1f);
+                Physics.Raycast(ray, out hit, Mathf.Infinity);
+            }
+            else
+            {
+                for (int i = 0; i < patrolPos.Length; i++)
+                {
+                    ray = new Ray(transform.position, (patrolPos[i].transform.position - transform.position).normalized);
+                    Debug.DrawRay(ray.origin, ray.direction * 100, Color.red, 0.1f);
+                    Physics.Raycast(ray, out hit, Mathf.Infinity);
+                    if (hit.collider.gameObject == patrolPos[i])
                     {
-                        ray = new Ray(transform.position, (patrolPos[i].transform.position - transform.position).normalized);
-                        Debug.DrawRay(ray.origin, ray.direction * 100, Color.red, 0.1f);
-                        Physics.Raycast(ray, out hit, Mathf.Infinity);
-                        if (hit.collider.gameObject == patrolPos[i])
-                        {
-                            index = i;
+                        index = i;
 
-                            backToPatrol = false;
-                        }
+                        backToPatrol = false;
                     }
                 }
+            }
 
+            //  敵のAI処理
+            if (edc.canMove && cc.cameraStatic == "Idle")
+            {
                 if (hit.collider != null)       //  光線が何も当たっていない時の対策
                 {
                     hit.collider.enabled = true;
@@ -158,7 +157,7 @@ public class EnemyPathControl : MonoBehaviour
     bool LockOn()
     {
         //  Y軸の捜査範囲
-        if (System.Math.Abs(player.transform.position.y - transform.position.y) >= 2.0f)
+        if (System.Math.Abs(player.transform.position.y - transform.position.y) >= 2.0f && edc.canMove)
         {
             islock = false;
 

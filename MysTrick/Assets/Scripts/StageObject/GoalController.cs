@@ -17,10 +17,11 @@ public class GoalController : MonoBehaviour
     public bool isTitleGoal;                    //  タイトル画面のゴールフラグ
     public static string clearStageName = "";
     public static int[] getCount = new int[4];
+    public AudioClip sound;				        //	SEオブジェクト
 
     private Vector3 oldPos;
 
-    private AudioSource sound;
+    private AudioSource au;
     private int[] tempGetCount = new int[4];
     private float timeCount = 10.0f;
 
@@ -32,7 +33,7 @@ public class GoalController : MonoBehaviour
             oldPos = transform.position;
         }
 
-        sound = gameObject.GetComponent<AudioSource>();
+        au = gameObject.GetComponent<AudioSource>();
     }
 
     void Update()
@@ -101,7 +102,9 @@ public class GoalController : MonoBehaviour
 
             pi.inputEnabled = false;
 
-            sound.Play();
+            au.loop = false;
+            au.clip = sound;
+            au.Play();
 
             ps.Play();
         }

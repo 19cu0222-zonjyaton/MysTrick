@@ -102,7 +102,7 @@ public class EnemyDamageController : MonoBehaviour
 
             canMove = false;
 
-            gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;           //	11111111111111111111111111111111111111111111111111111111111111111111111111111111111
+            gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;           //	
         }
     }
 }
