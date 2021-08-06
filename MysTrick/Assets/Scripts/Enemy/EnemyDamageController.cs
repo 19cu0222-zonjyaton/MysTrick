@@ -11,9 +11,10 @@ public class EnemyDamageController : MonoBehaviour
     public Animator anim;                   //  アニメコントローラー
     public GameObject coin;                 //  コインオブジェクト
     public ActorController ac;              //  プレイヤーコントローラー
+
     private Rigidbody rigid;                //  プレイヤーに攻撃された処理用
     private CapsuleCollider capsuleCollider;//  衝突判定用
-    private AudioSource sound;              //  敵のSEオブジェクト
+    private AudioSource au;              //  敵のSEオブジェクト
     private float timeCount;                //  コインを時間ごとにでる
     private int coinCount;                  //  コインの個数
     private float deadPosY;                 //  消滅されたY座標保存用
@@ -25,7 +26,7 @@ public class EnemyDamageController : MonoBehaviour
 
         capsuleCollider = gameObject.GetComponent<CapsuleCollider>();
 
-        sound = gameObject.GetComponent<AudioSource>();
+        au = gameObject.GetComponent<AudioSource>();
     }
 
     void Update()
@@ -72,7 +73,7 @@ public class EnemyDamageController : MonoBehaviour
         if (collider.transform.tag == "Weapon" && !isDamage)
         {
             enemyHp--;
-            sound.Play();
+            au.Play();
 
             if (enemyHp <= 0)   //  コインを排除するY座標を記録する
             {
