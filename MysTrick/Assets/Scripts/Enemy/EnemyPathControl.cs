@@ -12,9 +12,11 @@ public class EnemyPathControl : MonoBehaviour
     public EnemyDamageController edc;   //  プレイヤーのカメラコントローラー
     public GameObject[] patrolPos;
     public GameObject warning;
+    public AudioClip sound;				//	SEオブジェクト
 
     private PlayerInput pi;             //  プレイヤーの入力コントローラー
     private CameraController cc;
+    private AudioSource au;
     private Ray ray;                    //  正方向から発射する光線(プレイヤーが捜査範囲に入っても壁に遮ったら元のルートに戻るように使う)
     private RaycastHit hit;             //  光線にヒットしたオブジェクト
     private Vector3 targetPosition;
@@ -35,6 +37,8 @@ public class EnemyPathControl : MonoBehaviour
 
             cc = GameObject.Find("Main Camera").GetComponent<CameraController>();
         }
+
+        au = gameObject.GetComponent<AudioSource>();
     }
 
     void Update()
@@ -58,6 +62,7 @@ public class EnemyPathControl : MonoBehaviour
             }
             else if ((LockOn() || isAttackedByPlayer || edc.hitWithPlayer) && !warningActive && (edc.enemyHp > 0))
             {
+                au.PlayOneShot(sound);
                 edc.canMove = false;
                 warning.SetActive(true);
                 warningActive = true;

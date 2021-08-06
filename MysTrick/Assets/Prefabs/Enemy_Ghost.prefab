@@ -363,6 +363,7 @@ MonoBehaviour:
   - {fileID: 3787794847476027999}
   - {fileID: 3787794847810112364}
   warning: {fileID: 5880338335874133664}
+  sound: {fileID: 8300000, guid: 53c203a356407fc438f70849d5b3a653, type: 3}
 --- !u!1 &3787794846324252661
 GameObject:
   m_ObjectHideFlags: 0
