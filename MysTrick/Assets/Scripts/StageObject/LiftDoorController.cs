@@ -89,6 +89,7 @@ public class LiftDoorController : MonoBehaviour
 				openInterval = openReset;
 				if (j < 3) ++j;
 			}
+			else if (j >= 3) this.GetComponent<BoxCollider>().enabled = false;
 		}
 	}
 
