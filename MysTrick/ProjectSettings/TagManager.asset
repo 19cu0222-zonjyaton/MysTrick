@@ -27,6 +27,8 @@ TagManager:
   - BluePiece
   - GreenPiece
   - ClimbOver
+  - Stick
+  - Handle
   layers:
   - Default
   - TransparentFX

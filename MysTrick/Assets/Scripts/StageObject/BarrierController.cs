@@ -10,27 +10,22 @@ using UnityEngine;
 
 public class BarrierController : MonoBehaviour
 {
-	[Header("===調整用===")]
 	public TriggerController Device;
-	public Transform targetXA;		// 右A点
-	public Transform targetXB;		// 右B点
-	public Transform targetYA;		// 左A点
-	public Transform targetYB;		// 左B点
-	public float moveSpeed;			// 移動スピード
-	public float moveTimeCount;		// 移動経過時間
-	public float stopTimeCount;		// 停止経過時間
+	public Transform targetXA;
+	public Transform targetXB;
+	public Transform targetYA;
+	public Transform targetYB;
+	public float moveSpeed;
+	public float moveTimeCount;
 
-	[Header("===監視用===")]
+	private int count;
 	[SerializeField]
 	private bool isTriggered;
 	[SerializeField]
 	private bool right;
-	private int count;
 	private float moveTimeReset;
 	private Vector3 nextPosition;
-	private bool touchPlayer;
 
-	// 初期化
 	void Start()
 	{
 		isTriggered = false;
@@ -38,7 +33,6 @@ public class BarrierController : MonoBehaviour
 		count = 0;
 		nextPosition = targetXB.position;
 		moveTimeReset = moveTimeCount;
-		touchPlayer = false;
 	}
 
 	
@@ -50,8 +44,8 @@ public class BarrierController : MonoBehaviour
 			++count;
 			if (count == 2 && right) right = false;
 			else if (count == 2 && !right) right = true;
+			Debug.Log("GD");
 		}
-
 		if (isTriggered && right)
 		{
 			if (this.transform.localPosition != targetXA.localPosition) this.transform.localPosition = Vector3.MoveTowards(this.transform.localPosition, targetXA.localPosition, moveSpeed * 1.5f * Time.deltaTime);
@@ -76,7 +70,7 @@ public class BarrierController : MonoBehaviour
 				moveTimeCount = moveTimeReset;
 			}
 		}
-		else if (!isTriggered && right && !touchPlayer)
+		else if (!isTriggered && right)
 		{
 			if (moveTimeCount > 0.0f)
 			{
@@ -89,9 +83,9 @@ public class BarrierController : MonoBehaviour
 				else nextPosition = targetXB.localPosition;
 				moveTimeCount = moveTimeReset;
 			}
-
+			
 		}
-		else if (!isTriggered && !right && !touchPlayer)
+		else if (!isTriggered && !right)
 		{
 			if (moveTimeCount > 0.0f)
 			{
@@ -105,36 +99,21 @@ public class BarrierController : MonoBehaviour
 				moveTimeCount = moveTimeReset;
 			}
 		}
-		else if (touchPlayer)
-		{
-
-		}
 	}
 
-	void OnCollisionStay(Collision other)
-	{
+    void OnCollisionStay(Collision other)
+    {
 		if (other.transform.tag == "Player")
 		{
 			other.transform.SetParent(this.gameObject.transform);
 		}
-	}
+    }
 
-	void OnCollisionExit(Collision other)
-	{
-		if (other.transform.tag == "Player")
-		{
-			other.transform.SetParent(null);
-		}
-	}
-
-	void OnTriggerEnter(Collider other)
-	{
-		if (other.transform.tag == "Player")
-		{
-			// 方法一
-			touchPlayer = true;
-			other.GetComponent<Rigidbody>().AddForce(-this.transform.right * 700.0f);
-			other.GetComponent<Rigidbody>().AddForce(this.transform.up * 500.0f);
-		}
-	}
+    private void OnCollisionExit(Collision other)
+    {
+        if (other.transform.tag == "Player")
+        {
+            other.transform.SetParent(null);
+        }
+    }
 }

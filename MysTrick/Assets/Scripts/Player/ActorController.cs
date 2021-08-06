@@ -31,7 +31,8 @@ public class ActorController : MonoBehaviour
 	public float moveSpeed = 5.0f;			//	移動スピード
 	public bool isInTrigger;				//	仕掛けスイッチを当たるフラグ
 	public bool isDamageByEnemy;			//	敵と衝突したフラグ
-	public bool isUnrivaled;				//	無敵Time
+	public bool isUnrivaled;                //	無敵Time
+	public bool damageByStick;				//	針と接触するフラグ
 	public bool cameraCanMove;				//	ダメージを受けた後カメラ移動可能の時間
 	public bool shootStart;					//	武器発射flag
 	public bool isJumping;					//	ジャンプflag
@@ -187,7 +188,7 @@ public class ActorController : MonoBehaviour
 	//	移動処理
 	void FixedUpdate()
 	{
-		rigid.position += movingVec * moveSpeed * Time.fixedDeltaTime;
+		transform.position += movingVec * moveSpeed * Time.fixedDeltaTime;
 		
 		if (gc.gameClear)		//	クリア処理
 		{
@@ -225,8 +226,9 @@ public class ActorController : MonoBehaviour
 				modelMesh.enabled = true;
 				weaponMesh.enabled = true;
 				Physics.IgnoreLayerCollision(11, 13, false);//	
-				isUnrivaled = false;
 				damageTimeCount = 0.0f;         //	
+				isUnrivaled = false;
+				damageByStick = false;
 				doOnce = false;
 			}
 			else if (shortTimeCount > 2)					//	プレイヤー入力可能
@@ -236,7 +238,7 @@ public class ActorController : MonoBehaviour
 				rigid.constraints = RigidbodyConstraints.FreezeRotation;
 			}
 
-			if (damageTimeCount >= 0.05f && !doOnce)
+			if (damageTimeCount >= 0.05f && !damageByStick && !doOnce)
 			{
 				damagePos = transform.position;
 
@@ -312,7 +314,7 @@ public class ActorController : MonoBehaviour
 
 	private void OnTriggerStay(Collider collider)
 	{
-		if (collider.transform.tag == "Device")		
+		if (collider.transform.tag == "Device" || collider.transform.tag == "Handle" || collider.transform.tag == "Key")		
 		{
 			isInTrigger = true;
 		}
@@ -321,6 +323,20 @@ public class ActorController : MonoBehaviour
 		{
 			isFall = true;
 		}
+
+		if (collider.transform.tag == "Stick" && !isUnrivaled)
+		{
+			hp--;
+			damageRot = model.transform.localEulerAngles;
+			audio.PlayOneShot(sounds[2]);
+
+			cameraCanMove = false;//
+            pi.inputEnabled = false;
+            modelMesh.enabled = false;
+            weaponMesh.enabled = false;
+			damageByStick = true;
+			isUnrivaled = true;
+        }
 	}
 
 	private void OnTriggerExit(Collider collider)
@@ -358,18 +374,6 @@ public class ActorController : MonoBehaviour
 
 				isUnrivaled = true;
 			}
-		}
-
-		if (collision.transform.tag == "Device" || collision.transform.tag == "Key")
-		{
-			isInTrigger = true;
-		}
-	}
-	private void OnCollisionExit(Collision collision)
-	{
-		if (collision.transform.tag == "Device" || collision.transform.tag == "Key")
-		{
-			isInTrigger = false;
 		}
 	}
 }

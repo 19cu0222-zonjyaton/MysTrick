@@ -276,7 +276,7 @@ public class CameraController : MonoBehaviour
 			transform.parent = null;
 
 			transform.position = Vector3.Slerp(transform.position, movePos, 2.0f * Time.fixedDeltaTime);
-
+			
 			// 補完スピードを決める
 			float speed = 0.08f;
 			if (target != null)
