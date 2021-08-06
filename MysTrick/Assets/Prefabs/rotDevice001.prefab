@@ -168,10 +168,11 @@ GameObject:
   m_Component:
   - component: {fileID: 1375407326506312801}
   - component: {fileID: 1485295967162973784}
+  - component: {fileID: 1609119345801197044}
   - component: {fileID: 1485295967162973785}
   m_Layer: 0
   m_Name: rotDevice001
-  m_TagString: Device
+  m_TagString: Handle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -208,6 +209,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 3.5295253, y: 5.0770006, z: 1.743976}
   m_Center: {x: 0.04463768, y: -0.044640064, z: 0.4315071}
+--- !u!65 &1609119345801197044
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1755767244007194331}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 3.6, y: 5.0770006, z: 1.8}
+  m_Center: {x: 0.04463768, y: -0.044640064, z: 0.4315071}
 --- !u!114 &1485295967162973785
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -225,10 +239,10 @@ MonoBehaviour:
   timeController: {fileID: 0}
   hintUI: {fileID: 8568620581409226255}
   timeCount: 1.2
-  handle: []
+  handle: {fileID: 0}
   isTriggered: 0
-  isStairTriggered: 0
   isCameraTriggered: 0
+  launchCount: 0
 --- !u!1 &1764187910817818193
 GameObject:
   m_ObjectHideFlags: 0
@@ -510,7 +524,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   trajectory: 2
   moveData:
-    target: {x: 0, y: 0, z: 0}
+    target: {fileID: 0}
     targetAng: {x: 0, y: 0, z: 90}
     targetEuAng: {x: 0, y: 0, z: 0, w: 0}
     startPosition: {x: 0, y: 0, z: 0}
@@ -521,6 +535,9 @@ MonoBehaviour:
   ElevTimer: {fileID: 0}
   timeCount: -0.5
   timeMax: 2
+  isTrigger: 0
+  hasDone: 0
+  audioSpeed: 1
 --- !u!1001 &1485295967261591827
 PrefabInstance:
   m_ObjectHideFlags: 0

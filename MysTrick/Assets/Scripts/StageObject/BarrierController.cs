@@ -38,7 +38,6 @@ public class BarrierController : MonoBehaviour
 	
 	void Update()
 	{
-		Debug.Log(isTriggered + " " + right);
 		if (Device != null && Device.isTriggered)
 		{
 			isTriggered = true;
@@ -102,19 +101,19 @@ public class BarrierController : MonoBehaviour
 		}
 	}
 
-	void OnCollisionStay(Collision other)
-	{
+    void OnCollisionStay(Collision other)
+    {
 		if (other.transform.tag == "Player")
 		{
 			other.transform.SetParent(this.gameObject.transform);
 		}
-	}
+    }
 
-	private void OnCollisionExit(Collision other)
-	{
-		if (other.transform.tag == "Player")
-		{
-			other.transform.SetParent(null);
-		}
-	}
+    private void OnCollisionExit(Collision other)
+    {
+        if (other.transform.tag == "Player")
+        {
+            other.transform.SetParent(null);
+        }
+    }
 }
