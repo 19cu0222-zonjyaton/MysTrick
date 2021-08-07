@@ -404,7 +404,8 @@ MonoBehaviour:
   sounds:
   - {fileID: 8300000, guid: d15b72b2db25a56498fecc601763b895, type: 3}
   - {fileID: 8300000, guid: 747ba53d9fcb54b4bb2bdd8ea8c7cc85, type: 3}
-  exitPanelIsOpen: 0
+  btn:
+  - {fileID: 156295609}
 --- !u!114 &82376646
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -447,18 +448,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 82376647}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 82376645}
-        m_MethodName: StageExit
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &82376647
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1094,18 +1084,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 156295610}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 156295611}
-        m_MethodName: StageExit
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &156295610
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1152,7 +1131,8 @@ MonoBehaviour:
   sounds:
   - {fileID: 8300000, guid: d15b72b2db25a56498fecc601763b895, type: 3}
   - {fileID: 8300000, guid: 747ba53d9fcb54b4bb2bdd8ea8c7cc85, type: 3}
-  exitPanelIsOpen: 0
+  btn:
+  - {fileID: 82376646}
 --- !u!222 &156295612
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1994,6 +1974,7 @@ MonoBehaviour:
   sounds:
   - {fileID: 8300000, guid: d15b72b2db25a56498fecc601763b895, type: 3}
   - {fileID: 8300000, guid: 747ba53d9fcb54b4bb2bdd8ea8c7cc85, type: 3}
+  btn: {fileID: 1704033307}
 --- !u!82 &535936136
 AudioSource:
   m_ObjectHideFlags: 0
@@ -2524,18 +2505,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 849606052}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 849606054}
-        m_MethodName: StageSelect
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &849606052
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3132,18 +3102,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1218231513}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1218231516}
-        m_MethodName: StageSelect
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &1218231513
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3915,18 +3874,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1385888255}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1385888257}
-        m_MethodName: StageSelect
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &1385888255
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4638,6 +4586,7 @@ MonoBehaviour:
   sounds:
   - {fileID: 8300000, guid: d15b72b2db25a56498fecc601763b895, type: 3}
   - {fileID: 8300000, guid: 747ba53d9fcb54b4bb2bdd8ea8c7cc85, type: 3}
+  btn: {fileID: 535936132}
 --- !u!82 &1704033311
 AudioSource:
   m_ObjectHideFlags: 0
@@ -4911,18 +4860,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1740122577}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1740122579}
-        m_MethodName: StageSelect
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &1740122577
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5298,7 +5236,9 @@ MonoBehaviour:
   sounds:
   - {fileID: 8300000, guid: d15b72b2db25a56498fecc601763b895, type: 3}
   - {fileID: 8300000, guid: 747ba53d9fcb54b4bb2bdd8ea8c7cc85, type: 3}
-  exitPanelIsOpen: 0
+  btn:
+  - {fileID: 156295609}
+  - {fileID: 82376646}
 --- !u!82 &1887986148
 AudioSource:
   m_ObjectHideFlags: 0

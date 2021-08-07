@@ -1056,6 +1056,7 @@ MonoBehaviour:
   isInTrigger: 0
   isDamageByEnemy: 0
   isUnrivaled: 0
+  damageByStick: 0
   cameraCanMove: 1
   shootStart: 0
   isJumping: 0
@@ -1337,7 +1338,7 @@ Animation:
   m_Animations:
   - {fileID: 7400000, guid: 2478dc63156bdae4c97f3b9505fe04e0, type: 2}
   m_WrapMode: 0
-  m_PlayAutomatically: 1
+  m_PlayAutomatically: 0
   m_AnimatePhysics: 0
   m_CullingType: 0
 --- !u!1 &6563069688124640819

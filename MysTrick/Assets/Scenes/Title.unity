@@ -1469,18 +1469,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 378862773}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 378862775}
-        m_MethodName: buttonListener
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &378862773
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7114,9 +7103,9 @@ MonoBehaviour:
     type: 3}
   m_MoveAction: {fileID: 3710738434707379630, guid: ca9f5fa95ffab41fb9a615ab714db018,
     type: 3}
-  m_SubmitAction: {fileID: 2064916234097673511, guid: ca9f5fa95ffab41fb9a615ab714db018,
+  m_SubmitAction: {fileID: -1967631576421560919, guid: ca9f5fa95ffab41fb9a615ab714db018,
     type: 3}
-  m_CancelAction: {fileID: -1967631576421560919, guid: ca9f5fa95ffab41fb9a615ab714db018,
+  m_CancelAction: {fileID: 2064916234097673511, guid: ca9f5fa95ffab41fb9a615ab714db018,
     type: 3}
   m_LeftClickAction: {fileID: 0}
   m_MiddleClickAction: {fileID: 0}
@@ -7564,18 +7553,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1744763825}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1744763827}
-        m_MethodName: buttonListener
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &1744763825
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13569,6 +13547,7 @@ MonoBehaviour:
   - {fileID: 3787794846939974829}
   - {fileID: 3787794846202353054}
   warning: {fileID: 2020392585}
+  sound: {fileID: 0}
 --- !u!4 &3787794847794460147
 Transform:
   m_ObjectHideFlags: 0
@@ -14032,6 +14011,7 @@ MonoBehaviour:
   radius: 0.005
   radian: 0
   isTitleGoal: 1
+  sound: {fileID: 0}
 --- !u!33 &5108674792482062514
 MeshFilter:
   m_ObjectHideFlags: 0

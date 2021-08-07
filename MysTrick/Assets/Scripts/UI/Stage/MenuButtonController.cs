@@ -9,8 +9,9 @@ public class MenuButtonController : MonoBehaviour
 {
     public GameObject menuPanel;
     public AudioClip[] sounds;              //	SEオブジェクト
+    public Button btn;
+
     private AudioSource au;                 //	SEのコンポーネント
-    private Button btn;
     private Animator animator_Menu;
     private Animator animator_Mask;
     private StageMenuController smc;
@@ -18,10 +19,6 @@ public class MenuButtonController : MonoBehaviour
     void Awake()
     {
         au = gameObject.GetComponent<AudioSource>();
-
-        btn = gameObject.GetComponent<Button>();
-
-        btn.onClick.AddListener(MenuListener);      //  監視メソッド
 
         animator_Menu = menuPanel.GetComponent<Animator>();
 
@@ -43,26 +40,25 @@ public class MenuButtonController : MonoBehaviour
             au.clip = sounds[0];
             au.Play();
         }
-    }
 
-    public void MenuListener()
-    {
-        if (Time.timeScale == 0)
+        if (Time.timeScale == 0 && (Input.GetKeyDown(KeyCode.Return) || Input.GetButtonDown("action")))
         {
-            Time.timeScale = 1;
             smc.animIsOver = false;
             smc.isOpenMenu = false;
             au.clip = sounds[1];
             au.Play();
 
-            if (gameObject.name == "Continue")
+            if (EventSystem.current.currentSelectedGameObject.name == "Continue")
             {
+                Time.timeScale = 1;
                 animator_Menu.SetTrigger("Cancel");
                 animator_Menu.SetBool("Menu", false);
             }
-            else if (gameObject.name == "Back")
+            else if (EventSystem.current.currentSelectedGameObject.name == "Back" && gameObject.name == "Back")
             {
+                Time.timeScale = 1;
                 animator_Mask.SetTrigger("WhiteToBlack");
+                btn.enabled = false;
             }
         }
     }

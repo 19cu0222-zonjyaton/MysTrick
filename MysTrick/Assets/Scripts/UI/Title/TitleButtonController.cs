@@ -26,8 +26,6 @@ public class TitleButtonController : MonoBehaviour
     {
         btn = gameObject.GetComponent<Button>();
 
-        btn.onClick.AddListener(buttonListener);      //  監視メソッド
-
         au = gameObject.GetComponent<AudioSource>();
     }
 
@@ -65,44 +63,47 @@ public class TitleButtonController : MonoBehaviour
             }
         }
 
-        //  文字の点滅処理
-        if (timeCount_Text >= 0.15f && timeCount_Text <= 0.3f)
+        if (EventSystem.current.currentSelectedGameObject.name == gameObject.name)
         {
-            gameObject.GetComponent<Image>().enabled = true;
-        }
-        else if (timeCount_Text > 0.3f)
-        {
-            gameObject.GetComponent<Image>().enabled = false;
-            timeCount_Text = 0.0f;
-        }
-    }
-
-    //  ボタンを監視メソッド
-    public void buttonListener()
-    {
-        if ((gameObject.name == "Start" || gameObject.name == "Continue") && !gameStart)
-        {
-            titleLogo.transform.position = new Vector3(0, 35.0f, -30.0f);
-            titleLogo.transform.eulerAngles = new Vector3(0, 180.0f, 0);
-            titleLogo.GetComponent<Rigidbody>().useGravity = true;
-            gameObject.GetComponent<Image>().enabled = false;
-            au.PlayOneShot(sounds[1]);
-
-            if (gameObject.name == "Start")
+            //  文字の点滅処理
+            if (timeCount_Text >= 0.15f && timeCount_Text <= 0.3f)
             {
-                for (int i = 0; i < GoalController.getCount.Length; i++)
-                {
-                    GoalController.getCount[i] = 0;
-                }
-                ActorInStageSelect.selectBtn = 1;
+                gameObject.GetComponent<Image>().enabled = true;
             }
-
-            gameStart = true;
+            else if (timeCount_Text > 0.3f)
+            {
+                gameObject.GetComponent<Image>().enabled = false;
+                timeCount_Text = 0.0f;
+            }
         }
-        else if (gameObject.name == "Exit")
+
+        if ((Input.GetKeyDown(KeyCode.Return) || Input.GetButtonDown("action")) && EventSystem.current.currentSelectedGameObject.name == gameObject.name)
         {
-            au.PlayOneShot(sounds[1]);
-            Application.Quit();
+            if ((gameObject.name == "Start" || gameObject.name == "Continue") && !gameStart)
+            {
+                titleLogo.transform.position = new Vector3(0, 35.0f, -30.0f);
+                titleLogo.transform.eulerAngles = new Vector3(0, 180.0f, 0);
+                titleLogo.GetComponent<Rigidbody>().useGravity = true;
+                gameObject.GetComponent<Image>().enabled = false;
+                au.PlayOneShot(sounds[1]);
+                btn.enabled = false;
+
+                if (gameObject.name == "Start")
+                {
+                    for (int i = 0; i < GoalController.getCount.Length; i++)
+                    {
+                        GoalController.getCount[i] = 0;
+                    }
+                    ActorInStageSelect.selectBtn = 1;
+                }
+
+                gameStart = true;
+            }
+            else if(gameObject.name == "Exit")
+            {
+                au.PlayOneShot(sounds[1]);
+                Application.Quit();
+            }
         }
     }
 }
