@@ -43,7 +43,7 @@ public class ActorInStageSelect : MonoBehaviour
     {
         if (GoalController.clearStageName == "")        //  StageからStageSelectに飛びるではない場合
         {
-            if (!isMove && !StageSelectButtonController.confirmMenuIsOpen && !ec.exitPanelIsOpen)
+            if (!isMove && !StageSelectButtonController.confirmMenuIsOpen && !ExitController.exitPanelIsOpen)
             {
                 if (selectBtn < 4)
                 {

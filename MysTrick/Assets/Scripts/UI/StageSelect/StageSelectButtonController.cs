@@ -22,8 +22,6 @@ public class StageSelectButtonController : MonoBehaviour
 
         btn = gameObject.GetComponent<Button>();
 
-        btn.onClick.AddListener(StageSelect);   //  監視メソッド
-
         startPos = transform.parent.position;
     }
 
@@ -49,15 +47,11 @@ public class StageSelectButtonController : MonoBehaviour
         {
             gameObject.transform.parent.position = Vector3.MoveTowards(transform.parent.position, startPos - new Vector3(300.0f, 0.0f, 0.0f), 75.0f * Time.deltaTime);
         }
-    }
 
-    public void StageSelect()
-    {
-        if (canSelected)        //  確認画面に入る前の処理
+        if ((Input.GetKeyDown(KeyCode.Return) || Input.GetButtonDown("action")) && canSelected && !confirmMenuIsOpen && !ExitController.exitPanelIsOpen)
         {
             confirmMenuIsOpen = true;
             confirmPanel.SetActive(true);
-            EventSystem.current.SetSelectedGameObject(GameObject.Find("OK"));       //  OKボタンを選択状態にする
         }
     }
 }
