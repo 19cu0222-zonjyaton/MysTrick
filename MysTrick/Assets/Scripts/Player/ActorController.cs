@@ -47,7 +47,7 @@ public class ActorController : MonoBehaviour
 	}
 	public HaveKeys haveKeys;
 
-	public bool[] havePieces = new bool[3];
+	public bool[] havePieces = {false, false, false};
 	//-------------------------
 
 	private new AudioSource audio;			//	SEのコンポーネント
@@ -86,12 +86,6 @@ public class ActorController : MonoBehaviour
 		weaponStartPos = weapon.transform.localPosition;
 
 		weaponStartRot = weapon.transform.localEulerAngles;
-
-		haveKeys.BlueKey = false;
-		haveKeys.GreenKey = false;
-		/*havePieces.RedPiece = false;
-		havePieces.BluePiece = false;
-		havePieces.GreenPiece = false;*/
 	}
 
 	void Update()
@@ -281,23 +275,18 @@ public class ActorController : MonoBehaviour
 		{
 			case "BlueKey":
 				haveKeys.BlueKey = true;
-				Destroy(collider.gameObject);
 				break;
 			case "GreenKey":
 				haveKeys.GreenKey = true;
-				Destroy(collider.gameObject);
 				break;
 			case "RedPiece":
 				havePieces[0] = true;
-				Destroy(collider.gameObject);
 				break;
 			case "BluePiece":
 				havePieces[1] = true;
-				Destroy(collider.gameObject);
 				break;
 			case "GreenPiece":
 				havePieces[2] = true;
-				Destroy(collider.gameObject);
 				break;
 			default:
 				break;

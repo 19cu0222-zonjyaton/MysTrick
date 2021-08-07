@@ -11,7 +11,7 @@ public class CoinController : MonoBehaviour
     public bool isTitleCoin;            //  タイトル画面のコインフラグ
 
     private Vector3 startPos;
-    private Vector3 oldPos;             //  初期位置
+    private Vector3 nowPos;             //  今の位置
     private Rigidbody rigid;            //  鋼体コンポーネント
     private ActorController ac;         //  プレイヤーのコントローラー
     private AudioSource sound;          //  SEコンポーネント
@@ -34,7 +34,7 @@ public class CoinController : MonoBehaviour
 
     void Update()
     {
-        oldPos = transform.position;
+        nowPos = transform.position;
 
         if (Time.deltaTime != 0)
         {
@@ -43,7 +43,7 @@ public class CoinController : MonoBehaviour
             {
                 radian += perRadian;                //  弧度をプラスする
                 float dy = Mathf.Cos(radian) * radius;
-                transform.position = oldPos + new Vector3(0, dy, 0);
+                transform.position = nowPos + new Vector3(0, dy, 0);
 
                 if (radian >= 360.0f)
                 {
