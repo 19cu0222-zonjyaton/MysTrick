@@ -9,22 +9,21 @@ public class TriKeyController : MonoBehaviour
     public float radian;                //  弧度
     public float rotateSpeed;           //  回転スピード
     public Vector3 finalRot;
+    public bool uiAnimStart;
 
     private Vector3 nowPos;             //  初期位置
     private Vector3 startPos;
     private Rigidbody rigid;            //  鋼体コンポーネント
     private AudioSource sound;          //  SEコンポーネント
     private MeshRenderer mesh;
+    private Animation anim;
     private bool getByPlayer;           //  プレイヤーと当たったflag
-    private bool scaleAddIsOver;
     private bool animStart;
-    private float targetScale;
+    private bool animOver;
 
     //  初期化
     void Awake()
     {
-        targetScale = 1.5f;
-
         startPos = transform.position;
 
         rigid = gameObject.GetComponent<Rigidbody>();
@@ -32,6 +31,8 @@ public class TriKeyController : MonoBehaviour
         sound = gameObject.GetComponent<AudioSource>();
 
         mesh = gameObject.GetComponent<MeshRenderer>();
+
+        anim = gameObject.GetComponent<Animation>();
     }
 
     // Update is called once per frame
@@ -64,25 +65,18 @@ public class TriKeyController : MonoBehaviour
                 animStart = true;
             }
 
-            if (animStart)
+            if (animStart && !animOver)
             {
-                if (transform.localScale.x <= targetScale && !scaleAddIsOver)
+                anim.Play();
+                animOver = true;
+            }
+            else if (animOver && !anim.isPlaying)
+            {
+                mesh.material.color -= new Color32(0, 0, 0, 10);
+                uiAnimStart = true;
+                if (mesh.material.color.a < 0.0f)
                 {
-                    transform.localScale += new Vector3(0.02f, 0.02f, 0.02f);
-                }
-                else if (transform.localScale.x > targetScale)
-                {
-                    scaleAddIsOver = true;
-                    targetScale = 1.0f;
-                    transform.localScale -= new Vector3(0.04f, 0.04f, 0.04f);
-                }
-                else
-                {
-                    mesh.material.color -= new Color32(0, 0, 0, 10);
-                    if (mesh.material.color.a < 0.0f)
-                    {
-                        Destroy(this.gameObject);
-                    }
+                    Destroy(this.gameObject);
                 }
             }
         }
