@@ -26,7 +26,8 @@ public class CameraController : MonoBehaviour
 	public bool canThrowWeapon = true;			//	狙う状態で武器を投げる可能フラグ
 	public string cameraStatic = "Idle";        //  カメラ状態
 	public float horizontalSpeed = 50.0f;		//	カメラ横移動のスピード
-	public float verticalSpeed = 40.0f;			//	カメラ縦移動のスピード
+	public float verticalSpeed = 40.0f;         //	カメラ縦移動のスピード
+	public Vector3 moveSpeed;
 
 	private ActorController ac;					//	プレイヤーの挙動コントローラー
 	private GameObject cameraHandle;			//	カメラハンドルオブジェクト
@@ -275,8 +276,8 @@ public class CameraController : MonoBehaviour
 			//  親関係を解除
 			transform.parent = null;
 
-			transform.position = Vector3.Slerp(transform.position, movePos, 2.0f * Time.fixedDeltaTime);
-			
+			transform.position = Vector3.SmoothDamp(transform.position, movePos, ref moveSpeed, 10.0f * Time.deltaTime);
+
 			// 補完スピードを決める
 			float speed = 0.08f;
 			if (target != null)
@@ -295,7 +296,7 @@ public class CameraController : MonoBehaviour
 			transform.SetParent(cameraHandle.transform);
 
 			//  位置を戻る
-			transform.position = Vector3.Slerp(transform.position, cameraBackPos.transform.position, 4.0f * Time.fixedDeltaTime);
+			transform.position = Vector3.Slerp(transform.position, cameraBackPos.transform.position, 5.0f * Time.fixedDeltaTime);
 
 			//  角度を戻る
 			transform.rotation = Quaternion.Slerp(transform.rotation, cameraBackPos.transform.rotation, 2.0f * Time.fixedDeltaTime);
