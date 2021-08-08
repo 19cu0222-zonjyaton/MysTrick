@@ -10,15 +10,18 @@ using UnityEngine;
 
 public class BarrierController : MonoBehaviour
 {
+	[Header("===調整用===")]
 	public TriggerController Device;
-	public Transform targetXA;
-	public Transform targetXB;
-	public Transform targetYA;
-	public Transform targetYB;
-	public float moveSpeed;
-	public float moveTimeCount;
+	public Transform targetXA;			// 右A点
+	public Transform targetXB;			// 右B点
+	public Transform targetYA;			// 左A点
+	public Transform targetYB;			// 左B点
+	public float moveSpeed;				// 移動スピード
+	public float moveTimeCount;			// 移動経過時間
+	public float stopTime = 1.0f;		// 停止時間
 
 	private int count;
+	[Header("===監視用===")]
 	[SerializeField]
 	private bool isTriggered;
 	[SerializeField]
@@ -35,48 +38,56 @@ public class BarrierController : MonoBehaviour
 		moveTimeReset = moveTimeCount;
 	}
 
-	
 	void Update()
 	{
+		// デバイスを作動する時
 		if (Device != null && Device.isTriggered)
 		{
 			isTriggered = true;
 			++count;
 			if (count == 2 && right) right = false;
 			else if (count == 2 && !right) right = true;
-			Debug.Log("GD");
 		}
+		// 障害物を右へ移動する時
 		if (isTriggered && right)
 		{
+			// 移動中
 			if (this.transform.localPosition != targetXA.localPosition) this.transform.localPosition = Vector3.MoveTowards(this.transform.localPosition, targetXA.localPosition, moveSpeed * 1.5f * Time.deltaTime);
+			// 上下移動に切り替えるまでの準備
 			else
 			{
 				isTriggered = false;
 				Device.isTriggered = false;
 				count = 0;
 				nextPosition = targetXB.localPosition;
-				moveTimeCount = moveTimeReset;
+				moveTimeCount = moveTimeReset + stopTime;
 			}
 		}
+		// 障害物を左へ移動する時
 		else if (isTriggered && !right)
 		{
+			// 移動中
 			if (this.transform.localPosition != targetYA.localPosition) this.transform.localPosition = Vector3.MoveTowards(this.transform.localPosition, targetYA.localPosition, moveSpeed * 1.5f * Time.deltaTime);
+			// 上下移動に切り替えるまでの準備
 			else
 			{
 				isTriggered = false;
 				Device.isTriggered = false;
 				count = 0;
 				nextPosition = targetYB.localPosition;
-				moveTimeCount = moveTimeReset;
+				moveTimeCount = moveTimeReset + stopTime;
 			}
 		}
+		// 障害物が右に上下移動する時
 		else if (!isTriggered && right)
 		{
+			// 移動中
 			if (moveTimeCount > 0.0f)
 			{
 				moveTimeCount -= Time.deltaTime;
-				this.transform.localPosition = Vector3.MoveTowards(this.transform.localPosition, nextPosition, moveSpeed * 1.5f * Time.deltaTime);
+				if (moveTimeCount < 3.0f) this.transform.localPosition = Vector3.MoveTowards(this.transform.localPosition, nextPosition, moveSpeed * 1.5f * Time.deltaTime);
 			}
+			// 上(下)移動に切り替え
 			else
 			{
 				if (nextPosition == targetXB.localPosition) nextPosition = targetXA.localPosition;
@@ -85,13 +96,16 @@ public class BarrierController : MonoBehaviour
 			}
 			
 		}
+		// 障害物が左に上下移動する時
 		else if (!isTriggered && !right)
 		{
+			// 移動中
 			if (moveTimeCount > 0.0f)
 			{
 				moveTimeCount -= Time.deltaTime;
-				this.transform.localPosition = Vector3.MoveTowards(this.transform.localPosition, nextPosition, moveSpeed * 1.5f * Time.deltaTime);
+				if (moveTimeCount < 3.0f) this.transform.localPosition = Vector3.MoveTowards(this.transform.localPosition, nextPosition, moveSpeed * 1.5f * Time.deltaTime);
 			}
+			// 上(下)移動に切り替え
 			else
 			{
 				if (nextPosition == targetYB.localPosition) nextPosition = targetYA.localPosition;
@@ -101,19 +115,18 @@ public class BarrierController : MonoBehaviour
 		}
 	}
 
-    void OnCollisionStay(Collision other)
-    {
+	void OnCollisionStay(Collision other)
+	{
 		if (other.transform.tag == "Player")
 		{
 			other.transform.SetParent(this.gameObject.transform);
 		}
-    }
-
-    private void OnCollisionExit(Collision other)
-    {
-        if (other.transform.tag == "Player")
-        {
-            other.transform.SetParent(null);
-        }
-    }
+	}
+	private void OnCollisionExit(Collision other)
+	{
+		if (other.transform.tag == "Player")
+		{
+			other.transform.SetParent(null);
+		}
+	}
 }
