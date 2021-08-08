@@ -55,20 +55,18 @@ public class TriKeyController : MonoBehaviour
                 }
             }
 
-            if (Mathf.Abs(nowPos.y - startPos.y) > 4.0f && getByPlayer)
-            {
-                rigid.useGravity = false;
-                rigid.constraints = RigidbodyConstraints.FreezePosition;
-                rotateSpeed = 0.0f;
-                transform.eulerAngles = finalRot;
-
-                animStart = true;
-            }
-
             if (animStart && !animOver)
             {
-                anim.Play();
-                animOver = true;
+                rotateSpeed -= 1.5f;
+
+                if (rotateSpeed <= 0.0f)
+                {
+                    rigid.constraints = RigidbodyConstraints.FreezePosition;
+                    transform.eulerAngles = finalRot;
+
+                    anim.Play();
+                    animOver = true;
+                }
             }
             else if (animOver && !anim.isPlaying)
             {
@@ -90,11 +88,14 @@ public class TriKeyController : MonoBehaviour
 
             sound.Play();
 
-            rigid.AddForce(0.0f, 800.0f, 0.0f);
+            if (transform.tag == "RedPiece" || transform.tag == "GreenPiece" || transform.tag == "BluePiece")
+            {
+                rigid.AddForce(0, 30.0f, 0);
+            }
 
-            rigid.useGravity = true;
+            rotateSpeed = 60.0f;
 
-            rotateSpeed = 30.0f;
+            animStart = true;
         }
     }
 }
