@@ -15,6 +15,7 @@ public class FootPlateController : MonoBehaviour
 	public Transform targetUp;			// 上昇後の最終座標
 	public Transform targetDown;		// 降下後の最終座標
 	public float moveSpeed = 0.01f;		// 移動速度
+	public float timeCountMax = 2.5f;	// 回復まで最大時間
 	public bool needTurn = false;		// 回転必要かフラグ
 
 	[Header("===監視用===")]
@@ -22,7 +23,7 @@ public class FootPlateController : MonoBehaviour
 	private bool nextUpward = false;	// True:次は上昇、False:次は降下
 	[SerializeField]
 	public bool isTriggered = false;	// True:稼働中、False:停止中
-	private float timeCount;
+	private float timeCount;			// 回復まで所要時間
 
 	void Start()
 	{
@@ -45,7 +46,7 @@ public class FootPlateController : MonoBehaviour
 						this.transform.position = Vector3.MoveTowards(this.transform.position, targetUp.position, moveSpeed);
 					}
 					// 上昇終了、降下状態を準備
-					else if (timeCount > 2.5f)
+					else if (timeCount > timeCountMax)
 					{
 						isTriggered = false;
 						nextUpward = false;
@@ -63,7 +64,7 @@ public class FootPlateController : MonoBehaviour
 						this.transform.position = Vector3.MoveTowards(this.transform.position, targetDown.position, moveSpeed);
 					}
 					// 降下終了、上昇状態を準備
-					else if (timeCount > 2.5f)
+					else if (timeCount > timeCountMax)
 					{
 						isTriggered = false;
 						nextUpward = true;
