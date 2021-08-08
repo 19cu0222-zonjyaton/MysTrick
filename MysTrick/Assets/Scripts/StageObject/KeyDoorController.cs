@@ -36,10 +36,11 @@ public class KeyDoorController : MonoBehaviour
 	[Header("===監視用===")]
 	[SerializeField]
 	private bool canOpen = false;				// 開けるフラグ
+	private PlayerInput Player;
 
-	void Start()
+	void Awake()
 	{
-		
+		Player = GameObject.FindWithTag("Player").GetComponent<PlayerInput>();
 	}
 
 	void Update()
@@ -56,6 +57,7 @@ public class KeyDoorController : MonoBehaviour
 			lockOpenTimeCount -= Time.deltaTime;
 			if (doorLock1 != null) Destroy(doorLock1.gameObject);
 			doorLock2.GetComponent<Rigidbody>().useGravity = true;
+			doorLock2.GetComponent<BoxCollider>().enabled = true;
 		}
 		else if (lockOpenTimeCount < 0.0f)
 		{
@@ -69,10 +71,20 @@ public class KeyDoorController : MonoBehaviour
 			if (doorOpenTimeCount > 0.0f)
 			{
 				doorOpenTimeCount -= Time.deltaTime;
-				LeftDoor.transform.localPosition = Vector3.MoveTowards(LeftDoor.transform.localPosition,
-					new Vector3(LeftDoor.transform.localPosition.x, LeftDoor.transform.localPosition.y, LeftDoor.transform.localPosition.z + 1.7f), doorOpenSpeed * Time.deltaTime);
-				RightDoor.transform.localPosition = Vector3.MoveTowards(RightDoor.transform.localPosition,
-					new Vector3(RightDoor.transform.localPosition.x, RightDoor.transform.localPosition.y, RightDoor.transform.localPosition.z - 1.7f), doorOpenSpeed * Time.deltaTime);
+				if (doorColor == DoorColor.Blue)
+				{
+					LeftDoor.transform.localPosition = Vector3.MoveTowards(LeftDoor.transform.localPosition,
+						new Vector3(LeftDoor.transform.localPosition.x, LeftDoor.transform.localPosition.y, LeftDoor.transform.localPosition.z + 1.7f), doorOpenSpeed * Time.deltaTime);
+					RightDoor.transform.localPosition = Vector3.MoveTowards(RightDoor.transform.localPosition,
+						new Vector3(RightDoor.transform.localPosition.x, RightDoor.transform.localPosition.y, RightDoor.transform.localPosition.z - 1.7f), doorOpenSpeed * Time.deltaTime);
+				}
+				else if (doorColor == DoorColor.Green)
+				{
+					LeftDoor.transform.localPosition = Vector3.MoveTowards(LeftDoor.transform.localPosition,
+						new Vector3(LeftDoor.transform.localPosition.x, LeftDoor.transform.localPosition.y, LeftDoor.transform.localPosition.z - 1.7f), doorOpenSpeed * Time.deltaTime);
+					RightDoor.transform.localPosition = Vector3.MoveTowards(RightDoor.transform.localPosition,
+						new Vector3(RightDoor.transform.localPosition.x, RightDoor.transform.localPosition.y, RightDoor.transform.localPosition.z + 1.7f), doorOpenSpeed * Time.deltaTime);
+				}
 			}
 			else if (doorOpenTimeCount < 0.0f)
 			{
@@ -83,26 +95,19 @@ public class KeyDoorController : MonoBehaviour
 		}
 	}
 
-	void OnTriggerEnter(Collider other)
-	{
-		if(other.transform.tag == "Player")
-		{
-			if (doorColor == DoorColor.Blue && other.GetComponent<ActorController>().haveKeys.BlueKey == true)
-			{
-				canOpen = true;
-			}
-			else if (doorColor == DoorColor.Green && other.GetComponent<ActorController>().haveKeys.GreenKey == true)
-			{
-				canOpen = true;
-			}
-		}
-	}
-
 	void OnTriggerStay(Collider other)
 	{
 		if (other.transform.tag == "Player")
 		{
 			HintUI.SetActive(true);
+			if (doorColor == DoorColor.Blue && other.GetComponent<ActorController>().haveKeys.BlueKey == true && Player.isTriggered)
+			{
+				canOpen = true;
+			}
+			else if (doorColor == DoorColor.Green && other.GetComponent<ActorController>().haveKeys.GreenKey == true && Player.isTriggered)
+			{
+				canOpen = true;
+			}
 		}
 	}
 

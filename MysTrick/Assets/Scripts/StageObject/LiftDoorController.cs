@@ -10,6 +10,7 @@ using UnityEngine;
 
 public class LiftDoorController : MonoBehaviour
 {
+	[Header("===調整用===")]
 	public GameObject[] Doors = new GameObject[3];
 	public GameObject[] Pieces = new GameObject[3];
 	public GameObject HintUI;
@@ -19,16 +20,16 @@ public class LiftDoorController : MonoBehaviour
 	public float scaleSpeed;
 	public float openSpeed;
 	public float putInterval;
-	
 
+	[Header("===監視用===")]
+	[SerializeField]
+	private bool doNext;
 	private ActorController actorController;
 	private PlayerInput player;
 	private float openReset;
 	private float putReset;
 	private bool isTriggered;
 	private bool isTriggering;
-	[SerializeField]
-	private bool doNext;
 	private int i = 0, j = 0;
 
 	void Awake()
@@ -89,15 +90,20 @@ public class LiftDoorController : MonoBehaviour
 				openInterval = openReset;
 				if (j < 3) ++j;
 			}
-			else if (j >= 3) this.GetComponent<BoxCollider>().enabled = false;
+			else if (j >= 3)
+			{
+				this.GetComponent<BoxCollider>().enabled = false;
+				HintUI.SetActive(false);
+			}
 		}
 	}
 
 	void OnCollisionStay(Collision other)
 	{
-		if (other.transform.tag == "Player" && player.isTriggered)
+		if (other.transform.tag == "Player")
 		{
-			isTriggered = true;
+			HintUI.SetActive(true);
+			if (player.isTriggered) isTriggered = true;
 		}
 	}
 
@@ -105,6 +111,7 @@ public class LiftDoorController : MonoBehaviour
 	{
 		if (other.transform.tag == "Player")
 		{
+			HintUI.SetActive(false);
 			isTriggered = false;
 		}
 	}

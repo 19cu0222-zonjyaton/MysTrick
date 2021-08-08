@@ -31,7 +31,7 @@ public class ActorController : MonoBehaviour
 	public float moveSpeed = 5.0f;			//	移動スピード
 	public bool isInTrigger;				//	仕掛けスイッチを当たるフラグ
 	public bool isDamageByEnemy;			//	敵と衝突したフラグ
-	public bool isUnrivaled;                //	無敵Time
+	public bool isUnrivaled;				//	無敵Time
 	public bool damageByStick;				//	針と接触するフラグ
 	public bool cameraCanMove;				//	ダメージを受けた後カメラ移動可能の時間
 	public bool shootStart;					//	武器発射flag
@@ -40,6 +40,7 @@ public class ActorController : MonoBehaviour
 	public Vector3 climbLandPos;
 
 	//---鍾家同(2021/07/19)---
+	[System.Serializable]
 	public struct HaveKeys
 	{
 		public bool BlueKey;
@@ -292,7 +293,7 @@ public class ActorController : MonoBehaviour
 				break;
 		}
 
-		if (collider.transform.tag == "ClimbOver")  //	
+		if (collider.transform.tag == "ClimbOver") 
 		{
 			climbEnd = true;
 			climbLandPos = collider.gameObject.transform.position;
