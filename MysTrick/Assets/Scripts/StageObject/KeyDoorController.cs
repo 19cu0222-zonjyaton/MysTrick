@@ -26,6 +26,7 @@ public class KeyDoorController : MonoBehaviour
 	public GameObject doorBolt2;
 	public GameObject LeftDoor;
 	public GameObject RightDoor;
+	public GameObject HintUI;
 	public float CameraTimeCount;				// カメラ移動に所要時間
 	public float lockOpenTimeCount = 1.5f;		// ロックを開ける所要時間
 	public float lockOpenSpeed = 1.0f;			// ロックを開けるスピード
@@ -94,6 +95,22 @@ public class KeyDoorController : MonoBehaviour
 			{
 				canOpen = true;
 			}
+		}
+	}
+
+	void OnTriggerStay(Collider other)
+	{
+		if (other.transform.tag == "Player")
+		{
+			HintUI.SetActive(true);
+		}
+	}
+
+	void OnTriggerExit(Collider other)
+	{
+		if (other.transform.tag == "Player")
+		{
+			HintUI.SetActive(false);
 		}
 	}
 }
