@@ -21,7 +21,7 @@ public class EnemyPathControl : MonoBehaviour
     private RaycastHit hit;             //  光線にヒットしたオブジェクト
     private Vector3 targetPosition;
     private bool backToPatrol;
-    private int index = 1;              //  今向けて移動する位置
+    private int index = 0;              //  今向けて移動する位置
     private bool islock = false;        //  プレイヤーが捜査範囲に入るフラグ
     private bool isAttackedByPlayer;    //  プレイヤーに攻撃されたフラグ
     private float timeCount;
@@ -215,7 +215,15 @@ public class EnemyPathControl : MonoBehaviour
     //  ルートに沿って移動処理
     void Patrol()
     {
-        transform.Translate((pathPositions[index].localPosition - transform.localPosition).normalized * Time.deltaTime * speed);
+        if (player == null)
+        {
+            transform.Translate((pathPositions[index].localPosition - transform.localPosition).normalized * Time.deltaTime * speed);
+        }
+        else
+        {
+            transform.Translate((pathPositions[index].position - transform.position).normalized * Time.deltaTime * speed);
+        }
+
         targetPosition = pathPositions[index].transform.position;
         targetPosition.y = head.position.y;
         head.LookAt(targetPosition);

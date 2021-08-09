@@ -61,7 +61,7 @@ public class JumpCheck : MonoBehaviour
         if (isJumpStart)
         {
             ac.isJumping = true;
-            Physics.IgnoreLayerCollision(11, 12, true);
+            Physics.IgnoreLayerCollision(11, 13, true);
             if (timeCount < 0.0f)   //  データ精度のためにディレイする
             {
                 jumpStart();
@@ -115,7 +115,7 @@ public class JumpCheck : MonoBehaviour
                 {                  
                     timeCount = 0.3f;
 
-                    Physics.IgnoreLayerCollision(11, 12, false);
+                    Physics.IgnoreLayerCollision(11, 13, false);
 
                     ac.isJumping = false;
 

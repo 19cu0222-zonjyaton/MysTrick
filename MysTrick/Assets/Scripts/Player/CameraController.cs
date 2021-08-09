@@ -22,7 +22,7 @@ public class CameraController : MonoBehaviour
 	public GameObject firstPerspect;			//	狙う状態に切り替える時移動の位置
 	public GameObject weapon;					//	武器オブジェクト
 	public GameObject usingWeapon;              //	今手が持っている武器
-	public GameObject deadPos;                  //	プレイヤーが死亡したら視点の位置
+	public GameObject[] deadCameraPos;            //	プレイヤーが死亡したら視点の位置
 	public bool canThrowWeapon = true;			//	狙う状態で武器を投げる可能フラグ
 	public string cameraStatic = "Idle";        //  カメラ状態
 	public float horizontalSpeed = 50.0f;		//	カメラ横移動のスピード
@@ -245,11 +245,23 @@ public class CameraController : MonoBehaviour
 		else if (ac.isDead)         //	プレイヤーが死亡したらカメラの処理
 		{
 			transform.SetParent(null);
-			deadPos.transform.SetParent(null);
-			cameraStatic = "GameOver";
-
-			transform.position = deadPos.transform.position;
-			transform.LookAt(playerHandle.transform);
+            for (int i = 0; i < deadCameraPos.Length; i++)
+            {
+				deadCameraPos[i].transform.SetParent(null);
+				Ray ray = new Ray(deadCameraPos[i].transform.position, ((playerHandle.transform.position + new Vector3(0, 1.0f, 0)) - deadCameraPos[i].transform.position).normalized);
+                RaycastHit hit;
+                Physics.Raycast(ray, out hit, Mathf.Infinity);
+                if (hit.collider != null)       //  光線が何も当たっていない時の対策
+                {
+                    hit.collider.enabled = true;
+					if (hit.collider.gameObject == playerHandle)
+                    {
+                        cameraStatic = "GameOver";
+                        transform.position = deadCameraPos[i].transform.position;
+                        transform.LookAt(playerHandle.transform);
+                    }
+                }
+            }
 		}
 		else if (ac.isFall)         //	プレイヤーが外に落ちたらカメラの処理
 		{

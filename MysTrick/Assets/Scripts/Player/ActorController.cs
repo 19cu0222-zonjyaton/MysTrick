@@ -65,7 +65,8 @@ public class ActorController : MonoBehaviour
 	private Vector3 damageRot;				//	ダメージを受ける時の回転角度
 	private float timeCount;                //	タイムカウント
 	private Vector3 nowPos;					//	
-	private Vector3 damagePos;				//	
+	private Vector3 damagePos;              //	モンスターからダメージを受けた位置
+	private Vector3 stickBackPos;           //	針からダメージを受けたら戻る位置
 	private float damageTimeCount;          //	
 	private bool doOnce;
 
@@ -226,8 +227,12 @@ public class ActorController : MonoBehaviour
 				damageByStick = false;
 				doOnce = false;
 			}
-			else if (shortTimeCount > 2)					//	プレイヤー入力可能
+			else if (shortTimeCount > 2)                    //	プレイヤー入力可能
 			{
+				if (damageByStick && !pi.inputEnabled)
+				{
+					transform.position = stickBackPos;
+				}
 				pi.inputEnabled = true;
 				cameraCanMove = true;           //	
 				rigid.constraints = RigidbodyConstraints.FreezeRotation;
@@ -299,6 +304,11 @@ public class ActorController : MonoBehaviour
 			climbLandPos = collider.gameObject.transform.position;
 			rigid.useGravity = true;
 		}
+
+		if (collider.transform.tag == "StickBackPos")
+		{
+			stickBackPos = collider.transform.position;
+		}
 	}
 	//-------------------------
 
@@ -319,14 +329,16 @@ public class ActorController : MonoBehaviour
 			hp--;
 			damageRot = model.transform.localEulerAngles;
 			audio.PlayOneShot(sounds[2]);
-
-			cameraCanMove = false;//
+			cameraCanMove = false;
             pi.inputEnabled = false;
-            modelMesh.enabled = false;
-            weaponMesh.enabled = false;
-			damageByStick = true;
+			if (hp > 0)
+			{
+				modelMesh.enabled = false;
+				weaponMesh.enabled = false;
+				damageByStick = true;
+			}
 			isUnrivaled = true;
-        }
+		}
 	}
 
 	private void OnTriggerExit(Collider collider)
@@ -344,26 +356,24 @@ public class ActorController : MonoBehaviour
 			hp--;
 			damageRot = model.transform.localEulerAngles;
 			audio.PlayOneShot(sounds[2]);
-			Physics.IgnoreLayerCollision(11, 13, true);//	
-			cameraCanMove = false;//
+			Physics.IgnoreLayerCollision(11, 13, true);
+			cameraCanMove = false;
+			pi.inputEnabled = false;
+			modelMesh.enabled = false;
+			weaponMesh.enabled = false;
 
-			if (hp >= 0)
+			if (hp > 0)
 			{
-				pi.inputEnabled = false;
-				modelMesh.enabled = false;
-				weaponMesh.enabled = false;
-				if (hp == 0)
-				{
-					rigid.AddExplosionForce(800.0f, collision.transform.position - new Vector3(0.0f, 1.5f, 0.0f), 5.0f, 2.0f);		//	爆発の位置を矯正
-				}
-				else
-				{
-					rigid.AddExplosionForce(500.0f, collision.transform.position - new Vector3(0.0f, 1.5f, 0.0f), 5.0f, 1.5f);      //	爆発の位置を矯正
-					nowPos = transform.position;
-				}		
-
-				isUnrivaled = true;
+				rigid.AddExplosionForce(500.0f, collision.transform.position - new Vector3(0.0f, 1.5f, 0.0f), 5.0f, 1.5f);      //	爆発の位置を矯正
+				nowPos = transform.position;				
 			}
+			else
+			{
+				rigid.AddExplosionForce(800.0f, collision.transform.position - new Vector3(0.0f, 1.5f, 0.0f), 5.0f, 2.0f);      //	爆発の位置を矯正
+				isDead = true;
+			}
+
+			isUnrivaled = true;
 		}
 	}
 }

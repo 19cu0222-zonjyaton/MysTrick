@@ -29,6 +29,7 @@ TagManager:
   - ClimbOver
   - Stick
   - Handle
+  - StickBackPos
   layers:
   - Default
   - TransparentFX
