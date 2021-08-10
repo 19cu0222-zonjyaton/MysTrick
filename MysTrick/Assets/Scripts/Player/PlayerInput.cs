@@ -56,10 +56,19 @@ public class PlayerInput : MonoBehaviour
 	private float velocityDup;
 	private float velocityDright;
 	private GameObject playercamera;	//	カメラオブジェクト
-	private bool isUsingJoyStick;		//	今使っているコントローラーを検査する
+	private bool isUsingJoyStick;       //	今使っているコントローラーを検査する
+	private bool resetSignal;
 
 	//	初期化
 	void Awake()
+	{
+		QualitySettings.vSyncCount = 0;
+		Application.targetFrameRate = 60;   //	FPSを60に固定する
+
+		playercamera = GameObject.Find("Main Camera");
+	}
+
+	void Update()
 	{
 		string[] joystickNames = Input.GetJoystickNames();
 		foreach (string joystickName in joystickNames)
@@ -74,14 +83,6 @@ public class PlayerInput : MonoBehaviour
 			}
 		}
 
-		QualitySettings.vSyncCount = 0;
-		Application.targetFrameRate = 60;   //	FPSを60に固定する
-
-		playercamera = GameObject.Find("Main Camera");
-	}  
-
-	void Update()
-	{
 		if (isUsingJoyStick)
 		{
 			//  Stick Signal
@@ -124,16 +125,16 @@ public class PlayerInput : MonoBehaviour
 			isJumping = false;
 		}
 
-        if ((Input.GetKeyDown(keyThrow) || Input.GetAxis("throw") == 1) && canThrow && !overDistance && inputEnabled)
-        {
-            isThrowing = true;
+		if ((Input.GetKeyDown(keyThrow) || Input.GetAxis("throw") == 1) && canThrow && !overDistance && inputEnabled)
+		{
+			isThrowing = true;
 		}
-        else if ((Input.GetKeyDown(keyAttack) || Input.GetButtonDown("attack")) && canThrow && canAttack && inputEnabled)
-        {
-            isAttacking = true;
-        }
+		else if ((Input.GetKeyDown(keyAttack) || Input.GetButtonDown("attack")) && canThrow && canAttack && inputEnabled)
+		{
+			isAttacking = true;
+		}
 
-        Dup = Mathf.SmoothDamp(Dup, targetDup, ref velocityDup, moveToTargetTime);
+		Dup = Mathf.SmoothDamp(Dup, targetDup, ref velocityDup, moveToTargetTime);
 		Dright = Mathf.SmoothDamp(Dright, targetDright, ref velocityDright, moveToTargetTime);
 
 		Vector2 tempDAxis = SquareToCircle(new Vector2(Dright, Dup));
@@ -141,17 +142,23 @@ public class PlayerInput : MonoBehaviour
 		float Dup2 = tempDAxis.y;
 
 		Dmag = Mathf.Sqrt((Dup2 * Dup2) + (Dright2 * Dright2));
-		if ((Input.GetKey(KeyCode.LeftShift) || Input.GetButton("perspect")) && cc.cameraStatic == "Idle")		//	第一人視点を切り替え
+		if ((Input.GetKey(KeyCode.LeftShift) || Input.GetButton("perspect")) && cc.cameraStatic == "Idle")      //	第一人視点を切り替え
 		{
+			resetSignal = false;
 			isAimStatus = true;
 			Dvec = Dright * playercamera.transform.right + Dup * playercamera.transform.forward;
 		}
 		else                                                                    //	第三人視点を切り替え
 		{
+			if (!resetSignal)
+			{
+				isAttacking = false;
+				resetSignal = true;
+			}
 			isAimStatus = false;
 			Dvec = Dright * transform.right + Dup * transform.forward;
 		}
-	}
+    }
 
 	private Vector2 SquareToCircle(Vector2 input)
 	{

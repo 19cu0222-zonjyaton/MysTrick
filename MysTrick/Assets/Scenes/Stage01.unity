@@ -2450,8 +2450,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 839e2a4eb47fca848a176a492de684ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  perRadian: 0.03
-  radius: 0.2
+  perRadian: 0.08
+  radius: 0.15
 --- !u!1001 &518802538
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8381,6 +8381,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 377646396278419820}
     m_Modifications:
+    - target: {fileID: 1373466646286021624, guid: eb7acf80775dc5944b9c468ab166f919,
+        type: 3}
+      propertyPath: radius
+      value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 1373466646286021624, guid: eb7acf80775dc5944b9c468ab166f919,
+        type: 3}
+      propertyPath: perRadian
+      value: 0.08
+      objectReference: {fileID: 0}
     - target: {fileID: 4475745680717303497, guid: eb7acf80775dc5944b9c468ab166f919,
         type: 3}
       propertyPath: m_IsActive
@@ -10806,8 +10816,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 839e2a4eb47fca848a176a492de684ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  perRadian: 0.03
-  radius: 0.2
+  perRadian: 0.08
+  radius: 0.15
 --- !u!1 &1389905138
 GameObject:
   m_ObjectHideFlags: 0
@@ -16089,8 +16099,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 839e2a4eb47fca848a176a492de684ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  perRadian: 0.03
-  radius: 0.2
+  perRadian: 0.08
+  radius: 0.15
 --- !u!1 &1507489830
 GameObject:
   m_ObjectHideFlags: 0
@@ -17181,6 +17191,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8045539534165830453, guid: 14121fa11042fff4e861c9f5a3e4d0a2,
+        type: 3}
+      propertyPath: radius
+      value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 8045539534165830453, guid: 14121fa11042fff4e861c9f5a3e4d0a2,
+        type: 3}
+      propertyPath: perRadian
+      value: 0.08
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 14121fa11042fff4e861c9f5a3e4d0a2, type: 3}
@@ -18945,8 +18965,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 839e2a4eb47fca848a176a492de684ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  perRadian: 0.03
-  radius: 0.2
+  perRadian: 0.08
+  radius: 0.15
 --- !u!1 &1239432503422230140
 GameObject:
   m_ObjectHideFlags: 0
@@ -20388,6 +20408,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8045539534165830453, guid: 14121fa11042fff4e861c9f5a3e4d0a2,
+        type: 3}
+      propertyPath: radius
+      value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 8045539534165830453, guid: 14121fa11042fff4e861c9f5a3e4d0a2,
+        type: 3}
+      propertyPath: perRadian
+      value: 0.08
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 14121fa11042fff4e861c9f5a3e4d0a2, type: 3}
 --- !u!4 &3636882182284023616
@@ -20416,8 +20446,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 839e2a4eb47fca848a176a492de684ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  perRadian: 0.03
-  radius: 0.2
+  perRadian: 0.08
+  radius: 0.15
 --- !u!1 &3678182759718267478
 GameObject:
   m_ObjectHideFlags: 0
@@ -22274,8 +22304,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 839e2a4eb47fca848a176a492de684ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  perRadian: 0.03
-  radius: 0.2
+  perRadian: 0.08
+  radius: 0.15
 --- !u!1 &7730887619731651995
 GameObject:
   m_ObjectHideFlags: 0

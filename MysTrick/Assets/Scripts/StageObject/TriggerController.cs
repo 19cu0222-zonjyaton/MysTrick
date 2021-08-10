@@ -154,7 +154,15 @@ public class TriggerController : MonoBehaviour
 	{
 		if (other.transform.tag == "Player")
 		{
-			hintUI.SetActive(true);
+			if (!isTriggered)
+			{
+				hintUI.SetActive(true);
+			}
+			else
+			{
+				hintUI.SetActive(false);
+			}
+
 			if (this.transform.tag == "Device" && Player.isTriggered)
 			{
 				isTriggered = true;

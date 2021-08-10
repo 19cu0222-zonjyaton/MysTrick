@@ -16,7 +16,7 @@ public class BarrierController : MonoBehaviour
 	public Transform targetXB;			// 右B点
 	public Transform targetYA;			// 左A点
 	public Transform targetYB;          // 左B点
-	public PlayerInput pi;				// プレイヤー入力コントローラー
+	public bool stickCanMove;			// 針は移動可能フラグ
 	public float moveSpeed;				// 移動スピード
 	public float moveTimeCount;			// 移動経過時間
 	public float stopTime = 1.0f;		// 停止時間
@@ -32,6 +32,7 @@ public class BarrierController : MonoBehaviour
 
 	void Start()
 	{
+		stickCanMove = true;
 		isTriggered = false;
 		right = true;
 		count = 0;
@@ -41,15 +42,24 @@ public class BarrierController : MonoBehaviour
 
 	void Update()
 	{
-		if (pi.inputEnabled)
+		//	プレイヤーがダメージを受けた後一定時間過ぎたら動けるにする
+		if (stickCanMove)
 		{
 			// デバイスを作動する時
 			if (Device != null && Device.isTriggered)
 			{
 				isTriggered = true;
 				++count;
-				if (count == 2 && right) right = false;
-				else if (count == 2 && !right) right = true;
+				if (count == 2 && right)
+				{
+					++Device.launchCount;
+					right = false;
+				}
+				else if (count == 2 && !right) 
+				{
+					++Device.launchCount;
+					right = true;
+				}
 			}
 			// 障害物を右へ移動する時
 			if (isTriggered && right)
@@ -97,7 +107,6 @@ public class BarrierController : MonoBehaviour
 					else nextPosition = targetXB.localPosition;
 					moveTimeCount = moveTimeReset;
 				}
-
 			}
 			// 障害物が左に上下移動する時
 			else if (!isTriggered && !right)

@@ -1450,7 +1450,7 @@ PrefabInstance:
     - target: {fileID: 6627989536186172222, guid: f8df9da4bd5345e4c9475d38ad1871c9,
         type: 3}
       propertyPath: perRadian
-      value: 0.05
+      value: 0.08
       objectReference: {fileID: 0}
     - target: {fileID: 8568620581409226255, guid: f8df9da4bd5345e4c9475d38ad1871c9,
         type: 3}
@@ -2354,9 +2354,19 @@ PrefabInstance:
       objectReference: {fileID: 8300000, guid: 3f0f647fd9d7ea04c9e7c0ea0ef46e70, type: 3}
     - target: {fileID: 1543606327980890547, guid: 502e29beec65a2842a4835ecb20e3b94,
         type: 3}
+      propertyPath: radius
+      value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 1543606327980890547, guid: 502e29beec65a2842a4835ecb20e3b94,
+        type: 3}
       propertyPath: cameraPos
       value: 
       objectReference: {fileID: 1370233396}
+    - target: {fileID: 1543606327980890547, guid: 502e29beec65a2842a4835ecb20e3b94,
+        type: 3}
+      propertyPath: perRadian
+      value: 0.08
+      objectReference: {fileID: 0}
     - target: {fileID: 2158508200901069272, guid: 502e29beec65a2842a4835ecb20e3b94,
         type: 3}
       propertyPath: m_Name
@@ -2787,9 +2797,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5721697491641993773, guid: ec2c229ea2529c845aa0825566a078af,
         type: 3}
+      propertyPath: radius
+      value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 5721697491641993773, guid: ec2c229ea2529c845aa0825566a078af,
+        type: 3}
       propertyPath: cameraPos
       value: 
       objectReference: {fileID: 1370233396}
+    - target: {fileID: 5721697491641993773, guid: ec2c229ea2529c845aa0825566a078af,
+        type: 3}
+      propertyPath: perRadian
+      value: 0.08
+      objectReference: {fileID: 0}
     - target: {fileID: 7094594196082652956, guid: ec2c229ea2529c845aa0825566a078af,
         type: 3}
       propertyPath: m_Name
@@ -8248,9 +8268,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5721697491641993773, guid: ec2c229ea2529c845aa0825566a078af,
         type: 3}
+      propertyPath: radius
+      value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 5721697491641993773, guid: ec2c229ea2529c845aa0825566a078af,
+        type: 3}
       propertyPath: cameraPos
       value: 
       objectReference: {fileID: 1370233396}
+    - target: {fileID: 5721697491641993773, guid: ec2c229ea2529c845aa0825566a078af,
+        type: 3}
+      propertyPath: perRadian
+      value: 0.08
+      objectReference: {fileID: 0}
     - target: {fileID: 7094594196082652956, guid: ec2c229ea2529c845aa0825566a078af,
         type: 3}
       propertyPath: m_Name
@@ -8803,6 +8833,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8045539534165830453, guid: 14121fa11042fff4e861c9f5a3e4d0a2,
+        type: 3}
+      propertyPath: radius
+      value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 8045539534165830453, guid: 14121fa11042fff4e861c9f5a3e4d0a2,
+        type: 3}
+      propertyPath: perRadian
+      value: 0.08
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 14121fa11042fff4e861c9f5a3e4d0a2, type: 3}
@@ -15168,9 +15208,19 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5721697491641993773, guid: ec2c229ea2529c845aa0825566a078af,
         type: 3}
+      propertyPath: radius
+      value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 5721697491641993773, guid: ec2c229ea2529c845aa0825566a078af,
+        type: 3}
       propertyPath: cameraPos
       value: 
       objectReference: {fileID: 1370233396}
+    - target: {fileID: 5721697491641993773, guid: ec2c229ea2529c845aa0825566a078af,
+        type: 3}
+      propertyPath: perRadian
+      value: 0.08
+      objectReference: {fileID: 0}
     - target: {fileID: 7094594196082652956, guid: ec2c229ea2529c845aa0825566a078af,
         type: 3}
       propertyPath: m_Name
@@ -18048,9 +18098,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5721697491641993773, guid: ec2c229ea2529c845aa0825566a078af,
         type: 3}
+      propertyPath: radius
+      value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 5721697491641993773, guid: ec2c229ea2529c845aa0825566a078af,
+        type: 3}
       propertyPath: cameraPos
       value: 
       objectReference: {fileID: 1370233396}
+    - target: {fileID: 5721697491641993773, guid: ec2c229ea2529c845aa0825566a078af,
+        type: 3}
+      propertyPath: perRadian
+      value: 0.08
+      objectReference: {fileID: 0}
     - target: {fileID: 7094594196082652956, guid: ec2c229ea2529c845aa0825566a078af,
         type: 3}
       propertyPath: m_Name
@@ -28411,7 +28471,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 839e2a4eb47fca848a176a492de684ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  perRadian: 0.05
+  perRadian: 0.08
   radius: 0.15
 --- !u!33 &5771899047286657433
 MeshFilter:
@@ -28727,9 +28787,19 @@ PrefabInstance:
       objectReference: {fileID: 8300000, guid: 3f0f647fd9d7ea04c9e7c0ea0ef46e70, type: 3}
     - target: {fileID: 1543606327980890547, guid: 502e29beec65a2842a4835ecb20e3b94,
         type: 3}
+      propertyPath: radius
+      value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 1543606327980890547, guid: 502e29beec65a2842a4835ecb20e3b94,
+        type: 3}
       propertyPath: cameraPos
       value: 
       objectReference: {fileID: 1370233396}
+    - target: {fileID: 1543606327980890547, guid: 502e29beec65a2842a4835ecb20e3b94,
+        type: 3}
+      propertyPath: perRadian
+      value: 0.08
+      objectReference: {fileID: 0}
     - target: {fileID: 2158508200901069272, guid: 502e29beec65a2842a4835ecb20e3b94,
         type: 3}
       propertyPath: m_Name

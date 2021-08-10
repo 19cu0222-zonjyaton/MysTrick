@@ -46,7 +46,7 @@ public class ThrowWeaponController : MonoBehaviour
 
             speedDown += 0.2f;
 
-            transform.position = Vector3.Lerp(transform.position, playerPos.transform.position, speedDown * Time.fixedDeltaTime);     //  プレイヤーの位置に戻る
+            transform.position = Vector3.Lerp(transform.position, playerCamera.transform.position - new Vector3(0, 1.0f, 0), speedDown * Time.fixedDeltaTime);     //  プレイヤーの位置に戻る
         }
     }
 

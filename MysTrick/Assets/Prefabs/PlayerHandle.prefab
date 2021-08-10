@@ -1140,13 +1140,13 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 0eb24866f8b828e448e9877d0f6abe5d, type: 3}
   - {fileID: 8300000, guid: 56fc6d5827a955e46b5134c76f73a6ed, type: 3}
   - {fileID: 8300000, guid: 8e2f17a7700fba9498e4f8a6f5388350, type: 3}
-  hp: 3
+  hp: 5
   coinCount: 0
   coinUIAction: 0
   climbEnd: 0
   isDead: 0
   isFall: 0
-  moveSpeed: 5
+  moveSpeed: 7
   isInTrigger: 0
   isDamageByEnemy: 0
   isUnrivaled: 0

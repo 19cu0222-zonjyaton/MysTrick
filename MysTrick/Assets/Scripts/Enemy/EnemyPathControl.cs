@@ -51,7 +51,7 @@ public class EnemyPathControl : MonoBehaviour
 
         if (pi != null)
         {
-            if (pi.inputEnabled && !edc.isDamage && !warning.GetComponent<Animation>().isPlaying)
+            if (cc.cameraStatic == "Idle" && !edc.isDamage && !warning.GetComponent<Animation>().isPlaying)
             {
                 edc.canMove = true;
             }

@@ -6,8 +6,6 @@
 //					；2020/07/19 更新　鍾家同　構造体宣言(鍵付き扉を開くため)
 //-------------------------------------------------
 
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ActorController : MonoBehaviour
@@ -32,7 +30,7 @@ public class ActorController : MonoBehaviour
 	public bool isInTrigger;				//	仕掛けスイッチを当たるフラグ
 	public bool isDamageByEnemy;			//	敵と衝突したフラグ
 	public bool isUnrivaled;				//	無敵Time
-	public bool damageByStick;				//	針と接触するフラグ
+	public bool damageByStick;              //	針と接触するフラグ
 	public bool cameraCanMove;				//	ダメージを受けた後カメラ移動可能の時間
 	public bool shootStart;					//	武器発射flag
 	public bool isJumping;					//	ジャンプflag
@@ -56,7 +54,8 @@ public class ActorController : MonoBehaviour
 	private Animation attack_anim;			//	アニメーションコントローラー
 	private Rigidbody rigid;				//	鋼体コンポーネント
 	private Vector3 movingVec;				//	移動方向
-	private GoalController gc;				//	ゴールコントローラー
+	private GoalController gc;              //	ゴールコントローラー
+	private BarrierController bc;			//	針オブジェクトコントローラー
 	private int shortTimeCount;				//	点滅用タイムカウント
 	private Vector3 weaponStartPos;			//	武器の初期位置座標保存用
 	private Vector3 weaponStartRot;         //	武器の初期回転角度保存用
@@ -66,7 +65,7 @@ public class ActorController : MonoBehaviour
 	private float timeCount;                //	タイムカウント
 	private Vector3 nowPos;					//	
 	private Vector3 damagePos;              //	モンスターからダメージを受けた位置
-	private Vector3 stickBackPos;           //	針からダメージを受けたら戻る位置
+	private GameObject stickBackPos;        //	針からダメージを受けたら戻る位置
 	private float damageTimeCount;          //	
 	private bool doOnce;
 
@@ -112,7 +111,7 @@ public class ActorController : MonoBehaviour
 			}
 
 			//	近戦攻撃処理
-			if (pi.isAttacking)							
+			if (pi.isAttacking && !pi.isAimStatus)							
 			{
 				attack_anim.Play();						//	近戦アニメを流す
 
@@ -231,7 +230,8 @@ public class ActorController : MonoBehaviour
 			{
 				if (damageByStick && !pi.inputEnabled)
 				{
-					transform.position = stickBackPos;
+					transform.position = stickBackPos.transform.position;
+					bc.stickCanMove = true;
 				}
 				pi.inputEnabled = true;
 				cameraCanMove = true;           //	
@@ -307,7 +307,7 @@ public class ActorController : MonoBehaviour
 
 		if (collider.transform.tag == "StickBackPos")
 		{
-			stickBackPos = collider.transform.position;
+			stickBackPos = collider.gameObject;
 		}
 	}
 	//-------------------------
@@ -330,7 +330,13 @@ public class ActorController : MonoBehaviour
 			damageRot = model.transform.localEulerAngles;
 			audio.PlayOneShot(sounds[2]);
 			cameraCanMove = false;
-            pi.inputEnabled = false;
+			pi.inputEnabled = false;
+			bc = collider.transform.parent.GetComponent<BarrierController>();
+			if (bc != null)
+			{
+				bc.stickCanMove = false;
+			}
+
 			if (hp > 0)
 			{
 				modelMesh.enabled = false;

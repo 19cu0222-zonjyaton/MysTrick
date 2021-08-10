@@ -66,7 +66,7 @@ public class WeaponController : MonoBehaviour
             {
                 rigid.constraints = RigidbodyConstraints.None;
 
-                transform.localEulerAngles += new Vector3(0, 30.0f, 0);
+                transform.localEulerAngles += new Vector3(0, 40.0f, 0);
 
                 transform.SetParent(null);
 

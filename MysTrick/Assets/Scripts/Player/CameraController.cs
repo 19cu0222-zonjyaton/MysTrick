@@ -255,13 +255,14 @@ public class CameraController : MonoBehaviour
                 {
                     hit.collider.enabled = true;
 					if (hit.collider.gameObject == playerHandle)
-                    {
-                        cameraStatic = "GameOver";
-                        transform.position = deadCameraPos[i].transform.position;
-                        transform.LookAt(playerHandle.transform);
-                    }
+					{
+						cameraStatic = "GameOver";
+						transform.position = deadCameraPos[i].transform.position;
+						break;
+					}
                 }
             }
+			transform.LookAt(playerHandle.transform);
 		}
 		else if (ac.isFall)         //	プレイヤーが外に落ちたらカメラの処理
 		{

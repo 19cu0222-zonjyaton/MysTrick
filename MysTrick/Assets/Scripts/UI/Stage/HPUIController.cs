@@ -34,7 +34,7 @@ public class HPUIController : MonoBehaviour
         if (!ac.isDead)
         {
             //  減ったHPに応じて画像が変わる
-            for (int i = ac.hp - 1; i >= ac.hp; i--)
+            for (int i = hp.Length - 1; i >= ac.hp; i--)
             {
                 hp[i].GetComponent<Image>().sprite = sprite[1];
             }
