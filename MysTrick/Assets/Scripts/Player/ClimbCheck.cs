@@ -30,7 +30,7 @@ public class ClimbCheck : MonoBehaviour
         if (climbStart)     //  登り始める
         {
             playerModule.transform.rotation = transform.rotation;
-            pi.inputEnabled = false;
+            pi.ResetSignal();
             ac.isClimbing = true;
             
             if (Input.GetKey(pi.keyUp) || Input.GetAxis("axisY") == -1.0f)

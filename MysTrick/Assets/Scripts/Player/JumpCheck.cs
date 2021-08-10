@@ -139,11 +139,7 @@ public class JumpCheck : MonoBehaviour
 
             if (pi.isTriggered && pi.isJumping && !pi.lockJumpStatus)
             {
-                pi.Dup = 0.0f;          //	シングルを0にする
-                pi.Dright = 0.0f;
-                pi.Dmag = 0.0f;
-                pi.moveToTargetTime = 0.0f;
-                pi.inputEnabled = false;
+                pi.ResetSignal();
 
                 collider.transform.localPosition = new Vector3((float)Math.Round((double)transform.position.x, 1), collider.transform.position.y, (float)Math.Round((double)transform.position.z, 1));
 

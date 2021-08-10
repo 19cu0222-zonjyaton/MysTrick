@@ -57,7 +57,7 @@ public class PlayerInput : MonoBehaviour
 	private float velocityDright;
 	private GameObject playercamera;	//	カメラオブジェクト
 	private bool isUsingJoyStick;       //	今使っているコントローラーを検査する
-	private bool resetSignal;
+	private bool resetFlag;
 
 	//	初期化
 	void Awake()
@@ -144,21 +144,30 @@ public class PlayerInput : MonoBehaviour
 		Dmag = Mathf.Sqrt((Dup2 * Dup2) + (Dright2 * Dright2));
 		if ((Input.GetKey(KeyCode.LeftShift) || Input.GetButton("perspect")) && cc.cameraStatic == "Idle")      //	第一人視点を切り替え
 		{
-			resetSignal = false;
+			resetFlag = false;
 			isAimStatus = true;
 			Dvec = Dright * playercamera.transform.right + Dup * playercamera.transform.forward;
 		}
 		else                                                                    //	第三人視点を切り替え
 		{
-			if (!resetSignal)
+			if (!resetFlag)
 			{
 				isAttacking = false;
-				resetSignal = true;
+				resetFlag = true;
 			}
 			isAimStatus = false;
 			Dvec = Dright * transform.right + Dup * transform.forward;
 		}
     }
+
+	public void ResetSignal()	//	シングルを0にする
+	{
+		Dup = 0.0f;          
+		Dright = 0.0f;
+		Dmag = 0.0f;
+		moveToTargetTime = 0.0f;
+		inputEnabled = false;
+	}
 
 	private Vector2 SquareToCircle(Vector2 input)
 	{

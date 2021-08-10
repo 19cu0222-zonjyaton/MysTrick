@@ -6,6 +6,7 @@ public class HintUI : MonoBehaviour
 {
     public float perRadian = 0.01f;         //  毎回変化の弧度
     public float radius = 0.1f;
+    public MeshRenderer mesh;
 
     private ActorController actorController;
     private GameObject cameraPos;

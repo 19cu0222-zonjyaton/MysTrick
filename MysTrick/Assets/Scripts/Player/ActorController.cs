@@ -228,7 +228,7 @@ public class ActorController : MonoBehaviour
 			}
 			else if (shortTimeCount > 2)                    //	プレイヤー入力可能
 			{
-				if (damageByStick && !pi.inputEnabled)
+				if (damageByStick && !cameraCanMove)
 				{
 					transform.position = stickBackPos.transform.position;
 					bc.stickCanMove = true;

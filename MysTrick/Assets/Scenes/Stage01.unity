@@ -2452,6 +2452,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   perRadian: 0.08
   radius: 0.15
+  mesh: {fileID: 0}
 --- !u!1001 &518802538
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8424,7 +8425,7 @@ PrefabInstance:
     - target: {fileID: 6106959150754543528, guid: eb7acf80775dc5944b9c468ab166f919,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 15.295999
+      value: 14.98
       objectReference: {fileID: 0}
     - target: {fileID: 6106959150754543528, guid: eb7acf80775dc5944b9c468ab166f919,
         type: 3}
@@ -9251,7 +9252,7 @@ PrefabInstance:
     - target: {fileID: 6563069687783362542, guid: deb5c94de91a32e4ca21d16c24db72a9,
         type: 3}
       propertyPath: hp
-      value: 3
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 6563069687783362542, guid: deb5c94de91a32e4ca21d16c24db72a9,
         type: 3}
@@ -9281,6 +9282,16 @@ PrefabInstance:
     - target: {fileID: 6563069687901137003, guid: deb5c94de91a32e4ca21d16c24db72a9,
         type: 3}
       propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6563069687901137003, guid: deb5c94de91a32e4ca21d16c24db72a9,
+        type: 3}
+      propertyPath: m_UpdateWhenOffscreen
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6563069687901137003, guid: deb5c94de91a32e4ca21d16c24db72a9,
+        type: 3}
+      propertyPath: m_SkinnedMotionVectors
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6563069688034356541, guid: deb5c94de91a32e4ca21d16c24db72a9,
@@ -10818,6 +10829,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   perRadian: 0.08
   radius: 0.15
+  mesh: {fileID: 0}
 --- !u!1 &1389905138
 GameObject:
   m_ObjectHideFlags: 0
@@ -16101,6 +16113,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   perRadian: 0.08
   radius: 0.15
+  mesh: {fileID: 0}
 --- !u!1 &1507489830
 GameObject:
   m_ObjectHideFlags: 0
@@ -18967,6 +18980,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   perRadian: 0.08
   radius: 0.15
+  mesh: {fileID: 0}
 --- !u!1 &1239432503422230140
 GameObject:
   m_ObjectHideFlags: 0
@@ -20448,6 +20462,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   perRadian: 0.08
   radius: 0.15
+  mesh: {fileID: 0}
 --- !u!1 &3678182759718267478
 GameObject:
   m_ObjectHideFlags: 0
@@ -22306,6 +22321,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   perRadian: 0.08
   radius: 0.15
+  mesh: {fileID: 0}
 --- !u!1 &7730887619731651995
 GameObject:
   m_ObjectHideFlags: 0

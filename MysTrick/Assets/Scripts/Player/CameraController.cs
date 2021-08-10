@@ -209,10 +209,12 @@ public class CameraController : MonoBehaviour
 				cameraHandle.transform.localEulerAngles = new Vector3(idleEulerX, 0, 0);
 
 				model.transform.eulerAngles = tempModelEuler;
-
 				transform.parent = cameraHandle.transform;
 				canRotate = false;
-				smr.enabled = true;
+				if (!ac.isUnrivaled)
+				{
+					smr.enabled = true;
+				}
 				pi.inputEnabled = true;
 				ac.moveSpeed = 5.0f;
 

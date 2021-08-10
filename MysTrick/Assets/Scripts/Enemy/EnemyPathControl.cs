@@ -27,6 +27,7 @@ public class EnemyPathControl : MonoBehaviour
     private float timeCount;
     private bool hitWithWall;
     private bool warningActive;
+    private float warningTimeCount;
 
     //	初期化
     void Awake()
@@ -58,14 +59,19 @@ public class EnemyPathControl : MonoBehaviour
 
             if (!LockOn() && !isAttackedByPlayer && !edc.hitWithPlayer)
             {
-                warningActive = false;
+                warningTimeCount += Time.deltaTime;
+                if (warningTimeCount > 3.0f)
+                {
+                    warningActive = true;
+                }
             }
-            else if ((LockOn() || isAttackedByPlayer || edc.hitWithPlayer) && !warningActive && (edc.enemyHp > 0))
+            else if ((LockOn() || isAttackedByPlayer || edc.hitWithPlayer) && warningActive && (edc.enemyHp > 0))
             {
                 au.PlayOneShot(sound);
                 edc.canMove = false;
                 warning.SetActive(true);
-                warningActive = true;
+                warningActive = false;
+                warningTimeCount = 0.0f;
             }
             
             if (!warning.GetComponent<Animation>().isPlaying)
