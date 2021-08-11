@@ -48,7 +48,7 @@ public class TriKeyUIController : MonoBehaviour
                     {
                         triImg.GetComponent<Image>().sprite = triSprite[0];
                     }
-                    else
+                    else if(ac.haveKeys.GreenKey)
                     {
                         triImg.GetComponent<Image>().sprite = triSprite[1];
                     }
