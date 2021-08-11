@@ -99,7 +99,15 @@ public class KeyDoorController : MonoBehaviour
 	{
 		if (other.transform.tag == "Player")
 		{
-			HintUI.SetActive(true);
+			if (!canOpen)
+			{
+				HintUI.SetActive(true);
+			}
+			else
+			{
+				HintUI.SetActive(false);
+			}
+
 			if (doorColor == DoorColor.Blue && other.GetComponent<ActorController>().haveKeys.BlueKey == true && Player.isTriggered)
 			{
 				canOpen = true;

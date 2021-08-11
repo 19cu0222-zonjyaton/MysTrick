@@ -205,6 +205,12 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1816497097}
   m_PrefabAsset: {fileID: 0}
+--- !u!23 &83715319 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 941682790693055425, guid: ec2c229ea2529c845aa0825566a078af,
+    type: 3}
+  m_PrefabInstance: {fileID: 1620248620}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &86338573
 GameObject:
   m_ObjectHideFlags: 0
@@ -3951,6 +3957,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 230362471203387541}
     m_Modifications:
+    - target: {fileID: 941682790693055425, guid: ec2c229ea2529c845aa0825566a078af,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 02641a4d758860e458f141550801d26f, type: 2}
+    - target: {fileID: 5721697491641993773, guid: ec2c229ea2529c845aa0825566a078af,
+        type: 3}
+      propertyPath: mesh
+      value: 
+      objectReference: {fileID: 1277231484}
     - target: {fileID: 5721697491641993773, guid: ec2c229ea2529c845aa0825566a078af,
         type: 3}
       propertyPath: radius
@@ -3958,8 +3974,30 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5721697491641993773, guid: ec2c229ea2529c845aa0825566a078af,
         type: 3}
+      propertyPath: material
+      value: 
+      objectReference: {fileID: -2573733167556495074, guid: 38b2cbe7bda193443bd97d29a1826463,
+        type: 3}
+    - target: {fileID: 5721697491641993773, guid: ec2c229ea2529c845aa0825566a078af,
+        type: 3}
       propertyPath: perRadian
       value: 0.08
+      objectReference: {fileID: 0}
+    - target: {fileID: 5721697491641993773, guid: ec2c229ea2529c845aa0825566a078af,
+        type: 3}
+      propertyPath: lockUIName
+      value: GreenDoor
+      objectReference: {fileID: 0}
+    - target: {fileID: 5721697491641993773, guid: ec2c229ea2529c845aa0825566a078af,
+        type: 3}
+      propertyPath: newMaterial
+      value: 
+      objectReference: {fileID: -2573733167556495074, guid: 38b2cbe7bda193443bd97d29a1826463,
+        type: 3}
+    - target: {fileID: 5721697491641993773, guid: ec2c229ea2529c845aa0825566a078af,
+        type: 3}
+      propertyPath: meshCanChange
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7094594196082652956, guid: ec2c229ea2529c845aa0825566a078af,
         type: 3}
@@ -4037,6 +4075,12 @@ GameObject:
 --- !u!4 &1272275161 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7583744536438746534, guid: ec2c229ea2529c845aa0825566a078af,
+    type: 3}
+  m_PrefabInstance: {fileID: 1263770790}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &1277231484 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 941682790693055425, guid: ec2c229ea2529c845aa0825566a078af,
     type: 3}
   m_PrefabInstance: {fileID: 1263770790}
   m_PrefabAsset: {fileID: 0}
@@ -5642,6 +5686,27 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 526671781058730645}
     m_Modifications:
+    - target: {fileID: 941682790693055425, guid: ec2c229ea2529c845aa0825566a078af,
+        type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 941682790693055425, guid: ec2c229ea2529c845aa0825566a078af,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 02641a4d758860e458f141550801d26f, type: 2}
+    - target: {fileID: 941682790693055425, guid: ec2c229ea2529c845aa0825566a078af,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: -2573733167556495074, guid: 38b2cbe7bda193443bd97d29a1826463,
+        type: 3}
+    - target: {fileID: 5721697491641993773, guid: ec2c229ea2529c845aa0825566a078af,
+        type: 3}
+      propertyPath: mesh
+      value: 
+      objectReference: {fileID: 83715319}
     - target: {fileID: 5721697491641993773, guid: ec2c229ea2529c845aa0825566a078af,
         type: 3}
       propertyPath: radius
@@ -5649,9 +5714,47 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5721697491641993773, guid: ec2c229ea2529c845aa0825566a078af,
         type: 3}
+      propertyPath: material
+      value: 
+      objectReference: {fileID: -2573733167556495074, guid: 38b2cbe7bda193443bd97d29a1826463,
+        type: 3}
+    - target: {fileID: 5721697491641993773, guid: ec2c229ea2529c845aa0825566a078af,
+        type: 3}
       propertyPath: perRadian
       value: 0.08
       objectReference: {fileID: 0}
+    - target: {fileID: 5721697491641993773, guid: ec2c229ea2529c845aa0825566a078af,
+        type: 3}
+      propertyPath: lockUIName
+      value: BlueDoor
+      objectReference: {fileID: 0}
+    - target: {fileID: 5721697491641993773, guid: ec2c229ea2529c845aa0825566a078af,
+        type: 3}
+      propertyPath: newMaterial
+      value: 
+      objectReference: {fileID: -2573733167556495074, guid: 38b2cbe7bda193443bd97d29a1826463,
+        type: 3}
+    - target: {fileID: 5721697491641993773, guid: ec2c229ea2529c845aa0825566a078af,
+        type: 3}
+      propertyPath: meshCanChange
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5721697491641993773, guid: ec2c229ea2529c845aa0825566a078af,
+        type: 3}
+      propertyPath: material.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5721697491641993773, guid: ec2c229ea2529c845aa0825566a078af,
+        type: 3}
+      propertyPath: material.Array.data[0]
+      value: 
+      objectReference: {fileID: -2573733167556495074, guid: 38b2cbe7bda193443bd97d29a1826463,
+        type: 3}
+    - target: {fileID: 5721697491641993773, guid: ec2c229ea2529c845aa0825566a078af,
+        type: 3}
+      propertyPath: material.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 02641a4d758860e458f141550801d26f, type: 2}
     - target: {fileID: 7094594196082652956, guid: ec2c229ea2529c845aa0825566a078af,
         type: 3}
       propertyPath: m_Name
@@ -6157,17 +6260,17 @@ PrefabInstance:
     - target: {fileID: 6563069687783362538, guid: deb5c94de91a32e4ca21d16c24db72a9,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 13.1
+      value: 20.06
       objectReference: {fileID: 0}
     - target: {fileID: 6563069687783362538, guid: deb5c94de91a32e4ca21d16c24db72a9,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 13.72
+      value: 5.99
       objectReference: {fileID: 0}
     - target: {fileID: 6563069687783362538, guid: deb5c94de91a32e4ca21d16c24db72a9,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 15.67
+      value: -19.79
       objectReference: {fileID: 0}
     - target: {fileID: 6563069687783362538, guid: deb5c94de91a32e4ca21d16c24db72a9,
         type: 3}
@@ -9605,7 +9708,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3062546110324414814}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.86975825, y: 0.48627317, z: 0.1638855}
@@ -9775,7 +9878,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3324278012126327345}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.8697595, y: 0.48627317, z: 0.1638861}
@@ -10230,7 +10333,7 @@ GameObject:
   - component: {fileID: 4148676443788063063}
   m_Layer: 0
   m_Name: greenDoor
-  m_TagString: Untagged
+  m_TagString: Key
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10301,7 +10404,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4159323375411106244}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.0914209, y: 0.09985962, z: 1.4033734}
@@ -11876,7 +11979,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5353628017956625059}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.86975706, y: 0.48627317, z: 0.16388793}
@@ -12583,7 +12686,7 @@ GameObject:
   - component: {fileID: 6184693395867797333}
   m_Layer: 0
   m_Name: blueDoor
-  m_TagString: Untagged
+  m_TagString: Key
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -12953,7 +13056,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6531783575281708986}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.09141906, y: 0.09985962, z: 1.4033716}
@@ -12986,7 +13089,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6542738130117750265}
   m_Material: {fileID: 13400000, guid: 4d9d284ecc775e94f8169f50b96cbc09, type: 2}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 0.3871765, y: 0.81605345, z: 1.4892443}
@@ -14117,7 +14220,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8504331316037218508}
   m_Material: {fileID: 13400000, guid: 4d9d284ecc775e94f8169f50b96cbc09, type: 2}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.38717285, y: 0.81605345, z: 1.4892443}
@@ -14209,7 +14312,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8572991511645601337}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.86975706, y: 0.48627317, z: 0.1638855}
