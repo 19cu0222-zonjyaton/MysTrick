@@ -127,7 +127,7 @@ public class ActorController : MonoBehaviour
 			else if (pi.isThrowing && !pi.isAimStatus && !attack_anim.isPlaying)   
 			{
 				anim.SetTrigger("Throw");
-
+				anim.SetLayerWeight(anim.GetLayerIndex("Throw"), 1.0f);
 				audio.PlayOneShot(sounds[1]);
 
 				pi.canThrow = false;					//	武器を手に戻るまで投げれない設定

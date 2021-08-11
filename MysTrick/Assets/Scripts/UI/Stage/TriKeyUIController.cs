@@ -10,31 +10,55 @@ public class TriKeyUIController : MonoBehaviour
     public GameObject triKeyUI;        //  親のオブジェクト
     public GameObject[] triKey;        //  作るUIの用意場所
     public TriKeyController[] tkc;
+    public string keyType;
 
     private ActorController ac;
     private int uiPos;
-    private bool[] doOnce = {false, false, false};
+    private bool[] doOnce = { false, false, false };
 
     void Awake()
     {
         ac = GameObject.Find("PlayerHandle").GetComponent<ActorController>();
-
-        triKey = new GameObject[triSprite.Length];
     }
 
     // Update is called once per frame
     void Update()
     {
-        for (int i = 0; i < ac.havePieces.Length; i++)
+        if (keyType == "TriKey")
         {
-            if (ac.havePieces[i] && tkc[i].uiAnimStart && !doOnce[i])
+            for (int i = 0; i < ac.havePieces.Length; i++)
             {
-                triImg.GetComponent<Image>().sprite = triSprite[i];
-                triKey[i] = Instantiate(triImg, transform.position + new Vector3(uiPos * 100.0f, 0.0f, 0.0f), Quaternion.identity);
-                triKey[i].transform.SetParent(triKeyUI.transform);
-                uiPos++;
-                doOnce[i] = true;
+                if (ac.havePieces[i] && tkc[i].uiAnimStart && !doOnce[i])
+                {
+                    triImg.GetComponent<Image>().sprite = triSprite[i];
+                    triKey[i] = Instantiate(triImg, transform.position + new Vector3(uiPos * 100.0f, 0.0f, 0.0f), Quaternion.identity);
+                    triKey[i].transform.SetParent(triKeyUI.transform);
+                    uiPos++;
+                    doOnce[i] = true;
+                }
             }
         }
+        else if (keyType == "Key")
+        {
+            for (int i = 0; i < 2; i++)
+            {
+                if ((ac.haveKeys.BlueKey || ac.haveKeys.GreenKey) && tkc[i].uiAnimStart && !doOnce[i])
+                {
+                    if (ac.haveKeys.BlueKey)
+                    {
+                        triImg.GetComponent<Image>().sprite = triSprite[0];
+                    }
+                    else
+                    {
+                        triImg.GetComponent<Image>().sprite = triSprite[1];
+                    }
+                    triKey[i] = Instantiate(triImg, transform.position + new Vector3(uiPos * 100.0f, 0.0f, 0.0f), Quaternion.identity);
+                    triKey[i].transform.SetParent(triKeyUI.transform);
+                    uiPos++;
+                    doOnce[i] = true;
+                }
+            }
+        }
+
     }
 }

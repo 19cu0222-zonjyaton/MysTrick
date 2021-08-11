@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-	public PlayerInput pi;						//	プレイヤーの入力コントローラー
+	public GameObject playerHandle;             //	プレイヤーハンドルオブジェクト
+	public GameObject model;                    //	プレイヤーモデルオブジェクト
 	public GoalController goal;					//	ゴールコントローラー
 	public GameObject cameraBackPos;            //  カメラ戻る時の位置
 	public Vector3 moveToPos;                   //  カメラ目標の位置
@@ -31,10 +32,10 @@ public class CameraController : MonoBehaviour
 
 	private ActorController ac;					//	プレイヤーの挙動コントローラー
 	private GameObject cameraHandle;			//	カメラハンドルオブジェクト
-	private GameObject playerHandle;			//	プレイヤーハンドルオブジェクト
-	private GameObject model;					//	プレイヤーモデルオブジェクト
+	private PlayerInput pi;                     //	プレイヤーの入力コントローラー
+	private Animator anim;
 	private SkinnedMeshRenderer smr;			//	プレイヤーメッシュコンポーネント
-	private new AudioSource audio;				//	SEコンポーネント
+	private AudioSource au;						//	SEコンポーネント
 	private Vector3 relativePos;				//	移動ターゲットの相対位置
 	private float aimEulerX;					//	狙う状態のカメラX軸回転値
 	private float idleEulerX;                   //	制限されたX軸の回転角度
@@ -46,10 +47,6 @@ public class CameraController : MonoBehaviour
 	{
 		cameraHandle = transform.parent.gameObject;
 
-		playerHandle = cameraHandle.transform.parent.gameObject;
-
-		model = playerHandle.GetComponent<ActorController>().model;
-
 		smr = GameObject.Find("Model").GetComponent<SkinnedMeshRenderer>();
 
 		goal = GameObject.Find("Goal").GetComponent<GoalController>();
@@ -58,7 +55,11 @@ public class CameraController : MonoBehaviour
 
 		ac = playerHandle.GetComponent<ActorController>();
 
-		audio = gameObject.GetComponent<AudioSource>();
+		pi = playerHandle.GetComponent<PlayerInput>();
+
+		anim = model.GetComponent<Animator>();
+
+		au = gameObject.GetComponent<AudioSource>();
 	}
 
 	//	カメラアップデート処理
@@ -179,9 +180,11 @@ public class CameraController : MonoBehaviour
 					{
 						if (pi.isThrowing)
 						{
+							anim.SetTrigger("Throw");
+
 							Instantiate(weapon, transform.position + transform.forward * 1.5f, transform.rotation);
 
-							audio.Play();
+							au.Play();
 
 							canThrowWeapon = false;
 

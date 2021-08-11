@@ -1228,7 +1228,7 @@ SkinnedMeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6563069687901137005}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -1877,7 +1877,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2633d117660ff414f9ef6932c670d064, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pi: {fileID: 6563069687783362543}
+  playerHandle: {fileID: 6563069687783362545}
+  model: {fileID: 6563069687167480267}
   goal: {fileID: 0}
   cameraBackPos: {fileID: 0}
   moveToPos: {x: 0, y: 0, z: 0}
