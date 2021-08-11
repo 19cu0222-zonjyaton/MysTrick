@@ -12,14 +12,15 @@ public class BarrierController : MonoBehaviour
 {
 	[Header("===調整用===")]
 	public TriggerController Device;
-	public Transform targetXA;			// 右A点
-	public Transform targetXB;			// 右B点
-	public Transform targetYA;			// 左A点
-	public Transform targetYB;          // 左B点
-	public bool stickCanMove;			// 針は移動可能フラグ
-	public float moveSpeed;				// 移動スピード
-	public float moveTimeCount;			// 移動経過時間
-	public float stopTime = 1.0f;		// 停止時間
+	public Transform targetXA;				// 右A点
+	public Transform targetXB;				// 右B点
+	public Transform targetYA;				// 左A点
+	public Transform targetYB;				// 左B点
+	public bool stickCanMove;				// 針は移動可能フラグ
+	public float moveSpeed;					// 移動スピード
+	public float moveTimeCount;				// 移動経過時間
+	public float cameraSwitchTime = 1.5f;	// カメラの切り替え時間
+	public float stopTime = 1.0f;			// 停止時間
 
 	private int count;
 	[Header("===監視用===")]
@@ -28,6 +29,7 @@ public class BarrierController : MonoBehaviour
 	[SerializeField]
 	private bool right;
 	private float moveTimeReset;
+	private float cameraSwitchTimeReset;
 	private Vector3 nextPosition;
 
 	void Start()
@@ -38,6 +40,7 @@ public class BarrierController : MonoBehaviour
 		count = 0;
 		nextPosition = targetXB.position;
 		moveTimeReset = moveTimeCount;
+		cameraSwitchTimeReset = cameraSwitchTime;
 	}
 
 	void Update()
@@ -48,17 +51,21 @@ public class BarrierController : MonoBehaviour
 			// デバイスを作動する時
 			if (Device != null && Device.isTriggered)
 			{
-				isTriggered = true;
-				++count;
-				if (count == 2 && right)
+				if (cameraSwitchTime > 0.0f) cameraSwitchTime -= Time.deltaTime;
+				else
 				{
-					++Device.launchCount;
-					right = false;
-				}
-				else if (count == 2 && !right) 
-				{
-					++Device.launchCount;
-					right = true;
+					isTriggered = true;
+					++count;
+					if (count == 2 && right)
+					{
+						++Device.launchCount;
+						right = false;
+					}
+					else if (count == 2 && !right)
+					{
+						++Device.launchCount;
+						right = true;
+					}
 				}
 			}
 			// 障害物を右へ移動する時
@@ -74,6 +81,7 @@ public class BarrierController : MonoBehaviour
 					count = 0;
 					nextPosition = targetXB.localPosition;
 					moveTimeCount = moveTimeReset + stopTime;
+					cameraSwitchTime = cameraSwitchTimeReset;
 				}
 			}
 			// 障害物を左へ移動する時
@@ -89,6 +97,7 @@ public class BarrierController : MonoBehaviour
 					count = 0;
 					nextPosition = targetYB.localPosition;
 					moveTimeCount = moveTimeReset + stopTime;
+					cameraSwitchTime = cameraSwitchTimeReset;
 				}
 			}
 			// 障害物が右に上下移動する時
