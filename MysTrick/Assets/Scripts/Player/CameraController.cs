@@ -12,12 +12,14 @@ public class CameraController : MonoBehaviour
 	public StairController[] stair;				//	階段オブジェクト
 	public DoorController[] door;				//	ドアオブジェクト
 	public BridgeController[] bridge;			//	梯オブジェクト
-	public LadderController[] ladder;			//	梯子オブジェクト
+	public LadderController[] ladder;           //	梯子オブジェクト
+	public BarrierController[] bc;               //	針オブジェクト
 	public ObjectController[] ob;				//	他のオブジェクト
 	public GameObject[] lookAtStair;			//	階段を注目する位置
 	public GameObject[] lookAtDoor;				//	ドアを注目する位置
 	public GameObject[] lookAtBridge;           //	梯を注目する位置
 	public GameObject[] lookAtLadder;           //	梯子を注目する位置
+	public GameObject[] lookAtBarrier;          //	針を注目する位置
 	public GameObject[] lookAtObject;           //	他のオブジェクトを注目する位置
 	public GameObject lookAtGoal;				//	ゴールを注目する位置
 	public GameObject firstPerspect;			//	狙う状態に切り替える時移動の位置
@@ -40,6 +42,7 @@ public class CameraController : MonoBehaviour
 	private float aimEulerX;					//	狙う状態のカメラX軸回転値
 	private float idleEulerX;                   //	制限されたX軸の回転角度
 	private float countTime = 10.0f;            //  カメラ視角切り替えの時間
+	public float timeSpeed = 1.5f;
 	private bool canRotate;                     //	プレイヤー視点切り替えた後回転できるか
 
 	// 初期化
@@ -135,6 +138,23 @@ public class CameraController : MonoBehaviour
 				cameraMove(lookAtLadder[i].transform.position, ladder[i].gameObject);
 			}
         }
+
+		//  When Trigger are barrier
+		for (int i = 0; i < bc.Length; i++)
+		{
+			if (bc[i].cameraMoveStart && !bc[i].hasDone)
+			{
+				cameraStatic = "MoveToBarrier" + (i + 1);
+				pi.inputEnabled = false;
+				timeSpeed = 1.0f;
+				bc[i].hasDone = true;
+			}
+
+			if (cameraStatic == "MoveToBarrier" + (i + 1))
+			{
+				cameraMove(lookAtBarrier[i].transform.position, bc[i].gameObject);
+			}
+		}
 
 		//  When Trigger are object
 		for (int i = 0; i < ob.Length; i++)
@@ -287,7 +307,7 @@ public class CameraController : MonoBehaviour
 	//  カメラ移動関数
 	private void cameraMove(Vector3 movePos, GameObject target)
 	{
-		countTime -= Time.fixedDeltaTime * 1.5f;
+		countTime -= Time.fixedDeltaTime * timeSpeed;
 
 		if (countTime <= 9.0f && countTime > 6.0f)
 		{	
@@ -324,6 +344,8 @@ public class CameraController : MonoBehaviour
 			cameraStatic = "Idle";
 
 			countTime = 10.0f;
+
+			timeSpeed = 1.5f;
 
 			pi.inputEnabled = true;
 		}
