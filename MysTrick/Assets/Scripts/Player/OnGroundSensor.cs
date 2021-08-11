@@ -37,7 +37,7 @@ public class OnGroundSensor : MonoBehaviour
 
         if (outputCols.Length == 0)
         {
-            pi.inputEnabled = false;
+            pi.ResetSignal();
         }
         else if (outputCols.Length != 0 && !pi.lockJumpStatus && !goal.gameClear && ca.cameraStatic == "Idle" && !ac.isUnrivaled && !ac.isDead)
         {

@@ -26,7 +26,7 @@ public class ActorController : MonoBehaviour
 	public bool isDead;						//	プレイヤーが死亡flag
 	public bool isFall;						//	外に落ちるflag
 
-	public float moveSpeed = 5.0f;			//	移動スピード
+	public float moveSpeed;					//	移動スピード
 	public bool isInTrigger;				//	仕掛けスイッチを当たるフラグ
 	public bool isDamageByEnemy;			//	敵と衝突したフラグ
 	public bool isUnrivaled;				//	無敵Time
