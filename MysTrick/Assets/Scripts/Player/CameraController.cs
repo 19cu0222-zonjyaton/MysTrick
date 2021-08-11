@@ -188,7 +188,7 @@ public class CameraController : MonoBehaviour
 				else
 				{
 					canRotate = true;
-					ac.moveSpeed = 2.0f;
+					ac.moveSpeed = 3.0f;
 					aimEulerX -= pi.Jup * verticalSpeed * 2.0f * Time.fixedDeltaTime;
 					transform.Rotate(Vector3.up, pi.Jright * 80 * Time.fixedDeltaTime);
 					aimEulerX = Mathf.Clamp(aimEulerX, -80, 80);                  //  縦の回転角を制限する
@@ -239,7 +239,7 @@ public class CameraController : MonoBehaviour
 					smr.enabled = true;
 				}
 				pi.inputEnabled = true;
-				ac.moveSpeed = 5.0f;
+				ac.moveSpeed = 7.0f;
 
 				//  位置を戻る
 				transform.position = Vector3.Slerp(transform.position, cameraBackPos.transform.position, 5.0f * Time.fixedDeltaTime);
