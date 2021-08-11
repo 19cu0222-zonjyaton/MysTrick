@@ -8,6 +8,7 @@ public class ThrowWeaponController : MonoBehaviour
     public float speed;             //  スタートの移動速度
     
     private Rigidbody rigid;        //	鋼体コンポーネント
+    private Animator anim;
     private GameObject playerPos;   //  プレイヤーの位置を獲得するため
     private PlayerInput pi;         //  攻撃ができるかどうかの判断
     private GameObject playerCamera;//  カメラオブジェクト
@@ -18,6 +19,8 @@ public class ThrowWeaponController : MonoBehaviour
     void Awake()
     {
         rigid = gameObject.GetComponent<Rigidbody>();
+
+        anim = GameObject.Find("PlayerModule").GetComponent<Animator>();
 
         playerPos = GameObject.Find("PlayerHandle");
 
@@ -32,6 +35,7 @@ public class ThrowWeaponController : MonoBehaviour
     {
         transform.Rotate(0.0f, rotateSpeed, 0.0f);
         wc.backToHand = false;
+        anim.SetLayerWeight(anim.GetLayerIndex("Throw"), 1.0f);
         if (speed > 0.0f)
         {
             gameObject.transform.tag = "Weapon";
@@ -46,7 +50,7 @@ public class ThrowWeaponController : MonoBehaviour
 
             speedDown += 0.2f;
 
-            transform.position = Vector3.Lerp(transform.position, playerCamera.transform.position - new Vector3(0, 1.0f, 0), speedDown * Time.fixedDeltaTime);     //  プレイヤーの位置に戻る
+            transform.position = Vector3.Lerp(transform.position, playerPos.transform.position + new Vector3(0, 1.8f, 0), speedDown * Time.fixedDeltaTime);     //  プレイヤーの位置に戻る
         }
     }
 
@@ -59,6 +63,8 @@ public class ThrowWeaponController : MonoBehaviour
             wc.backToHand = true;
 
             playerCamera.GetComponent<CameraController>().canThrowWeapon = true;
+
+            anim.SetLayerWeight(anim.GetLayerIndex("Throw"), 0.0f);
 
             Destroy(this.gameObject);
         }
