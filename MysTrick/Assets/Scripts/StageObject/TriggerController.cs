@@ -79,31 +79,33 @@ public class TriggerController : MonoBehaviour
 		}
 	}
 
-    //private void OnCollisionStay(Collision other)       //	プレイヤーが動いていない場合OnCollisionStayは呼び出されない
-    //{
-    //    if (other.transform.tag == "Player")
-    //    {
-    //        hintUI.SetActive(true);
+	//private void OnCollisionStay(Collision other)       //	プレイヤーが動いていない場合OnCollisionStayは呼び出されない
+	//{
+	//    if (other.transform.tag == "Player")
+	//    {
+	//        hintUI.SetActive(true);
 
-    //        if (this.transform.tag == "Device" && Player.isTriggered)
-    //        {
-    //            isTriggered = true;
-				//Player.isTriggered = false;
+	//        if (this.transform.tag == "Device" && Player.isTriggered)
+	//        {
+	//            isTriggered = true;
+	//Player.isTriggered = false;
 
-				//Debug.Log(this.transform.name + " has touched.");
-    //        }
-    //    }
-    //}
+	//Debug.Log(this.transform.name + " has touched.");
+	//        }
+	//    }
+	//}
 
-    //private void OnCollisionExit(Collision other)
-    //{
-    //	if (other.transform.tag == "Player")
-    //	{
-    //		hintUI.SetActive(false);
-    //	}
-    //}
+	//private void OnCollisionExit(Collision other)
+	//{
+	//	if (other.transform.tag == "Player")
+	//	{
+	//		hintUI.SetActive(false);
+	//	}
+	//}
 
-    private void OnTriggerEnter(Collider other)
+	// 当たり判定
+	//----------------------------------
+	private void OnTriggerEnter(Collider other)
 	{
 		// 武器に当たり
 		if (other.transform.tag == "Weapon")
@@ -203,13 +205,13 @@ public class TriggerController : MonoBehaviour
 				Debug.Log(this.transform.name + " has touched.");
 			}
 
-            if (this.transform.tag == "Key" && Player.isTriggered)
-            {
-                isTriggered = true;
+			if (this.transform.tag == "Key" && Player.isTriggered)
+			{
+				isTriggered = true;
 				Player.isTriggered = false;
-                Debug.Log(this.transform.name + " has touched.");
-            }
-        }
+				Debug.Log(this.transform.name + " has touched.");
+			}
+		}
 	}
 
 	private void OnTriggerExit(Collider other)
@@ -219,4 +221,5 @@ public class TriggerController : MonoBehaviour
 			hintUI.SetActive(false);
 		}
 	}
+	//----------------------------------
 }

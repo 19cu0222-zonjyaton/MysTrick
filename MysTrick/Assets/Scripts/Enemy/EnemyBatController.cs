@@ -422,6 +422,8 @@ public class EnemyBatController : MonoBehaviour
 		}
 	}
 
+	// 当たり判定
+	//----------------------------------
 	void OnTriggerEnter(Collider other)
 	{
 		if (other.transform.tag == "Weapon")
@@ -475,4 +477,5 @@ public class EnemyBatController : MonoBehaviour
 			hitGround = false;
 		}
 	}
+	//----------------------------------
 }
