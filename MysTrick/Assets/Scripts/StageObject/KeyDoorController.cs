@@ -95,6 +95,8 @@ public class KeyDoorController : MonoBehaviour
 		}
 	}
 
+	// 当たり判定
+	//----------------------------------
 	void OnTriggerStay(Collider other)
 	{
 		if (other.transform.tag == "Player")
@@ -118,4 +120,5 @@ public class KeyDoorController : MonoBehaviour
 			HintUI.SetActive(false);
 		}
 	}
+	//----------------------------------
 }

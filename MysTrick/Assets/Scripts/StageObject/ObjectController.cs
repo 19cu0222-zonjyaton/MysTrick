@@ -280,6 +280,8 @@ public class ObjectController : MonoBehaviour
 		timeFlag = true;
 	}
 
+	// 当たり判定
+	//----------------------------------
 	private void OnTriggerStay(Collider other)
 	{
 		if (other.gameObject.tag == "Player" && trajectory == Trajectory.WaitToStart
@@ -304,4 +306,5 @@ public class ObjectController : MonoBehaviour
 			}
 		}
 	}
+	//----------------------------------
 }

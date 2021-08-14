@@ -98,6 +98,8 @@ public class LiftDoorController : MonoBehaviour
 		}
 	}
 
+	// 当たり判定
+	//----------------------------------
 	void OnCollisionStay(Collision other)
 	{
 		if (other.transform.tag == "Player")
@@ -115,4 +117,5 @@ public class LiftDoorController : MonoBehaviour
 			isTriggered = false;
 		}
 	}
+	//----------------------------------
 }
