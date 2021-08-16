@@ -47,6 +47,8 @@ public class ActorController : MonoBehaviour
 	public HaveKeys haveKeys;
 
 	public bool[] havePieces = {false, false, false};
+	[HideInInspector]
+	public bool havePortalKey = false;
 	//-------------------------
 
 	private new AudioSource audio;			//	SEのコンポーネント
@@ -293,6 +295,9 @@ public class ActorController : MonoBehaviour
 				break;
 			case "GreenPiece":
 				havePieces[2] = true;
+				break;
+			case "PortalKey":
+				havePortalKey = true;
 				break;
 			default:
 				break;

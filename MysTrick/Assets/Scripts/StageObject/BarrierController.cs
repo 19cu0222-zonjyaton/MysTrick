@@ -12,35 +12,39 @@ public class BarrierController : MonoBehaviour
 {
 	[Header("===調整用===")]
 	public TriggerController Device;
-	public Transform targetXA;				// 右A点
-	public Transform targetXB;				// 右B点
-	public Transform targetYA;				// 左A点
-	public Transform targetYB;				// 左B点
+	public Transform targetRA;				// 右A点
+	public Transform targetRB;				// 右B点
+	public Transform targetLA;				// 左A点
+	public Transform targetLB;				// 左B点
 	public bool stickCanMove;				// 針は移動可能フラグ
-	public float moveSpeed;					// 移動スピード
-	public float stopTimeCount;				// 移動経過時間
+	public bool right = true;				// 最初位置(右か左か)
+	public bool fromZtoX;					// 復帰する順番
+	public bool fromXtoZ;					// 復帰する順番
+	public float moveSpeed = 5.0f;			// 移動スピード
+	public float stopTimeCount = 1.5f;		// 移動経過時間
 	public float cameraSwitchTime = 1.5f;	// カメラの切り替え時間
 
 	
 	[Header("===監視用===")]
 	[SerializeField]
 	private bool isTriggered;
-	[SerializeField]
-	private bool right;
 	private int count;
 	private bool toStop;
+	private bool _fromZtoX;
+	private bool _fromXtoZ;
 	private float stopTimeReset;
+	private float moveInterval = 0.5f;
 	private Vector3 nextPosition;
-	private Vector3 currentPosition;
 
 	void Start()
 	{
 		stickCanMove = true;
 		isTriggered = false;
-		right = true;
 		toStop = false;
+		_fromZtoX = fromZtoX;
+		_fromXtoZ = fromXtoZ;
 		count = 0;
-		nextPosition = targetXB.position;
+		nextPosition = right ? targetRB.localPosition : targetLB.localPosition;
 		stopTimeReset = stopTimeCount;
 	}
 
@@ -77,37 +81,93 @@ public class BarrierController : MonoBehaviour
 			// 障害物を右へ移動する時
 			if (isTriggered && right)
 			{
-				// 移動中
-				if (this.transform.localPosition != new Vector3(currentPosition.x, currentPosition.y, targetXA.localPosition.z)) this.transform.localPosition = Vector3.MoveTowards(this.transform.localPosition, 
-					new Vector3(currentPosition.x, currentPosition.y, targetXA.localPosition.z), moveSpeed * 1.5f * Time.deltaTime);
+				// 移動中(X軸を復帰->Z軸を復帰)
+				if (fromXtoZ)
+				{
+					if (this.transform.localPosition.x != targetLA.localPosition.x)
+						this.transform.localPosition = Vector3.MoveTowards(this.transform.localPosition, targetLA.localPosition, moveSpeed * 1.5f * Time.deltaTime);
+					else if (this.transform.localPosition.z != targetRA.localPosition.z)
+					{
+						if (moveInterval > 0.0f) moveInterval -= Time.deltaTime;
+						else
+						{
+							this.transform.localPosition = Vector3.MoveTowards(this.transform.localPosition, targetRA.localPosition, moveSpeed * 1.5f * Time.deltaTime);
+							
+						}
+					}
+					else fromXtoZ = false;
+				}
+				// 移動中(Z軸を復帰->X軸を復帰)
+				else if (fromZtoX)
+				{
+					if (this.transform.localPosition.z != targetLA.localPosition.z)
+						this.transform.localPosition = Vector3.MoveTowards(this.transform.localPosition, targetLA.localPosition, moveSpeed * 1.5f * Time.deltaTime);
+					else if (this.transform.localPosition.x != targetRA.localPosition.x)
+					{
+						if (moveInterval > 0.0f) moveInterval -= Time.deltaTime;
+						else
+						{
+							this.transform.localPosition = Vector3.MoveTowards(this.transform.localPosition, targetRA.localPosition, moveSpeed * 1.5f * Time.deltaTime);
+						}
+					}
+					else fromZtoX = false;
+				}
 				// 上下移動に切り替えるまでの準備
 				else
 				{
 					isTriggered = false;
 					Device.isTriggered = false;
+					toStop = false;
+					fromXtoZ = _fromXtoZ;
+					fromZtoX = _fromZtoX;
 					count = 0;
-					nextPosition = targetXB.localPosition;
+					nextPosition = targetRB.localPosition;
 					stopTimeCount = stopTimeReset;
 					cameraSwitchTime = 0.0f;
-					toStop = false;
+					moveInterval = 0.5f;
 				}
 			}
 			// 障害物を左へ移動する時
 			else if (isTriggered && !right)
 			{
-				// 移動中
-				if (this.transform.localPosition != new Vector3(currentPosition.x, currentPosition.y, targetYA.localPosition.z)) this.transform.localPosition = Vector3.MoveTowards(this.transform.localPosition,
-					new Vector3(currentPosition.x, currentPosition.y, targetYA.localPosition.z), moveSpeed * 1.5f * Time.deltaTime);
+				// 移動中(X軸を復帰->Z軸を復帰)
+				if (fromXtoZ)
+				{
+					if (this.transform.localPosition.x != targetRA.localPosition.x)
+						this.transform.localPosition = Vector3.MoveTowards(this.transform.localPosition, targetRA.localPosition, moveSpeed * 1.5f * Time.deltaTime);
+					else if (this.transform.localPosition.z != targetLA.localPosition.z)
+					{
+						if (moveInterval > 0.0f) moveInterval -= Time.deltaTime;
+						else this.transform.localPosition = Vector3.MoveTowards(this.transform.localPosition, targetLA.localPosition, moveSpeed * 1.5f * Time.deltaTime);
+					}
+					else fromXtoZ = false;
+				}
+				// 移動中(Z軸を復帰->X軸を復帰)
+				else if (fromZtoX)
+				{
+					if (this.transform.localPosition.z != targetRA.localPosition.z)
+						this.transform.localPosition = Vector3.MoveTowards(this.transform.localPosition, targetRA.localPosition, moveSpeed * 1.5f * Time.deltaTime);
+					else if (this.transform.localPosition.x != targetLA.localPosition.x)
+					{
+						if (moveInterval > 0.0f) moveInterval -= Time.deltaTime;
+						else this.transform.localPosition = Vector3.MoveTowards(this.transform.localPosition, targetLA.localPosition, moveSpeed * 1.5f * Time.deltaTime);
+
+					}
+					else fromZtoX = false;
+				}
 				// 上下移動に切り替えるまでの準備
 				else
 				{
 					isTriggered = false;
 					Device.isTriggered = false;
+					toStop = false;
+					fromXtoZ = _fromXtoZ;
+					fromZtoX = _fromZtoX;
 					count = 0;
-					nextPosition = targetYB.localPosition;
+					nextPosition = targetLB.localPosition;
 					stopTimeCount = stopTimeReset;
 					cameraSwitchTime = 0.0f;
-					toStop = false;
+					moveInterval = 0.5f;
 				}
 			}
 			// 障害物が右に上下移動する時
@@ -120,11 +180,10 @@ public class BarrierController : MonoBehaviour
 				// 上(下)移動に切り替え
 				else
 				{
-					if (nextPosition == targetXB.localPosition) nextPosition = targetXA.localPosition;
-					else nextPosition = targetXB.localPosition;
+					if (nextPosition == targetRB.localPosition) nextPosition = targetRA.localPosition;
+					else nextPosition = targetRB.localPosition;
 					stopTimeCount = stopTimeReset;
 				}
-				currentPosition = this.transform.localPosition;
 			}
 			// 障害物が左に上下移動する時
 			else if (!isTriggered && !right && !toStop)
@@ -136,11 +195,10 @@ public class BarrierController : MonoBehaviour
 				// 上(下)移動に切り替え
 				else
 				{
-					if (nextPosition == targetYB.localPosition) nextPosition = targetYA.localPosition;
-					else nextPosition = targetYB.localPosition;
+					if (nextPosition == targetLB.localPosition) nextPosition = targetLA.localPosition;
+					else nextPosition = targetLB.localPosition;
 					stopTimeCount = stopTimeReset;
 				}
-				currentPosition = this.transform.localPosition;
 			}
 		}
 	}

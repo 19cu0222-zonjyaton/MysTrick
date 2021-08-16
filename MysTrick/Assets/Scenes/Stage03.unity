@@ -259,7 +259,7 @@ GameObject:
   m_Component:
   - component: {fileID: 99194517}
   m_Layer: 8
-  m_Name: TargetXB
+  m_Name: TargetRB
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2173,7 +2173,7 @@ GameObject:
   m_Component:
   - component: {fileID: 594195368}
   m_Layer: 8
-  m_Name: TargetYB
+  m_Name: TargetLB
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3294,7 +3294,7 @@ GameObject:
   m_Component:
   - component: {fileID: 996038186}
   m_Layer: 8
-  m_Name: TargetXA
+  m_Name: TargetRA
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3384,7 +3384,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1071203718}
   m_Layer: 8
-  m_Name: TargetXA
+  m_Name: TargetRA
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4491,7 +4491,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1307095915}
   m_Layer: 8
-  m_Name: TargetYA
+  m_Name: TargetLA
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5001,7 +5001,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1446721047}
   m_Layer: 8
-  m_Name: TargetXB
+  m_Name: TargetRB
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9971,16 +9971,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Device: {fileID: 0}
-  targetXA: {fileID: 1048654379152138351}
-  targetXB: {fileID: 1048654379152138351}
-  targetYA: {fileID: 1048654379152138351}
-  targetYB: {fileID: 1048654379152138351}
+  targetRA: {fileID: 0}
+  targetRB: {fileID: 0}
+  targetLA: {fileID: 0}
+  targetLB: {fileID: 0}
   stickCanMove: 0
+  right: 0
+  fromZtoX: 0
+  fromXtoZ: 0
   moveSpeed: 0
   stopTimeCount: 0
   cameraSwitchTime: 1.5
   isTriggered: 0
-  right: 0
 --- !u!23 &4081906157461239860
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -10499,16 +10501,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Device: {fileID: 0}
-  targetXA: {fileID: 996038186}
-  targetXB: {fileID: 99194517}
-  targetYA: {fileID: 0}
-  targetYB: {fileID: 0}
+  targetRA: {fileID: 996038186}
+  targetRB: {fileID: 99194517}
+  targetLA: {fileID: 0}
+  targetLB: {fileID: 0}
   stickCanMove: 0
+  right: 1
+  fromZtoX: 0
+  fromXtoZ: 1
   moveSpeed: 3
-  stopTimeCount: 0
+  stopTimeCount: 1.5
   cameraSwitchTime: 1.5
   isTriggered: 0
-  right: 0
 --- !u!65 &4662126544963233095
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -11681,16 +11685,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Device: {fileID: 1502012085}
-  targetXA: {fileID: 1071203718}
-  targetXB: {fileID: 1446721047}
-  targetYA: {fileID: 1307095915}
-  targetYB: {fileID: 594195368}
+  targetRA: {fileID: 1071203718}
+  targetRB: {fileID: 1446721047}
+  targetLA: {fileID: 1307095915}
+  targetLB: {fileID: 594195368}
   stickCanMove: 0
+  right: 1
+  fromZtoX: 0
+  fromXtoZ: 1
   moveSpeed: 5
   stopTimeCount: 1.5
   cameraSwitchTime: 1.5
   isTriggered: 0
-  right: 0
 --- !u!1 &5353628017956625059
 GameObject:
   m_ObjectHideFlags: 0
