@@ -100,7 +100,28 @@ public class LiftDoorController : MonoBehaviour
 
 	// 当たり判定
 	//----------------------------------
-	void OnCollisionStay(Collision other)
+	//void OnCollisionStay(Collision other)
+	//{
+	//	if (other.transform.tag == "Player")
+	//	{
+	//		HintUI.SetActive(true);
+	//		if (player.isTriggered) isTriggered = true;
+	//	}
+	//}
+
+	//void OnCollisionExit(Collision other)
+	//{
+	//	if (other.transform.tag == "Player")
+	//	{
+	//		HintUI.SetActive(false);
+	//		isTriggered = false;
+	//	}
+	//}
+	////----------------------------------
+
+	// 当たり判定
+	//----------------------------------
+	void OnTriggerStay(Collider other)
 	{
 		if (other.transform.tag == "Player")
 		{
@@ -109,7 +130,7 @@ public class LiftDoorController : MonoBehaviour
 		}
 	}
 
-	void OnCollisionExit(Collision other)
+	void OnTriggerExit(Collider other)
 	{
 		if (other.transform.tag == "Player")
 		{
@@ -117,5 +138,4 @@ public class LiftDoorController : MonoBehaviour
 			isTriggered = false;
 		}
 	}
-	//----------------------------------
 }

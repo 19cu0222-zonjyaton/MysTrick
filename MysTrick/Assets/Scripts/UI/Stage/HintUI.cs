@@ -45,19 +45,22 @@ public class HintUI : MonoBehaviour
 
             transform.forward = (cameraPos.transform.position - transform.position).normalized;     //  いつでもカメラに向けさせる
 
-            if (meshCanChange)
-            {
-                if (ac.haveKeys.BlueKey && lockUIName == "BlueDoor")
-                {
-                    mesh.material.CopyPropertiesFromMaterial(newMaterial);     //  materialを変更するメソッド
-                }
-
-                if (!ac.haveKeys.GreenKey && lockUIName == "GreenDoor")
-                {
+			if (meshCanChange)
+			{
+				if (ac.haveKeys.BlueKey && lockUIName == "BlueDoor")
+				{
+					mesh.material.CopyPropertiesFromMaterial(newMaterial);     //  materialを変更するメソッド
+				}
+				else if (!ac.haveKeys.GreenKey && lockUIName == "GreenDoor")
+				{
+					mesh.material.CopyPropertiesFromMaterial(newMaterial);
+				}
+                else if(ac.havePieces[0] && ac.havePieces[1] && ac.havePieces[2] && lockUIName == "PieceDoor")
+				{
                     mesh.material.CopyPropertiesFromMaterial(newMaterial);
                 }
             }
-        }
+		}
     }
 }
 
