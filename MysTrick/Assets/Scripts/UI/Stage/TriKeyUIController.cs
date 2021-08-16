@@ -44,14 +44,7 @@ public class TriKeyUIController : MonoBehaviour
             {
                 if ((ac.haveKeys.BlueKey || ac.haveKeys.GreenKey) && tkc[i].uiAnimStart && !doOnce[i])
                 {
-                    if (ac.haveKeys.BlueKey)
-                    {
-                        triImg.GetComponent<Image>().sprite = triSprite[0];
-                    }
-                    else if(ac.haveKeys.GreenKey)
-                    {
-                        triImg.GetComponent<Image>().sprite = triSprite[1];
-                    }
+                    triImg.GetComponent<Image>().sprite = triSprite[i];
                     triKey[i] = Instantiate(triImg, transform.position + new Vector3(uiPos * 100.0f, 0.0f, 0.0f), Quaternion.identity);
                     triKey[i].transform.SetParent(triKeyUI.transform);
                     uiPos++;

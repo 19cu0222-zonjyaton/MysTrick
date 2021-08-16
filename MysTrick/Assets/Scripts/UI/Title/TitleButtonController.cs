@@ -84,6 +84,7 @@ public class TitleButtonController : MonoBehaviour
                 titleLogo.transform.position = new Vector3(0, 35.0f, -30.0f);
                 titleLogo.transform.eulerAngles = new Vector3(0, 180.0f, 0);
                 titleLogo.GetComponent<Rigidbody>().useGravity = true;
+                gameObject.GetComponent<Image>().color = new Color(255, 253, 0, 255);
                 gameObject.GetComponent<Image>().enabled = false;
                 au.PlayOneShot(sounds[1]);
                 btn.enabled = false;

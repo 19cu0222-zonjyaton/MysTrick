@@ -139,22 +139,22 @@ public class CameraController : MonoBehaviour
 			}
         }
 
-		////  When Trigger are barrier
-		//for (int i = 0; i < bc.Length; i++)
-		//{
-		//	if (bc[i].cameraMoveStart && !bc[i].hasDone)
-		//	{
-		//		cameraStatic = "MoveToBarrier" + (i + 1);
-		//		pi.inputEnabled = false;
-		//		timeSpeed = 1.0f;
-		//		bc[i].hasDone = true;
-		//	}
+		//  When Trigger are barrier
+		for (int i = 0; i < bc.Length; i++)
+		{
+			if (bc[i].Device.isTriggered && !bc[i].hasDone)
+			{
+				cameraStatic = "MoveToBarrier" + (i + 1);
+				pi.inputEnabled = false;
+				timeSpeed = 0.7f;
+				bc[i].hasDone = true;
+			}
 
-		//	if (cameraStatic == "MoveToBarrier" + (i + 1))
-		//	{
-		//		cameraMove(lookAtBarrier[i].transform.position, bc[i].gameObject);
-		//	}
-		//}
+			if (cameraStatic == "MoveToBarrier" + (i + 1))
+			{
+				cameraMove(lookAtBarrier[i].transform.position, bc[i].gameObject);
+			}
+		}
 
 		//  When Trigger are object
 		for (int i = 0; i < ob.Length; i++)

@@ -17,7 +17,8 @@ public class BarrierController : MonoBehaviour
 	public Transform targetLA;				// 左A点
 	public Transform targetLB;				// 左B点
 	public bool stickCanMove;				// 針は移動可能フラグ
-	public bool right = true;				// 最初位置(右か左か)
+	public bool right = true;               // 最初位置(右か左か)
+	public bool hasDone;                   // 
 	public bool fromZtoX;					// 復帰する順番
 	public bool fromXtoZ;					// 復帰する順番
 	public float moveSpeed = 5.0f;			// 移動スピード
