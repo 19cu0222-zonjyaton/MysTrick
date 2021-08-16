@@ -45,7 +45,7 @@ public class StageSelectButtonController : MonoBehaviour
         }
         else if(ActorInStageSelect.selectBtn == 4)
         {
-            gameObject.transform.parent.position = Vector3.MoveTowards(transform.parent.position, startPos - new Vector3(300.0f, 0.0f, 0.0f), 75.0f * Time.deltaTime);
+            gameObject.transform.parent.position = Vector3.MoveTowards(transform.parent.position, startPos - new Vector3(250.0f, 0.0f, 0.0f), 75.0f * Time.deltaTime);
         }
 
         if ((Input.GetKeyDown(KeyCode.Return) || Input.GetButtonDown("action")) && canSelected && !confirmMenuIsOpen && !ExitController.exitPanelIsOpen)
