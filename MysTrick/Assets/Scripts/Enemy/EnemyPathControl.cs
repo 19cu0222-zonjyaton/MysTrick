@@ -27,6 +27,7 @@ public class EnemyPathControl : MonoBehaviour
     private float timeCount;
     private bool hitWithWall;
     private bool warningActive;
+    private bool movePosCanChange;
     private float warningTimeCount;
 
     //	初期化
@@ -50,7 +51,7 @@ public class EnemyPathControl : MonoBehaviour
             isAttackedByPlayer = true;
         }
 
-        if (pi != null)
+        if (pi != null && cc.cameraStatic != "GameOver")
         {
             if (cc.cameraStatic == "Idle" && !edc.isDamage && !warning.GetComponent<Animation>().isPlaying)
             {
@@ -160,6 +161,11 @@ public class EnemyPathControl : MonoBehaviour
         else        //  タイトル画面
         {
             Patrol();
+            edc.canMove = true;
+            if (!warning.GetComponent<Animation>().isPlaying)
+            {
+                warning.SetActive(false);
+            }
         }
 
     }

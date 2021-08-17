@@ -25,12 +25,15 @@ public class CameraController : MonoBehaviour
 	public GameObject firstPerspect;			//	狙う状態に切り替える時移動の位置
 	public GameObject weapon;					//	武器オブジェクト
 	public GameObject usingWeapon;              //	今手が持っている武器
-	public GameObject[] deadCameraPos;            //	プレイヤーが死亡したら視点の位置
+	public GameObject[] deadCameraPos;          //	プレイヤーが死亡したら近い視点の位置
+	public GameObject[] gameoverCameraPos;      //	プレイヤーが死亡したら遠い視点の位置
 	public bool canThrowWeapon = true;			//	狙う状態で武器を投げる可能フラグ
 	public string cameraStatic = "Idle";        //  カメラ状態
 	public float horizontalSpeed = 50.0f;		//	カメラ横移動のスピード
 	public float verticalSpeed = 40.0f;         //	カメラ縦移動のスピード
+	public float timeSpeed = 1.5f;
 	public Vector3 moveSpeed;
+	public bool deadMoveStart;
 
 	private ActorController ac;					//	プレイヤーの挙動コントローラー
 	private GameObject cameraHandle;			//	カメラハンドルオブジェクト
@@ -42,8 +45,9 @@ public class CameraController : MonoBehaviour
 	private float aimEulerX;					//	狙う状態のカメラX軸回転値
 	private float idleEulerX;                   //	制限されたX軸の回転角度
 	private float countTime = 10.0f;            //  カメラ視角切り替えの時間
-	public float timeSpeed = 1.5f;
+	private float deadCountTime;				//	死亡したら近い視点から遠い視点まで移動の時間
 	private bool canRotate;                     //	プレイヤー視点切り替えた後回転できるか
+	private int deadMovePosNum;
 
 	// 初期化
 	void Awake()
@@ -71,6 +75,8 @@ public class CameraController : MonoBehaviour
 		if (Time.deltaTime != 0)
 		{
 			checkCameraStatic();
+
+			deadMove();
 		}
 	}
 
@@ -258,7 +264,7 @@ public class CameraController : MonoBehaviour
 				model.transform.eulerAngles = tempModelEuler;
 			}
 		}
-		else if (goal.gameClear)    //	プレイヤーがクリアしたらカメラの処理
+		else if (goal.gameClear && cameraStatic != "GameClear")    //	プレイヤーがクリアしたらカメラの処理
 		{
 			transform.SetParent(null);
 			cameraStatic = "GameClear";
@@ -267,12 +273,13 @@ public class CameraController : MonoBehaviour
 			transform.rotation = Quaternion.Slerp(transform.rotation, lookAtGoal.transform.rotation, 3.0f * Time.fixedDeltaTime);
 			transform.LookAt(goal.gameObject.transform);
 		}
-		else if (ac.isDead)         //	プレイヤーが死亡したらカメラの処理
+		else if (ac.isDead && cameraStatic != "GameOver")         //	プレイヤーが死亡したらカメラの処理
 		{
 			transform.SetParent(null);
             for (int i = 0; i < deadCameraPos.Length; i++)
             {
 				deadCameraPos[i].transform.SetParent(null);
+				gameoverCameraPos[i].transform.SetParent(null);
 				Ray ray = new Ray(deadCameraPos[i].transform.position, ((playerHandle.transform.position + new Vector3(0, 1.0f, 0)) - deadCameraPos[i].transform.position).normalized);
                 RaycastHit hit;
                 Physics.Raycast(ray, out hit, Mathf.Infinity);
@@ -283,6 +290,7 @@ public class CameraController : MonoBehaviour
 					{
 						cameraStatic = "GameOver";
 						transform.position = deadCameraPos[i].transform.position;
+						deadMovePosNum = i;
 						break;
 					}
                 }
@@ -348,6 +356,21 @@ public class CameraController : MonoBehaviour
 			timeSpeed = 1.5f;
 
 			pi.inputEnabled = true;
+		}
+	}
+
+	private void deadMove()
+	{
+		if (ac.isDead)
+		{
+			deadCountTime += Time.deltaTime;
+
+			if (deadCountTime > 2.0f)
+			{
+				deadMoveStart = true;
+				Time.timeScale = 1.0f;
+				transform.position = gameoverCameraPos[deadMovePosNum].transform.position;
+			}
 		}
 	}
 }

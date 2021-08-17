@@ -10,47 +10,57 @@ public class StageMenuController : MonoBehaviour
     public bool animIsOver = true;          //   UIのアニメ終了フラグ
     private Animator animator;
     private AudioSource au;                 //	SEのコンポーネント
+    private ActorController ac;
 
     void Awake()
     {
         animator = gameObject.GetComponent<Animator>();
 
         au = gameObject.GetComponent<AudioSource>();
+
+        ac = GameObject.Find("PlayerHandle").GetComponent<ActorController>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if ((Input.GetKeyDown(KeyCode.Escape) || Input.GetButtonDown("menu")) && animIsOver)       
+        if (!ac.isDead)
         {
-            if (isOpenMenu)           //  もう一度ESC或いはXBoxのMenuボタンでゲーム画面に戻る
+            if ((Input.GetKeyDown(KeyCode.Escape) || Input.GetButtonDown("menu")) && animIsOver)
+            {
+                if (isOpenMenu)           //  もう一度ESC或いはXBoxのMenuボタンでゲーム画面に戻る
+                {
+                    Time.timeScale = 1;
+                    animIsOver = false;
+                    animator.SetTrigger("Cancel");
+                    animator.SetBool("Menu", false);
+                    isOpenMenu = false;
+                }
+                else                  //   ESC或いはXBoxのMenuボタンで呼び出せる
+                {
+                    EventSystem.current.SetSelectedGameObject(selectButton);
+                    animator.enabled = true;
+                    animator.SetBool("Menu", true);
+                    isOpenMenu = true;
+                }
+
+                au.Play();
+            }
+
+            if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f && animIsOver)   //  normalizedTime == 0 -> スタート normalizedTime == 1 -> エンド 
+            {
+                Time.timeScale = 0;
+            }
+
+            if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f && animator.GetCurrentAnimatorStateInfo(0).IsName("Stage_Menu_Minus"))
             {
                 Time.timeScale = 1;
-                animIsOver = false;
-                animator.SetTrigger("Cancel");
-                animator.SetBool("Menu", false);
-                isOpenMenu = false;
+                animIsOver = true;
             }
-            else　                 //   ESC或いはXBoxのMenuボタンで呼び出せる
-            {
-                EventSystem.current.SetSelectedGameObject(selectButton);
-                animator.enabled = true;
-                animator.SetBool("Menu", true);
-                isOpenMenu = true;
-            }
-            
-            au.Play();
         }
-
-        if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f && animIsOver)   //  normalizedTime == 0 -> スタート normalizedTime == 1 -> エンド 
+        else
         {
-            Time.timeScale = 0;
-        }
-
-        if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f && animator.GetCurrentAnimatorStateInfo(0).IsName("Stage_Menu_Minus"))
-        {
-            Time.timeScale = 1;
-            animIsOver = true;
+            gameObject.SetActive(false);
         }
     }
 }

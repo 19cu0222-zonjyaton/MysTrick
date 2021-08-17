@@ -1,10 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class GameOverUIController : MonoBehaviour
+public class GameOverMenuUIController : MonoBehaviour
 {
-    private ActorController ac;
+    public GameObject selectButton;
+
     private CameraController cc;
     private CanvasGroup canvasGroup;
     private bool playAnim;
@@ -12,8 +14,6 @@ public class GameOverUIController : MonoBehaviour
 
     void Awake()
     {
-        ac = GameObject.Find("PlayerHandle").GetComponent<ActorController>();
-
         cc = GameObject.Find("Main Camera").GetComponent<CameraController>();
 
         canvasGroup = GetComponent<CanvasGroup>();
@@ -21,7 +21,7 @@ public class GameOverUIController : MonoBehaviour
 
     void Update()
     {
-        if (ac.isDead || ac.isFall)
+        if (cc.deadMoveStart)
         {
             canvasGroup.alpha = 1;
             canvasGroup.interactable = true;
@@ -31,15 +31,9 @@ public class GameOverUIController : MonoBehaviour
 
         if (playAnim && !doOnce)
         {
+            EventSystem.current.SetSelectedGameObject(selectButton);
             gameObject.GetComponent<Animation>().Play();
             doOnce = true;
-        }
-
-        if (cc.deadMoveStart)
-        {
-            canvasGroup.alpha = 0;
-            canvasGroup.interactable = false;
-            canvasGroup.blocksRaycasts = false;
         }
     }
 }

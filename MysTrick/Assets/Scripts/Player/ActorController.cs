@@ -89,6 +89,8 @@ public class ActorController : MonoBehaviour
 		weaponStartPos = weapon.transform.localPosition;
 
 		weaponStartRot = weapon.transform.localEulerAngles;
+
+		Physics.IgnoreLayerCollision(11, 13, false);
 	}
 
 	void Update()
@@ -200,7 +202,7 @@ public class ActorController : MonoBehaviour
 
 	private void checkIsUnderDamage()	//	敵と当たると時間内に無敵状態になる
 	{
-		if (isUnrivaled && !isDead)
+		if (isUnrivaled)
 		{
 			timeCount += Time.deltaTime;
 			
@@ -271,6 +273,8 @@ public class ActorController : MonoBehaviour
 			movingVec = Vector3.zero;	
 			anim.enabled = false;
 			pi.inputEnabled = false;
+			model.GetComponent<CapsuleCollider>().enabled = true;
+			Physics.IgnoreLayerCollision(11, 13, true);
 			model.transform.localRotation = Quaternion.Lerp(model.transform.localRotation, Quaternion.Euler(-90.0f, damageRot.y, damageRot.z), 3.0f * Time.deltaTime);
 			transform.tag = "Untagged";
 		}
@@ -369,22 +373,21 @@ public class ActorController : MonoBehaviour
 			audio.PlayOneShot(sounds[2]);
 			Physics.IgnoreLayerCollision(11, 13, true);
 			cameraCanMove = false;
-			pi.inputEnabled = false;
-			modelMesh.enabled = false;
-			weaponMesh.enabled = false;
+			pi.ResetSignal();
 
 			if (hp > 0)
 			{
+				modelMesh.enabled = false;
+				weaponMesh.enabled = false;
 				rigid.AddExplosionForce(500.0f, collision.transform.position - new Vector3(0.0f, 1.5f, 0.0f), 5.0f, 1.5f);      //	爆発の位置を矯正
-				nowPos = transform.position;				
+				nowPos = transform.position;
+				isUnrivaled = true;
 			}
 			else
 			{
 				rigid.AddExplosionForce(800.0f, collision.transform.position - new Vector3(0.0f, 1.5f, 0.0f), 5.0f, 2.0f);      //	爆発の位置を矯正
 				isDead = true;
 			}
-
-			isUnrivaled = true;
 		}
 	}
 }
