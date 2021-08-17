@@ -37,9 +37,9 @@ public class MenuButtonController : MonoBehaviour
 
         if (EventSystem.current.currentSelectedGameObject == this.gameObject && smc.isOpenMenu)
         {
-            au.clip = sounds[0];
-            au.Play();
-        }
+			au.clip = sounds[0];
+			au.Play();
+		}
 
         if (Time.timeScale == 0 && (Input.GetKeyDown(KeyCode.Return) || Input.GetButtonDown("action")))
         {

@@ -272,11 +272,16 @@ public class ActorController : MonoBehaviour
 			Time.timeScale = 0.4f;		//	時間の流すを遅くなるように
 			movingVec = Vector3.zero;	
 			anim.enabled = false;
-			pi.inputEnabled = false;
+			pi.ResetSignal();
 			model.GetComponent<CapsuleCollider>().enabled = true;
 			Physics.IgnoreLayerCollision(11, 13, true);
 			model.transform.localRotation = Quaternion.Lerp(model.transform.localRotation, Quaternion.Euler(-90.0f, damageRot.y, damageRot.z), 3.0f * Time.deltaTime);
 			transform.tag = "Untagged";
+		}
+
+		if (isFall)
+		{
+			pi.ResetSignal();
 		}
 	}
 
@@ -323,7 +328,7 @@ public class ActorController : MonoBehaviour
 
 	private void OnTriggerStay(Collider collider)
 	{
-		if (collider.transform.tag == "Device" || collider.transform.tag == "Handle" || collider.transform.tag == "Key")		
+		if (collider.transform.tag == "Device" || collider.transform.tag == "Handle" || collider.transform.tag == "Key" || collider.transform.tag == "MoveBox")		
 		{
 			isInTrigger = true;
 		}
@@ -358,7 +363,7 @@ public class ActorController : MonoBehaviour
 
 	private void OnTriggerExit(Collider collider)
 	{
-		if (collider.transform.tag == "Device")
+		if (collider.transform.tag == "Device" || collider.transform.tag == "Handle" || collider.transform.tag == "Key" || collider.transform.tag == "MoveBox")
 		{
 			isInTrigger = false;
 		}

@@ -24,7 +24,7 @@ public class StageMenuController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!ac.isDead)
+        if (!ac.isDead && !ac.isFall)
         {
             if ((Input.GetKeyDown(KeyCode.Escape) || Input.GetButtonDown("menu")) && animIsOver)
             {

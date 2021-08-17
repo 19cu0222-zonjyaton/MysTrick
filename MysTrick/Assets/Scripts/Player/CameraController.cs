@@ -300,6 +300,7 @@ public class CameraController : MonoBehaviour
 		else if (ac.isFall)         //	プレイヤーが外に落ちたらカメラの処理
 		{
 			transform.SetParent(null);
+			cameraStatic = "GameOver";
 		}
 
 		if (ac.isClimbing)
@@ -361,7 +362,7 @@ public class CameraController : MonoBehaviour
 
 	private void deadMove()
 	{
-		if (ac.isDead)
+		if (ac.isDead || ac.isFall)
 		{
 			deadCountTime += Time.deltaTime;
 
@@ -369,7 +370,10 @@ public class CameraController : MonoBehaviour
 			{
 				deadMoveStart = true;
 				Time.timeScale = 1.0f;
-				transform.position = gameoverCameraPos[deadMovePosNum].transform.position;
+				if (ac.isDead)
+				{
+					transform.position = gameoverCameraPos[deadMovePosNum].transform.position;
+				}
 			}
 		}
 	}
