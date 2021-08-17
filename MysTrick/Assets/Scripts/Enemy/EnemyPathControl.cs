@@ -27,6 +27,8 @@ public class EnemyPathControl : MonoBehaviour
     private float timeCount;
     private bool hitWithWall;
     private bool warningActive;
+    private bool moveToPlayer;
+    private bool rayLockPlayer;
     private float playerDeadTimeCount;
     private float warningTimeCount;
 
@@ -86,10 +88,12 @@ public class EnemyPathControl : MonoBehaviour
                 if (LockOn() || isAttackedByPlayer || edc.hitWithPlayer)
                 {
                     ray = new Ray(transform.position - new Vector3(0.5f, 0, 0), ((player.transform.position + new Vector3(0, 1.5f, 0)) - head.transform.position).normalized);
+                    rayLockPlayer = true;
                 }
                 else
                 {
                     ray = new Ray(transform.position, head.forward);
+                    rayLockPlayer = false;
                 }
                 Debug.DrawRay(ray.origin, ray.direction * 100, Color.red, 0.1f);
                 Physics.Raycast(ray, out hit, Mathf.Infinity);
@@ -118,14 +122,14 @@ public class EnemyPathControl : MonoBehaviour
                     hit.collider.enabled = true;
 
                     //  1.光線が壁に当たってない   2.捜査範囲に入った  3.攻撃された  -> プレイヤーの位置に移動する
-                    if ((!(hit.collider.gameObject.layer == LayerMask.NameToLayer("Wall")) && LockOn()) || isAttackedByPlayer || edc.hitWithPlayer)
+                    if (rayLockPlayer || isAttackedByPlayer || edc.hitWithPlayer)
                     {
                         gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
                         hitWithWall = true;
 
                         Move();
                         //  光線が壁に当たったら攻撃AIをキャンセル
-                        if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Wall"))
+                        if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Wall") && Vector3.Distance(transform.position, player.transform.position) > 2.0f)
                         {
                             timeCount += Time.deltaTime;
 
@@ -137,6 +141,8 @@ public class EnemyPathControl : MonoBehaviour
                                 edc.hitWithPlayer = false;
 
                                 backToPatrol = true;
+
+                                rayLockPlayer = false;
 
                                 timeCount = 0.0f;
                             }
@@ -248,6 +254,7 @@ public class EnemyPathControl : MonoBehaviour
     //  ルートに沿って移動処理
     void Patrol()
     {
+        moveToPlayer = false;
         if (player == null)
         {
             transform.Translate((pathPositions[index].localPosition - transform.localPosition).normalized * Time.deltaTime * speed);
@@ -265,6 +272,7 @@ public class EnemyPathControl : MonoBehaviour
     //  プレイヤーに移動する処理
     void Move()
     {
+        moveToPlayer = true;
         transform.Translate((player.transform.position - transform.position).normalized * Time.deltaTime * speed);
         transform.eulerAngles = (player.transform.localPosition - transform.localPosition).normalized;
         targetPosition = player.transform.position;
@@ -274,7 +282,7 @@ public class EnemyPathControl : MonoBehaviour
 
     void OnTriggerEnter(Collider collider)
     {
-        if (collider.transform.tag == "Enemy_Ghost")
+        if (collider.transform.tag == "Enemy_Ghost" && !moveToPlayer)
         {
             index++;
             //  次の点に移動する

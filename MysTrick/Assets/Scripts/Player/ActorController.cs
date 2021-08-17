@@ -242,20 +242,7 @@ public class ActorController : MonoBehaviour
 				rigid.constraints = RigidbodyConstraints.FreezeRotation;
 			}
 
-			if (damageTimeCount >= 0.05f && !damageByStick && !doOnce)
-			{
-				damagePos = transform.position;
-
-				if (Vector3.Distance(damagePos, nowPos) >= 0.8f)
-				{
-					rigid.constraints = ~RigidbodyConstraints.FreezePositionY;      //	~ -> Y軸以外の移動と回転を止める
-				}
-				doOnce = true;
-			}
-			else if (damageTimeCount < 0.05f)
-			{
-				damageTimeCount += Time.deltaTime;
-			}
+			hitDistance();
 		}
 	}
 
@@ -269,6 +256,7 @@ public class ActorController : MonoBehaviour
 
 		if (isDead)
 		{
+			hitDistance();
 			Time.timeScale = 0.4f;		//	時間の流すを遅くなるように
 			movingVec = Vector3.zero;	
 			anim.enabled = false;
@@ -282,6 +270,24 @@ public class ActorController : MonoBehaviour
 		if (isFall)
 		{
 			pi.ResetSignal();
+		}
+	}
+
+	private void hitDistance()
+	{
+		if (damageTimeCount >= 0.05f && !damageByStick && !doOnce)
+		{
+			damagePos = transform.position;
+
+			if (Vector3.Distance(damagePos, nowPos) >= 0.8f)
+			{
+				rigid.constraints = ~RigidbodyConstraints.FreezePositionY;      //	~ -> Y軸以外の移動と回転を止める
+			}
+			doOnce = true;
+		}
+		else if (damageTimeCount < 0.05f)
+		{
+			damageTimeCount += Time.deltaTime;
 		}
 	}
 

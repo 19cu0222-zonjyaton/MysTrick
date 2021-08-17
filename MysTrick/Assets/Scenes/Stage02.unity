@@ -215,6 +215,21 @@ PrefabInstance:
       objectReference: {fileID: 2084379620}
     - target: {fileID: 3787794846184598272, guid: 19f866164458f0b4689c692e1c39b025,
         type: 3}
+      propertyPath: patrolPos.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3787794846184598272, guid: 19f866164458f0b4689c692e1c39b025,
+        type: 3}
+      propertyPath: patrolPos.Array.data[2]
+      value: 
+      objectReference: {fileID: 1814586950}
+    - target: {fileID: 3787794846184598272, guid: 19f866164458f0b4689c692e1c39b025,
+        type: 3}
+      propertyPath: patrolPos.Array.data[3]
+      value: 
+      objectReference: {fileID: 565799277}
+    - target: {fileID: 3787794846184598272, guid: 19f866164458f0b4689c692e1c39b025,
+        type: 3}
       propertyPath: pathPositions.Array.size
       value: 4
       objectReference: {fileID: 0}
@@ -18581,6 +18596,16 @@ PrefabInstance:
       objectReference: {fileID: 2084379620}
     - target: {fileID: 3787794846184598272, guid: 19f866164458f0b4689c692e1c39b025,
         type: 3}
+      propertyPath: patrolPos.Array.data[0]
+      value: 
+      objectReference: {fileID: 1290245035}
+    - target: {fileID: 3787794846184598272, guid: 19f866164458f0b4689c692e1c39b025,
+        type: 3}
+      propertyPath: patrolPos.Array.data[1]
+      value: 
+      objectReference: {fileID: 1290245036}
+    - target: {fileID: 3787794846184598272, guid: 19f866164458f0b4689c692e1c39b025,
+        type: 3}
       propertyPath: pathPositions.Array.data[0]
       value: 
       objectReference: {fileID: 1781990587}
@@ -18726,6 +18751,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 19f866164458f0b4689c692e1c39b025, type: 3}
+--- !u!1 &1290245035 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3787794847810112364, guid: 19f866164458f0b4689c692e1c39b025,
+    type: 3}
+  m_PrefabInstance: {fileID: 1290245034}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1290245036 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3787794847476027999, guid: 19f866164458f0b4689c692e1c39b025,
+    type: 3}
+  m_PrefabInstance: {fileID: 1290245034}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1291215183
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -18852,6 +18889,7 @@ MonoBehaviour:
   isOpenMenu: 0
   selectButton: {fileID: 2073203962}
   animIsOver: 1
+  buttonAu: []
 --- !u!82 &1291853294
 AudioSource:
   m_ObjectHideFlags: 0
@@ -22154,6 +22192,21 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 2084379620}
+    - target: {fileID: 3787794846184598272, guid: 19f866164458f0b4689c692e1c39b025,
+        type: 3}
+      propertyPath: patrolPos.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3787794846184598272, guid: 19f866164458f0b4689c692e1c39b025,
+        type: 3}
+      propertyPath: patrolPos.Array.data[2]
+      value: 
+      objectReference: {fileID: 738868444}
+    - target: {fileID: 3787794846184598272, guid: 19f866164458f0b4689c692e1c39b025,
+        type: 3}
+      propertyPath: patrolPos.Array.data[3]
+      value: 
+      objectReference: {fileID: 1714068023}
     - target: {fileID: 3787794846184598272, guid: 19f866164458f0b4689c692e1c39b025,
         type: 3}
       propertyPath: pathPositions.Array.size
