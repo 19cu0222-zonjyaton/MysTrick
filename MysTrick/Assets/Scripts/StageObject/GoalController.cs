@@ -100,7 +100,7 @@ public class GoalController : MonoBehaviour
 
             gameClear = true;
 
-            pi.inputEnabled = false;
+            pi.ResetSignal();
 
             au.loop = false;
             au.clip = sound;

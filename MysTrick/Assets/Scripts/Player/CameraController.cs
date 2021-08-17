@@ -265,7 +265,7 @@ public class CameraController : MonoBehaviour
 
 			transform.position = Vector3.Slerp(transform.position, lookAtGoal.transform.position, 20.0f * Time.fixedDeltaTime);
 			transform.rotation = Quaternion.Slerp(transform.rotation, lookAtGoal.transform.rotation, 3.0f * Time.fixedDeltaTime);
-			transform.LookAt(playerHandle.transform);
+			transform.LookAt(goal.gameObject.transform);
 		}
 		else if (ac.isDead)         //	プレイヤーが死亡したらカメラの処理
 		{
