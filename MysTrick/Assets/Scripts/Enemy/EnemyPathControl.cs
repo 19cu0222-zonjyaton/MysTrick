@@ -27,7 +27,7 @@ public class EnemyPathControl : MonoBehaviour
     private float timeCount;
     private bool hitWithWall;
     private bool warningActive;
-    private bool movePosCanChange;
+    private float playerDeadTimeCount;
     private float warningTimeCount;
 
     //	初期化
@@ -61,7 +61,7 @@ public class EnemyPathControl : MonoBehaviour
             if (!LockOn() && !isAttackedByPlayer && !edc.hitWithPlayer)
             {
                 warningTimeCount += Time.deltaTime;
-                if (warningTimeCount > 3.0f)
+                if (warningTimeCount > 2.0f)
                 {
                     warningActive = true;
                 }
@@ -74,7 +74,7 @@ public class EnemyPathControl : MonoBehaviour
                 warningActive = false;
                 warningTimeCount = 0.0f;
             }
-            
+
             if (!warning.GetComponent<Animation>().isPlaying)
             {
                 warning.SetActive(false);
@@ -104,8 +104,8 @@ public class EnemyPathControl : MonoBehaviour
                     if (hit.collider.gameObject == patrolPos[i])
                     {
                         index = i;
-
                         backToPatrol = false;
+                        break;
                     }
                 }
             }
@@ -158,14 +158,35 @@ public class EnemyPathControl : MonoBehaviour
                 }
             }
         }
-        else        //  タイトル画面
+        else if(cc.cameraStatic == "GameOver")
         {
-            Patrol();
+            playerDeadTimeCount += Time.deltaTime;
             edc.canMove = true;
+
+            if (warningActive)
+            {
+                au.PlayOneShot(sound);
+                warning.SetActive(true);
+                warningActive = false;
+            }
+
             if (!warning.GetComponent<Animation>().isPlaying)
             {
                 warning.SetActive(false);
             }
+
+            if (playerDeadTimeCount >= 1.0f)
+            {
+                Patrol();
+            }
+            else
+            {
+                Move();
+            }
+        }
+        else if(pi == null)        //  タイトル画面
+        {
+            Patrol();
         }
 
     }

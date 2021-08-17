@@ -8,6 +8,7 @@ public class StageMenuController : MonoBehaviour
     public bool isOpenMenu;                 //   UIメニューは呼び出されたか
     public GameObject selectButton;         //   UIを出たらデフォルト選択するボタン
     public bool animIsOver = true;          //   UIのアニメ終了フラグ
+    public AudioSource[] buttonAu;
     private Animator animator;
     private AudioSource au;                 //	SEのコンポーネント
     private ActorController ac;
@@ -30,6 +31,11 @@ public class StageMenuController : MonoBehaviour
             {
                 if (isOpenMenu)           //  もう一度ESC或いはXBoxのMenuボタンでゲーム画面に戻る
                 {
+                    for (int i = 0; i < buttonAu.Length; i++)
+                    {
+                        buttonAu[i].enabled = false;
+                    }
+
                     Time.timeScale = 1;
                     animIsOver = false;
                     animator.SetTrigger("Cancel");
@@ -38,6 +44,11 @@ public class StageMenuController : MonoBehaviour
                 }
                 else                  //   ESC或いはXBoxのMenuボタンで呼び出せる
                 {
+                    for (int i = 0; i < buttonAu.Length; i++)
+                    {
+                        buttonAu[i].enabled = true;
+                    }
+
                     EventSystem.current.SetSelectedGameObject(selectButton);
                     animator.enabled = true;
                     animator.SetBool("Menu", true);

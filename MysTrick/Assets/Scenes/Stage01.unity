@@ -999,6 +999,7 @@ MonoBehaviour:
   sounds:
   - {fileID: 8300000, guid: d15b72b2db25a56498fecc601763b895, type: 3}
   - {fileID: 8300000, guid: 747ba53d9fcb54b4bb2bdd8ea8c7cc85, type: 3}
+  - {fileID: 0}
   btn: {fileID: 1795489484}
 --- !u!222 &164986989
 CanvasRenderer:
@@ -9426,7 +9427,7 @@ PrefabInstance:
     - target: {fileID: 6563069687783362542, guid: deb5c94de91a32e4ca21d16c24db72a9,
         type: 3}
       propertyPath: hp
-      value: 1
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 6563069687783362542, guid: deb5c94de91a32e4ca21d16c24db72a9,
         type: 3}
@@ -16403,6 +16404,9 @@ MonoBehaviour:
   isOpenMenu: 0
   selectButton: {fileID: 1795489481}
   animIsOver: 1
+  buttonAu:
+  - {fileID: 164986991}
+  - {fileID: 1795489487}
 --- !u!114 &1507489834
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17828,6 +17832,7 @@ MonoBehaviour:
   menuPanel: {fileID: 1507489830}
   sounds:
   - {fileID: 8300000, guid: d15b72b2db25a56498fecc601763b895, type: 3}
+  - {fileID: 0}
   - {fileID: 0}
   btn: {fileID: 164986986}
 --- !u!114 &1795489484
