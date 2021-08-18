@@ -53,148 +53,150 @@ public class EnemyPathControl : MonoBehaviour
             isAttackedByPlayer = true;
         }
 
-        if (pi != null && cc.cameraStatic != "GameOver")
+        if (pi != null)
         {
-            if (cc.cameraStatic == "Idle" && !edc.isDamage && !warning.GetComponent<Animation>().isPlaying)
+            if (cc.cameraStatic != "GameOver")
             {
-                edc.canMove = true;
-            }
-
-            if (!LockOn() && !isAttackedByPlayer && !edc.hitWithPlayer)
-            {
-                warningTimeCount += Time.deltaTime;
-                if (warningTimeCount > 2.0f)
+                if (cc.cameraStatic == "Idle" && !edc.isDamage && !warning.GetComponent<Animation>().isPlaying)
                 {
-                    warningActive = true;
+                    edc.canMove = true;
                 }
-            }
-            else if ((LockOn() || isAttackedByPlayer || edc.hitWithPlayer) && warningActive && (edc.enemyHp > 0))
-            {
-                au.PlayOneShot(sound);
-                edc.canMove = false;
-                warning.SetActive(true);
-                warningActive = false;
-                warningTimeCount = 0.0f;
-            }
 
-            if (!warning.GetComponent<Animation>().isPlaying)
-            {
-                warning.SetActive(false);
-            }
-
-            if (!backToPatrol)
-            {
-                //  プレイヤーが捜査範囲に入った光線を出せる処理
-                if (LockOn() || isAttackedByPlayer || edc.hitWithPlayer)
+                if (!LockOn() && !isAttackedByPlayer && !edc.hitWithPlayer)
                 {
-                    ray = new Ray(transform.position - new Vector3(0.5f, 0, 0), ((player.transform.position + new Vector3(0, 1.5f, 0)) - head.transform.position).normalized);
-                    rayLockPlayer = true;
+                    warningTimeCount += Time.deltaTime;
+                    if (warningTimeCount > 2.0f)
+                    {
+                        warningActive = true;
+                    }
+                }
+                else if ((LockOn() || isAttackedByPlayer || edc.hitWithPlayer) && warningActive && (edc.enemyHp > 0))
+                {
+                    au.PlayOneShot(sound);
+                    edc.canMove = false;
+                    warning.SetActive(true);
+                    warningActive = false;
+                    warningTimeCount = 0.0f;
+                }
+
+                if (!warning.GetComponent<Animation>().isPlaying)
+                {
+                    warning.SetActive(false);
+                }
+
+                if (!backToPatrol)
+                {
+                    //  プレイヤーが捜査範囲に入った光線を出せる処理
+                    if (LockOn() || isAttackedByPlayer || edc.hitWithPlayer)
+                    {
+                        ray = new Ray(transform.position - new Vector3(0.5f, 0, 0), ((player.transform.position + new Vector3(0, 1.5f, 0)) - head.transform.position).normalized);
+                        rayLockPlayer = true;
+                    }
+                    else
+                    {
+                        ray = new Ray(transform.position, head.forward);
+                        rayLockPlayer = false;
+                    }
+                    Debug.DrawRay(ray.origin, ray.direction * 100, Color.red, 0.1f);
+                    Physics.Raycast(ray, out hit, Mathf.Infinity);
                 }
                 else
                 {
-                    ray = new Ray(transform.position, head.forward);
-                    rayLockPlayer = false;
-                }
-                Debug.DrawRay(ray.origin, ray.direction * 100, Color.red, 0.1f);
-                Physics.Raycast(ray, out hit, Mathf.Infinity);
-            }
-            else
-            {
-                for (int i = 0; i < patrolPos.Length; i++)
-                {
-                    ray = new Ray(transform.position, (patrolPos[i].transform.position - transform.position).normalized);
-                    Debug.DrawRay(ray.origin, ray.direction * 100, Color.red, 0.1f);
-                    Physics.Raycast(ray, out hit, Mathf.Infinity);
-                    if (hit.collider.gameObject == patrolPos[i])
+                    for (int i = 0; i < patrolPos.Length; i++)
                     {
-                        index = i;
-                        backToPatrol = false;
-                        break;
+                        ray = new Ray(transform.position, (patrolPos[i].transform.position - transform.position).normalized);
+                        Debug.DrawRay(ray.origin, ray.direction * 100, Color.red, 0.1f);
+                        Physics.Raycast(ray, out hit, Mathf.Infinity);
+                        if (hit.collider.gameObject == patrolPos[i])
+                        {
+                            index = i;
+                            backToPatrol = false;
+                            break;
+                        }
                     }
                 }
-            }
 
-            //  敵のAI処理
-            if (edc.canMove && cc.cameraStatic == "Idle")
-            {
-                if (hit.collider != null)       //  光線が何も当たっていない時の対策
+                //  敵のAI処理
+                if (edc.canMove && cc.cameraStatic == "Idle")
                 {
-                    hit.collider.enabled = true;
-
-                    //  1.光線が壁に当たってない   2.捜査範囲に入った  3.攻撃された  -> プレイヤーの位置に移動する
-                    if (rayLockPlayer || isAttackedByPlayer || edc.hitWithPlayer)
+                    if (hit.collider != null)       //  光線が何も当たっていない時の対策
                     {
-                        gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
-                        hitWithWall = true;
+                        hit.collider.enabled = true;
 
-                        Move();
-                        //  光線が壁に当たったら攻撃AIをキャンセル
-                        if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Wall") && Vector3.Distance(transform.position, player.transform.position) > 2.0f)
+                        //  1.光線が壁に当たってない   2.捜査範囲に入った  3.攻撃された  -> プレイヤーの位置に移動する
+                        if (rayLockPlayer || isAttackedByPlayer || edc.hitWithPlayer)
                         {
-                            timeCount += Time.deltaTime;
+                            gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
+                            hitWithWall = true;
 
-                            //  timeCount -> 敵が大幅に回転する時でhitが壁に当たる防止ため
-                            if (timeCount >= 0.5f)
+                            Move();
+                            //  光線が壁に当たったら攻撃AIをキャンセル
+                            if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Wall") && Vector3.Distance(transform.position, player.transform.position) > 2.0f)
                             {
-                                isAttackedByPlayer = false;
+                                timeCount += Time.deltaTime;
 
-                                edc.hitWithPlayer = false;
+                                //  timeCount -> 敵が大幅に回転する時でhitが壁に当たる防止ため
+                                if (timeCount >= 0.5f)
+                                {
+                                    isAttackedByPlayer = false;
 
-                                backToPatrol = true;
+                                    edc.hitWithPlayer = false;
 
-                                rayLockPlayer = false;
+                                    backToPatrol = true;
 
+                                    rayLockPlayer = false;
+
+                                    timeCount = 0.0f;
+                                }
+                            }
+                            else
+                            {
+                                hitWithWall = false;
                                 timeCount = 0.0f;
                             }
                         }
                         else
                         {
-                            hitWithWall = false;
-                            timeCount = 0.0f;
+                            Patrol();
                         }
                     }
-                    else
+                    else if (edc.canMove && !isAttackedByPlayer && !edc.hitWithPlayer)
                     {
                         Patrol();
                     }
                 }
-                else if (edc.canMove && !isAttackedByPlayer && !edc.hitWithPlayer)
-                {
-                    Patrol();
-                }
-            }
-        }
-        else if(cc.cameraStatic == "GameOver")
-        {
-            playerDeadTimeCount += Time.deltaTime;
-            edc.canMove = true;
-
-            if (warningActive)
-            {
-                au.PlayOneShot(sound);
-                warning.SetActive(true);
-                warningActive = false;
-            }
-
-            if (!warning.GetComponent<Animation>().isPlaying)
-            {
-                warning.SetActive(false);
-            }
-
-            if (playerDeadTimeCount >= 1.0f)
-            {
-                Patrol();
             }
             else
             {
-                Move();
+                playerDeadTimeCount += Time.deltaTime;
+                edc.canMove = true;
+
+                if (warningActive)
+                {
+                    au.PlayOneShot(sound);
+                    warning.SetActive(true);
+                    warningActive = false;
+                }
+
+                if (!warning.GetComponent<Animation>().isPlaying)
+                {
+                    warning.SetActive(false);
+                }
+
+                if (playerDeadTimeCount >= 1.0f)
+                {
+                    Patrol();
+                }
+                else
+                {
+                    Move();
+                }
             }
         }
-        else if(pi == null)        //  タイトル画面
+        else
         {
             Patrol();
         }
-
     }
 
     //  プレイヤーを捜査範囲を設定する処理

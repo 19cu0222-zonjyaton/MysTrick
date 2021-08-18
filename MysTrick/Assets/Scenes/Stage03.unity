@@ -4021,6 +4021,7 @@ MonoBehaviour:
   isOpenMenu: 0
   selectButton: {fileID: 1083328363}
   animIsOver: 1
+  buttonAu: []
 --- !u!82 &1186635651
 AudioSource:
   m_ObjectHideFlags: 0
@@ -22163,7 +22164,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!65 &5318827420684434083
 BoxCollider:
   m_ObjectHideFlags: 0
