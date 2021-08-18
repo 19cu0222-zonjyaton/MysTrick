@@ -5,24 +5,23 @@ using UnityEngine;
 public class MoveBoxController : MonoBehaviour
 {
 	public GameObject hintUI;
-	public bool isTriggered;
+	public GameObject player;
+	public bool moveWithPlayer;
 
-	private PlayerInput Player;
+	private PlayerInput pi;
+	private ActorController ac;
 
 	void Awake()
     {
-		Player = GameObject.Find("PlayerHandle").GetComponent<PlayerInput>();
+		pi = player.GetComponent<PlayerInput>();
+
+		ac = player.GetComponent<ActorController>();
 	}
 
     // Update is called once per frame
     void Update()
     {
-        
-    }
-
-	private void OnTriggerStay(Collider other)
-	{
-		if (!isTriggered)
+        if (ac.isInTrigger)
 		{
 			hintUI.SetActive(true);
 		}
@@ -32,11 +31,27 @@ public class MoveBoxController : MonoBehaviour
 		}
 	}
 
-	private void OnTriggerExit(Collider other)
+	private void OnTriggerStay(Collider other)
 	{
 		if (other.transform.tag == "Player")
 		{
-			hintUI.SetActive(false);
+			if (pi.isPushBox)
+			{
+				if (moveWithPlayer)
+				{
+					moveWithPlayer = false;
+					ac.moveSpeed = 3.0f;
+				}
+				else
+				{
+					moveWithPlayer = true;
+					ac.moveSpeed = 7.0f;
+				}
+
+				pi.isPushBox = false;
+			}
 		}
 	}
+
+
 }

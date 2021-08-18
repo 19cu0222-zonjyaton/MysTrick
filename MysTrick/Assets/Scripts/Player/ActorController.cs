@@ -34,7 +34,8 @@ public class ActorController : MonoBehaviour
 	public bool cameraCanMove;				//	ダメージを受けた後カメラ移動可能の時間
 	public bool shootStart;					//	武器発射flag
 	public bool isJumping;					//	ジャンプflag
-	public bool isClimbing;					//	登るflag
+	public bool isClimbing;                 //	登るflag
+	public bool isPushBox;
 	public Vector3 climbLandPos;
 
 	//---鍾家同(2021/07/19)---
@@ -100,16 +101,16 @@ public class ActorController : MonoBehaviour
 
 		if (!isDead)
 		{			
-			if (pi.Dmag > 0.1f && !pi.isAimStatus)		//	1.移動の入力値が0.1を超える時	2.狙う状態ではない時	->	 移動方向を設定する
+			if (pi.Dmag > 0.1f && (!pi.isAimStatus && !isPushBox))		//	1.移動の入力値が0.1を超える時	2.狙う状態ではない時	->	 移動方向を設定する
 			{
 				model.transform.forward = Vector3.Slerp(model.transform.forward, pi.Dvec, 10.0f * Time.deltaTime);
 				movingVec = pi.Dmag * model.transform.forward; 
 			}
-			else if (pi.Dmag > 0.1f && pi.isAimStatus)  //	1.移動の入力値が0.1を超える時	2.狙う状態の時	->	 移動方向を設定する
+			else if (pi.Dmag > 0.1f && (pi.isAimStatus || isPushBox))  //	1.移動の入力値が0.1を超える時	2.狙う状態の時	->	 移動方向を設定する
 			{
 				movingVec = pi.Dmag * pi.Dvec;
 			}
-			else										//	以外の状態時
+			else													   //	以外の状態
 			{
 				movingVec = pi.Dmag * model.transform.forward;
 			}
@@ -179,9 +180,20 @@ public class ActorController : MonoBehaviour
 			}
 		}
 
-		checkIsUnderDamage();
+		if (pi.isAimStatus || isPushBox)
+		{
+			moveSpeed = 3.0f;
+		}
+		else
+		{
+			moveSpeed = 7.0f;
+		}
 
-		checkPlayerIsDead();
+		CheckSpeed();
+
+		CheckIsUnderDamage();
+
+		CheckPlayerIsDead();
 	}
 
 	//	移動処理
@@ -200,7 +212,12 @@ public class ActorController : MonoBehaviour
 		}
 	}
 
-	private void checkIsUnderDamage()	//	敵と当たると時間内に無敵状態になる
+	private void CheckSpeed()
+	{ 
+		
+	}
+
+	private void CheckIsUnderDamage()	//	敵と当たると時間内に無敵状態になる
 	{
 		if (isUnrivaled)
 		{
@@ -242,12 +259,12 @@ public class ActorController : MonoBehaviour
 				rigid.constraints = RigidbodyConstraints.FreezeRotation;
 			}
 
-			hitDistance();
+			HitDistance();
 		}
 	}
 
 	//	死亡処理
-	private void checkPlayerIsDead()	
+	private void CheckPlayerIsDead()	
 	{
 		if (hp <= 0)
 		{
@@ -256,7 +273,7 @@ public class ActorController : MonoBehaviour
 
 		if (isDead)
 		{
-			hitDistance();
+			HitDistance();
 			Time.timeScale = 0.4f;		//	時間の流すを遅くなるように
 			movingVec = Vector3.zero;	
 			anim.enabled = false;
@@ -273,7 +290,7 @@ public class ActorController : MonoBehaviour
 		}
 	}
 
-	private void hitDistance()
+	private void HitDistance()
 	{
 		if (damageTimeCount >= 0.05f && !damageByStick && !doOnce)
 		{
@@ -334,9 +351,13 @@ public class ActorController : MonoBehaviour
 
 	private void OnTriggerStay(Collider collider)
 	{
-		if (collider.transform.tag == "Device" || collider.transform.tag == "Handle" || collider.transform.tag == "Key" || collider.transform.tag == "MoveBox")		
+		if ((collider.transform.tag == "Device" || collider.transform.tag == "Handle" || collider.transform.tag == "Key" || collider.transform.tag == "MoveBox") && !isPushBox)
 		{
 			isInTrigger = true;
+		}
+		else if(isPushBox)
+		{
+			isInTrigger = false;
 		}
 
 		if (collider.transform.tag == "DeadCheck")

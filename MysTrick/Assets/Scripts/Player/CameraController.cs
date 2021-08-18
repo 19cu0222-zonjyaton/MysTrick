@@ -74,13 +74,13 @@ public class CameraController : MonoBehaviour
 	{
 		if (Time.deltaTime != 0)
 		{
-			checkCameraStatic();
+			CheckCameraStatic();
 
-			deadMove();
+			DeadMove();
 		}
 	}
 
-	private void checkCameraStatic()
+	private void CheckCameraStatic()
 	{
 		//  When Trigger are Stairs
 		for (int i = 0; i < stair.Length; i++)
@@ -94,7 +94,7 @@ public class CameraController : MonoBehaviour
 
 			if (cameraStatic == "MoveToStair" + (i + 1))
 			{
-				cameraMove(lookAtStair[i].transform.position, stair[i].gameObject);
+				CameraMove(lookAtStair[i].transform.position, stair[i].gameObject);
 			}
 		}
 		//  When Trigger are doors
@@ -109,7 +109,7 @@ public class CameraController : MonoBehaviour
 
 			if (cameraStatic == "MoveToDoor" + (i + 1))
 			{
-				cameraMove(lookAtDoor[i].transform.position, door[i].gameObject);
+				CameraMove(lookAtDoor[i].transform.position, door[i].gameObject);
 			}
 		}
 
@@ -125,7 +125,7 @@ public class CameraController : MonoBehaviour
 
 			if (cameraStatic == "MoveToBridge" + (i + 1))
 			{
-				cameraMove(lookAtBridge[i].transform.position, bridge[i].gameObject);
+				CameraMove(lookAtBridge[i].transform.position, bridge[i].gameObject);
 			}
 		}
 
@@ -141,7 +141,7 @@ public class CameraController : MonoBehaviour
 
 			if (cameraStatic == "MoveToLadder" + (i + 1))
 			{
-				cameraMove(lookAtLadder[i].transform.position, ladder[i].gameObject);
+				CameraMove(lookAtLadder[i].transform.position, ladder[i].gameObject);
 			}
         }
 
@@ -158,7 +158,7 @@ public class CameraController : MonoBehaviour
 
 			if (cameraStatic == "MoveToBarrier" + (i + 1))
 			{
-				cameraMove(lookAtBarrier[i].transform.position, bc[i].gameObject);
+				CameraMove(lookAtBarrier[i].transform.position, bc[i].gameObject);
 			}
 		}
 
@@ -174,7 +174,7 @@ public class CameraController : MonoBehaviour
 
 			if (cameraStatic == "MoveToObject" + (i + 1))
 			{
-				cameraMove(lookAtObject[i].transform.position, ob[i].gameObject);
+				CameraMove(lookAtObject[i].transform.position, ob[i].gameObject);
 			}
 		}
 
@@ -194,7 +194,6 @@ public class CameraController : MonoBehaviour
 				else
 				{
 					canRotate = true;
-					ac.moveSpeed = 3.0f;
 					aimEulerX -= pi.Jup * verticalSpeed * 2.0f * Time.fixedDeltaTime;
 					transform.Rotate(Vector3.up, pi.Jright * 80 * Time.fixedDeltaTime);
 					aimEulerX = Mathf.Clamp(aimEulerX, -80, 80);                  //  縦の回転角を制限する
@@ -245,7 +244,6 @@ public class CameraController : MonoBehaviour
 					smr.enabled = true;
 				}
 				pi.inputEnabled = true;
-				ac.moveSpeed = 7.0f;
 
 				//  位置を戻る
 				transform.position = Vector3.Slerp(transform.position, cameraBackPos.transform.position, 5.0f * Time.fixedDeltaTime);
@@ -314,7 +312,7 @@ public class CameraController : MonoBehaviour
 	}
 
 	//  カメラ移動関数
-	private void cameraMove(Vector3 movePos, GameObject target)
+	private void CameraMove(Vector3 movePos, GameObject target)
 	{
 		countTime -= Time.fixedDeltaTime * timeSpeed;
 
@@ -360,7 +358,7 @@ public class CameraController : MonoBehaviour
 		}
 	}
 
-	private void deadMove()
+	private void DeadMove()
 	{
 		if (ac.isDead || ac.isFall)
 		{

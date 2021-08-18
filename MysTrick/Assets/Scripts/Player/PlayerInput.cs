@@ -39,7 +39,8 @@ public class PlayerInput : MonoBehaviour
 	[Header("======= Player Static =======")]
 	public bool inputEnabled = true;	//	入力可能フラグ
 	public bool aimUI;					//	狙う時の中心UI
-	public bool isTriggered;			//	仕掛けスイッチに入いるフラグ
+	public bool isTriggered;            //	仕掛けスイッチに入いるフラグ
+	public bool isPushBox;
 	public bool isJumping;				//	ジャンプ中フラグ
 	public bool lockJumpStatus;			//	ジャンプ状態の時ロックするフラグ
 	public bool isThrowing;				//	武器を投げっているフラグ
@@ -55,7 +56,8 @@ public class PlayerInput : MonoBehaviour
 
 	private float velocityDup;
 	private float velocityDright;
-	private GameObject playercamera;	//	カメラオブジェクト
+	private GameObject playercamera;    //	カメラオブジェクト
+	private ActorController ac;
 	private bool isUsingJoyStick;       //	今使っているコントローラーを検査する
 	private bool resetFlag;
 
@@ -66,6 +68,8 @@ public class PlayerInput : MonoBehaviour
 		Application.targetFrameRate = 60;   //	FPSを60に固定する
 
 		playercamera = GameObject.Find("Main Camera");
+
+		ac = gameObject.GetComponent<ActorController>();
 	}
 
 	void Update()
@@ -109,31 +113,6 @@ public class PlayerInput : MonoBehaviour
 			targetDright = 0;
 		}
 
-		if ((Input.GetKeyDown(keyTrigger) || Input.GetButtonDown("action")) && cc.cameraStatic == "Idle" && !isAimStatus)
-		{
-			isTriggered = true;
-			if (!isJumping && !lockJumpStatus)
-			{
-				isJumping = true;
-			}
-		}
-
-		if (Input.GetKeyUp(keyTrigger) || Input.GetButtonUp("action"))
-		{
-			isTriggered = false;
-
-			isJumping = false;
-		}
-
-		if ((Input.GetKeyDown(keyThrow) || Input.GetAxis("throw") == 1) && canThrow && !overDistance && inputEnabled)
-		{
-			isThrowing = true;
-		}
-		else if ((Input.GetKeyDown(keyAttack) || Input.GetButtonDown("attack")) && canThrow && canAttack && inputEnabled)
-		{
-			isAttacking = true;
-		}
-
 		Dup = Mathf.SmoothDamp(Dup, targetDup, ref velocityDup, moveToTargetTime);
 		Dright = Mathf.SmoothDamp(Dright, targetDright, ref velocityDright, moveToTargetTime);
 
@@ -142,23 +121,61 @@ public class PlayerInput : MonoBehaviour
 		float Dup2 = tempDAxis.y;
 
 		Dmag = Mathf.Sqrt((Dup2 * Dup2) + (Dright2 * Dright2));
-		if ((Input.GetKey(KeyCode.LeftShift) || Input.GetButton("perspect")) && cc.cameraStatic == "Idle")      //	第一人視点を切り替え
+
+		if ((Input.GetKeyDown(keyTrigger) || Input.GetButtonDown("action")) && cc.cameraStatic == "Idle" && !isAimStatus && canThrow)
 		{
-			resetFlag = false;
-			isAimStatus = true;
-			Dvec = Dright * playercamera.transform.right + Dup * playercamera.transform.forward;
+			isPushBox = true;
 		}
-		else                                                                    //	第三人視点を切り替え
+
+		if (!ac.isPushBox)
 		{
-			if (!resetFlag)
+			if ((Input.GetKeyDown(keyTrigger) || Input.GetButtonDown("action")) && cc.cameraStatic == "Idle" && !isAimStatus)
 			{
-				isAttacking = false;
-				resetFlag = true;
+				isTriggered = true;
+				if (!isJumping && !lockJumpStatus)
+				{
+					isJumping = true;
+				}
 			}
-			isAimStatus = false;
+
+			if (Input.GetKeyUp(keyTrigger) || Input.GetButtonUp("action"))
+			{
+				isTriggered = false;
+
+				isJumping = false;
+			}
+
+			if ((Input.GetKeyDown(keyThrow) || Input.GetAxis("throw") == 1) && canThrow && !overDistance && inputEnabled)
+			{
+				isThrowing = true;
+			}
+			else if ((Input.GetKeyDown(keyAttack) || Input.GetButtonDown("attack")) && canThrow && canAttack && inputEnabled)
+			{
+				isAttacking = true;
+			}
+
+			if ((Input.GetKey(KeyCode.LeftShift) || Input.GetButton("perspect")) && cc.cameraStatic == "Idle")      //	第一人視点を切り替え
+			{
+				resetFlag = false;
+				isAimStatus = true;
+				Dvec = Dright * playercamera.transform.right + Dup * playercamera.transform.forward;
+			}
+			else                                                                    //	第三人視点を切り替え
+			{
+				if (!resetFlag)
+				{
+					isAttacking = false;
+					resetFlag = true;
+				}
+				isAimStatus = false;
+				Dvec = Dright * transform.right + Dup * transform.forward;
+			}
+		}
+		else
+		{
 			Dvec = Dright * transform.right + Dup * transform.forward;
 		}
-    }
+	}
 
 	public void ResetSignal()	//	シングルを0にする
 	{
