@@ -21,6 +21,7 @@ public class CameraController : MonoBehaviour
 	public GameObject[] lookAtLadder;           //	梯子を注目する位置
 	public GameObject[] lookAtBarrier;          //	針を注目する位置
 	public GameObject[] lookAtObject;           //	他のオブジェクトを注目する位置
+	public GameObject[] lookAtZoom;				//	他のオブジェクトを注目する位置
 	public GameObject lookAtGoal;				//	ゴールを注目する位置
 	public GameObject firstPerspect;			//	狙う状態に切り替える時移動の位置
 	public GameObject weapon;					//	武器オブジェクト
@@ -75,6 +76,8 @@ public class CameraController : MonoBehaviour
 		if (Time.deltaTime != 0)
 		{
 			CheckCameraStatic();
+
+			CameraZoomMethed();
 
 			DeadMove();
 		}
@@ -227,7 +230,7 @@ public class CameraController : MonoBehaviour
 					}
 				}
 			}
-			else if (!pi.isAimStatus && !pi.lockJumpStatus && ac.cameraCanMove && !ac.isDead)  //	not Aiming and not jumping
+			else if (!pi.isAimStatus && !pi.lockJumpStatus && ac.cameraCanMove)  //	not Aiming and not jumping
 			{
 				Vector3 tempModelEuler = model.transform.eulerAngles;
 				playerHandle.transform.Rotate(Vector3.up, pi.Jright * horizontalSpeed * Time.fixedDeltaTime);
@@ -355,6 +358,16 @@ public class CameraController : MonoBehaviour
 			timeSpeed = 1.5f;
 
 			pi.inputEnabled = true;
+		}
+	}
+
+	private void CameraZoomMethed()
+	{
+		if (ac.isInCameraZoom)
+		{
+			transform.parent = null;
+			transform.position = Vector3.SmoothDamp(transform.position, lookAtZoom[ac.cameraZoomIndex].transform.position, ref moveSpeed, 10.0f * Time.deltaTime);
+			transform.rotation = Quaternion.Slerp(this.transform.rotation, lookAtZoom[ac.cameraZoomIndex].transform.rotation, 0.08f);
 		}
 	}
 

@@ -21,20 +21,14 @@ public class MoveBoxController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (ac.isInTrigger)
-		{
-			hintUI.SetActive(true);
-		}
-		else
-		{
-			hintUI.SetActive(false);
-		}
+
 	}
 
 	private void OnTriggerStay(Collider other)
 	{
 		if (other.transform.tag == "Player")
 		{
+			hintUI.SetActive(true);
 			if (pi.isPushBox)
 			{
 				if (moveWithPlayer)
@@ -53,5 +47,11 @@ public class MoveBoxController : MonoBehaviour
 		}
 	}
 
-
+	private void OnTriggerExit(Collider other)
+	{
+		if (other.transform.tag == "Player")
+		{
+			hintUI.SetActive(false);
+		}
+	}
 }

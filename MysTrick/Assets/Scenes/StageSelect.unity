@@ -3139,10 +3139,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boxs:
-  - {fileID: 2100000, guid: 20cbde986f628bb41bbc92dfd61311cf, type: 2}
-  - {fileID: 2100000, guid: 44d0573bf6d91e447b62f3aff840f2ae, type: 2}
-  - {fileID: 2100000, guid: e0a21ebc98cee4e46bbae873ec0be703, type: 2}
-  - {fileID: 2100000, guid: aed657681c6812845bb7736c343b5e9b, type: 2}
+  - {fileID: 2100000, guid: 684da5712b7c5a84c9e785e2181d2b10, type: 2}
+  - {fileID: 2100000, guid: 55d20911150e88d4883a99340ad77474, type: 2}
+  - {fileID: 2100000, guid: fda634ce677606446a44294505b66dd8, type: 2}
+  - {fileID: 2100000, guid: e2b0eba7fd9415846a3c3bd892a926d9, type: 2}
   aiss: {fileID: 6563069687913038457}
 --- !u!1 &1316561952
 GameObject:

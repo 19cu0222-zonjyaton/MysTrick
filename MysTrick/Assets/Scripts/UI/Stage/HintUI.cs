@@ -37,7 +37,7 @@ public class HintUI : MonoBehaviour
 
     void Update()
     {
-        if (actorController.isInTrigger && !pi.lockJumpStatus)
+        if (!pi.lockJumpStatus)
         {
             radian += perRadian;                //  毎回弧度を0.01をプラスする
             float dy = Mathf.Cos(radian) * radius;

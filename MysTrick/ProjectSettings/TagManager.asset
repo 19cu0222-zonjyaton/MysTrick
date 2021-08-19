@@ -33,6 +33,7 @@ TagManager:
   - PortalKey
   - MoveBox
   - RotCheck
+  - CameraZoom
   layers:
   - Default
   - TransparentFX

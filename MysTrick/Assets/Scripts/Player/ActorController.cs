@@ -36,6 +36,8 @@ public class ActorController : MonoBehaviour
 	public bool isJumping;					//	ジャンプflag
 	public bool isClimbing;                 //	登るflag
 	public bool isPushBox;
+	public bool isInCameraZoom;
+	public int cameraZoomIndex;
 	public Vector3 climbLandPos;
 
 	//---鍾家同(2021/07/19)---
@@ -189,8 +191,6 @@ public class ActorController : MonoBehaviour
 			moveSpeed = 7.0f;
 		}
 
-		CheckSpeed();
-
 		CheckIsUnderDamage();
 
 		CheckPlayerIsDead();
@@ -210,11 +210,6 @@ public class ActorController : MonoBehaviour
 				timeCount = 2.0f;
 			}
 		}
-	}
-
-	private void CheckSpeed()
-	{ 
-		
 	}
 
 	private void CheckIsUnderDamage()	//	敵と当たると時間内に無敵状態になる
@@ -346,19 +341,26 @@ public class ActorController : MonoBehaviour
 		{
 			stickBackPos = collider.gameObject;
 		}
+
+		if (collider.transform.tag == "CameraZoom")
+		{
+			cameraZoomIndex = collider.GetComponent<DoorZoomController>().zoomIndex;
+			cameraCanMove = false;
+			isInCameraZoom = true;
+		}
 	}
 	//-------------------------
 
 	private void OnTriggerStay(Collider collider)
 	{
-		if ((collider.transform.tag == "Device" || collider.transform.tag == "Handle" || collider.transform.tag == "Key" || collider.transform.tag == "MoveBox") && !isPushBox)
-		{
-			isInTrigger = true;
-		}
-		else if(isPushBox)
-		{
-			isInTrigger = false;
-		}
+		//if ((collider.transform.tag == "Device" || collider.transform.tag == "Handle" || collider.transform.tag == "Key" || collider.transform.tag == "MoveBox") && !isPushBox)
+		//{
+		//	isInTrigger = true;
+		//}
+		//else if(isPushBox)
+		//{
+		//	isInTrigger = false;
+		//}
 
 		if (collider.transform.tag == "DeadCheck")
 		{
@@ -390,9 +392,15 @@ public class ActorController : MonoBehaviour
 
 	private void OnTriggerExit(Collider collider)
 	{
-		if (collider.transform.tag == "Device" || collider.transform.tag == "Handle" || collider.transform.tag == "Key" || collider.transform.tag == "MoveBox")
+		//if (collider.transform.tag == "Device" || collider.transform.tag == "Handle" || collider.transform.tag == "Key" || collider.transform.tag == "MoveBox")
+		//{
+		//	isInTrigger = false;
+		//}
+
+		if (collider.transform.tag == "CameraZoom")
 		{
-			isInTrigger = false;
+			cameraCanMove = true;
+			isInCameraZoom = false;
 		}
 	}
 
