@@ -19515,7 +19515,7 @@ GameObject:
   - component: {fileID: 1907426067744703686}
   - component: {fileID: 8342546854866656682}
   - component: {fileID: 8342546854866656685}
-  m_Layer: 8
+  m_Layer: 17
   m_Name: sDevice002
   m_TagString: Device
   m_Icon: {fileID: 0}
@@ -21010,7 +21010,7 @@ GameObject:
   - component: {fileID: 4053335424977432812}
   - component: {fileID: 5908283838669662592}
   - component: {fileID: 5908283838669662599}
-  m_Layer: 8
+  m_Layer: 17
   m_Name: sDevice003
   m_TagString: Device
   m_Icon: {fileID: 0}
@@ -21783,7 +21783,7 @@ GameObject:
   - component: {fileID: 4867935728369556218}
   - component: {fileID: 3040006774883681174}
   - component: {fileID: 3040006774883681169}
-  m_Layer: 8
+  m_Layer: 17
   m_Name: sDevice001
   m_TagString: Device
   m_Icon: {fileID: 0}

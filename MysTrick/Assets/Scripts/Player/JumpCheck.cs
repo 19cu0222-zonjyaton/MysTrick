@@ -137,7 +137,7 @@ public class JumpCheck : MonoBehaviour
         {
             hintUI.SetActive(true);
 
-            if (pi.isTriggered && pi.isJumping && !pi.lockJumpStatus)
+            if (pi.isTriggered && !pi.lockJumpStatus)
             {
                 pi.ResetSignal();
 
@@ -154,6 +154,8 @@ public class JumpCheck : MonoBehaviour
                 isJump = true;
 
                 pi.lockJumpStatus = true;
+
+                pi.isTriggered = false;
             }
         }
     }

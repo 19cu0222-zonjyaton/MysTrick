@@ -19996,7 +19996,7 @@ GameObject:
   - component: {fileID: 230362471203387541}
   - component: {fileID: 4148676443788063062}
   - component: {fileID: 4148676443788063063}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: greenDoor
   m_TagString: Key
   m_Icon: {fileID: 0}
@@ -22801,7 +22801,7 @@ GameObject:
   - component: {fileID: 5720834676209053934}
   - component: {fileID: 5720834676209053931}
   - component: {fileID: 5720834676209053932}
-  m_Layer: 8
+  m_Layer: 17
   m_Name: moveWall001
   m_TagString: Untagged
   m_Icon: {fileID: 0}

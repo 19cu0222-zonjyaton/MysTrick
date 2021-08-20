@@ -28,15 +28,27 @@ public class TriggerController : MonoBehaviour
 	public bool isTriggered;
 	public bool isCameraTriggered;
 	public int launchCount;						//	Triggerの状態(0 -> 最初の状態 1 -> 発動した状態)
-	private PlayerInput Player;
+	private PlayerInput pi;
+	private ActorController ac;
 
 	void Awake()
 	{
-		Player = GameObject.Find("PlayerHandle").GetComponent<PlayerInput>();
+		pi = GameObject.Find("PlayerHandle").GetComponent<PlayerInput>();
+
+		ac = GameObject.Find("PlayerHandle").GetComponent<ActorController>();
 	}
 
 	void Update()
 	{
+		if (ac.isInTrigger)
+		{
+			hintUI.SetActive(false);
+		}
+		else
+		{
+			hintUI.SetActive(false);
+		}
+
 		if (cameraCanMoveToStair)
 		{
 			timeCount -= Time.deltaTime;
@@ -157,9 +169,7 @@ public class TriggerController : MonoBehaviour
 	{
 		if (other.transform.tag == "Player")
 		{
-			hintUI.SetActive(true);
-
-			if (this.transform.tag == "Device" && Player.isTriggered)
+			if (this.transform.tag == "Device" && pi.isTriggered)
 			{
 				isTriggered = true;
 				//Debug.Log(this.transform.name + " has touched.");
@@ -167,7 +177,7 @@ public class TriggerController : MonoBehaviour
 				// 子オブジェクトに受け渡すメッセージ
 				this.transform.BroadcastMessage("DeviceOnTriggered", "sFootPlate");
 
-				Player.isTriggered = false;
+				pi.isTriggered = false;
 
 				//// 表示になった場合
 				//if (Stair.transform.gameObject.activeSelf)
@@ -192,27 +202,19 @@ public class TriggerController : MonoBehaviour
 				//}
 			}
 
-			if (this.transform.tag == "Handle" && Player.isTriggered)
+			if (this.transform.tag == "Handle" && pi.isTriggered)
 			{
 				isTriggered = true;
-				Player.isTriggered = false;
+				pi.isTriggered = false;
 				Debug.Log(this.transform.name + " has touched.");
 			}
 
-			if (this.transform.tag == "Key" && Player.isTriggered)
+			if (this.transform.tag == "Key" && pi.isTriggered)
 			{
 				isTriggered = true;
-				Player.isTriggered = false;
+				pi.isTriggered = false;
 				Debug.Log(this.transform.name + " has touched.");
 			}
-		}
-	}
-
-	private void OnTriggerExit(Collider other)
-	{
-		if (other.transform.tag == "Player")
-		{
-			hintUI.SetActive(false);
 		}
 	}
 	//----------------------------------

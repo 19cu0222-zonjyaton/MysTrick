@@ -904,7 +904,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   capcol: {fileID: 6563069687783362540}
   goal: {fileID: 0}
-  ca: {fileID: 0}
+  cc: {fileID: 0}
 --- !u!1 &6563069687687562307
 GameObject:
   m_ObjectHideFlags: 0
@@ -1169,6 +1169,8 @@ MonoBehaviour:
   inputEnabled: 1
   aimUI: 0
   isTriggered: 0
+  isPushBox: 0
+  isEntryDoor: 0
   isJumping: 0
   lockJumpStatus: 0
   isThrowing: 0
@@ -1210,7 +1212,7 @@ MonoBehaviour:
   climbEnd: 0
   isDead: 0
   isFall: 0
-  moveSpeed: 7
+  moveSpeed: 6
   isInTrigger: 0
   isDamageByEnemy: 0
   isUnrivaled: 0
@@ -1219,6 +1221,10 @@ MonoBehaviour:
   shootStart: 0
   isJumping: 0
   isClimbing: 0
+  isPushBox: 0
+  isEntryDoor: 0
+  isInCameraZoom: 0
+  cameraZoomIndex: 0
   climbLandPos: {x: 0, y: 0, z: 0}
   haveKeys:
     BlueKey: 0
@@ -1971,6 +1977,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  lookAtZoom: []
   lookAtGoal: {fileID: 0}
   firstPerspect: {fileID: 6563069688358266861}
   weapon: {fileID: 4896021154492923860, guid: 31f5f897a1df73744a57545b6943eb20, type: 3}
@@ -1989,8 +1996,9 @@ MonoBehaviour:
   cameraStatic: Idle
   horizontalSpeed: 50
   verticalSpeed: 40
-  moveSpeed: {x: 0, y: 0, z: 0}
   timeSpeed: 1.5
+  moveSpeed: {x: 0, y: 0, z: 0}
+  deadMoveStart: 0
 --- !u!1 &7217222904255597618
 GameObject:
   m_ObjectHideFlags: 0

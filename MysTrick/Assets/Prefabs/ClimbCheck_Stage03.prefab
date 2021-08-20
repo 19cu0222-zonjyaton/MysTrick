@@ -281,7 +281,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   perRadian: 0.05
   radius: 0.15
-  cameraPos: {fileID: 0}
+  mesh: {fileID: 0}
+  newMaterial: {fileID: 0}
+  meshCanChange: 0
+  lockUIName: 
 --- !u!1 &5046331040385742272
 GameObject:
   m_ObjectHideFlags: 0
@@ -294,7 +297,7 @@ GameObject:
   - component: {fileID: 5046331040385742279}
   - component: {fileID: 5046331040385742277}
   - component: {fileID: 5046331040385742278}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: ClimbCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -560,7 +563,7 @@ GameObject:
   - component: {fileID: 5046331040884117007}
   - component: {fileID: 5046331040884117005}
   - component: {fileID: 5046331040884117006}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: ClimbCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -704,7 +707,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   perRadian: 0.05
   radius: 0.15
-  cameraPos: {fileID: 0}
+  mesh: {fileID: 0}
+  newMaterial: {fileID: 0}
+  meshCanChange: 0
+  lockUIName: 
 --- !u!1 &5046331041200519914
 GameObject:
   m_ObjectHideFlags: 0
@@ -748,7 +754,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5046331041216738892}
   m_Layer: 0
-  m_Name: ClimbCheck 1
+  m_Name: ClimbCheck_Stage03
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1066,6 +1072,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2470877512607984659, guid: 3284ea075712e1f4f839bbe15ce5fc9b,
+        type: 3}
+      propertyPath: m_Layer
+      value: 17
+      objectReference: {fileID: 0}
     - target: {fileID: 2522371912739057276, guid: 3284ea075712e1f4f839bbe15ce5fc9b,
         type: 3}
       propertyPath: m_RootOrder
@@ -1219,6 +1230,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2470877512607984659, guid: 3284ea075712e1f4f839bbe15ce5fc9b,
+        type: 3}
+      propertyPath: m_Layer
+      value: 17
       objectReference: {fileID: 0}
     - target: {fileID: 2522371912739057276, guid: 3284ea075712e1f4f839bbe15ce5fc9b,
         type: 3}

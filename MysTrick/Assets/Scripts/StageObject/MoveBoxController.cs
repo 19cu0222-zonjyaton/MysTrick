@@ -28,8 +28,12 @@ public class MoveBoxController : MonoBehaviour
 	{
 		if (other.transform.tag == "Player")
 		{
-			hintUI.SetActive(true);
-			if (pi.isPushBox)
+			if (!moveWithPlayer)
+			{
+				hintUI.SetActive(true);
+			}
+
+			if (pi.isTriggered)
 			{
 				if (moveWithPlayer)
 				{
@@ -43,7 +47,7 @@ public class MoveBoxController : MonoBehaviour
 					ac.moveSpeed = 7.0f;
 				}
 
-				pi.isPushBox = false;
+				pi.isTriggered = false;
 			}
 		}
 	}

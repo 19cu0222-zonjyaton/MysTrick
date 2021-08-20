@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2033591661703270485}
   - component: {fileID: 6175722809057062521}
   - component: {fileID: 2033591661703270484}
-  m_Layer: 8
+  m_Layer: 17
   m_Name: JumpCheck
   m_TagString: Device
   m_Icon: {fileID: 0}

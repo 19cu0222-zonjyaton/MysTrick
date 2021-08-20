@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6837346616378134159}
   - component: {fileID: 4041191672183230691}
   - component: {fileID: 7966701010147608435}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: ClimbCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -57,3 +57,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a665384ec53897e44be4a4431ea8b6e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 0}
+  lc: {fileID: 0}
+  startPos: []
+  checkPos: {fileID: 0}
+  climbStart: 0
+  nowLayer: 2
+  hintUI: {fileID: 0}
+  playerModule: {fileID: 0}
+  isNormalLadder: 0

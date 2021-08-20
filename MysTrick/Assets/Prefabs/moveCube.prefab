@@ -15,8 +15,8 @@ GameObject:
   - component: {fileID: 214443302344326206}
   - component: {fileID: 214443302344326207}
   - component: {fileID: 214443302344326193}
-  m_Layer: 0
-  m_Name: moveCube001
+  m_Layer: 17
+  m_Name: moveCube
   m_TagString: MoveBox
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -236,7 +236,6 @@ MonoBehaviour:
   mbc: {fileID: 214443302344326193}
   player: {fileID: 0}
   playerModule: {fileID: 0}
-  cc: {fileID: 0}
   ac: {fileID: 0}
 --- !u!1 &1454164763701252032
 GameObject:
@@ -298,7 +297,6 @@ MonoBehaviour:
   mbc: {fileID: 214443302344326193}
   player: {fileID: 0}
   playerModule: {fileID: 0}
-  cc: {fileID: 0}
   ac: {fileID: 0}
 --- !u!1 &1454164763705583066
 GameObject:
@@ -360,7 +358,6 @@ MonoBehaviour:
   mbc: {fileID: 214443302344326193}
   player: {fileID: 0}
   playerModule: {fileID: 0}
-  cc: {fileID: 0}
   ac: {fileID: 0}
 --- !u!1 &1454164764010565546
 GameObject:
@@ -422,7 +419,6 @@ MonoBehaviour:
   mbc: {fileID: 214443302344326193}
   player: {fileID: 0}
   playerModule: {fileID: 0}
-  cc: {fileID: 0}
   ac: {fileID: 0}
 --- !u!1001 &1454164762595058055
 PrefabInstance:

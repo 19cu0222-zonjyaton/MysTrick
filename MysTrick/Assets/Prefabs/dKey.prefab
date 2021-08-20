@@ -267,7 +267,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   perRadian: 0.03
   radius: 0.02
-  cameraPos: {fileID: 0}
+  mesh: {fileID: 0}
+  newMaterial: {fileID: 0}
+  meshCanChange: 0
+  lockUIName: 
 --- !u!1 &5951468401716080979
 GameObject:
   m_ObjectHideFlags: 0
@@ -280,8 +283,8 @@ GameObject:
   - component: {fileID: 5063947781218627290}
   - component: {fileID: 9063587641383656482}
   - component: {fileID: 3520309530011148981}
-  m_Layer: 0
-  m_Name: dKey001
+  m_Layer: 17
+  m_Name: dKey
   m_TagString: Key
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

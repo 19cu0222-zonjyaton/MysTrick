@@ -25243,7 +25243,7 @@ GameObject:
   - component: {fileID: 1759507965}
   - component: {fileID: 919132149131441535}
   - component: {fileID: 1759507964}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: triDevice001
   m_TagString: Handle
   m_Icon: {fileID: 0}
@@ -25921,7 +25921,7 @@ GameObject:
   - component: {fileID: 2509059252469474625}
   - component: {fileID: 2509059252469474627}
   - component: {fileID: 2509059252469474624}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: moveCube
   m_TagString: Handle
   m_Icon: {fileID: 0}

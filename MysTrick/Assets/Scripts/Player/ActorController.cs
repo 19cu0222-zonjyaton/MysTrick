@@ -103,7 +103,10 @@ public class ActorController : MonoBehaviour
 	void Update()
 	{
 		//	歩くアニメーションの数値
-		anim.SetFloat("Forward", pi.Dmag);
+		if (pi.inputEnabled)
+		{
+			anim.SetFloat("Forward", pi.Dmag);
+		}
 
 		if (!isDead)
 		{			
@@ -371,16 +374,12 @@ public class ActorController : MonoBehaviour
 
 	private void OnTriggerStay(Collider collider)
 	{
-		//if ((collider.transform.tag == "Device" || collider.transform.tag == "Handle" || collider.transform.tag == "Key" || collider.transform.tag == "MoveBox") && !isPushBox)
-		//{
-		//	isInTrigger = true;
-		//}
-		//else if(isPushBox)
-		//{
-		//	isInTrigger = false;
-		//}
+        if (collider.transform.gameObject.layer == LayerMask.NameToLayer("Trigger"))
+        {
+            isInTrigger = true;
+        }
 
-		if (collider.transform.tag == "DeadCheck")
+        if (collider.transform.tag == "DeadCheck")
 		{
 			isFall = true;
 		}
@@ -410,10 +409,10 @@ public class ActorController : MonoBehaviour
 
 	private void OnTriggerExit(Collider collider)
 	{
-		//if (collider.transform.tag == "Device" || collider.transform.tag == "Handle" || collider.transform.tag == "Key" || collider.transform.tag == "MoveBox")
-		//{
-		//	isInTrigger = false;
-		//}
+		if (collider.transform.gameObject.layer == LayerMask.NameToLayer("Trigger"))
+		{
+			isInTrigger = false;
+		}
 
 		if (collider.transform.tag == "CameraZoom")
 		{

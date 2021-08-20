@@ -170,7 +170,7 @@ GameObject:
   - component: {fileID: 1485295967162973784}
   - component: {fileID: 1609119345801197044}
   - component: {fileID: 1485295967162973785}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: rotDevice001
   m_TagString: Handle
   m_Icon: {fileID: 0}

@@ -113,7 +113,7 @@ public class PlayerInput : MonoBehaviour
 			targetDup = 0;
 			targetDright = 0;
 		}
-		print(inputEnabled);
+
 		Dup = Mathf.SmoothDamp(Dup, targetDup, ref velocityDup, moveToTargetTime);
 		Dright = Mathf.SmoothDamp(Dright, targetDright, ref velocityDright, moveToTargetTime);
 
@@ -123,31 +123,33 @@ public class PlayerInput : MonoBehaviour
 
 		Dmag = Mathf.Sqrt((Dup2 * Dup2) + (Dright2 * Dright2));
 
-		if ((Input.GetKeyDown(keyTrigger) || Input.GetButtonDown("action")) && cc.cameraStatic == "Idle" && !isAimStatus && canThrow)
+		//if ((Input.GetKeyDown(keyTrigger) || Input.GetButtonDown("action")) && cc.cameraStatic == "Idle" && !isAimStatus && canThrow && ac.isInTrigger)
+		//{
+		//	if (!isPushBox)
+		//	{
+		//		isPushBox = true;
+		//	}
+		//	else if (!isEntryDoor)
+		//	{
+		//		isEntryDoor = true;
+		//	}
+		//}
+
+		if ((Input.GetKeyDown(keyTrigger) || Input.GetButtonDown("action")) && cc.cameraStatic == "Idle" && !isAimStatus && canThrow && ac.isInTrigger)
 		{
-			isPushBox = true;
-			isEntryDoor = true;
+			isTriggered = true;
 		}
 
 		if (!ac.isPushBox && !ac.isEntryDoor)
 		{
-			if ((Input.GetKeyDown(keyTrigger) || Input.GetButtonDown("action")) && cc.cameraStatic == "Idle" && !isAimStatus && canThrow)
-			{
-				isTriggered = true;
-				if (!isJumping && !lockJumpStatus)
-				{
-					isJumping = true;
-				}
-			}
+            //if (Input.GetKeyUp(keyTrigger) || Input.GetButtonUp("action"))
+            //{
+            //    isTriggered = false;
+				
+            //    isJumping = false;
+            //}
 
-			if (Input.GetKeyUp(keyTrigger) || Input.GetButtonUp("action"))
-			{
-				isTriggered = false;
-
-				isJumping = false;
-			}
-
-			if ((Input.GetKeyDown(keyThrow) || Input.GetAxis("throw") == 1) && canThrow && !overDistance)
+            if ((Input.GetKeyDown(keyThrow) || Input.GetAxis("throw") == 1) && canThrow && !overDistance)
 			{
 				isThrowing = true;
 			}
