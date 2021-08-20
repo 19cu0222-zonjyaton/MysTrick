@@ -30,25 +30,19 @@ public class TriggerController : MonoBehaviour
 	public int launchCount;						//	Triggerの状態(0 -> 最初の状態 1 -> 発動した状態)
 	private PlayerInput pi;
 	private ActorController ac;
+	private CameraController cc;
 
 	void Awake()
 	{
 		pi = GameObject.Find("PlayerHandle").GetComponent<PlayerInput>();
 
 		ac = GameObject.Find("PlayerHandle").GetComponent<ActorController>();
+
+		cc = GameObject.Find("Main Camera").GetComponent<CameraController>();
 	}
 
 	void Update()
 	{
-		if (ac.isInTrigger)
-		{
-			hintUI.SetActive(false);
-		}
-		else
-		{
-			hintUI.SetActive(false);
-		}
-
 		if (cameraCanMoveToStair)
 		{
 			timeCount -= Time.deltaTime;
@@ -169,7 +163,16 @@ public class TriggerController : MonoBehaviour
 	{
 		if (other.transform.tag == "Player")
 		{
-			if (this.transform.tag == "Device" && pi.isTriggered)
+            if (cc.cameraStatic == "Idle" && !isTriggered)
+            {
+                hintUI.SetActive(true);
+            }
+            else
+            {
+                hintUI.SetActive(false);
+            }
+
+            if (this.transform.tag == "Device" && pi.isTriggered)
 			{
 				isTriggered = true;
 				//Debug.Log(this.transform.name + " has touched.");
@@ -217,5 +220,14 @@ public class TriggerController : MonoBehaviour
 			}
 		}
 	}
-	//----------------------------------
+
+	private void OnTriggerExit(Collider other)
+	{
+		if (other.transform.tag == "Player")
+		{
+			hintUI.SetActive(false);
+		}
+	}
+
+		//----------------------------------
 }
