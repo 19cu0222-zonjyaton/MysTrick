@@ -246,8 +246,8 @@ public class CameraController : MonoBehaviour
 				{
 					smr.enabled = true;
 				}
-				pi.inputEnabled = true;
 
+				ac.PlayerCanMove();
 				//  位置を戻る
 				transform.position = Vector3.Slerp(transform.position, cameraBackPos.transform.position, 5.0f * Time.fixedDeltaTime);
 

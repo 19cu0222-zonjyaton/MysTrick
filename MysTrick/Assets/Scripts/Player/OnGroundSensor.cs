@@ -6,7 +6,7 @@ public class OnGroundSensor : MonoBehaviour
 {
     public CapsuleCollider capcol;      //  colliderオブジェクト
     public GoalController goal;         //  ゴールコントローラー
-    public CameraController ca;         //  カメラコントローラー
+    public CameraController cc;         //  カメラコントローラー
 
     private PlayerInput pi;             //  プレイヤーの入力コントローラー
     private ActorController ac;         //  プレイヤーの挙動コントローラー
@@ -21,7 +21,7 @@ public class OnGroundSensor : MonoBehaviour
 
         goal = GameObject.Find("Goal").GetComponent<GoalController>();
 
-        ca = GameObject.Find("Main Camera").GetComponent<CameraController>();
+        cc = GameObject.Find("Main Camera").GetComponent<CameraController>();
 
         pi = gameObject.GetComponentInParent<PlayerInput>();    //  親のComponentを獲得する
 
@@ -39,7 +39,7 @@ public class OnGroundSensor : MonoBehaviour
         {
             pi.ResetSignal();
         }
-        else if (outputCols.Length != 0 && !pi.lockJumpStatus && !goal.gameClear && ca.cameraStatic == "Idle" && !ac.isUnrivaled && !ac.isDead)
+        else if (outputCols.Length != 0 && ac.PlayerCanMove() && cc.cameraStatic == "Idle")
         {
             pi.inputEnabled = true;
         }

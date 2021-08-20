@@ -109,6 +109,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   perRadian: 0.05
   radius: 0.15
+  mesh: {fileID: 0}
+  newMaterial: {fileID: 0}
+  meshCanChange: 0
+  lockUIName: 
 --- !u!1 &5148788873076864655
 GameObject:
   m_ObjectHideFlags: 0
@@ -280,7 +284,7 @@ GameObject:
   - component: {fileID: 5453335309480686949}
   - component: {fileID: 3879560320466482720}
   m_Layer: 0
-  m_Name: bDevice001
+  m_Name: bDevice
   m_TagString: Handle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

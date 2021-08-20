@@ -41,6 +41,7 @@ public class PlayerInput : MonoBehaviour
 	public bool aimUI;					//	狙う時の中心UI
 	public bool isTriggered;            //	仕掛けスイッチに入いるフラグ
 	public bool isPushBox;
+	public bool isEntryDoor;
 	public bool isJumping;				//	ジャンプ中フラグ
 	public bool lockJumpStatus;			//	ジャンプ状態の時ロックするフラグ
 	public bool isThrowing;				//	武器を投げっているフラグ
@@ -112,7 +113,7 @@ public class PlayerInput : MonoBehaviour
 			targetDup = 0;
 			targetDright = 0;
 		}
-
+		print(inputEnabled);
 		Dup = Mathf.SmoothDamp(Dup, targetDup, ref velocityDup, moveToTargetTime);
 		Dright = Mathf.SmoothDamp(Dright, targetDright, ref velocityDright, moveToTargetTime);
 
@@ -125,11 +126,12 @@ public class PlayerInput : MonoBehaviour
 		if ((Input.GetKeyDown(keyTrigger) || Input.GetButtonDown("action")) && cc.cameraStatic == "Idle" && !isAimStatus && canThrow)
 		{
 			isPushBox = true;
+			isEntryDoor = true;
 		}
 
-		if (!ac.isPushBox)
+		if (!ac.isPushBox && !ac.isEntryDoor)
 		{
-			if ((Input.GetKeyDown(keyTrigger) || Input.GetButtonDown("action")) && cc.cameraStatic == "Idle" && !isAimStatus)
+			if ((Input.GetKeyDown(keyTrigger) || Input.GetButtonDown("action")) && cc.cameraStatic == "Idle" && !isAimStatus && canThrow)
 			{
 				isTriggered = true;
 				if (!isJumping && !lockJumpStatus)
@@ -145,11 +147,11 @@ public class PlayerInput : MonoBehaviour
 				isJumping = false;
 			}
 
-			if ((Input.GetKeyDown(keyThrow) || Input.GetAxis("throw") == 1) && canThrow && !overDistance && inputEnabled)
+			if ((Input.GetKeyDown(keyThrow) || Input.GetAxis("throw") == 1) && canThrow && !overDistance)
 			{
 				isThrowing = true;
 			}
-			else if ((Input.GetKeyDown(keyAttack) || Input.GetButtonDown("attack")) && canThrow && canAttack && inputEnabled)
+			else if ((Input.GetKeyDown(keyAttack) || Input.GetButtonDown("attack")) && canThrow && canAttack)
 			{
 				isAttacking = true;
 			}
@@ -170,8 +172,8 @@ public class PlayerInput : MonoBehaviour
 				isAimStatus = false;
 				Dvec = Dright * transform.right + Dup * transform.forward;
 			}
-		}
-		else
+		}		
+		else if(ac.isPushBox)
 		{
 			Dvec = Dright * transform.right + Dup * transform.forward;
 		}

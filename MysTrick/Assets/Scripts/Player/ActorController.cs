@@ -36,6 +36,7 @@ public class ActorController : MonoBehaviour
 	public bool isJumping;					//	ジャンプflag
 	public bool isClimbing;                 //	登るflag
 	public bool isPushBox;
+	public bool isEntryDoor;
 	public bool isInCameraZoom;
 	public int cameraZoomIndex;
 	public Vector3 climbLandPos;
@@ -57,7 +58,8 @@ public class ActorController : MonoBehaviour
 	private new AudioSource audio;			//	SEのコンポーネント
 	private Animator anim;					//	アニメコントローラーコンポーネント
 	private Animation attack_anim;			//	アニメーションコントローラー
-	private Rigidbody rigid;				//	鋼体コンポーネント
+	private Rigidbody rigid;                //	鋼体コンポーネント
+	private CameraController cc;
 	private Vector3 movingVec;				//	移動方向
 	private GoalController gc;              //	ゴールコントローラー
 	private BarrierController bc;			//	針オブジェクトコントローラー
@@ -84,6 +86,8 @@ public class ActorController : MonoBehaviour
 		anim = model.GetComponent<Animator>();
 
 		attack_anim = GameObject.Find("R_Shoulder").GetComponent<Animation>();
+
+		cc = GameObject.Find("Main Camera").GetComponent<CameraController>();
 
 		rigid = GetComponent<Rigidbody>();
 
@@ -210,6 +214,20 @@ public class ActorController : MonoBehaviour
 				timeCount = 2.0f;
 			}
 		}
+	}
+
+	public bool PlayerCanMove()
+	{
+		if (gc.gameClear || pi.lockJumpStatus || isUnrivaled || isDead || isEntryDoor || cc.cameraStatic != "Idle")
+		{
+			pi.inputEnabled = false;
+		}
+		else
+		{
+			pi.inputEnabled = true;
+		}
+
+		return pi.inputEnabled;
 	}
 
 	private void CheckIsUnderDamage()	//	敵と当たると時間内に無敵状態になる
