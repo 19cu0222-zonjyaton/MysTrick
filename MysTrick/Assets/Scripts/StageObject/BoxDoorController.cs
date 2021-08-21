@@ -15,6 +15,7 @@ public class BoxDoorController : MonoBehaviour
 	public float moveSpeed;
 	public float rotSpeed;
 	public float doorRotSpeed;
+	public float levelYRot;
 	public float[] doorRotTarget;
 
 	private PlayerInput pi;
@@ -76,6 +77,7 @@ public class BoxDoorController : MonoBehaviour
 		else if (entryIndex == 5)   //	LevelDoor Open
 		{
 			player.transform.position = movePos[2].transform.position;
+			model.transform.rotation = movePos[3].transform.rotation;
 			linkDoor.transform.rotation = Quaternion.Lerp(linkDoor.transform.rotation, Quaternion.Euler(new Vector3(0, doorRotTarget[2], 0)), doorRotSpeed * Time.deltaTime);
             if (linkDoor.transform.localEulerAngles.y < 252.0f)
             {
@@ -87,8 +89,9 @@ public class BoxDoorController : MonoBehaviour
 		else if (entryIndex == 6)   //	Move To LevelPos
 		{
 			player.transform.position = Vector3.MoveTowards(player.transform.position, new Vector3(movePos[3].transform.position.x, player.transform.position.y, movePos[3].transform.position.z), moveSpeed * Time.deltaTime);
-			model.transform.rotation = Quaternion.Lerp(model.transform.rotation, movePos[3].transform.rotation, rotSpeed * Time.deltaTime);
+			model.transform.rotation = movePos[3].transform.rotation;
 			anim.SetFloat("Forward", 1.0f);
+			player.transform.localEulerAngles = new Vector3(0, levelYRot, 0);
 			if (player.transform.position.x == movePos[3].transform.position.x && player.transform.position.z == movePos[3].transform.position.z)
 			{
 				anim.SetFloat("Forward", 0.0f);

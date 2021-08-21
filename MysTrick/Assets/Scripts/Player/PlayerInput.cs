@@ -123,18 +123,6 @@ public class PlayerInput : MonoBehaviour
 
 		Dmag = Mathf.Sqrt((Dup2 * Dup2) + (Dright2 * Dright2));
 
-		//if ((Input.GetKeyDown(keyTrigger) || Input.GetButtonDown("action")) && cc.cameraStatic == "Idle" && !isAimStatus && canThrow && ac.isInTrigger)
-		//{
-		//	if (!isPushBox)
-		//	{
-		//		isPushBox = true;
-		//	}
-		//	else if (!isEntryDoor)
-		//	{
-		//		isEntryDoor = true;
-		//	}
-		//}
-
 		if ((Input.GetKeyDown(keyTrigger) || Input.GetButtonDown("action")) && cc.cameraStatic == "Idle" && !isAimStatus && canThrow && ac.isInTrigger)
 		{
 			isTriggered = true;

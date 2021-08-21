@@ -293,13 +293,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1666548558281888108}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: -5.52}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1666548559219726345}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!1 &1666548558943000687
 GameObject:
   m_ObjectHideFlags: 0
@@ -323,13 +323,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1666548558943000687}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: -5.52}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1666548559219726345}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!1 &1666548559219726344
 GameObject:
   m_ObjectHideFlags: 0
@@ -438,6 +438,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hintUI: {fileID: 8454886804080265065}
   player: {fileID: 0}
+  model: {fileID: 0}
   movePos:
   - {fileID: 1666548558943000687}
   - {fileID: 1666548559530376291}
@@ -447,7 +448,15 @@ MonoBehaviour:
   linkDoor: {fileID: 0}
   anim: {fileID: 0}
   entryIndex: 0
-  moveSpeed: 2
+  moveSpeed: 3
+  rotSpeed: 10
+  doorRotSpeed: 4
+  levelYRot: 0
+  doorRotTarget:
+  - 0
+  - 0
+  - 0
+  - 0
 --- !u!1 &1666548559530376291
 GameObject:
   m_ObjectHideFlags: 0
@@ -472,7 +481,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1666548559530376291}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -2.202, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1666548559219726345}
@@ -656,7 +665,7 @@ GameObject:
   m_Component:
   - component: {fileID: 293875761920207695}
   m_Layer: 0
-  m_Name: portal003B
+  m_Name: DoorBox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

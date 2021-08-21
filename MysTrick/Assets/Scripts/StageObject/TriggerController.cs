@@ -163,16 +163,20 @@ public class TriggerController : MonoBehaviour
 	{
 		if (other.transform.tag == "Player")
 		{
-            if (cc.cameraStatic == "Idle" && !isTriggered)
-            {
-                hintUI.SetActive(true);
-            }
-            else
-            {
-                hintUI.SetActive(false);
-            }
+			if (hintUI != null)
+			{
+				if (cc.cameraStatic == "Idle" && !isTriggered)
+				{
+					hintUI.SetActive(true);
+				}
+				else
+				{
+					hintUI.SetActive(false);
+				}
 
-            if (this.transform.tag == "Device" && pi.isTriggered)
+			}
+
+			if (this.transform.tag == "Device" && pi.isTriggered)
 			{
 				isTriggered = true;
 				//Debug.Log(this.transform.name + " has touched.");
@@ -225,7 +229,10 @@ public class TriggerController : MonoBehaviour
 	{
 		if (other.transform.tag == "Player")
 		{
-			hintUI.SetActive(false);
+			if (hintUI != null)
+			{
+				hintUI.SetActive(false);
+			}
 		}
 	}
 

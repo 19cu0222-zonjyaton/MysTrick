@@ -40,7 +40,7 @@ public class TriKeyUIController : MonoBehaviour
         }
         else if (keyType == "Key")
         {
-            for (int i = 0; i < 2; i++)
+            for (int i = 0; i < triKey.Length; i++)
             {
                 if ((ac.haveKeys.BlueKey || ac.haveKeys.GreenKey) && tkc[i].uiAnimStart && !doOnce[i])
                 {

@@ -74,6 +74,7 @@ public class ActorController : MonoBehaviour
 	private Vector3 damagePos;              //	モンスターからダメージを受けた位置
 	private GameObject stickBackPos;        //	針からダメージを受けたら戻る位置
 	private float damageTimeCount;          //	
+	private bool playerCanMove = true;
 	private bool doOnce;
 
 	//	初期化
@@ -106,6 +107,10 @@ public class ActorController : MonoBehaviour
 		if (pi.inputEnabled)
 		{
 			anim.SetFloat("Forward", pi.Dmag);
+		}
+		else if(!isEntryDoor)
+		{
+			anim.SetFloat("Forward", 0.0f);
 		}
 
 		if (!isDead)
@@ -221,7 +226,7 @@ public class ActorController : MonoBehaviour
 
 	public bool PlayerCanMove()
 	{
-		if (gc.gameClear || pi.lockJumpStatus || isUnrivaled || isDead || isEntryDoor || cc.cameraStatic != "Idle")
+		if (gc.gameClear || pi.lockJumpStatus || !playerCanMove || isDead || isEntryDoor || cc.cameraStatic != "Idle")
 		{
 			pi.inputEnabled = false;
 		}
@@ -270,6 +275,7 @@ public class ActorController : MonoBehaviour
 					transform.position = stickBackPos.transform.position;
 					bc.stickCanMove = true;
 				}
+				playerCanMove = true;
 				pi.inputEnabled = true;
 				cameraCanMove = true;           //	
 				rigid.constraints = RigidbodyConstraints.FreezeRotation;
@@ -402,8 +408,9 @@ public class ActorController : MonoBehaviour
 				modelMesh.enabled = false;
 				weaponMesh.enabled = false;
 				damageByStick = true;
+				playerCanMove = false;
+				isUnrivaled = true;
 			}
-			isUnrivaled = true;
 		}
 	}
 
@@ -445,6 +452,7 @@ public class ActorController : MonoBehaviour
 				rigid.AddExplosionForce(800.0f, collision.transform.position - new Vector3(0.0f, 1.5f, 0.0f), 5.0f, 2.0f);      //	爆発の位置を矯正
 				isDead = true;
 			}
+			playerCanMove = false;
 		}
 	}
 }
