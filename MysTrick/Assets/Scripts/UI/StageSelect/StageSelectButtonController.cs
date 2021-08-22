@@ -54,6 +54,10 @@ public class StageSelectButtonController : MonoBehaviour
         {
             if (i == stageNum)
             {
+                if (canSelected)
+                {
+                    img.sprite = stageImage[1];
+                }
                 img.sprite = stageImage[StaticController.imageIndex[stageNum]];
             }
         }

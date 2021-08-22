@@ -1208,6 +1208,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 8e2f17a7700fba9498e4f8a6f5388350, type: 3}
   hp: 5
   coinCount: 0
+  starCount: 0
   coinUIAction: 0
   climbEnd: 0
   isDead: 0

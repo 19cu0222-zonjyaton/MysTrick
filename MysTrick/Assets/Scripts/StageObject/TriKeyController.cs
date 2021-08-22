@@ -12,20 +12,16 @@ public class TriKeyController : MonoBehaviour
     public bool uiAnimStart;
 
     private Vector3 nowPos;             //  初期位置
-    private Vector3 startPos;
     private Rigidbody rigid;            //  鋼体コンポーネント
     private AudioSource sound;          //  SEコンポーネント
     private MeshRenderer mesh;
     private Animation anim;
     private bool getByPlayer;           //  プレイヤーと当たったflag
     private bool animStart;
-    private bool animOver;
 
     //  初期化
     void Awake()
     {
-        startPos = transform.position;
-
         rigid = gameObject.GetComponent<Rigidbody>();
 
         sound = gameObject.GetComponent<AudioSource>();
@@ -40,35 +36,34 @@ public class TriKeyController : MonoBehaviour
     {
         nowPos = transform.position;
 
-        if (Time.deltaTime != 0)
+        if (!getByPlayer)
         {
             transform.Rotate(0, rotateSpeed, 0);
-            if (!getByPlayer)
-            {
-                radian += perRadian;                //  弧度をプラスする
-                float dy = Mathf.Cos(radian) * radius;
-                transform.position = nowPos + new Vector3(0, dy, 0);
+            radian += perRadian;                //  弧度をプラスする
+            float dy = Mathf.Cos(radian) * radius;
+            transform.position = nowPos + new Vector3(0, dy, 0);
 
-                if (radian >= 360.0f)
-                {
-                    radian = 0.0f;
-                }
+            if (radian >= 360.0f)
+            {
+                radian = 0.0f;
             }
-
-            if (animStart && !animOver)
+        }
+        else
+        {
+            if (animStart)
             {
+                transform.Rotate(0, rotateSpeed, 0);
                 rotateSpeed -= 1.5f;
-
                 if (rotateSpeed <= 0.0f)
                 {
                     rigid.constraints = RigidbodyConstraints.FreezePosition;
                     transform.eulerAngles = finalRot;
 
                     anim.Play();
-                    animOver = true;
+                    animStart = false;
                 }
             }
-            else if (animOver && !anim.isPlaying)
+            else if (!animStart && !anim.isPlaying)
             {
                 mesh.material.color -= new Color32(0, 0, 0, 10);
                 uiAnimStart = true;

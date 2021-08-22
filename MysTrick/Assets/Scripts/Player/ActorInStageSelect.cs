@@ -27,12 +27,12 @@ public class ActorInStageSelect : MonoBehaviour
 
         if (selectBtn == 2)
         {
-            transform.position = new Vector3(-0.2f, -4.0f, -340.0f);
+            transform.position = new Vector3(-0.2f, -2.6f, -340.0f);
             transform.localEulerAngles = new Vector3(0, 85.0f, 0);
         }
         else if (selectBtn == 3)
         {
-            transform.position = new Vector3(8.0f, -4.0f, -340.0f);
+            transform.position = new Vector3(8.0f, -2.6f, -340.0f);
             transform.localEulerAngles = new Vector3(0, 115.0f, 0);
         }
 
@@ -74,12 +74,12 @@ public class ActorInStageSelect : MonoBehaviour
             {
                 if (selectBtn == 2)
                 {
-                    transform.position = new Vector3(1.5f, -4.0f, -340.0f);
+                    transform.position = new Vector3(1.5f, -2.6f, -340.0f);
                     transform.localEulerAngles = new Vector3(0, 85.0f, 0);
                 }
                 else if (selectBtn == 3)
                 {
-                    transform.position = new Vector3(9.5f, -4.0f, -340.0f);
+                    transform.position = new Vector3(9.5f, -2.6f, -340.0f);
                     transform.localEulerAngles = new Vector3(0, 115.0f, 0);
                 }
                 goRight = true;
