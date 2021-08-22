@@ -11,8 +11,6 @@ public class ExitController : MonoBehaviour
     public GameObject maskPanel;
     public AudioClip[] sounds;              //	SEオブジェクト
     public Button[] btn;
-    public static bool exitPanelIsOpen;
-    public static bool animIsStart;
 
     private AudioSource au;                 //	SEのコンポーネント
     private Animator anim;
@@ -38,27 +36,27 @@ public class ExitController : MonoBehaviour
 
         if (gameObject.name == "Canvas")
         {
-            if ((Input.GetKeyDown(KeyCode.Escape) || Input.GetButtonDown("menu")) && !StageSelectButtonController.confirmMenuIsOpen)
+            if ((Input.GetKeyDown(KeyCode.Escape) || Input.GetButtonDown("menu")) && !StaticController.confirmMenuIsOpen)
             {
-                if (!exitPanelIsOpen)
+                if (!StaticController.exitPanelIsOpen)
                 {
                     btn[0].enabled = true;
                     btn[1].enabled = true;
                     exitPanel.SetActive(true);
-                    exitPanelIsOpen = true;
+                    StaticController.exitPanelIsOpen = true;
                 }
                 else
                 {
-                    if (!animIsStart)
+                    if (!StaticController.animIsStart)
                     {
                         au.PlayOneShot(sounds[1]);
                     }
-                    animIsStart = true;
+                    StaticController.animIsStart = true;
                     anim.SetBool("Menu", false);
                 }
             }
 
-            if (exitPanelIsOpen)
+            if (StaticController.exitPanelIsOpen)
             {
                 if (anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 2.0f && anim.GetCurrentAnimatorStateInfo(0).IsName("StageSelect_Exit_Plus") && !enableInput)
                 {
@@ -67,11 +65,11 @@ public class ExitController : MonoBehaviour
                 }
                 else if (anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f && anim.GetCurrentAnimatorStateInfo(0).IsName("StageSelect_Exit_Minus"))
                 {
-                    exitPanelIsOpen = false;
-                    animIsStart = false;
+                    StaticController.exitPanelIsOpen = false;
+                    StaticController.animIsStart = false;
                     enableInput = false;
                     exitPanel.SetActive(false);
-                    EventSystem.current.SetSelectedGameObject(GameObject.Find(StageSelectButtonController.selectStageName));       //  前に選択したボタンを選択状態にする
+                    EventSystem.current.SetSelectedGameObject(GameObject.Find(StaticController.selectStageName));       //  前に選択したボタンを選択状態にする
                 }
             }
         }
@@ -88,11 +86,11 @@ public class ExitController : MonoBehaviour
                     au.Play();
                     btn[0].enabled = false;
                 }
-                else if(EventSystem.current.currentSelectedGameObject.name == "No" && gameObject.name == "No" && !animIsStart)
+                else if(EventSystem.current.currentSelectedGameObject.name == "No" && gameObject.name == "No" && !StaticController.animIsStart)
                 {
                     anim.SetBool("Menu", false);
                     au.PlayOneShot(sounds[1]);
-                    animIsStart = true;
+                    StaticController.animIsStart = true;
                     btn[0].enabled = false;
                 }
             }
@@ -102,7 +100,7 @@ public class ExitController : MonoBehaviour
                 timeCount -= Time.deltaTime;
                 if (timeCount < -0.3f)
                 {
-                    exitPanelIsOpen = false;
+                    StaticController.exitPanelIsOpen = false;
                     SceneManager.LoadScene("Title");
                 }
             }

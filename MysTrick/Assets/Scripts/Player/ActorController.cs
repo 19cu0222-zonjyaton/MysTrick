@@ -20,7 +20,8 @@ public class ActorController : MonoBehaviour
 	public PlayerInput pi;					//	入力コントローラー
 	public AudioClip[] sounds;				//	SEオブジェクト
 	public int hp;							//	プレイヤーHP
-	public int coinCount;					//	獲得したコイン数
+	public int coinCount;                   //	獲得したコイン数
+	public int starCount;                   //	獲得したスター数
 	public bool coinUIAction;				//  コインUIを動くための信号
 	public bool climbEnd;					//	登るエンドフラグ
 	public bool isDead;						//	プレイヤーが死亡flag

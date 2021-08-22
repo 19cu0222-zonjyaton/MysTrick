@@ -11,11 +11,10 @@ public class StageSelectConfirmUIController : MonoBehaviour
     public Animator animator;
     public AudioClip[] sounds;				//	SEオブジェクト
     public Button btn;
-    public static bool animIsOver;
 
     private AudioSource au;                 //	SEのコンポーネント
     private bool isOK;
-    private static bool isCancel;
+
     private float timeCount = 0.5f;         //  ステージに移動するまで暗いマスクの時間
 
     void Awake()
@@ -31,22 +30,22 @@ public class StageSelectConfirmUIController : MonoBehaviour
             au.Play();
         }
 
-        if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 2.0f && animator.GetCurrentAnimatorStateInfo(0).IsName("Stage_Confirm_Plus") && !animIsOver)
+        if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 2.0f && animator.GetCurrentAnimatorStateInfo(0).IsName("Stage_Confirm_Plus") && !StaticController.animIsOver)
         {
             btn.enabled = true;
             EventSystem.current.SetSelectedGameObject(GameObject.Find("OK"));       //  OKボタンを選択状態にする
-            animIsOver = true;
+            StaticController.animIsOver = true;
         }
 
         //  メニューをキャンセルの処理
-        if (isCancel)
+        if (StaticController.isCancel)
         {
             if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f && animator.GetCurrentAnimatorStateInfo(0).IsName("Stage_Confirm_Minus"))   
             {
-                StageSelectButtonController.confirmMenuIsOpen = false;
-                EventSystem.current.SetSelectedGameObject(GameObject.Find(StageSelectButtonController.selectStageName));       //  Stage01ボタンを選択状態にする
-                isCancel = false;
-                animIsOver = false;
+                StaticController.confirmMenuIsOpen = false;
+                EventSystem.current.SetSelectedGameObject(GameObject.Find(StaticController.selectStageName));       //  Stage01ボタンを選択状態にする
+                StaticController.isCancel = false;
+                StaticController.animIsOver = false;
                 gameObject.transform.parent.gameObject.SetActive(false);
             }
         }
@@ -58,9 +57,9 @@ public class StageSelectConfirmUIController : MonoBehaviour
 
             if (timeCount < -0.3f)
             {
-                animIsOver = false;
-                StageSelectButtonController.confirmMenuIsOpen = false;
-                SceneManager.LoadScene(StageSelectButtonController.selectStageName);
+                StaticController.animIsOver = false;
+                StaticController.confirmMenuIsOpen = false;
+                SceneManager.LoadScene(StaticController.selectStageName);
             }        
         }
 
@@ -74,19 +73,19 @@ public class StageSelectConfirmUIController : MonoBehaviour
                 au.Play();
                 btn.enabled = false;
             }
-            else if (EventSystem.current.currentSelectedGameObject.name == "Cancel" && gameObject.name == "Cancel" && !isCancel)
+            else if (EventSystem.current.currentSelectedGameObject.name == "Cancel" && gameObject.name == "Cancel" && !StaticController.isCancel)
             {
                 animator.SetBool("Menu", false);
-                isCancel = true;
+                StaticController.isCancel = true;
                 au.PlayOneShot(sounds[1]);
                 btn.enabled = false;
             }
         }
 
-        if ((Input.GetKeyDown(KeyCode.Escape) || Input.GetButtonDown("cancel")) && !isCancel)
+        if ((Input.GetKeyDown(KeyCode.Escape) || Input.GetButtonDown("cancel")) && !StaticController.isCancel)
         {
             animator.SetBool("Menu", false);
-            isCancel = true;
+            StaticController.isCancel = true;
             au.PlayOneShot(sounds[1]);
             btn.enabled = false;
         }

@@ -15,8 +15,6 @@ public class GoalController : MonoBehaviour
     public float radius;
     public float radian;                        //  弧度
     public bool isTitleGoal;                    //  タイトル画面のゴールフラグ
-    public static string clearStageName = "";
-    public static int[] getCount = new int[4];
     public AudioClip sound;				        //	SEオブジェクト
 
     private Vector3 oldPos;
@@ -63,19 +61,21 @@ public class GoalController : MonoBehaviour
             clearMask.GetComponent<CanvasGroup>().alpha = 1;
 
             //  コインの獲得率を更新する処理
-            for (int i = 0; i < getCount.Length; i++)
+            for (int i = 0; i < 4; i++)
             {
-                if (StageSelectButtonController.selectStageName == "Stage0" + (i + 1))
+                if (StaticController.selectStageName == "Stage0" + (i + 1))
                 {
-                    if (getCount[i] == 0)
-                    {
-                        getCount[i] = ac.coinCount;
-                        tempGetCount[i] = getCount[i];
-                    }
-                    else if (ac.coinCount > tempGetCount[i])
-                    {
-                        getCount[i] = ac.coinCount;
-                    }
+                    StaticController.imageIndex[i] = ac.starCount;
+
+                    //if (getCount[i] == 0)
+                    //{
+                    //    getCount[i] = ac.coinCount;
+                    //    tempGetCount[i] = getCount[i];
+                    //}
+                    //else if (ac.coinCount > tempGetCount[i])
+                    //{
+                    //    getCount[i] = ac.coinCount;
+                    //}
                 }
             }
 
@@ -86,7 +86,7 @@ public class GoalController : MonoBehaviour
             }
             else if (timeCount < 0.0f)
             {
-                clearStageName = StageSelectButtonController.selectStageName;
+                StaticController.clearStageName = StaticController.selectStageName;
                 SceneManager.LoadScene("StageSelect");
             }
         }

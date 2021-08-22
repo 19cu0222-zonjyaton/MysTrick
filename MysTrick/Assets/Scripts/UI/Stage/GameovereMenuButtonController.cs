@@ -31,9 +31,9 @@ public class GameovereMenuButtonController : MonoBehaviour
         {
             if (animator_Mask.GetCurrentAnimatorStateInfo(0).normalizedTime > 1.0f && animator_Mask.GetCurrentAnimatorStateInfo(0).IsName("Mask_W_B"))      //  指定する動画が終わったらStageSelect画面に入る
             {
-                if (loadSceneName == StageSelectButtonController.selectStageName)
+                if (loadSceneName == StaticController.selectStageName)
                 {
-                    SceneManager.LoadScene(StageSelectButtonController.selectStageName);
+                    SceneManager.LoadScene(StaticController.selectStageName);
                 }
                 else
                 {
@@ -55,7 +55,7 @@ public class GameovereMenuButtonController : MonoBehaviour
                 if (EventSystem.current.currentSelectedGameObject.name == "Yes")
                 {
                     animator_Mask.SetTrigger("WhiteToBlack");
-                    loadSceneName = StageSelectButtonController.selectStageName;
+                    loadSceneName = StaticController.selectStageName;
                     btn.enabled = false;
                 }
                 else if (EventSystem.current.currentSelectedGameObject.name == "No")
