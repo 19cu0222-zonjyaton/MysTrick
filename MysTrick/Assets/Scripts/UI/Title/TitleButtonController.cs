@@ -91,9 +91,9 @@ public class TitleButtonController : MonoBehaviour
 
                 if (gameObject.name == "Start")
                 {
-                    for (int i = 0; i < GoalController.getCount.Length; i++)
+                    for (int i = 0; i < StaticController.imageIndex.Length; i++)
                     {
-                        GoalController.getCount[i] = 0;
+                        StaticController.imageIndex[i] = 0;
                     }
                     ActorInStageSelect.selectBtn = 1;
                 }

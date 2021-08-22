@@ -19,13 +19,13 @@ public class CoinCountController : MonoBehaviour
 
     void Start()
     {
-        for (int i = 0; i < 4; i++)
-        {
-            if (stageNum == i)
-            {
-                textFrame.text = (Math.Round((GoalController.getCount[stageNum] / sumCount) * 100.0f, 0)).ToString() + "%";
-            }
-        }
+        //for (int i = 0; i < 4; i++)
+        //{
+        //    if (stageNum == i)
+        //    {
+        //        textFrame.text = (Math.Round((GoalController.getCount[stageNum] / sumCount) * 100.0f, 0)).ToString() + "%";
+        //    }
+        //}
     }
 
     // Update is called once per frame

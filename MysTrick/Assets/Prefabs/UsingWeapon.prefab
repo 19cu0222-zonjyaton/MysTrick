@@ -124,16 +124,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotateSpeed: 30
-  speed: 45
+  speed: 40
   playerNeck: {fileID: 0}
   playerHand: {fileID: 0}
   backToHand: 1
   playerPos: {fileID: 0}
   model: {fileID: 0}
   throwAnim: {fileID: 0}
-  otherPos:
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
   startPos:
   - {x: 0, y: 0, z: 0}
   - {x: 0, y: 0, z: 0}

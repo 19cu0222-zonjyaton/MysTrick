@@ -31,6 +31,7 @@ public class EnemyPathControl : MonoBehaviour
     private bool rayLockPlayer;
     private float playerDeadTimeCount;
     private float warningTimeCount;
+    private int layerMask;
 
     //	初期化
     void Awake()
@@ -43,6 +44,8 @@ public class EnemyPathControl : MonoBehaviour
         }
 
         au = gameObject.GetComponent<AudioSource>();
+
+        layerMask = 1 << 0| 1 << 9 | 1 << 11;       //  0, 9, 11のLayerを有効にする(Ray)
     }
 
     void Update()
@@ -62,7 +65,7 @@ public class EnemyPathControl : MonoBehaviour
                     edc.canMove = true;
                 }
 
-                if (!LockOn() && !isAttackedByPlayer && !edc.hitWithPlayer)
+                if (!rayLockPlayer)
                 {
                     warningTimeCount += Time.deltaTime;
                     if (warningTimeCount > 2.0f)
@@ -70,7 +73,7 @@ public class EnemyPathControl : MonoBehaviour
                         warningActive = true;
                     }
                 }
-                else if ((LockOn() || isAttackedByPlayer || edc.hitWithPlayer) && warningActive && (edc.enemyHp > 0))
+                else if (rayLockPlayer && warningActive && (edc.enemyHp > 0))
                 {
                     au.PlayOneShot(sound);
                     edc.canMove = false;
@@ -90,15 +93,15 @@ public class EnemyPathControl : MonoBehaviour
                     if (LockOn() || isAttackedByPlayer || edc.hitWithPlayer)
                     {
                         ray = new Ray(transform.position - new Vector3(0.5f, 0, 0), ((player.transform.position + new Vector3(0, 1.5f, 0)) - head.transform.position).normalized);
-                        rayLockPlayer = true;
                     }
                     else
                     {
                         ray = new Ray(transform.position, head.forward);
+                        speed = 2.5f;
                         rayLockPlayer = false;
                     }
                     Debug.DrawRay(ray.origin, ray.direction * 100, Color.red, 0.1f);
-                    Physics.Raycast(ray, out hit, Mathf.Infinity);
+
                 }
                 else
                 {
@@ -106,7 +109,7 @@ public class EnemyPathControl : MonoBehaviour
                     {
                         ray = new Ray(transform.position, (patrolPos[i].transform.position - transform.position).normalized);
                         Debug.DrawRay(ray.origin, ray.direction * 100, Color.red, 0.1f);
-                        Physics.Raycast(ray, out hit, Mathf.Infinity);
+
                         if (hit.collider.gameObject == patrolPos[i])
                         {
                             index = i;
@@ -115,6 +118,11 @@ public class EnemyPathControl : MonoBehaviour
                         }
                     }
                 }
+                Physics.Raycast(ray, out hit, Mathf.Infinity, layerMask);
+                if (hit.collider != null)       //  光線が何も当たっていない時の対策
+                {
+                    hit.collider.enabled = true;
+                }
 
                 //  敵のAI処理
                 if (edc.canMove && cc.cameraStatic == "Idle")
@@ -122,6 +130,12 @@ public class EnemyPathControl : MonoBehaviour
                     if (hit.collider != null)       //  光線が何も当たっていない時の対策
                     {
                         hit.collider.enabled = true;
+
+                        if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Player"))
+                        {
+                            rayLockPlayer = true;
+                            speed = 3.5f;
+                        }
 
                         //  1.光線が壁に当たってない   2.捜査範囲に入った  3.攻撃された  -> プレイヤーの位置に移動する
                         if (rayLockPlayer || isAttackedByPlayer || edc.hitWithPlayer)
@@ -160,10 +174,10 @@ public class EnemyPathControl : MonoBehaviour
                             Patrol();
                         }
                     }
-                    else if (edc.canMove && !isAttackedByPlayer && !edc.hitWithPlayer)
-                    {
-                        Patrol();
-                    }
+                    //else if (edc.canMove && !isAttackedByPlayer && !edc.hitWithPlayer)
+                    //{
+                    //    Patrol();
+                    //}
                 }
             }
             else
@@ -240,7 +254,7 @@ public class EnemyPathControl : MonoBehaviour
 
                 angle = oppositeAngle - headAngle + 90.0f;
 
-                if ((angle <= 0.0f && angle >= -60.0f || angle <= 60.0f && angle > 0.0f || angle <= 360.0f && angle >= 300.0f && !hitWithWall) || isAttackedByPlayer || edc.hitWithPlayer)
+                if ((angle <= 0.0f && angle >= -60.0f || angle <= 60.0f && angle > 0.0f || angle <= 360.0f && angle >= 300.0f))
                 {
                     islock = true;
                 }

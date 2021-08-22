@@ -41,9 +41,9 @@ public class ActorInStageSelect : MonoBehaviour
 
     void Update()
     {
-        if (GoalController.clearStageName == "")        //  StageからStageSelectに飛びるではない場合
+        if (StaticController.clearStageName == "")        //  StageからStageSelectに飛びるではない場合
         {
-            if (!isMove && !StageSelectButtonController.confirmMenuIsOpen && !ExitController.exitPanelIsOpen)
+            if (!isMove && !StaticController.confirmMenuIsOpen && !StaticController.exitPanelIsOpen)
             {
                 if (selectBtn < 4)
                 {
@@ -65,7 +65,7 @@ public class ActorInStageSelect : MonoBehaviour
                     }
                 }
 
-                StageSelectButtonController.selectStageName = btn[selectBtn - 1].name;
+                StaticController.selectStageName = btn[selectBtn - 1].name;
             }
         }
         else                                            //  StageをクリアしてStageから飛びる場合
@@ -85,8 +85,8 @@ public class ActorInStageSelect : MonoBehaviour
                 goRight = true;
                 selectBtn++;
                 btn[selectBtn - 1].GetComponent<StageSelectButtonController>().canSelected = true;
-                StageSelectButtonController.selectStageName = btn[selectBtn - 1].name;
-                GoalController.clearStageName = "";
+                StaticController.selectStageName = btn[selectBtn - 1].name;
+                StaticController.clearStageName = "";
             }
         }
 

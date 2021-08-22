@@ -8,19 +8,15 @@ public class StageSelectButtonController : MonoBehaviour
 {
     public bool canSelected;                    //  クリアしたかどうか
     public GameObject confirmPanel;
-    public static string selectStageName;       //  選択したステージ名(シン―を切り替えてもstatic dataに影響しない)
-    public static bool confirmMenuIsOpen;       //  共有プロパティ
-    private Button btn;
+    public Sprite[] stageImage;
+    public int stageNum;
+
     private Image img;
     private Vector3 startPos;                   //  始点の位置
 
     void Awake()
     {
-        selectStageName = "Stage01";
-
         img = gameObject.GetComponent<Image>();
-
-        btn = gameObject.GetComponent<Button>();
 
         startPos = transform.parent.position;
     }
@@ -48,10 +44,18 @@ public class StageSelectButtonController : MonoBehaviour
             gameObject.transform.parent.position = Vector3.MoveTowards(transform.parent.position, startPos - new Vector3(250.0f, 0.0f, 0.0f), 75.0f * Time.deltaTime);
         }
 
-        if ((Input.GetKeyDown(KeyCode.Return) || Input.GetButtonDown("action")) && canSelected && !confirmMenuIsOpen && !ExitController.exitPanelIsOpen)
+        if ((Input.GetKeyDown(KeyCode.Return) || Input.GetButtonDown("action")) && canSelected && !StaticController.confirmMenuIsOpen && !StaticController.exitPanelIsOpen)
         {
-            confirmMenuIsOpen = true;
+            StaticController.confirmMenuIsOpen = true;
             confirmPanel.SetActive(true);
+        }
+
+        for (int i = 0; i < stageImage.Length; i++)
+        {
+            if (i == stageNum)
+            {
+                img.sprite = stageImage[StaticController.imageIndex[stageNum]];
+            }
         }
     }
 }
