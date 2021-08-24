@@ -135,6 +135,7 @@ public class LiftDoorController : MonoBehaviour
 		if (other.transform.tag == "Player")
 		{
 			HintUI.SetActive(false);
+			if (player.isTriggered) player.isTriggered = false;
 			isTriggered = false;
 		}
 	}
