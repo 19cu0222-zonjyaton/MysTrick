@@ -11,68 +11,40 @@ using UnityEngine;
 public class PortalController : MonoBehaviour
 {
 	[Header("===調整用===")]
-	public GameObject portalA;
-	public GameObject portalB;
-	public GameObject hintUI;
-	public float cameraTimeCount;
-	public float transportTimeCount = 6.0f;
+	public PortalController portalA;
+	public PortalController portalB;
+	public Transform targetA;
+	public Transform targetB;
+	public float moveTimeCount;
+	public float moveSpeed = 5.0f;
 	public bool needKey = false;
+	[HideInInspector]
+	public bool finMoving;
 
-	private GameObject player;
-	private Vector3 curPosition;
-	private bool isPlayingAnimation;
+	private FootPlateDeviceController FootDevice;
+	private Vector3 nextPosition;
 	private bool isTriggered;
-	private float transportTimeReset;
 	
 
 	void Awake()
 	{
-		player = GameObject.FindGameObjectWithTag("Player");
+
 	}
 
 	void Start()
 	{
-		transportTimeReset = transportTimeCount;
+		nextPosition = targetB.localPosition;
+		finMoving = false;
 	}
 
 	void Update()
 	{
-		if (isTriggered)
+		/*if (FootDevice.isTriggered)
 		{
-			if (transportTimeCount > 0.0f)
+			if (this.transform.localPosition != nextPosition)
 			{
-				transportTimeCount -= Time.deltaTime;
-				PlayAnimation();
+				this.transform.localPosition = Vector3.MoveTowards(this.transform.localPosition, nextPosition, moveSpeed * Time.deltaTime);
 			}
-			else
-			{
-				transportTimeCount = transportTimeReset;
-				isTriggered = false;
-			}
-		}
+		}*/
 	}
-
-	void PlayAnimation()
-	{
-		Debug.Log("PlayingAnimation...");
-	}
-
-	// 当たり判定
-	//----------------------------------
-	void OnTriggerStay(Collider other)
-	{
-		if (other.transform.tag == "Player" && !needKey || (needKey && player.GetComponent<ActorController>().havePortalKey))
-		{
-			hintUI.SetActive(true);
-			if (player.GetComponent<PlayerInput>().isTriggered) isTriggered = true;
-		}
-	}
-	void OnTriggerExit(Collider other)
-	{
-		if (other.transform.tag == "Player")
-		{
-			hintUI.SetActive(false);
-		}
-	}
-	//----------------------------------
 }

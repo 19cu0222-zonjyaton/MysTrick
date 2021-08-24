@@ -22003,7 +22003,7 @@ GameObject:
   - component: {fileID: 5046331039614048962}
   - component: {fileID: 5046331039614048960}
   - component: {fileID: 5046331039614048963}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: ClimbCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -22618,7 +22618,7 @@ GameObject:
   - component: {fileID: 5046331041119068426}
   - component: {fileID: 5046331041119068424}
   - component: {fileID: 5046331041119068427}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: ClimbCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -23592,7 +23592,7 @@ GameObject:
   - component: {fileID: 5720834676209053934}
   - component: {fileID: 5720834676209053931}
   - component: {fileID: 5720834676209053932}
-  m_Layer: 17
+  m_Layer: 8
   m_Name: moveWall001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -23610,8 +23610,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 9.344798, y: 0.42507744, z: 35.6998}
-  m_Center: {x: 6.736113, y: 10.340465, z: -0.0000019073486}
+  m_Size: {x: 9.344798, y: 0.5129509, z: 35.6998}
+  m_Center: {x: 6.736113, y: 10.384401, z: -0.0000019073486}
 --- !u!114 &5720834676209053931
 MonoBehaviour:
   m_ObjectHideFlags: 0

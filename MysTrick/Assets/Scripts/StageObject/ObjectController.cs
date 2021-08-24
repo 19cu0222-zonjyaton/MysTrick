@@ -19,7 +19,8 @@ public class ObjectController : MonoBehaviour
 		AutoTwoWayMove,
 		RotatePerAngle,
 		RotateToTarget,
-		WaitToStart
+		WaitToStart,
+		PortalMove,
 	}
 
 	//===調整用値===
@@ -38,16 +39,23 @@ public class ObjectController : MonoBehaviour
 		public Quaternion targetEuAng;
 		[HideInInspector]
 		public Vector3 startPosition;
-		[Tooltip("For TwoWayMove, AutoWayMove, WaitToStart")]
+		[Tooltip("For TwoWayMove, AutoWayMove, WaitToStart, PortalMove")]
 		public Transform targetA;
-		[Tooltip("For TwoWayMove, AutoWayMove, WaitToStart")]
+		[Tooltip("For TwoWayMove, AutoWayMove, WaitToStart, PortalMove")]
 		public Transform targetB;
+		[Tooltip("For PortalMove")]
+		public ObjectController portalA;
+		[Tooltip("For PortalMove")]
+		public ObjectController portalB;
 		[Tooltip("For All")]
 		public float speed;
 	}
 	public MoveData moveData;
 	public TriggerController Device;
+	public FootPlateDeviceController FootDevice;
 	public TimerController ElevTimer;
+	public bool DeviceIsFtDev;
+	public bool isSinglePortal;
 	//==============
 
 	private Vector3 nextTarget;
@@ -55,6 +63,7 @@ public class ObjectController : MonoBehaviour
 	private bool timeFlag = true;
 	private bool liftingFin;			// エレベーター使用完了フラグ
 	private int pressCount = 0;			// 押し回数
+
 
 	// RotatePerAng用変数
 	//--------------------------------
@@ -75,11 +84,13 @@ public class ObjectController : MonoBehaviour
 	//--------------------------------
 
 	//===監視用値===
-	[Header("監視用")]
+	[Header("===監視用===")]
 	public bool isTrigger;				//	カメラ用フラグ
 	public bool hasDone;				//	カメラ用フラグ
 	public float audioSpeed = 1.0f;		//	SEを流すスピード
-	//==============
+	public bool portalMoveFin;			// ポータル移動完了フラグ
+	public bool doubleTrigger = false;	// 
+										//==============
 
 	void Awake()
 	{
@@ -89,6 +100,7 @@ public class ObjectController : MonoBehaviour
 		if (moveData.targetB != null) nextTarget = moveData.targetB.position;
 		startSpeed = moveData.speed;
 		liftingFin = false;
+		portalMoveFin = false;
 		audio = gameObject.GetComponent<AudioSource>();
 		ElevTimer = gameObject.GetComponent<TimerController>();
 		//timeReset = timeCount;
@@ -133,6 +145,7 @@ public class ObjectController : MonoBehaviour
 			case Trajectory.TwoWayMove:
 				if (Device.isTriggered)
 				{
+					Debug.Log(nextTarget);
 					isTrigger = true;
 					timeCount += Time.deltaTime;
 					// 移動開始
@@ -150,7 +163,7 @@ public class ObjectController : MonoBehaviour
 					{
 						++pressCount;
 						++Device.launchCount;
-						if (isTrigger)				//	一回が行ったらDelay時間をなしにする
+						if (isTrigger)              //	一回が行ったらDelay時間をなしにする
 						{
 							timeCount = 0.0f;
 							isTrigger = false;
@@ -257,6 +270,55 @@ public class ObjectController : MonoBehaviour
 					ElevTimer.TimerFinish = false;
 				}
 				//Debug.Log(this.transform.position + "\n" + moveData.targetB.position);
+				break;
+			case Trajectory.PortalMove:
+				// 移動開始
+				if (FootDevice.isTriggered && !portalMoveFin && moveData.targetB != null)
+				{
+					if (this.transform.position != nextTarget)
+					{
+						// portalAの移動開始
+						if (this.name == moveData.portalA.name)
+						{
+							if (!FootDevice.doubleTriggerA) this.transform.position = Vector3.MoveTowards(this.transform.position, nextTarget, moveData.speed * Time.deltaTime);
+							else
+							{
+								nextTarget = (nextTarget == moveData.targetA.position) ? moveData.targetB.position : moveData.targetA.position;
+								FootDevice.doubleTriggerA = false;
+							}
+						}
+						// portalBの移動開始
+						else if (this.name == moveData.portalB.name)
+						{
+							if (!FootDevice.doubleTriggerB) this.transform.position = Vector3.MoveTowards(this.transform.position, nextTarget, moveData.speed * Time.deltaTime);
+							else
+							{
+								nextTarget = (nextTarget == moveData.targetA.position) ? moveData.targetB.position : moveData.targetA.position;
+								FootDevice.doubleTriggerB = false;
+							}
+						}
+					}
+					else
+					{
+						// 移動完了フラグを立て
+						portalMoveFin = true;
+						// 移動方向変換
+						nextTarget = (nextTarget == moveData.targetA.position) ? moveData.targetB.position : moveData.targetA.position;
+					}
+				}
+				// 初期化(移動ポータルが2台である)
+				else if (!isSinglePortal && moveData.portalA.portalMoveFin && moveData.portalB.portalMoveFin)
+				{
+					FootDevice.isTriggered = false;
+					moveData.portalA.portalMoveFin = false;
+					moveData.portalB.portalMoveFin = false;
+				}
+				// 初期化(移動ポータルが1台である)
+				else if (portalMoveFin)
+				{
+					FootDevice.isTriggered = false;
+					portalMoveFin = false;
+				}
 				break;
 			default:
 				break;

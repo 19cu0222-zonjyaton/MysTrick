@@ -12,7 +12,10 @@ public class TimeController : MonoBehaviour
 {
 	[Header("===監視用===")]
 	public bool isFinish;			// カウント終了フラグ
+	public bool isStop = false;		// タイマーストップ
 	private bool isStart;			// カウント開始フラグ
+	
+	[SerializeField]
 	private float timeStart;		// 初期値
 	private float timeMax;			// 最大値
 	private float speed;			// カウントスピード
@@ -28,7 +31,8 @@ public class TimeController : MonoBehaviour
 		// カウント開始
 		if (isStart)
 		{
-			timeStart += Time.deltaTime * speed;
+			if (!isStop) timeStart += Time.deltaTime * speed;
+			else timeStart = 0.0f;
 			if (timeStart >= timeMax)
 			{
 				isFinish = true;

@@ -21,8 +21,8 @@ public class FootPlateController : MonoBehaviour
 	[Header("===監視用===")]
 	[SerializeField]
 	private bool nextUpward = false;	// True:次は上昇、False:次は降下
-	[SerializeField]
 	public bool isTriggered = false;	// True:稼働中、False:停止中
+	[SerializeField]
 	private float timeCount;			// 回復まで所要時間
 
 	void Start()
