@@ -96,6 +96,7 @@ public class ClimbCheck : MonoBehaviour
                             player.transform.position = startPos[1].transform.position;
                         }
 
+                        pi.isTriggered = false;
                         climbStart = true;
                     }
                 }

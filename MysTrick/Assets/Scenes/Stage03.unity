@@ -798,7 +798,7 @@ PrefabInstance:
     - target: {fileID: 3520309530011148981, guid: 14121fa11042fff4e861c9f5a3e4d0a2,
         type: 3}
       propertyPath: launchCount
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4807027232835737092, guid: 14121fa11042fff4e861c9f5a3e4d0a2,
         type: 3}
@@ -20019,14 +20019,21 @@ MonoBehaviour:
     startPosition: {x: 0, y: 0, z: 0}
     targetA: {fileID: 1454799367}
     targetB: {fileID: 832454626}
+    portalA: {fileID: 0}
+    portalB: {fileID: 0}
     speed: 5
   Device: {fileID: 5960076459729213039}
+  FootDevice: {fileID: 0}
   ElevTimer: {fileID: 0}
+  DeviceIsFtDev: 0
+  isSinglePortal: 0
   timeCount: 0
   timeMax: 3
   isTrigger: 0
   hasDone: 0
   audioSpeed: 1
+  portalMoveFin: 0
+  doubleTrigger: 0
 --- !u!65 &2773532164544078181
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -20616,14 +20623,21 @@ MonoBehaviour:
     startPosition: {x: 0, y: 0, z: 0}
     targetA: {fileID: 1912718852}
     targetB: {fileID: 1038671798}
+    portalA: {fileID: 0}
+    portalB: {fileID: 0}
     speed: 5
   Device: {fileID: 0}
+  FootDevice: {fileID: 0}
   ElevTimer: {fileID: 3649164983307570737}
+  DeviceIsFtDev: 0
+  isSinglePortal: 0
   timeCount: -2
   timeMax: 3
   isTrigger: 0
   hasDone: 0
   audioSpeed: 1
+  portalMoveFin: 0
+  doubleTrigger: 0
 --- !u!65 &3649164983307570739
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -23632,14 +23646,21 @@ MonoBehaviour:
     startPosition: {x: 0, y: 0, z: 0}
     targetA: {fileID: 1050863201}
     targetB: {fileID: 330996796}
+    portalA: {fileID: 0}
+    portalB: {fileID: 0}
     speed: 5
   Device: {fileID: 337929790}
+  FootDevice: {fileID: 0}
   ElevTimer: {fileID: 0}
+  DeviceIsFtDev: 0
+  isSinglePortal: 0
   timeCount: -1.5
   timeMax: 3
   isTrigger: 0
   hasDone: 0
   audioSpeed: 3
+  portalMoveFin: 0
+  doubleTrigger: 0
 --- !u!82 &5720834676209053932
 AudioSource:
   m_ObjectHideFlags: 0
@@ -25760,6 +25781,7 @@ MonoBehaviour:
   needTurn: 1
   nextUpward: 0
   isTriggered: 0
+  timeCount: 0
 --- !u!33 &8613119768992495256
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -25811,7 +25833,7 @@ GameObject:
   - component: {fileID: 8669027862760032123}
   - component: {fileID: 8669027862760032126}
   - component: {fileID: 8669027862760032125}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: liftDoor
   m_TagString: Key
   m_Icon: {fileID: 0}
@@ -25872,6 +25894,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isFinish: 0
+  isStop: 0
+  timeStart: 0
 --- !u!65 &8669027862760032126
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -25883,8 +25907,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 9.825981, z: 7.731681}
-  m_Center: {x: 0, y: -0.014962196, z: -0.044874668}
+  m_Size: {x: 3.7035575, y: 9.825981, z: 7.731681}
+  m_Center: {x: -1.3517787, y: -0.014962196, z: -0.044874668}
 --- !u!4 &8684189434185345796
 Transform:
   m_ObjectHideFlags: 0

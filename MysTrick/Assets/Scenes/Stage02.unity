@@ -14334,14 +14334,21 @@ MonoBehaviour:
     startPosition: {x: 0, y: 0, z: 0}
     targetA: {fileID: 2666288613047781734}
     targetB: {fileID: 2666288612146105677}
+    portalA: {fileID: 0}
+    portalB: {fileID: 0}
     speed: 2
   Device: {fileID: 1759507964}
+  FootDevice: {fileID: 0}
   ElevTimer: {fileID: 0}
+  DeviceIsFtDev: 0
+  isSinglePortal: 0
   timeCount: 0
   timeMax: 2.5
   isTrigger: 0
   hasDone: 0
   audioSpeed: 1
+  portalMoveFin: 0
+  doubleTrigger: 0
 --- !u!1001 &684324087
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -17641,6 +17648,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isFinish: 0
+  isStop: 0
+  timeStart: 0
 --- !u!114 &1128212545
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24824,14 +24833,21 @@ MonoBehaviour:
     startPosition: {x: 0, y: 0, z: 0}
     targetA: {fileID: 2666288613047781734}
     targetB: {fileID: 2666288612146105677}
+    portalA: {fileID: 0}
+    portalB: {fileID: 0}
     speed: 2
   Device: {fileID: 1759507964}
+  FootDevice: {fileID: 0}
   ElevTimer: {fileID: 0}
+  DeviceIsFtDev: 0
+  isSinglePortal: 0
   timeCount: -2
   timeMax: 2.5
   isTrigger: 0
   hasDone: 0
   audioSpeed: 1
+  portalMoveFin: 0
+  doubleTrigger: 0
 --- !u!82 &37794525812855334
 AudioSource:
   m_ObjectHideFlags: 0
@@ -25131,14 +25147,21 @@ MonoBehaviour:
     startPosition: {x: 0, y: 0, z: 0}
     targetA: {fileID: 2666288613047781734}
     targetB: {fileID: 2666288612146105677}
+    portalA: {fileID: 0}
+    portalB: {fileID: 0}
     speed: 12
   Device: {fileID: 1479440940}
+  FootDevice: {fileID: 0}
   ElevTimer: {fileID: 0}
+  DeviceIsFtDev: 0
+  isSinglePortal: 0
   timeCount: -1
   timeMax: 1
   isTrigger: 0
   hasDone: 0
   audioSpeed: 1
+  portalMoveFin: 0
+  doubleTrigger: 0
 --- !u!82 &866921074079375164
 AudioSource:
   m_ObjectHideFlags: 0
@@ -25635,6 +25658,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isFinish: 0
+  isStop: 0
+  timeStart: 0
 --- !u!1 &1940234160318734293
 GameObject:
   m_ObjectHideFlags: 0
@@ -25952,14 +25977,21 @@ MonoBehaviour:
     startPosition: {x: 0, y: 0, z: 0}
     targetA: {fileID: 0}
     targetB: {fileID: 0}
+    portalA: {fileID: 0}
+    portalB: {fileID: 0}
     speed: 4
   Device: {fileID: 2509059252469474625}
+  FootDevice: {fileID: 0}
   ElevTimer: {fileID: 0}
+  DeviceIsFtDev: 0
+  isSinglePortal: 0
   timeCount: -1.5
   timeMax: 3
   isTrigger: 0
   hasDone: 0
   audioSpeed: 1
+  portalMoveFin: 0
+  doubleTrigger: 0
 --- !u!114 &2509059252469474625
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -27336,14 +27368,21 @@ MonoBehaviour:
     startPosition: {x: 0, y: 0, z: 0}
     targetA: {fileID: 2666288613047781734}
     targetB: {fileID: 2666288612146105677}
+    portalA: {fileID: 0}
+    portalB: {fileID: 0}
     speed: 2
   Device: {fileID: 1759507964}
+  FootDevice: {fileID: 0}
   ElevTimer: {fileID: 0}
+  DeviceIsFtDev: 0
+  isSinglePortal: 0
   timeCount: -2
   timeMax: 2.5
   isTrigger: 0
   hasDone: 0
   audioSpeed: 1
+  portalMoveFin: 0
+  doubleTrigger: 0
 --- !u!82 &3295778091830308390
 AudioSource:
   m_ObjectHideFlags: 0
@@ -27586,6 +27625,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isFinish: 0
+  isStop: 0
+  timeStart: 0
 --- !u!114 &4161399995436198171
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -27658,6 +27699,7 @@ MonoBehaviour:
   needTurn: 0
   nextUpward: 0
   isTriggered: 0
+  timeCount: 0
 --- !u!4 &4274438917694236716
 Transform:
   m_ObjectHideFlags: 0
@@ -27907,6 +27949,7 @@ MonoBehaviour:
   needTurn: 0
   nextUpward: 0
   isTriggered: 0
+  timeCount: 0
 --- !u!33 &4584978259778460269
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -28241,14 +28284,21 @@ MonoBehaviour:
     startPosition: {x: 0, y: 0, z: 0}
     targetA: {fileID: 0}
     targetB: {fileID: 0}
+    portalA: {fileID: 0}
+    portalB: {fileID: 0}
     speed: 4
   Device: {fileID: 4161399995436198171}
+  FootDevice: {fileID: 0}
   ElevTimer: {fileID: 0}
+  DeviceIsFtDev: 0
+  isSinglePortal: 0
   timeCount: -2
   timeMax: 3
   isTrigger: 0
   hasDone: 0
   audioSpeed: 1
+  portalMoveFin: 0
+  doubleTrigger: 0
 --- !u!82 &5492196696159049217
 AudioSource:
   m_ObjectHideFlags: 0
@@ -28526,14 +28576,21 @@ MonoBehaviour:
     startPosition: {x: 0, y: 0, z: 0}
     targetA: {fileID: 2666288613047781734}
     targetB: {fileID: 2666288612146105677}
+    portalA: {fileID: 0}
+    portalB: {fileID: 0}
     speed: 2
   Device: {fileID: 1759507964}
+  FootDevice: {fileID: 0}
   ElevTimer: {fileID: 0}
+  DeviceIsFtDev: 0
+  isSinglePortal: 0
   timeCount: -2
   timeMax: 2.5
   isTrigger: 0
   hasDone: 0
   audioSpeed: 1
+  portalMoveFin: 0
+  doubleTrigger: 0
 --- !u!82 &6151841297579388986
 AudioSource:
   m_ObjectHideFlags: 0

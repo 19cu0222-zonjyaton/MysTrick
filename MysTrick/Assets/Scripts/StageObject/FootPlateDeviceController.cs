@@ -61,6 +61,7 @@ public class FootPlateDeviceController : MonoBehaviour
 				doubleTriggerB = true;
 			}
 			else canTrigger = true;
+			Debug.Log("GD!");
 		}
 	}
 
