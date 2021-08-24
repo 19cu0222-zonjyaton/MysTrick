@@ -35,6 +35,8 @@ TagManager:
   - RotCheck
   - CameraZoom
   - FireBall
+  - Totem
+  - Wood
   layers:
   - Default
   - TransparentFX

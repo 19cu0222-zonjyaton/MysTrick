@@ -16,13 +16,14 @@ public class FireBallController : MonoBehaviour
 
 	private Rigidbody rb;
 	private Transform particalTrans;
+	private Transform totemTrans;
 	private float lifetime;
 
 	void Awake()
 	{
 		rb = GetComponent<Rigidbody>();
 		particalTrans = this.transform.GetChild(3);
-		
+		totemTrans = GameObject.FindGameObjectWithTag("Totem").GetComponent<Transform>();
 	}
 	void Start()
 	{
@@ -33,7 +34,8 @@ public class FireBallController : MonoBehaviour
 	{
 		// 回転させ
 		this.transform.Rotate(Vector3.forward, 5.0f);
-
+		// ParticalSystemのスケールを調整
+		particalTrans.localScale = Vector3.one + new Vector3(Mathf.Abs(totemTrans.right.x), Mathf.Abs(totemTrans.right.y), Mathf.Abs(totemTrans.right.z)) * 2.0f;
 		// ライフサイクル計算
 		lifetime += Time.deltaTime;
 		if (lifetime > 5.0f) Destroy(this.gameObject);
@@ -44,6 +46,11 @@ public class FireBallController : MonoBehaviour
 		if (other.transform.tag == "Player")
 		{
 
+		}
+		else if (other.transform.tag == "Wood")
+		{
+			Destroy(other.transform.parent.gameObject);
+			Destroy(this.gameObject);
 		}
 		else
 		{

@@ -154,7 +154,7 @@ GameObject:
   - component: {fileID: 17952713}
   m_Layer: 0
   m_Name: totemPivot
-  m_TagString: Untagged
+  m_TagString: Totem
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2129,18 +2129,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 508196202}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &532175786 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5241963629388700694, guid: b9a9585cde0aba8428c9def2addd6d3c,
-    type: 3}
-  m_PrefabInstance: {fileID: 1919869684}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4cda3947cb87ad4b879ce9f2a9d0962, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &574438703
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6788,18 +6776,6 @@ Transform:
   m_Father: {fileID: 4982657498723757381}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 360, z: 0}
---- !u!114 &2018224496 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5241963629388700694, guid: b9a9585cde0aba8428c9def2addd6d3c,
-    type: 3}
-  m_PrefabInstance: {fileID: 1666548560215626650}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4cda3947cb87ad4b879ce9f2a9d0962, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &2047116164 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 293875761920207695, guid: b9a9585cde0aba8428c9def2addd6d3c,
@@ -7597,7 +7573,7 @@ GameObject:
   - component: {fileID: 1007976427859675902}
   m_Layer: 9
   m_Name: pCube437 1
-  m_TagString: Untagged
+  m_TagString: Wood
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8245,12 +8221,12 @@ PrefabInstance:
         type: 3}
       propertyPath: moveData.portalA
       value: 
-      objectReference: {fileID: 532175786}
+      objectReference: {fileID: 0}
     - target: {fileID: 5241963629388700694, guid: b9a9585cde0aba8428c9def2addd6d3c,
         type: 3}
       propertyPath: moveData.portalB
       value: 
-      objectReference: {fileID: 2018224496}
+      objectReference: {fileID: 0}
     - target: {fileID: 5241963629388700694, guid: b9a9585cde0aba8428c9def2addd6d3c,
         type: 3}
       propertyPath: moveData.targetA
@@ -8460,7 +8436,7 @@ GameObject:
   - component: {fileID: 1934968486316412841}
   m_Layer: 9
   m_Name: pCube439
-  m_TagString: Untagged
+  m_TagString: Wood
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8572,7 +8548,7 @@ GameObject:
   - component: {fileID: 2054843053272884666}
   m_Layer: 9
   m_Name: pCube444
-  m_TagString: Untagged
+  m_TagString: Wood
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9061,7 +9037,7 @@ GameObject:
   - component: {fileID: 2818807946305161806}
   m_Layer: 9
   m_Name: pCube437
-  m_TagString: Untagged
+  m_TagString: Wood
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10956,7 +10932,7 @@ GameObject:
   - component: {fileID: 6072613124818021388}
   m_Layer: 9
   m_Name: pCube442
-  m_TagString: Untagged
+  m_TagString: Wood
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11970,7 +11946,7 @@ GameObject:
   - component: {fileID: 8317715865671152883}
   m_Layer: 9
   m_Name: pCube439 1
-  m_TagString: Untagged
+  m_TagString: Wood
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -12175,7 +12151,7 @@ GameObject:
   - component: {fileID: 8601882728222967267}
   m_Layer: 9
   m_Name: pCube443
-  m_TagString: Untagged
+  m_TagString: Wood
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
