@@ -5098,6 +5098,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: beb7fb0bdef4a584faf354edf74737ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  explore: {fileID: 1362866764104554279, guid: f4a79fbe3cd9c2f428dc6c45eb94d082, type: 3}
   moveSpeed: 500
   rotateSpeed: 5
 --- !u!1 &6269685891629837992

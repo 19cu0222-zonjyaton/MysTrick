@@ -10,6 +10,7 @@ public class BoxDoorController : MonoBehaviour
 	public GameObject[] movePos;
 	public GameObject door;
 	public GameObject linkDoor;
+	public GameObject lockKey;
 	public Animator anim;
 	public int entryIndex;
 	public float moveSpeed;
@@ -39,6 +40,11 @@ public class BoxDoorController : MonoBehaviour
 	{
 		if (entryIndex == 1)    //	Move To WaitPos
 		{
+			if (lockKey != null)
+			{
+				lockKey.GetComponent<Rigidbody>().useGravity = true;
+				lockKey.GetComponent<BoxCollider>().isTrigger = false;
+			}
 			player.transform.position = Vector3.MoveTowards(player.transform.position, new Vector3(movePos[0].transform.position.x, player.transform.position.y, movePos[0].transform.position.z), moveSpeed * Time.deltaTime);
 			model.transform.rotation = Quaternion.Lerp(model.transform.rotation, movePos[0].transform.rotation, rotSpeed * Time.deltaTime);
 			anim.SetFloat("Forward", 1.0f);
@@ -50,6 +56,7 @@ public class BoxDoorController : MonoBehaviour
 		}
 		else if (entryIndex == 2)   //	EntryDoor Open
 		{
+			Destroy(lockKey.gameObject);
 			door.transform.rotation = Quaternion.Lerp(door.transform.rotation, Quaternion.Euler(new Vector3(0, doorRotTarget[0], 0)), doorRotSpeed * Time.deltaTime);
 			if (door.transform.localEulerAngles.y < 252.0f)
 			{
@@ -130,15 +137,13 @@ public class BoxDoorController : MonoBehaviour
 				{
 					ac.isEntryDoor = true;
 					entryIndex++;
-					pi.isTriggered = false;
 				}
 				else if(!needKey)
 				{
 					ac.isEntryDoor = true;
 					entryIndex++;
-					pi.isTriggered = false;
 				}
-
+				pi.isTriggered = false;
 			}
 		}
 	}

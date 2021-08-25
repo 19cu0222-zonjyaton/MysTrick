@@ -446,6 +446,7 @@ MonoBehaviour:
   - {fileID: 0}
   door: {fileID: 182035504060380738}
   linkDoor: {fileID: 0}
+  lockKey: {fileID: 0}
   anim: {fileID: 0}
   entryIndex: 0
   moveSpeed: 3
@@ -457,6 +458,7 @@ MonoBehaviour:
   - 0
   - 0
   - 0
+  needKey: 0
 --- !u!1 &1666548559530376291
 GameObject:
   m_ObjectHideFlags: 0
@@ -706,7 +708,7 @@ GameObject:
   - component: {fileID: 7068626671828571143}
   - component: {fileID: 7068626671828571142}
   - component: {fileID: 7068626671828571137}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: portal_room 5
   m_TagString: Untagged
   m_Icon: {fileID: 0}

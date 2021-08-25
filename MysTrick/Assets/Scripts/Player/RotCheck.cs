@@ -8,8 +8,7 @@ public class RotCheck : MonoBehaviour
     public GameObject player;
     public GameObject playerModule;
     public ActorController ac;
-    public BoxCollider tempCollider;
-
+    public CapsuleCollider tempCollider;
     private bool doOnce;
 
     void Awake()
@@ -22,7 +21,7 @@ public class RotCheck : MonoBehaviour
         if (ac.isPushBox && doOnce)
         {
             playerModule.transform.rotation = transform.rotation;
-            mbc.gameObject.transform.SetParent(playerModule.transform);
+            player.gameObject.transform.SetParent(mbc.transform);
         }
     }
 
@@ -30,19 +29,20 @@ public class RotCheck : MonoBehaviour
 	{
 		if (other.transform.tag == "Player")
 		{
-            if (mbc.moveWithPlayer && !doOnce)
+            if (mbc.moveWithPlayer)
             {
-                Physics.IgnoreLayerCollision(11, 19, true);
-                tempCollider.enabled = true;
-                ac.isPushBox = true;
+                if (!doOnce)
+                {
+					tempCollider.enabled = true;
+                    ac.isPushBox = true; 
+                    doOnce = true;
+                }
                 player.transform.position = new Vector3(transform.position.x, player.transform.position.y, transform.position.z);                  
-                doOnce = true;
             }
-            else if(!mbc.moveWithPlayer)
+            else if(!mbc.moveWithPlayer && doOnce)
             {
-                Physics.IgnoreLayerCollision(11, 19, false);
                 tempCollider.enabled = false;
-                mbc.gameObject.transform.SetParent(null);
+                player.gameObject.transform.SetParent(null);
                 ac.isPushBox = false;
                 doOnce = false;
             }

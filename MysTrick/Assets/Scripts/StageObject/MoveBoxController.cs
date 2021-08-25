@@ -10,18 +10,34 @@ public class MoveBoxController : MonoBehaviour
 
 	private PlayerInput pi;
 	private ActorController ac;
+	private Rigidbody rigid;
+	private Vector3 movingVec;              //	移動方向
 
 	void Awake()
     {
 		pi = player.GetComponent<PlayerInput>();
 
 		ac = player.GetComponent<ActorController>();
+
+		rigid = gameObject.GetComponent<Rigidbody>();
 	}
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
+		if (moveWithPlayer)
+		{
+			if (pi.Dmag > 0.1f)     //	1.移動の入力値が0.1を超える時	2.狙う状態ではない時	->	 移動方向を設定する
+			{
+				movingVec = pi.Dmag * pi.Dvec;
+				transform.position += movingVec * 3.0f * Time.fixedDeltaTime;
+			}
+			else
+			{
+				movingVec = new Vector3(0, 0, 0);
+			}
 
+		}
 	}
 
 	private void OnTriggerStay(Collider other)
@@ -37,11 +53,14 @@ public class MoveBoxController : MonoBehaviour
 			{
 				if (moveWithPlayer)
 				{
+					rigid.isKinematic = true;
 					moveWithPlayer = false;
 					ac.moveSpeed = 3.0f;
 				}
 				else
 				{
+					pi.ResetSignal();
+					rigid.isKinematic = false;
 					hintUI.SetActive(false);
 					moveWithPlayer = true;
 					ac.moveSpeed = 7.0f;

@@ -11,6 +11,7 @@ using UnityEngine;
 public class FireBallController : MonoBehaviour
 {
 	[Header("===調整用===")]
+	public GameObject explore;
 	public float moveSpeed = 500.0f;		// 移動スピード
 	public float rotateSpeed = 5.0f;		// 回転スピード
 
@@ -23,7 +24,7 @@ public class FireBallController : MonoBehaviour
 	{
 		rb = GetComponent<Rigidbody>();
 		particalTrans = this.transform.GetChild(3);
-		totemTrans = GameObject.FindGameObjectWithTag("Totem").GetComponent<Transform>();
+		totemTrans = GameObject.Find("totemPivot").GetComponent<Transform>();
 	}
 	void Start()
 	{
@@ -42,20 +43,20 @@ public class FireBallController : MonoBehaviour
 	}
 
 	void OnTriggerEnter(Collider other)
-	{
+	{		
+		if (other.transform.tag != "StickBackPos")
+		{
+			Instantiate(explore, transform.position, Quaternion.identity);
+			Destroy(this.gameObject);
+		}
+
 		if (other.transform.tag == "Player")
 		{
 
 		}
 		else if (other.transform.tag == "Wood")
 		{
-			Destroy(other.transform.parent.gameObject);
-			Destroy(this.gameObject);
-		}
-		else
-		{
-			//Debug.Log("FireBall touched " + other.name);
-			Destroy(this.gameObject);
+			Destroy(other.transform.parent.gameObject);		
 		}
 	}
 }

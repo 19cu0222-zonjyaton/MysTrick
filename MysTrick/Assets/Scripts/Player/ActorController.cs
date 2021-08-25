@@ -116,16 +116,16 @@ public class ActorController : MonoBehaviour
 
 		if (!isDead)
 		{			
-			if (pi.Dmag > 0.1f && (!pi.isAimStatus && !isPushBox))		//	1.移動の入力値が0.1を超える時	2.狙う状態ではない時	->	 移動方向を設定する
+			if (pi.Dmag > 0.01f && (!pi.isAimStatus && !isPushBox))		//	1.移動の入力値が0.1を超える時	2.狙う状態ではない時	->	 移動方向を設定する
 			{
 				model.transform.forward = Vector3.Slerp(model.transform.forward, pi.Dvec, 10.0f * Time.deltaTime);
 				movingVec = pi.Dmag * model.transform.forward; 
 			}
-			else if (pi.Dmag > 0.1f && (pi.isAimStatus || isPushBox))  //	1.移動の入力値が0.1を超える時	2.狙う状態の時	->	 移動方向を設定する
+			else if (pi.Dmag > 0.01f && pi.isAimStatus)  //	1.移動の入力値が0.1を超える時	2.狙う状態の時	->	 移動方向を設定する
 			{
 				movingVec = pi.Dmag * pi.Dvec;
 			}
-			else													   //	以外の状態
+			else if(!isPushBox)                                                 //	以外の状態
 			{
 				movingVec = pi.Dmag * model.transform.forward;
 			}
@@ -386,7 +386,7 @@ public class ActorController : MonoBehaviour
             isInTrigger = true;
         }
 
-        if (collider.transform.tag == "DeadCheck")
+		if (collider.transform.tag == "DeadCheck")
 		{
 			isFall = true;
 		}
