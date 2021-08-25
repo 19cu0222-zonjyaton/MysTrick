@@ -17,6 +17,7 @@ public class BoxDoorController : MonoBehaviour
 	public float doorRotSpeed;
 	public float levelYRot;
 	public float[] doorRotTarget;
+	public bool needKey;
 
 	private PlayerInput pi;
 	private ActorController ac;
@@ -31,7 +32,12 @@ public class BoxDoorController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-		if (entryIndex == 1)	//	Move To WaitPos
+		entryDoor();
+	}
+
+	private void entryDoor()
+	{
+		if (entryIndex == 1)    //	Move To WaitPos
 		{
 			player.transform.position = Vector3.MoveTowards(player.transform.position, new Vector3(movePos[0].transform.position.x, player.transform.position.y, movePos[0].transform.position.z), moveSpeed * Time.deltaTime);
 			model.transform.rotation = Quaternion.Lerp(model.transform.rotation, movePos[0].transform.rotation, rotSpeed * Time.deltaTime);
@@ -42,7 +48,7 @@ public class BoxDoorController : MonoBehaviour
 				entryIndex++;
 			}
 		}
-		else if (entryIndex == 2)	//	EntryDoor Open
+		else if (entryIndex == 2)   //	EntryDoor Open
 		{
 			door.transform.rotation = Quaternion.Lerp(door.transform.rotation, Quaternion.Euler(new Vector3(0, doorRotTarget[0], 0)), doorRotSpeed * Time.deltaTime);
 			if (door.transform.localEulerAngles.y < 252.0f)
@@ -52,7 +58,7 @@ public class BoxDoorController : MonoBehaviour
 				entryIndex++;
 			}
 		}
-		else if (entryIndex == 3)	//	Move To Door
+		else if (entryIndex == 3)   //	Move To Door
 		{
 			player.transform.position = Vector3.MoveTowards(player.transform.position, new Vector3(movePos[1].transform.position.x, player.transform.position.y, movePos[1].transform.position.z), moveSpeed * Time.deltaTime);
 			model.transform.rotation = Quaternion.Lerp(model.transform.rotation, movePos[1].transform.rotation, rotSpeed * Time.deltaTime);
@@ -79,13 +85,13 @@ public class BoxDoorController : MonoBehaviour
 			player.transform.position = movePos[2].transform.position;
 			model.transform.rotation = movePos[3].transform.rotation;
 			linkDoor.transform.rotation = Quaternion.Lerp(linkDoor.transform.rotation, Quaternion.Euler(new Vector3(0, doorRotTarget[2], 0)), doorRotSpeed * Time.deltaTime);
-            if (linkDoor.transform.localEulerAngles.y < 252.0f)
-            {
-                moveSpeed = 5.0f;
+			if (linkDoor.transform.localEulerAngles.y < 252.0f)
+			{
+				moveSpeed = 5.0f;
 				linkDoor.transform.localEulerAngles = new Vector3(0, -110, 0);
 				entryIndex++;
-            }
-        }
+			}
+		}
 		else if (entryIndex == 6)   //	Move To LevelPos
 		{
 			player.transform.position = Vector3.MoveTowards(player.transform.position, new Vector3(movePos[3].transform.position.x, player.transform.position.y, movePos[3].transform.position.z), moveSpeed * Time.deltaTime);
@@ -120,9 +126,19 @@ public class BoxDoorController : MonoBehaviour
 			hintUI.SetActive(true);
 			if (pi.isTriggered)
 			{
-				ac.isEntryDoor = true;
-				entryIndex++;
-				pi.isTriggered = false;
+				if (needKey && ac.haveKeys.BlueKey)
+				{
+					ac.isEntryDoor = true;
+					entryIndex++;
+					pi.isTriggered = false;
+				}
+				else if(!needKey)
+				{
+					ac.isEntryDoor = true;
+					entryIndex++;
+					pi.isTriggered = false;
+				}
+
 			}
 		}
 	}

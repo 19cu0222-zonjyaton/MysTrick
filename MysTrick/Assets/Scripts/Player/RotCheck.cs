@@ -8,6 +8,7 @@ public class RotCheck : MonoBehaviour
     public GameObject player;
     public GameObject playerModule;
     public ActorController ac;
+    public BoxCollider tempCollider;
 
     private bool doOnce;
 
@@ -31,12 +32,16 @@ public class RotCheck : MonoBehaviour
 		{
             if (mbc.moveWithPlayer && !doOnce)
             {
+                Physics.IgnoreLayerCollision(11, 19, true);
+                tempCollider.enabled = true;
                 ac.isPushBox = true;
                 player.transform.position = new Vector3(transform.position.x, player.transform.position.y, transform.position.z);                  
                 doOnce = true;
             }
             else if(!mbc.moveWithPlayer)
             {
+                Physics.IgnoreLayerCollision(11, 19, false);
+                tempCollider.enabled = false;
                 mbc.gameObject.transform.SetParent(null);
                 ac.isPushBox = false;
                 doOnce = false;

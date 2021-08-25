@@ -11,6 +11,7 @@ using UnityEngine;
 public class FootPlateDeviceController : MonoBehaviour
 {
 	[Header("===調整用===")]
+	public ObjectController oc;
 	public float cameraTimeCount;
 
 	[Header("===監視用===")]
@@ -18,6 +19,9 @@ public class FootPlateDeviceController : MonoBehaviour
 	public bool doubleTriggerA = false;		// portalA用フラグ
 	public bool doubleTriggerB = false;		// portalB用フラグ
 	private bool canTrigger = false;
+	private bool lockFlag1;
+	private bool lockFlag2;
+	private bool lockFlag3;
 
 	void Update()
 	{
@@ -38,9 +42,11 @@ public class FootPlateDeviceController : MonoBehaviour
 
 	void OnTriggerEnter(Collider other)
 	{
-		if (other.transform.tag == "Player" || other.transform.tag == "MoveBox")
+		if ((other.transform.tag == "Player" || other.transform.tag == "MoveBox") && !lockFlag1)
 		{
+			lockFlag1 = true;
 			this.transform.BroadcastMessage("DeviceOnTriggered", "sFootPlate");
+			oc.isTrigger = true;
 			if (isTriggered)
 			{
 				doubleTriggerA = true;
@@ -52,8 +58,9 @@ public class FootPlateDeviceController : MonoBehaviour
 
 	void OnTriggerExit(Collider other)
 	{
-		if (other.transform.tag == "Player" || other.transform.tag == "MoveBox")
+		if ((other.transform.tag == "Player" || other.transform.tag == "MoveBox") && lockFlag1)
 		{
+			lockFlag1 = false;
 			this.transform.BroadcastMessage("DeviceOnTriggered", "sFootPlate");
 			if (isTriggered)
 			{
@@ -64,6 +71,4 @@ public class FootPlateDeviceController : MonoBehaviour
 			Debug.Log("GD!");
 		}
 	}
-
-
 }

@@ -51,7 +51,7 @@ public class HintUI : MonoBehaviour
 				{
 					mesh.material.CopyPropertiesFromMaterial(newMaterial);     //  materialを変更するメソッド
 				}
-				else if (!ac.haveKeys.GreenKey && lockUIName == "GreenDoor")
+				else if (ac.haveKeys.GreenKey && lockUIName == "GreenDoor")
 				{
 					mesh.material.CopyPropertiesFromMaterial(newMaterial);
 				}

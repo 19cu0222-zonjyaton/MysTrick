@@ -36,6 +36,7 @@ public class BarrierController : MonoBehaviour
 	private float stopTimeReset;
 	private float moveInterval = 0.5f;
 	private Vector3 nextPosition;
+	private bool handleFlag;
 
 	void Start()
 	{
@@ -57,6 +58,12 @@ public class BarrierController : MonoBehaviour
 			// デバイスを作動する時
 			if (Device != null && Device.isTriggered)
 			{
+				if (!handleFlag)
+				{
+					++Device.launchCount;
+					handleFlag = true;
+				}
+
 				if (cameraSwitchTime > 0.0f)
 				{
 					cameraSwitchTime -= Time.deltaTime;
@@ -68,12 +75,10 @@ public class BarrierController : MonoBehaviour
 					//toStop = false;
 					if (count == 0 && right)
 					{
-						++Device.launchCount;
 						right = false;
 					}
 					else if (count == 0 && !right)
 					{
-						++Device.launchCount;
 						right = true;
 					}
 					++count;
@@ -119,6 +124,7 @@ public class BarrierController : MonoBehaviour
 					isTriggered = false;
 					Device.isTriggered = false;
 					toStop = false;
+					handleFlag = false;
 					fromXtoZ = _fromXtoZ;
 					fromZtoX = _fromZtoX;
 					count = 0;
@@ -162,6 +168,7 @@ public class BarrierController : MonoBehaviour
 					isTriggered = false;
 					Device.isTriggered = false;
 					toStop = false;
+					handleFlag = false;
 					fromXtoZ = _fromXtoZ;
 					fromZtoX = _fromZtoX;
 					count = 0;
