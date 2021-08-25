@@ -33,7 +33,7 @@ public class TotemController : MonoBehaviour
 			timeController.isFinish = false;
 		}
 		// 回転している場合、カウントをストップする
-		else if(objectController.isTrigger) timeController.isStop = true;
+		//else if(objectController.isTrigger) timeController.isStop = true;
 		// カウント再開
 		else timeController.isStop = false;
 	}

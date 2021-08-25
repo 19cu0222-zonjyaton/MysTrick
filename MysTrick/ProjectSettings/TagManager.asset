@@ -34,6 +34,9 @@ TagManager:
   - MoveBox
   - RotCheck
   - CameraZoom
+  - FireBall
+  - Totem
+  - Wood
   layers:
   - Default
   - TransparentFX
@@ -54,7 +57,7 @@ TagManager:
   - Stick
   - Trigger
   - Piece
-  - 
+  - Footplate
   - 
   - 
   - 

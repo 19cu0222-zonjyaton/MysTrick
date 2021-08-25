@@ -304,6 +304,7 @@ public class ObjectController : MonoBehaviour
 						portalMoveFin = true;
 						// 移動方向変換
 						nextTarget = (nextTarget == moveData.targetA.position) ? moveData.targetB.position : moveData.targetA.position;
+						isTrigger = false;
 					}
 				}
 				// 初期化(移動ポータルが2台である)
