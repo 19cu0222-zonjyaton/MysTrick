@@ -2127,11 +2127,15 @@ MonoBehaviour:
   - {fileID: 5065840222821304466}
   - {fileID: 8287673513389957808}
   - {fileID: 4370395023732983613}
+  - {fileID: 4196433291815183749}
+  - {fileID: 2390302678689119080}
   gameoverCameraPos:
   - {fileID: 309926378621099845}
   - {fileID: 6459940651333495819}
   - {fileID: 8489443946680934269}
   - {fileID: 8867381383575179053}
+  - {fileID: 945316491963045448}
+  - {fileID: 3667239347666716757}
   canThrowWeapon: 1
   cameraStatic: Idle
   horizontalSpeed: 50

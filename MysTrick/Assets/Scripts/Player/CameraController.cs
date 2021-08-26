@@ -265,7 +265,7 @@ public class CameraController : MonoBehaviour
 				model.transform.eulerAngles = tempModelEuler;
 			}
 		}
-		else if (goal.gameClear && cameraStatic != "GameClear")    //	プレイヤーがクリアしたらカメラの処理
+		else if (goal.gameClear)    //	プレイヤーがクリアしたらカメラの処理
 		{
 			transform.SetParent(null);
 			cameraStatic = "GameClear";
