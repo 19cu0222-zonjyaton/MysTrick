@@ -50,13 +50,9 @@ public class FireBallController : MonoBehaviour
 			Destroy(this.gameObject);
 		}
 
-		if (other.transform.tag == "Player")
+		if (other.transform.tag == "Wood")
 		{
-
-		}
-		else if (other.transform.tag == "Wood")
-		{
-			Destroy(other.transform.parent.gameObject);		
+			Destroy(other.transform.gameObject);		
 		}
 	}
 }

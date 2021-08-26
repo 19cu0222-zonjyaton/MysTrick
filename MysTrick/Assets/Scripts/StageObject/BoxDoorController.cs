@@ -128,20 +128,23 @@ public class BoxDoorController : MonoBehaviour
 
 	private void OnTriggerStay(Collider other)
 	{
-		if (other.transform.tag == "Player" && !ac.isEntryDoor)
+		if (other.transform.tag == "Player")
 		{
 			hintUI.SetActive(true);
 			if (pi.isTriggered)
 			{
-				if (needKey && ac.haveKeys.BlueKey)
+				if (!ac.isEntryDoor)
 				{
-					ac.isEntryDoor = true;
-					entryIndex++;
-				}
-				else if(!needKey)
-				{
-					ac.isEntryDoor = true;
-					entryIndex++;
+					if (needKey && ac.haveKeys.BlueKey)
+					{
+						ac.isEntryDoor = true;
+						entryIndex++;
+					}
+					else if (!needKey)
+					{
+						ac.isEntryDoor = true;
+						entryIndex++;
+					}
 				}
 				pi.isTriggered = false;
 			}

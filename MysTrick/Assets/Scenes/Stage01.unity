@@ -3719,20 +3719,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1031174567}
   m_PrefabAsset: {fileID: 0}
---- !u!136 &760919454
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 760919451}
-  m_Material: {fileID: 13400000, guid: eb00f52dc160fda4891f2aceb77de171, type: 2}
-  m_IsTrigger: 0
-  m_Enabled: 0
-  m_Radius: 0.85
-  m_Height: 2.5
-  m_Direction: 1
-  m_Center: {x: 0, y: 1.25, z: 0}
 --- !u!1 &763449592
 GameObject:
   m_ObjectHideFlags: 0
@@ -20857,6 +20843,7 @@ MonoBehaviour:
   needTurn: 0
   nextUpward: 0
   isTriggered: 0
+  timeCount: 0
 --- !u!1 &3096507461249041877
 GameObject:
   m_ObjectHideFlags: 0
@@ -21876,14 +21863,21 @@ MonoBehaviour:
     startPosition: {x: 0, y: 0, z: 0}
     targetA: {fileID: 1463762301}
     targetB: {fileID: 1832226884}
+    portalA: {fileID: 0}
+    portalB: {fileID: 0}
     speed: 0
   Device: {fileID: 0}
+  FootDevice: {fileID: 0}
   ElevTimer: {fileID: 0}
+  DeviceIsFtDev: 0
+  isSinglePortal: 0
   timeCount: 2
   timeMax: 3
   isTrigger: 0
   hasDone: 0
   audioSpeed: 1
+  portalMoveFin: 0
+  doubleTrigger: 0
 --- !u!4 &4867935728369556218
 Transform:
   m_ObjectHideFlags: 0
@@ -22461,6 +22455,7 @@ MonoBehaviour:
   needTurn: 0
   nextUpward: 0
   isTriggered: 0
+  timeCount: 0
 --- !u!23 &5948276630866418120
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -23556,6 +23551,7 @@ MonoBehaviour:
   needTurn: 0
   nextUpward: 0
   isTriggered: 0
+  timeCount: 0
 --- !u!65 &8342546854866656682
 BoxCollider:
   m_ObjectHideFlags: 0

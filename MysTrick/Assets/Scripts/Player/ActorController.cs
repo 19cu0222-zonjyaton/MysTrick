@@ -370,8 +370,39 @@ public class ActorController : MonoBehaviour
 			stickBackPos = collider.gameObject;
 		}
 
+		if (collider.transform.tag == "FireBall" && !isUnrivaled)
+		{
+			hp--;
+			damageRot = model.transform.localEulerAngles;
+			audio.PlayOneShot(sounds[2]);
+			pi.ResetSignal();
+
+			if (hp > 0)
+			{
+				modelMesh.enabled = false;
+				weaponMesh.enabled = false;
+				nowPos = transform.position;
+				isUnrivaled = true;
+			}
+			else
+			{
+				rigid.AddExplosionForce(800.0f, collider.transform.position - new Vector3(0.0f, 1.5f, 0.0f), 5.0f, 2.0f);      //	爆発の位置を矯正
+				isDead = true;
+			}
+			playerCanMove = false;
+		}
+
 		if (collider.transform.tag == "CameraZoom")
 		{
+			if (collider.GetComponent<DoorZoomController>().zoomIndex == 1)
+			{
+				collider.GetComponent<DoorZoomController>().zoomIndex = 4;
+			}
+			else if (collider.GetComponent<DoorZoomController>().zoomIndex == 4)
+			{
+				collider.GetComponent<DoorZoomController>().zoomIndex = 1;
+			}
+
 			cameraZoomIndex = collider.GetComponent<DoorZoomController>().zoomIndex;
 			cameraCanMove = false;
 			isInCameraZoom = true;

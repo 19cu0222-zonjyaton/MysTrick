@@ -315,7 +315,7 @@ public class ObjectController : MonoBehaviour
 					moveData.portalB.portalMoveFin = false;
 				}
 				// 初期化(移動ポータルが1台である)
-				else if (portalMoveFin)
+				else if (isSinglePortal && portalMoveFin)
 				{
 					FootDevice.isTriggered = false;
 					portalMoveFin = false;
