@@ -53,7 +53,6 @@ public class FootPlateDeviceController : MonoBehaviour
 		}
 		else if (!(pc.isPlayer) && !(mbc.isMoveBox) && lockFlag)
 		{
-			print("aaaaaaaaaaaaaa");
 			this.transform.BroadcastMessage("DeviceOnTriggered", "sFootPlate");
 			lockFlag = false;
 			if (isTriggered)
