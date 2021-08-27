@@ -37,9 +37,9 @@ public class MenuButtonController : MonoBehaviour
 
         if (EventSystem.current.currentSelectedGameObject == this.gameObject && smc.isOpenMenu)
         {
-			au.clip = sounds[0];
-			au.Play();
-		}
+            au.clip = sounds[0];
+            au.Play();
+        }
 
         if (Time.timeScale == 0 && (Input.GetKeyDown(KeyCode.Return) || Input.GetButtonDown("action")))
         {
@@ -48,10 +48,10 @@ public class MenuButtonController : MonoBehaviour
             au.clip = sounds[1];
             au.Play();
 
-            if (EventSystem.current.currentSelectedGameObject.name == "Continue")
+            if (EventSystem.current.currentSelectedGameObject.name == "Continue" && gameObject.name == "Continue")
             {
                 Time.timeScale = 1;
-                animator_Menu.SetTrigger("Cancel");
+                //animator_Menu.SetTrigger("Cancel");
                 animator_Menu.SetBool("Menu", false);
             }
             else if (EventSystem.current.currentSelectedGameObject.name == "Back" && gameObject.name == "Back")
