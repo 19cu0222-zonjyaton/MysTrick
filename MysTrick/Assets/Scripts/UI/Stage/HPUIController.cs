@@ -36,11 +36,13 @@ public class HPUIController : MonoBehaviour
             //  減ったHPに応じて画像が変わる
             for (int i = hp.Length - 1; i >= ac.hp; i--)
             {
+                hp[i].GetComponent<Animation>().Stop();
                 hp[i].GetComponent<Image>().sprite = sprite[1];
             }
         }
         else
         {
+            hp[0].GetComponent<Animation>().Stop();
             hp[0].GetComponent<Image>().sprite = sprite[1];
         }
     }

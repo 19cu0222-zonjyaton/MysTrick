@@ -524,7 +524,7 @@ Transform:
   m_GameObject: {fileID: 1802197226533972846}
   m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 5.826176, y: 10.94, z: 7.497}
-  m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
+  m_LocalScale: {x: 0.9, y: 0.9, z: 0.9}
   m_Children:
   - {fileID: 5626435063787289478}
   - {fileID: 2023214438184858534}
@@ -558,8 +558,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2.9466975, y: 2.365096, z: 2.5404637}
-  m_Center: {x: 0.10000003, y: 0.79999995, z: -0.14655244}
+  m_Size: {x: 3.2933369, y: 2.3650963, z: 0.74250543}
+  m_Center: {x: -0.07332107, y: 0.79999995, z: -1.0455319}
 --- !u!82 &1568335713500135487
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1023,7 +1023,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4294729469952695370}
-  m_Mesh: {fileID: 7852556827192812178, guid: 8b1bcfc534a964f4aa6875d6b6b3f0c7, type: 3}
+  m_Mesh: {fileID: -782653599403498814, guid: 44c8b0c569a80b346ab1031fc984cbbc, type: 3}
 --- !u!23 &6789116282459874806
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1181,7 +1181,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6894589831631856994}
-  m_Mesh: {fileID: -3963657695574210970, guid: 8b1bcfc534a964f4aa6875d6b6b3f0c7, type: 3}
+  m_Mesh: {fileID: 4314085345579240776, guid: 44c8b0c569a80b346ab1031fc984cbbc, type: 3}
 --- !u!23 &4453711715732956317
 MeshRenderer:
   m_ObjectHideFlags: 0

@@ -128,7 +128,7 @@ public class PlayerInput : MonoBehaviour
 			isTriggered = true;
 		}
 
-		if (!ac.isPushBox && !ac.isEntryDoor)
+		if (!ac.isPushBox && !ac.isEntryDoor && cc.cameraStatic == "Idle")
 		{
             if ((Input.GetKeyDown(keyThrow) || Input.GetAxis("throw") == 1) && canThrow && !overDistance)
 			{
@@ -139,7 +139,7 @@ public class PlayerInput : MonoBehaviour
 				isAttacking = true;
 			}
 
-			if ((Input.GetKey(KeyCode.LeftShift) || Input.GetButton("perspect")) && cc.cameraStatic == "Idle" && !ac.isClimbing && ac.cameraCanMove)      //	第一人視点を切り替え
+			if ((Input.GetKey(KeyCode.LeftShift) || Input.GetButton("perspect")) && !ac.isClimbing && ac.cameraCanMove)      //	第一人視点を切り替え
 			{
 				resetFlag = false;
 				isAimStatus = true;
