@@ -128,7 +128,7 @@ public class PlayerInput : MonoBehaviour
 			isTriggered = true;
 		}
 
-		if (!ac.isPushBox && !ac.isEntryDoor && cc.cameraStatic == "Idle")
+		if (!ac.isPushBox && ac.PlayerCanMove())
 		{
             if ((Input.GetKeyDown(keyThrow) || Input.GetAxis("throw") == 1) && canThrow && !overDistance)
 			{

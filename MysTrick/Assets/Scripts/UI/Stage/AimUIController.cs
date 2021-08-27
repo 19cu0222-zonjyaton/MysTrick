@@ -22,7 +22,7 @@ public class AimUIController : MonoBehaviour
 
     void Update()
     {
-        if (pi.isAimStatus && cc.cameraStatic == "Idle" && !ac.isDead)
+        if (pi.isAimStatus && cc.cameraStatic == "Idle")
         {
             canvasGroup.alpha = 1;
             canvasGroup.interactable = true;
