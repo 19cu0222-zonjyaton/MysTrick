@@ -38,7 +38,7 @@ public class StageMenuController : MonoBehaviour
 
                     Time.timeScale = 1;
                     animIsOver = false;
-                    animator.SetTrigger("Cancel");
+                    //animator.SetTrigger("Cancel");
                     animator.SetBool("Menu", false);
                     isOpenMenu = false;
                 }

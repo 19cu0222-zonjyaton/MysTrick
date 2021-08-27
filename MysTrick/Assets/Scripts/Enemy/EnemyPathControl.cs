@@ -29,7 +29,7 @@ public class EnemyPathControl : MonoBehaviour
     private bool moveToPlayer;
     private bool rayLockPlayer;
     private float playerDeadTimeCount;
-    private float warningTimeCount;
+    private float warningTimeCount = 2.0f;
     private int layerMask;
 
     //	初期化
