@@ -10,6 +10,7 @@ public class OnGroundSensor : MonoBehaviour
 
     private PlayerInput pi;             //  プレイヤーの入力コントローラー
     private ActorController ac;         //  プレイヤーの挙動コントローラー
+    private Animator anim;				//	アニメコントローラーコンポーネント
     private Vector3 point1;             //  当たり判定最高点
     private Vector3 point2;             //  当たり判定最低点
     private float radius;               //  プレイヤーの半径
@@ -25,6 +26,8 @@ public class OnGroundSensor : MonoBehaviour
 
         pi = gameObject.GetComponentInParent<PlayerInput>();    //  親のComponentを獲得する
 
+        anim = GameObject.Find("PlayerModule").GetComponent<Animator>();
+
         ac = GameObject.Find("PlayerHandle").GetComponent<ActorController>();
     }
 
@@ -35,13 +38,27 @@ public class OnGroundSensor : MonoBehaviour
         
         Collider[] outputCols = Physics.OverlapCapsule(point1, point2 ,radius, LayerMask.GetMask("Ground"));        //  Groundという名前の階層と当てますか
 
-        if (outputCols.Length == 0)
+        if (outputCols.Length == 0 && !ac.isClimbing)
         {
+            ac.isFall = true;
+            anim.SetBool("Fall", true);
             pi.ResetSignal();
         }
-        else if (outputCols.Length != 0 && ac.PlayerCanMove() && cc.cameraStatic == "Idle")
+        else if (outputCols.Length != 0)
         {
-            pi.inputEnabled = true;
+            if (ac.isFall)
+            {
+                anim.SetBool("Fall", false);
+                if (anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f && anim.GetCurrentAnimatorStateInfo(0).IsName("Land"))
+                {
+                    ac.isFall = false;
+                }
+            }
+
+            if (ac.PlayerCanMove())
+            {
+                pi.inputEnabled = true;
+            }
         }
     }
 }

@@ -181,7 +181,7 @@ public class CameraController : MonoBehaviour
 			}
 		}
 
-		if (!goal.gameClear && cameraStatic == "Idle" && !ac.isDead && !ac.isFall)
+		if (!goal.gameClear && cameraStatic == "Idle" && !ac.isDead && !ac.isFallDead)
 		{
 			if (pi.isAimStatus && !pi.lockJumpStatus)       //	Aiming and is not jumping
 			{
@@ -289,16 +289,16 @@ public class CameraController : MonoBehaviour
                     hit.collider.enabled = true;
 					if (hit.collider.gameObject == playerHandle)
 					{
-						cameraStatic = "GameOver";
 						transform.position = deadCameraPos[i].transform.position;
 						deadMovePosNum = i;
+						cameraStatic = "GameOver";
 						break;
 					}
                 }
             }
 			transform.LookAt(playerHandle.transform);
 		}
-		else if (ac.isFall)         //	プレイヤーが外に落ちたらカメラの処理
+		else if (ac.isFallDead)         //	プレイヤーが外に落ちたらカメラの処理
 		{
 			transform.SetParent(null);
 			cameraStatic = "GameOver";
@@ -373,7 +373,7 @@ public class CameraController : MonoBehaviour
 
 	private void DeadMove()
 	{
-		if (ac.isDead || ac.isFall)
+		if (ac.isDead || ac.isFallDead)
 		{
 			deadCountTime += Time.deltaTime;
 
@@ -383,6 +383,7 @@ public class CameraController : MonoBehaviour
 				Time.timeScale = 1.0f;
 				if (ac.isDead)
 				{
+					print(deadMovePosNum);
 					transform.position = Vector3.Lerp(transform.position, gameoverCameraPos[deadMovePosNum].transform.position, 3.0f * Time.deltaTime);
 				}
 			}

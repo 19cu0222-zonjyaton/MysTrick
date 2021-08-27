@@ -23,9 +23,11 @@ public class ActorController : MonoBehaviour
 	public int coinCount;                   //	獲得したコイン数
 	public int starCount;                   //	獲得したスター数
 	public bool coinUIAction;				//  コインUIを動くための信号
-	public bool climbEnd;					//	登るエンドフラグ
+	public bool climbEnd;                   //	登るエンドフラグ
+	public bool isFall;
+	public bool isLand;
 	public bool isDead;						//	プレイヤーが死亡flag
-	public bool isFall;						//	外に落ちるflag
+	public bool isFallDead;					//	外に落ちるflag
 
 	public float moveSpeed;					//	移動スピード
 	public bool isInTrigger;				//	仕掛けスイッチを当たるフラグ
@@ -104,18 +106,18 @@ public class ActorController : MonoBehaviour
 
 	void Update()
 	{
-		//	歩くアニメーションの数値
-		if (pi.inputEnabled)
-		{
-			anim.SetFloat("Forward", pi.Dmag);
-		}
-		else if(!isEntryDoor)
-		{
-			anim.SetFloat("Forward", 0.0f);
-		}
-
 		if (!isDead)
-		{			
+		{
+			//	歩くアニメーションの数値
+			if (pi.inputEnabled)
+			{
+				anim.SetFloat("Forward", pi.Dmag);
+			}
+			else if (!isEntryDoor)
+			{
+				anim.SetFloat("Forward", 0.0f);
+			}
+
 			if (pi.Dmag > 0.01f && (!pi.isAimStatus && !isPushBox))		//	1.移動の入力値が0.1を超える時	2.狙う状態ではない時	->	 移動方向を設定する
 			{
 				model.transform.forward = Vector3.Slerp(model.transform.forward, pi.Dvec, 10.0f * Time.deltaTime);
@@ -207,6 +209,8 @@ public class ActorController : MonoBehaviour
 		CheckIsUnderDamage();
 
 		CheckPlayerIsDead();
+
+		PlayerCanMove();
 	}
 
 	//	移動処理
@@ -227,7 +231,7 @@ public class ActorController : MonoBehaviour
 
 	public bool PlayerCanMove()
 	{
-		if (gc.gameClear || pi.lockJumpStatus || !playerCanMove || isDead || isEntryDoor || cc.cameraStatic != "Idle")
+		if (gc.gameClear || pi.lockJumpStatus || !playerCanMove || isDead || isEntryDoor || isFall || cc.cameraStatic != "Idle")
 		{
 			pi.inputEnabled = false;
 		}
@@ -307,7 +311,7 @@ public class ActorController : MonoBehaviour
 			transform.tag = "Untagged";
 		}
 
-		if (isFall)
+		if (isFallDead)
 		{
 			pi.ResetSignal();
 		}
@@ -419,7 +423,7 @@ public class ActorController : MonoBehaviour
 
 		if (collider.transform.tag == "DeadCheck")
 		{
-			isFall = true;
+			isFallDead = true;
 		}
 
 		if (collider.transform.tag == "Stick" && !isUnrivaled)

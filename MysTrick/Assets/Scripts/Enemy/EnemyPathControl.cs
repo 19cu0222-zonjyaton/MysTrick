@@ -25,7 +25,6 @@ public class EnemyPathControl : MonoBehaviour
     private bool islock = false;        //  プレイヤーが捜査範囲に入るフラグ
     private bool isAttackedByPlayer;    //  プレイヤーに攻撃されたフラグ
     private float timeCount;
-    private bool hitWithWall;
     private bool warningActive;
     private bool moveToPlayer;
     private bool rayLockPlayer;
@@ -97,7 +96,6 @@ public class EnemyPathControl : MonoBehaviour
                     else
                     {
                         ray = new Ray(transform.position, head.forward);
-                        speed = 2.5f;
                         rayLockPlayer = false;
                     }
                     Debug.DrawRay(ray.origin, ray.direction * 100, Color.red, 0.1f);
@@ -134,14 +132,12 @@ public class EnemyPathControl : MonoBehaviour
                         if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Player"))
                         {
                             rayLockPlayer = true;
-                            speed = 3.5f;
                         }
 
                         //  1.光線が壁に当たってない   2.捜査範囲に入った  3.攻撃された  -> プレイヤーの位置に移動する
                         if (rayLockPlayer || isAttackedByPlayer || edc.hitWithPlayer)
                         {
                             gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
-                            hitWithWall = true;
 
                             Move();
                             //  光線が壁に当たったら攻撃AIをキャンセル
@@ -165,7 +161,6 @@ public class EnemyPathControl : MonoBehaviour
                             }
                             else
                             {
-                                hitWithWall = false;
                                 timeCount = 0.0f;
                             }
                         }

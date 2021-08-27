@@ -21,7 +21,7 @@ public class GameOverUIController : MonoBehaviour
 
     void Update()
     {
-        if (ac.isDead || ac.isFall)
+        if (ac.isDead || ac.isFallDead)
         {
             canvasGroup.alpha = 1;
             canvasGroup.interactable = true;
