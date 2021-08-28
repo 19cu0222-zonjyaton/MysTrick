@@ -8,6 +8,7 @@ using UnityEngine.EventSystems;
 public class StageSelectConfirmUIController : MonoBehaviour
 {
     public GameObject maskPanel;
+    public GameObject player;
     public Animator animator;
     public AudioClip[] sounds;				//	SEオブジェクト
     public Button btn;
@@ -57,6 +58,8 @@ public class StageSelectConfirmUIController : MonoBehaviour
 
             if (timeCount < -0.3f)
             {
+                StaticController.playerPos = player.transform.position;
+                StaticController.playerRot = player.transform.eulerAngles;
                 StaticController.animIsOver = false;
                 StaticController.confirmMenuIsOpen = false;
                 SceneManager.LoadScene(StaticController.selectStageName);

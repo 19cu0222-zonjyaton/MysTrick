@@ -37,14 +37,14 @@ RenderSettings:
   m_ReflectionBounces: 1
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
-  m_Sun: {fileID: 0}
+  m_Sun: {fileID: 861564355}
   m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 11
-  m_GIWorkflowMode: 1
+  m_GIWorkflowMode: 0
   m_GISettings:
     serializedVersion: 2
     m_BounceScale: 1
@@ -322,6 +322,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   exitPanel: {fileID: 130333975}
   maskPanel: {fileID: 1148179649}
+  player: {fileID: 0}
   sounds:
   - {fileID: 8300000, guid: d15b72b2db25a56498fecc601763b895, type: 3}
   - {fileID: 8300000, guid: 747ba53d9fcb54b4bb2bdd8ea8c7cc85, type: 3}
@@ -970,6 +971,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   exitPanel: {fileID: 130333975}
   maskPanel: {fileID: 79653011}
+  player: {fileID: 6563069687913038456}
   sounds:
   - {fileID: 8300000, guid: d15b72b2db25a56498fecc601763b895, type: 3}
   - {fileID: 8300000, guid: 747ba53d9fcb54b4bb2bdd8ea8c7cc85, type: 3}
@@ -1732,6 +1734,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maskPanel: {fileID: 79653011}
+  player: {fileID: 6563069687913038456}
   animator: {fileID: 284528746}
   sounds:
   - {fileID: 8300000, guid: d15b72b2db25a56498fecc601763b895, type: 3}
@@ -2163,14 +2166,14 @@ MonoBehaviour:
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
-    m_SelectOnRight: {fileID: 1740122576}
+    m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.5019608, g: 0.5019608, b: 0.5019608, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_DisabledColor: {r: 1, g: 1, b: 1, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -2238,9 +2241,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b922d8027e1d73f4b9202f9630c1233f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canSelected: 1
+  canSelected: 01000000
   confirmPanel: {fileID: 284528741}
   stageImage:
+  - {fileID: 21300000, guid: afc70d4e2fdeb6746bfd594534b5b9b6, type: 3}
   - {fileID: 21300000, guid: 026d31e7e939fb044a1db75f136e35ac, type: 3}
   - {fileID: 21300000, guid: b2ff61c6562d30241ba3c149be743f8c, type: 3}
   - {fileID: 21300000, guid: 05def1cb96dab114a9bcaa3f63a71240, type: 3}
@@ -2262,7 +2266,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!108 &861564355
 Light:
   m_ObjectHideFlags: 0
@@ -2275,7 +2279,7 @@ Light:
   m_Type: 1
   m_Shape: 0
   m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
-  m_Intensity: 1.2
+  m_Intensity: 1
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -2687,7 +2691,7 @@ MonoBehaviour:
     m_Mode: 4
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
-    m_SelectOnLeft: {fileID: 1385888254}
+    m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
@@ -2695,7 +2699,7 @@ MonoBehaviour:
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_DisabledColor: {r: 1, g: 1, b: 1, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -2785,7 +2789,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b922d8027e1d73f4b9202f9630c1233f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canSelected: 1
+  canSelected: 01000000
   confirmPanel: {fileID: 284528741}
   stageImage:
   - {fileID: 21300000, guid: afc70d4e2fdeb6746bfd594534b5b9b6, type: 3}
@@ -3386,15 +3390,15 @@ MonoBehaviour:
     m_Mode: 4
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
-    m_SelectOnLeft: {fileID: 1740122576}
-    m_SelectOnRight: {fileID: 1218231512}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_DisabledColor: {r: 1, g: 1, b: 1, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -3462,7 +3466,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b922d8027e1d73f4b9202f9630c1233f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canSelected: 1
+  canSelected: 01000000
   confirmPanel: {fileID: 284528741}
   stageImage:
   - {fileID: 21300000, guid: afc70d4e2fdeb6746bfd594534b5b9b6, type: 3}
@@ -3970,6 +3974,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maskPanel: {fileID: 79653011}
+  player: {fileID: 0}
   animator: {fileID: 284528746}
   sounds:
   - {fileID: 8300000, guid: d15b72b2db25a56498fecc601763b895, type: 3}
@@ -4221,15 +4226,15 @@ MonoBehaviour:
     m_Mode: 4
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
-    m_SelectOnLeft: {fileID: 849606051}
-    m_SelectOnRight: {fileID: 1385888254}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_DisabledColor: {r: 1, g: 1, b: 1, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -4297,7 +4302,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b922d8027e1d73f4b9202f9630c1233f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canSelected: 1
+  canSelected: 01000000
   confirmPanel: {fileID: 284528741}
   stageImage:
   - {fileID: 21300000, guid: afc70d4e2fdeb6746bfd594534b5b9b6, type: 3}
@@ -4548,6 +4553,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   exitPanel: {fileID: 130333975}
   maskPanel: {fileID: 79653011}
+  player: {fileID: 0}
   sounds:
   - {fileID: 8300000, guid: d15b72b2db25a56498fecc601763b895, type: 3}
   - {fileID: 8300000, guid: 747ba53d9fcb54b4bb2bdd8ea8c7cc85, type: 3}

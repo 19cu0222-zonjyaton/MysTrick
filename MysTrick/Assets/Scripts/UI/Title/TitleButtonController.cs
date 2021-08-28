@@ -91,10 +91,12 @@ public class TitleButtonController : MonoBehaviour
 
                 if (gameObject.name == "Start")
                 {
-                    for (int i = 0; i < StaticController.imageIndex.Length; i++)
+                    for (int i = 0; i < StaticController.highScore.Length; i++)
                     {
-                        StaticController.imageIndex[i] = 0;
+                        StaticController.highScore[i] = 0;
                     }
+                    StaticController.playerPos = new Vector3(-7.0f, -2.6f, -339.78f);
+                    StaticController.playerRot = new Vector3(0, 65, 0);
                     ActorInStageSelect.selectBtn = 1;
                 }
 

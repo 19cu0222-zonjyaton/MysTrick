@@ -9,6 +9,7 @@ public class ExitController : MonoBehaviour
 {
     public GameObject exitPanel;
     public GameObject maskPanel;
+    public GameObject player;
     public AudioClip[] sounds;              //	SEオブジェクト
     public Button[] btn;
 
@@ -100,6 +101,8 @@ public class ExitController : MonoBehaviour
                 timeCount -= Time.deltaTime;
                 if (timeCount < -0.3f)
                 {
+                    StaticController.playerPos = player.transform.position;
+                    StaticController.playerRot = player.transform.eulerAngles;
                     StaticController.exitPanelIsOpen = false;
                     SceneManager.LoadScene("Title");
                 }

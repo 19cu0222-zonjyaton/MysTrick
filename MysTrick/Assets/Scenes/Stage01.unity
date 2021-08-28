@@ -1141,7 +1141,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!82 &169645030
 AudioSource:
   m_ObjectHideFlags: 0
@@ -9816,17 +9816,17 @@ PrefabInstance:
     - target: {fileID: 6563069687783362538, guid: deb5c94de91a32e4ca21d16c24db72a9,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 13.81
+      value: 14.04
       objectReference: {fileID: 0}
     - target: {fileID: 6563069687783362538, guid: deb5c94de91a32e4ca21d16c24db72a9,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 10.27
+      value: 10.21
       objectReference: {fileID: 0}
     - target: {fileID: 6563069687783362538, guid: deb5c94de91a32e4ca21d16c24db72a9,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 4
+      value: 10.85
       objectReference: {fileID: 0}
     - target: {fileID: 6563069687783362538, guid: deb5c94de91a32e4ca21d16c24db72a9,
         type: 3}
@@ -9903,6 +9903,11 @@ PrefabInstance:
       propertyPath: damagePos
       value: 
       objectReference: {fileID: 1679308301}
+    - target: {fileID: 6563069687783362542, guid: deb5c94de91a32e4ca21d16c24db72a9,
+        type: 3}
+      propertyPath: starCount
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6563069687783362543, guid: deb5c94de91a32e4ca21d16c24db72a9,
         type: 3}
       propertyPath: moveToTargetTime
@@ -21955,7 +21960,7 @@ PrefabInstance:
     - target: {fileID: 3787794847377038211, guid: 19f866164458f0b4689c692e1c39b025,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3787794847906406991, guid: 19f866164458f0b4689c692e1c39b025,
         type: 3}
@@ -24112,7 +24117,7 @@ PrefabInstance:
         type: 3}
       propertyPath: clearMask
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1613528881}
     - target: {fileID: 5578646719950051747, guid: 0902f90c8ad98e24f83a2e3a27996cf1,
         type: 3}
       propertyPath: m_RootOrder

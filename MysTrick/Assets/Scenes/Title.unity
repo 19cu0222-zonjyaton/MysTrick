@@ -44,7 +44,7 @@ RenderSettings:
 LightmapSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 11
-  m_GIWorkflowMode: 1
+  m_GIWorkflowMode: 0
   m_GISettings:
     serializedVersion: 2
     m_BounceScale: 1
@@ -22344,6 +22344,7 @@ MonoBehaviour:
   needTurn: 1
   nextUpward: 0
   isTriggered: 0
+  timeCount: 0
 --- !u!23 &1008044384
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -24986,12 +24987,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4372f63877e3df428b2fa6b8a4b26a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  portalA: {fileID: 1165784174}
-  portalB: {fileID: 1647668702}
-  hintUI: {fileID: 0}
-  cameraTimeCount: 0
-  transportTimeCount: 6
+  portalA: {fileID: 0}
+  portalB: {fileID: 0}
+  targetA: {fileID: 0}
+  targetB: {fileID: 0}
+  moveTimeCount: 0
+  moveSpeed: 5
   needKey: 0
+  finMoving: 0
 --- !u!65 &1165784176
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -27817,14 +27820,21 @@ MonoBehaviour:
     startPosition: {x: 0, y: 0, z: 0}
     targetA: {fileID: 2082440845}
     targetB: {fileID: 1515073628}
+    portalA: {fileID: 0}
+    portalB: {fileID: 0}
     speed: 5
   Device: {fileID: 0}
+  FootDevice: {fileID: 0}
   ElevTimer: {fileID: 1276208159}
+  DeviceIsFtDev: 0
+  isSinglePortal: 0
   timeCount: -2
   timeMax: 3
   isTrigger: 0
   hasDone: 0
   audioSpeed: 1
+  portalMoveFin: 0
+  doubleTrigger: 0
 --- !u!65 &1276208161
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -34416,6 +34426,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isFinish: 0
+  isStop: 0
+  timeStart: 0
 --- !u!95 &1601951458
 Animator:
   serializedVersion: 3
@@ -35782,12 +35794,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4372f63877e3df428b2fa6b8a4b26a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  portalA: {fileID: 1165784174}
-  portalB: {fileID: 1647668702}
-  hintUI: {fileID: 0}
-  cameraTimeCount: 0
-  transportTimeCount: 6
+  portalA: {fileID: 0}
+  portalB: {fileID: 0}
+  targetA: {fileID: 0}
+  targetB: {fileID: 0}
+  moveTimeCount: 0
+  moveSpeed: 5
   needKey: 0
+  finMoving: 0
 --- !u!65 &1647668705
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -41799,14 +41813,21 @@ MonoBehaviour:
     startPosition: {x: 0, y: 0, z: 0}
     targetA: {fileID: 678761481}
     targetB: {fileID: 1172295695}
+    portalA: {fileID: 0}
+    portalB: {fileID: 0}
     speed: 12
   Device: {fileID: 0}
+  FootDevice: {fileID: 0}
   ElevTimer: {fileID: 0}
+  DeviceIsFtDev: 0
+  isSinglePortal: 0
   timeCount: -1
   timeMax: 1
   isTrigger: 0
   hasDone: 0
   audioSpeed: 1
+  portalMoveFin: 0
+  doubleTrigger: 0
 --- !u!82 &1930681833
 AudioSource:
   m_ObjectHideFlags: 0
@@ -42921,6 +42942,7 @@ MonoBehaviour:
   needTurn: 0
   nextUpward: 0
   isTriggered: 0
+  timeCount: 0
 --- !u!23 &1981171309
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -46764,6 +46786,7 @@ MonoBehaviour:
   needTurn: 0
   nextUpward: 0
   isTriggered: 0
+  timeCount: 0
 --- !u!23 &2146819914
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -55993,6 +56016,7 @@ MonoBehaviour:
   needTurn: 0
   nextUpward: 0
   isTriggered: 0
+  timeCount: 0
 --- !u!65 &7223671364415739473
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -56025,6 +56049,7 @@ MonoBehaviour:
   needTurn: 0
   nextUpward: 0
   isTriggered: 0
+  timeCount: 0
 --- !u!1 &7239845437675634783
 GameObject:
   m_ObjectHideFlags: 0

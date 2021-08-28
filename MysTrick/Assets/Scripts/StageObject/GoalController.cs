@@ -65,7 +65,11 @@ public class GoalController : MonoBehaviour
             {
                 if (StaticController.selectStageName == "Stage0" + (i + 1))
                 {
-                    StaticController.imageIndex[i] = ac.starCount;
+                    StaticController.stageIsClear[i] = true;
+                    if (ac.starCount > StaticController.highScore[i])
+                    {
+                        StaticController.highScore[i] = ac.starCount;
+                    }
 
                     //if (getCount[i] == 0)
                     //{

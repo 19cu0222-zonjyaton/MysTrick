@@ -6,7 +6,6 @@ using UnityEngine.EventSystems;
 
 public class StageSelectButtonController : MonoBehaviour
 {
-    public bool canSelected;                    //  クリアしたかどうか
     public GameObject confirmPanel;
     public Sprite[] stageImage;
     public int stageNum;
@@ -18,22 +17,17 @@ public class StageSelectButtonController : MonoBehaviour
     {
         img = gameObject.GetComponent<Image>();
 
-        startPos = transform.parent.position;
+        startPos = new Vector3(0, 0, 0);
+
+        if (ActorInStageSelect.selectBtn == 4)
+        {
+            gameObject.transform.parent.position = new Vector3(-250, 0, 0);
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        //  画像の色
-        if (!canSelected)       
-        {
-            img.color = Color.grey;
-        }
-        else
-        {
-            img.color = Color.white;
-        }
-
         //  Panelの移動処理
         if (ActorInStageSelect.selectBtn == 3)      
         {
@@ -41,24 +35,34 @@ public class StageSelectButtonController : MonoBehaviour
         }
         else if(ActorInStageSelect.selectBtn == 4)
         {
-            gameObject.transform.parent.position = Vector3.MoveTowards(transform.parent.position, startPos - new Vector3(250.0f, 0.0f, 0.0f), 75.0f * Time.deltaTime);
+            gameObject.transform.parent.position = Vector3.MoveTowards(transform.parent.position, new Vector3(-250.0f, 0.0f, 0.0f), 75.0f * Time.deltaTime);
         }
 
-        if ((Input.GetKeyDown(KeyCode.Return) || Input.GetButtonDown("action")) && canSelected && !StaticController.confirmMenuIsOpen && !StaticController.exitPanelIsOpen)
+        if ((Input.GetKeyDown(KeyCode.Return) || Input.GetButtonDown("action")) && StaticController.stageCanSelect[ActorInStageSelect.selectBtn - 1] && !StaticController.confirmMenuIsOpen && !StaticController.exitPanelIsOpen)
         {
             StaticController.confirmMenuIsOpen = true;
             confirmPanel.SetActive(true);
         }
 
-        for (int i = 0; i < stageImage.Length; i++)
+        for (int i = 0; i < 4; i++)
         {
-            if (i == stageNum)
+            if (stageNum == i)
             {
-                if (canSelected)
+                if (StaticController.stageIsClear[i] || stageNum == 0)
                 {
-                    img.sprite = stageImage[1];
+                    img.sprite = stageImage[StaticController.highScore[i] + 1];
                 }
-                //img.sprite = stageImage[StaticController.imageIndex[stageNum]];
+                else if (i > 0)
+                {
+                    if (!StaticController.stageIsClear[i] && StaticController.stageIsClear[i - 1] && stageNum == i)
+                    {
+                        img.sprite = stageImage[1];
+                    }
+                }
+                else if(!StaticController.stageIsClear[i])
+                {
+                    img.sprite = stageImage[0];
+                }
             }
         }
     }

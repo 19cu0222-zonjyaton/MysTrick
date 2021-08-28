@@ -25,16 +25,8 @@ public class ActorInStageSelect : MonoBehaviour
 
         au = gameObject.GetComponent<AudioSource>();
 
-        if (selectBtn == 2)
-        {
-            transform.position = new Vector3(-0.2f, -2.6f, -340.0f);
-            transform.localEulerAngles = new Vector3(0, 85.0f, 0);
-        }
-        else if (selectBtn == 3)
-        {
-            transform.position = new Vector3(8.0f, -2.6f, -340.0f);
-            transform.localEulerAngles = new Vector3(0, 115.0f, 0);
-        }
+        transform.position = StaticController.playerPos;
+        transform.eulerAngles = StaticController.playerRot;
 
         EventSystem.current.SetSelectedGameObject(btn[selectBtn - 1].gameObject);
     }
@@ -72,19 +64,32 @@ public class ActorInStageSelect : MonoBehaviour
         {
             if (selectBtn < 4)
             {
-                if (selectBtn == 2)
+                transform.position = StaticController.playerPos;
+                transform.eulerAngles = StaticController.playerRot;
+
+                if (StaticController.stageIsFirstClear[selectBtn - 1])
                 {
-                    transform.position = new Vector3(1.5f, -2.6f, -340.0f);
-                    transform.localEulerAngles = new Vector3(0, 85.0f, 0);
+                    goRight = true;
+                    selectBtn++;
+                    StaticController.stageIsFirstClear[selectBtn - 2] = false;
+                    StaticController.selectStageName = btn[selectBtn - 1].name;
+
+                    for (int i = 0; i < 4; i++)
+                    {
+                        StaticController.stageCanSelect[selectBtn - 1] = true;
+                    }
                 }
-                else if (selectBtn == 3)
+                else if (!StaticController.stageIsFirstClear[selectBtn - 1])
                 {
-                    transform.position = new Vector3(9.5f, -2.6f, -340.0f);
-                    transform.localEulerAngles = new Vector3(0, 115.0f, 0);
+                    StaticController.selectStageName = btn[selectBtn - 1].name;
                 }
-                goRight = true;
-                selectBtn++;
-                btn[selectBtn - 1].GetComponent<StageSelectButtonController>().canSelected = true;
+
+                StaticController.clearStageName = "";
+            }
+            else if(selectBtn == 4)
+            {
+                transform.position = StaticController.playerPos;
+                transform.eulerAngles = StaticController.playerRot;
                 StaticController.selectStageName = btn[selectBtn - 1].name;
                 StaticController.clearStageName = "";
             }
@@ -136,7 +141,12 @@ public class ActorInStageSelect : MonoBehaviour
                     transform.rotation = Quaternion.Lerp(transform.rotation, target[3].transform.rotation, 5.0f * Time.deltaTime);
                 }
             }
-        }       
+        }
+
+        if (!isMove)
+        {
+            skyboxIndex = selectBtn - 1;
+        }
     }
 
     void OnTriggerEnter(Collider collider)      //  止まる判定
@@ -152,7 +162,6 @@ public class ActorInStageSelect : MonoBehaviour
                 btn[i].enabled = true;
             }
 
-            skyboxIndex++;
             EventSystem.current.SetSelectedGameObject(btn[selectBtn - 1].gameObject);
         }
 
@@ -167,7 +176,6 @@ public class ActorInStageSelect : MonoBehaviour
                 btn[i].enabled = true;
             }
 
-            skyboxIndex--;
             EventSystem.current.SetSelectedGameObject(btn[selectBtn - 1].gameObject);
         }
     }
