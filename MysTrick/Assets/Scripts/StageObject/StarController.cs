@@ -14,6 +14,7 @@ public class StarController : MonoBehaviour
     public bool canJump;
 
     private Vector3 nowPos;             //  初期位置
+    private ActorController ac;
     private Rigidbody rigid;            //  鋼体コンポーネント
     private AudioSource sound;          //  SEコンポーネント
     private Animation anim;
@@ -28,6 +29,8 @@ public class StarController : MonoBehaviour
         sound = gameObject.GetComponent<AudioSource>();
 
         anim = gameObject.GetComponent<Animation>();
+
+        ac = GameObject.Find("PlayerHandle").GetComponent<ActorController>();
     }
 
     // Update is called once per frame
@@ -91,6 +94,8 @@ public class StarController : MonoBehaviour
             {
                 rigid.AddForce(0, 150.0f, 0);
             }
+
+            ac.starCount++;
 
             rotateSpeed = 60.0f;
 

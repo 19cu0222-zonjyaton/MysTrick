@@ -60,7 +60,7 @@ public class ActorController : MonoBehaviour
 
 	private new AudioSource audio;			//	SEのコンポーネント
 	private Animator anim;					//	アニメコントローラーコンポーネント
-	private Animation attack_anim;			//	アニメーションコントローラー
+	//private Animation attack_anim;			//	アニメーションコントローラー
 	private Rigidbody rigid;                //	鋼体コンポーネント
 	private CameraController cc;
 	private Vector3 movingVec;				//	移動方向
@@ -69,8 +69,11 @@ public class ActorController : MonoBehaviour
 	private int shortTimeCount;				//	点滅用タイムカウント
 	private Vector3 weaponStartPos;			//	武器の初期位置座標保存用
 	private Vector3 weaponStartRot;         //	武器の初期回転角度保存用
-	private Vector3 weaponAttackPos = new Vector3(0.96f, 0.316f, -0.447f);					//	武器攻撃する時位置座標保存用
-	private Vector3 weaponAttackRot = new Vector3(195.201f, -142.271f, -167.015f);			//	武器攻撃する時回転角度保存用
+											//private Vector3 weaponAttackPos = new Vector3(0.96f, 0.316f, -0.447f);					//	武器攻撃する時位置座標保存用
+											//private Vector3 weaponAttackRot = new Vector3(195.201f, -142.271f, -167.015f);			//	武器攻撃する時回転角度保存用
+	private Vector3 weaponAttackPos = new Vector3(-0.404f, 0.389f, 0.729f);                  //	武器攻撃する時位置座標保存用
+	private Vector3 weaponAttackRot = new Vector3(20.763f, 43.697f, 145.891f);          //	武器攻撃する時回転角度保存用
+
 	private Vector3 damageRot;				//	ダメージを受ける時の回転角度
 	private float timeCount;                //	タイムカウント
 	private Vector3 nowPos;					//	
@@ -88,8 +91,6 @@ public class ActorController : MonoBehaviour
 		audio = gameObject.GetComponent<AudioSource>();
 
 		anim = model.GetComponent<Animator>();
-
-		attack_anim = GameObject.Find("R_Shoulder").GetComponent<Animation>();
 
 		cc = GameObject.Find("Main Camera").GetComponent<CameraController>();
 
@@ -120,23 +121,23 @@ public class ActorController : MonoBehaviour
 
 
 			//	近戦攻撃処理
-			if (pi.isAttacking && !pi.isAimStatus)							
+			if (pi.isAttacking && pi.canAttack && !pi.isAimStatus)							
 			{
-				attack_anim.Play();						//	近戦アニメを流す
-
-				if (!audio.isPlaying)					//	SEを流してない時
+				anim.SetLayerWeight(anim.GetLayerIndex("Attack"), 1.0f);
+				anim.SetTrigger("Slash1");
+				if (!audio.isPlaying)                   //	SEを流してない時
 				{
-					audio.pitch = 2.0f;					//	音の大きさを調整
-					audio.PlayOneShot(sounds[0]);		//	近戦SEを流す
+					audio.pitch = 2.0f;                 //	音の大きさを調整
+					audio.PlayOneShot(sounds[0]);       //	近戦SEを流す
 				}
-
+				pi.canAttack = false;
 				pi.isAttacking = false;
 			}
 			//	第三視点武器を投げる処理
-			else if (pi.isThrowing && !pi.isAimStatus && !attack_anim.isPlaying)   
-			{
+			else if (pi.isThrowing && !pi.isAimStatus)   
+			{				
+				anim.SetLayerWeight(anim.GetLayerIndex("Attack"), 1.0f);
 				anim.SetTrigger("Throw");
-				anim.SetLayerWeight(anim.GetLayerIndex("Throw"), 1.0f);
 				audio.PlayOneShot(sounds[1]);
 
 				pi.canThrow = false;					//	武器を手に戻るまで投げれない設定
@@ -144,28 +145,47 @@ public class ActorController : MonoBehaviour
 				pi.isThrowing = false;					
 			}
 
-			if (attack_anim.isPlaying)                  //	攻撃する時tagを有効にする
-			{
+            //if (attack_anim.isPlaying)                  //	攻撃する時tagを有効にする
+            //{
+            //    weapon.transform.SetParent(playerHand.transform);
+            //    //	武器の位置調整
+            //    weapon.transform.localPosition = weaponAttackPos;
+            //    weapon.transform.localEulerAngles = weaponAttackRot;
+            //    weapon.transform.tag = "Weapon";
+            //    pi.canAttack = false;           //	
+            //}
+            //else if (!pi.canAttack)                         //	一回だけ実行する
+            //{
+            //    weapon.transform.SetParent(playerNeck.transform);
+            //    //	武器の位置を初期に戻る
+            //    weapon.transform.localPosition = weaponStartPos;
+            //    weapon.transform.localEulerAngles = weaponStartRot;
+            //    weapon.transform.tag = "Untagged";
+            //    audio.pitch = 1.0f;
+            //    pi.canAttack = true;            //	
+            //}
+
+            if (anim.GetCurrentAnimatorStateInfo(1).normalizedTime >= 1.0f && anim.GetCurrentAnimatorStateInfo(1).IsName("Slash1") && !pi.canAttack)                  //	攻撃する時tagを有効にする
+            {
+                weapon.transform.SetParent(playerNeck.transform);
+                //	武器の位置を初期に戻る
+                weapon.transform.localPosition = weaponStartPos;
+                weapon.transform.localEulerAngles = weaponStartRot;
+                weapon.transform.tag = "Untagged";
+                audio.pitch = 1.0f;
+				anim.SetLayerWeight(anim.GetLayerIndex("Attack"), 0.0f);
+				pi.canAttack = true;            //		
+            }
+			else if(anim.GetCurrentAnimatorStateInfo(1).IsName("Slash1") && !pi.canAttack)
+            {
 				weapon.transform.SetParent(playerHand.transform);
 				//	武器の位置調整
 				weapon.transform.localPosition = weaponAttackPos;
 				weapon.transform.localEulerAngles = weaponAttackRot;
 				weapon.transform.tag = "Weapon";
-				pi.canAttack = false;           //	
-			}
-			else if (!pi.canAttack)                         //	一回だけ実行する
-			{
-				weapon.transform.SetParent(playerNeck.transform);
-				//	武器の位置を初期に戻る
-				weapon.transform.localPosition = weaponStartPos;
-				weapon.transform.localEulerAngles = weaponStartRot;
-				weapon.transform.tag = "Untagged";
-				audio.pitch = 1.0f;
-				pi.canAttack = true;            //	
 			}
 
-
-			if (isClimbing && (Input.GetKey(pi.keyUp) || Input.GetKey(pi.keyDown) || Input.GetAxis("axisY") != 0))                         //	梯子を登る処理
+            if (isClimbing && (Input.GetKey(pi.keyUp) || Input.GetKey(pi.keyDown) || Input.GetAxis("axisY") != 0))                         //	梯子を登る処理
 			{
 				anim.speed = 1.0f;
 				anim.SetBool("Climb", true);
@@ -197,7 +217,7 @@ public class ActorController : MonoBehaviour
 
 		CheckPlayerIsDead();
 
-		PlayerCanMove();
+		//PlayerCanMove();
 	}
 
 	//	移動処理
@@ -232,7 +252,7 @@ public class ActorController : MonoBehaviour
 
 	public bool PlayerCanMove()
 	{
-		if (gc.gameClear || pi.lockJumpStatus || !playerCanMove || isDead || isEntryDoor || isFall || cc.cameraStatic != "Idle")
+		if (gc.gameClear || pi.lockJumpStatus || !playerCanMove || isDead || isEntryDoor || isClimbing || isFall || cc.cameraStatic != "Idle")
 		{
 			pi.inputEnabled = false;
 		}

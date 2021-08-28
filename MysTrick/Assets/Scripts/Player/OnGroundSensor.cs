@@ -64,6 +64,11 @@ public class OnGroundSensor : MonoBehaviour
                     ac.isFall = false;
                 }
             }
+
+            if (ac.PlayerCanMove())
+            {
+                pi.inputEnabled = true;
+            }
         }
     }
 }

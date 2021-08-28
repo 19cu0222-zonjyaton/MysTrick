@@ -83,7 +83,7 @@ public class EnemyDamageController : MonoBehaviour
             anim.SetTrigger("IsDamage");
             isDamage = true;
             canMove = false;
-            rigid.AddExplosionForce(500.0f, collider.transform.position, 3.0f, 3.0f);
+            rigid.AddExplosionForce(600.0f, collider.transform.position, 3.0f, 3.0f);
         }
 
         //  マップから落ちる処理

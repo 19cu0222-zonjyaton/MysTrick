@@ -59,14 +59,14 @@ public class WeaponController : MonoBehaviour
         {
             backToHand = false;
             timeCount += Time.fixedDeltaTime;
-            throwAnim.SetLayerWeight(throwAnim.GetLayerIndex("Throw"), 1.0f);
+            throwAnim.SetLayerWeight(throwAnim.GetLayerIndex("Attack"), 1.0f);
             distanceCheck.transform.SetParent(null);
 
             if (timeCount >= 0.1f)
             {
                 rigid.constraints = RigidbodyConstraints.None;
 
-                transform.localEulerAngles += new Vector3(0, 40.0f, 0);
+                transform.localEulerAngles += new Vector3(0, rotateSpeed, 0);
 
                 transform.SetParent(null);
 
@@ -137,7 +137,7 @@ public class WeaponController : MonoBehaviour
             speedDown = 0.0f;
             speed = 40.0f;
             timeCount = 0.0f;
-            throwAnim.SetLayerWeight(throwAnim.GetLayerIndex("Throw"), 0.0f);
+            throwAnim.SetLayerWeight(throwAnim.GetLayerIndex("Attack"), 0.0f);
             rigid.constraints = RigidbodyConstraints.FreezeAll;
         }
 
