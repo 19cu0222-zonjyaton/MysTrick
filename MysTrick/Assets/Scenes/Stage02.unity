@@ -44,7 +44,7 @@ RenderSettings:
 LightmapSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 11
-  m_GIWorkflowMode: 1
+  m_GIWorkflowMode: 0
   m_GISettings:
     serializedVersion: 2
     m_BounceScale: 1
@@ -15289,10 +15289,8 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  sbc:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  sbc: {fileID: 0}
+  sc: []
   starParent: {fileID: 762717868}
 --- !u!1 &768509618 stripped
 GameObject:

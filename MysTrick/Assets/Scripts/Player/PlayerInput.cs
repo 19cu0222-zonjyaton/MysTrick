@@ -130,7 +130,7 @@ public class PlayerInput : MonoBehaviour
 
 		if (!ac.isPushBox && ac.PlayerCanMove())
 		{
-            if ((Input.GetKeyDown(keyThrow) || Input.GetAxis("throw") == 1) && canThrow && !overDistance)
+            if ((Input.GetKeyDown(keyThrow) || Input.GetAxis("throw") == 1) && canThrow && !overDistance && canAttack)
 			{
 				isThrowing = true;
 			}

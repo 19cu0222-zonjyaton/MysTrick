@@ -2169,7 +2169,7 @@ MonoBehaviour:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+    m_SelectedColor: {r: 0.5019608, g: 0.5019608, b: 0.5019608, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -2785,14 +2785,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b922d8027e1d73f4b9202f9630c1233f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canSelected: 0
+  canSelected: 1
   confirmPanel: {fileID: 284528741}
   stageImage:
   - {fileID: 21300000, guid: afc70d4e2fdeb6746bfd594534b5b9b6, type: 3}
-  - {fileID: 21300000, guid: afc70d4e2fdeb6746bfd594534b5b9b6, type: 3}
-  - {fileID: 21300000, guid: afc70d4e2fdeb6746bfd594534b5b9b6, type: 3}
-  - {fileID: 21300000, guid: afc70d4e2fdeb6746bfd594534b5b9b6, type: 3}
-  - {fileID: 21300000, guid: afc70d4e2fdeb6746bfd594534b5b9b6, type: 3}
+  - {fileID: 21300000, guid: d178f636dfac59c40a1660fad77c5195, type: 3}
+  - {fileID: 21300000, guid: 011579d88e8259240af9d2da2fc31de2, type: 3}
+  - {fileID: 21300000, guid: 927b2be18b06ce3409271cebe4e27810, type: 3}
+  - {fileID: 21300000, guid: 55bfd7990e1ce82489e74f1c15ac71d1, type: 3}
   stageNum: 3
 --- !u!1 &1234758071
 GameObject:
@@ -3462,7 +3462,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b922d8027e1d73f4b9202f9630c1233f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canSelected: 0
+  canSelected: 1
   confirmPanel: {fileID: 284528741}
   stageImage:
   - {fileID: 21300000, guid: afc70d4e2fdeb6746bfd594534b5b9b6, type: 3}
@@ -4297,7 +4297,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b922d8027e1d73f4b9202f9630c1233f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canSelected: 0
+  canSelected: 1
   confirmPanel: {fileID: 284528741}
   stageImage:
   - {fileID: 21300000, guid: afc70d4e2fdeb6746bfd594534b5b9b6, type: 3}

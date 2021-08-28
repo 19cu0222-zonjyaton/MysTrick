@@ -35,7 +35,7 @@ public class ThrowWeaponController : MonoBehaviour
     {
         transform.Rotate(0.0f, rotateSpeed, 0.0f);
         wc.backToHand = false;
-        anim.SetLayerWeight(anim.GetLayerIndex("Throw"), 1.0f);
+        anim.SetLayerWeight(anim.GetLayerIndex("Attack"), 1.0f);
         if (speed > 0.0f)
         {
             gameObject.transform.tag = "Weapon";
@@ -64,7 +64,7 @@ public class ThrowWeaponController : MonoBehaviour
 
             playerCamera.GetComponent<CameraController>().canThrowWeapon = true;
 
-            anim.SetLayerWeight(anim.GetLayerIndex("Throw"), 0.0f);
+            anim.SetLayerWeight(anim.GetLayerIndex("Attack"), 0.0f);
 
             Destroy(this.gameObject);
         }
