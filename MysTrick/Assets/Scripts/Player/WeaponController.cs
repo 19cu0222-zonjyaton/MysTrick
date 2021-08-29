@@ -22,6 +22,7 @@ public class WeaponController : MonoBehaviour
     private float speedDown;            //  戻る時の速度
     private float timeCount;            //  タイムカウント
     private CameraController cc;        //  カメラコントローラー
+    private Animator anim;
     
     //  操作感を上げるためのパラメータ
     private bool canBack;               //  一定距離を超えるから武器が戻れるフラグ(近距離で武器が壁に当たった瞬間に戻れないように)
@@ -41,6 +42,8 @@ public class WeaponController : MonoBehaviour
 
         startPos[1] = transform.localEulerAngles;
 
+        anim = model.GetComponent<Animator>();
+
         cc = GameObject.Find("Main Camera").GetComponent<CameraController>();
 
         distanceCheckPos = distanceCheck.transform.localPosition;
@@ -59,15 +62,13 @@ public class WeaponController : MonoBehaviour
         {
             backToHand = false;
             timeCount += Time.fixedDeltaTime;
-            throwAnim.SetLayerWeight(throwAnim.GetLayerIndex("Attack"), 1.0f);
             distanceCheck.transform.SetParent(null);
 
-            if (timeCount >= 0.1f)
+            if (timeCount > 0.1f)
             {
                 rigid.constraints = RigidbodyConstraints.None;
 
                 transform.localEulerAngles += new Vector3(0, rotateSpeed, 0);
-
                 transform.SetParent(null);
 
                 weaponCollider.size = new Vector3(0.5f, weaponCollider.size.y, weaponCollider.size.z);
@@ -97,11 +98,11 @@ public class WeaponController : MonoBehaviour
                 throwRot = model.transform.forward;
             }
         }
-        else
-        {
-            transform.localPosition = startPos[0];                     //  親に相対の座標を設定する
-            transform.localEulerAngles = startPos[1];                  //  親に相対の角度を設定する   
-        }
+        //else
+        //{
+        //    transform.localPosition = startPos[0];                     //  親に相対の座標を設定する
+        //    transform.localEulerAngles = startPos[1];                  //  親に相対の角度を設定する   
+        //}
 
         if (backToHand)             //  持っている武器を隠す処理
         {
@@ -133,7 +134,8 @@ public class WeaponController : MonoBehaviour
             distanceCheck.transform.localEulerAngles = distanceCheckRot;
 
             transform.parent = playerNeck.transform;
-
+            transform.localPosition = startPos[0];                     //  親に相対の座標を設定する
+            transform.localEulerAngles = startPos[1];                  //  親に相対の角度を設定する   
             speedDown = 0.0f;
             speed = 40.0f;
             timeCount = 0.0f;

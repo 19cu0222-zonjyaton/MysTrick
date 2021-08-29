@@ -62,6 +62,8 @@ public class PlayerInput : MonoBehaviour
 	private bool isUsingJoyStick;       //	今使っているコントローラーを検査する
 	private bool resetFlag;
 
+	public int attackCount;
+
 	//	初期化
 	void Awake()
 	{
@@ -134,10 +136,11 @@ public class PlayerInput : MonoBehaviour
 			{
 				isThrowing = true;
 			}
-			else if ((Input.GetKeyDown(keyAttack) || Input.GetButtonDown("attack")) && canThrow && canAttack)
+            else if ((Input.GetKeyDown(keyAttack) || Input.GetButtonDown("attack")) && canThrow && attackCount < 2 && !isAimStatus)
 			{
+				attackCount++;
 				isAttacking = true;
-			}
+            }
 
 			if ((Input.GetKey(KeyCode.LeftShift) || Input.GetButton("perspect")) && !ac.isClimbing && ac.cameraCanMove)      //	第一人視点を切り替え
 			{

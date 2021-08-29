@@ -69,8 +69,6 @@ public class ActorController : MonoBehaviour
 	private int shortTimeCount;				//	点滅用タイムカウント
 	private Vector3 weaponStartPos;			//	武器の初期位置座標保存用
 	private Vector3 weaponStartRot;         //	武器の初期回転角度保存用
-											//private Vector3 weaponAttackPos = new Vector3(0.96f, 0.316f, -0.447f);					//	武器攻撃する時位置座標保存用
-											//private Vector3 weaponAttackRot = new Vector3(195.201f, -142.271f, -167.015f);			//	武器攻撃する時回転角度保存用
 	private Vector3 weaponAttackPos = new Vector3(-0.404f, 0.389f, 0.729f);                  //	武器攻撃する時位置座標保存用
 	private Vector3 weaponAttackRot = new Vector3(20.763f, 43.697f, 145.891f);          //	武器攻撃する時回転角度保存用
 
@@ -82,6 +80,9 @@ public class ActorController : MonoBehaviour
 	private float damageTimeCount;          //	
 	private bool playerCanMove = true;
 	private bool doOnce;
+	private bool unLockAttack = true;
+	private float unLockAttackTime;
+	private float unLockThrowTime;
 
 	//	初期化
 	void Awake()
@@ -119,73 +120,63 @@ public class ActorController : MonoBehaviour
 				anim.SetFloat("Forward", 0.0f);
 			}
 
-
-			//	近戦攻撃処理
-			if (pi.isAttacking && pi.canAttack && !pi.isAimStatus)							
-			{
-				anim.SetLayerWeight(anim.GetLayerIndex("Attack"), 1.0f);
-				anim.SetTrigger("Slash1");
-				if (!audio.isPlaying)                   //	SEを流してない時
+            //	近戦攻撃処理
+            if (pi.isAttacking && !pi.isAimStatus)
+            {
+                anim.SetLayerWeight(anim.GetLayerIndex("Attack"), 1.0f);
+                anim.SetTrigger("Slash1");
+				pi.canAttack = true;
+				if (pi.canAttack)
 				{
 					audio.pitch = 2.0f;                 //	音の大きさを調整
 					audio.PlayOneShot(sounds[0]);       //	近戦SEを流す
+					pi.canAttack = false;
 				}
-				pi.canAttack = false;
 				pi.isAttacking = false;
 			}
 			//	第三視点武器を投げる処理
-			else if (pi.isThrowing && !pi.isAimStatus)   
-			{				
+			else if (pi.isThrowing && !pi.isAimStatus)
+            {
 				anim.SetLayerWeight(anim.GetLayerIndex("Attack"), 1.0f);
-				anim.SetTrigger("Throw");
-				audio.PlayOneShot(sounds[1]);
+                anim.SetTrigger("Throw");
+                audio.PlayOneShot(sounds[1]);
 
-				pi.canThrow = false;					//	武器を手に戻るまで投げれない設定
+                pi.canThrow = false;                    //	武器を手に戻るまで投げれない設定
 
-				pi.isThrowing = false;					
-			}
-
-            //if (attack_anim.isPlaying)                  //	攻撃する時tagを有効にする
-            //{
-            //    weapon.transform.SetParent(playerHand.transform);
-            //    //	武器の位置調整
-            //    weapon.transform.localPosition = weaponAttackPos;
-            //    weapon.transform.localEulerAngles = weaponAttackRot;
-            //    weapon.transform.tag = "Weapon";
-            //    pi.canAttack = false;           //	
-            //}
-            //else if (!pi.canAttack)                         //	一回だけ実行する
-            //{
-            //    weapon.transform.SetParent(playerNeck.transform);
-            //    //	武器の位置を初期に戻る
-            //    weapon.transform.localPosition = weaponStartPos;
-            //    weapon.transform.localEulerAngles = weaponStartRot;
-            //    weapon.transform.tag = "Untagged";
-            //    audio.pitch = 1.0f;
-            //    pi.canAttack = true;            //	
-            //}
-
-            if (anim.GetCurrentAnimatorStateInfo(1).normalizedTime >= 1.0f && anim.GetCurrentAnimatorStateInfo(1).IsName("Slash1") && !pi.canAttack)                  //	攻撃する時tagを有効にする
-            {
-                weapon.transform.SetParent(playerNeck.transform);
-                //	武器の位置を初期に戻る
-                weapon.transform.localPosition = weaponStartPos;
-                weapon.transform.localEulerAngles = weaponStartRot;
-                weapon.transform.tag = "Untagged";
-                audio.pitch = 1.0f;
-				anim.SetLayerWeight(anim.GetLayerIndex("Attack"), 0.0f);
-				pi.canAttack = true;            //		
+                pi.isThrowing = false;
             }
-			else if(anim.GetCurrentAnimatorStateInfo(1).IsName("Slash1") && !pi.canAttack)
+
+            if (anim.GetCurrentAnimatorStateInfo(1).IsName("Slash1") || anim.GetCurrentAnimatorStateInfo(1).IsName("Slash2") && unLockAttack)
             {
+				unLockAttackTime += Time.deltaTime;
+				if (unLockAttackTime > 0.1f)
+				{
+					unLockAttack = false;
+				}
+
 				weapon.transform.SetParent(playerHand.transform);
-				//	武器の位置調整
-				weapon.transform.localPosition = weaponAttackPos;
-				weapon.transform.localEulerAngles = weaponAttackRot;
-				weapon.transform.tag = "Weapon";
+                //	武器の位置調整
+                weapon.transform.localPosition = weaponAttackPos;
+                weapon.transform.localEulerAngles = weaponAttackRot;
+                weapon.transform.tag = "Weapon";
+            }
+			else if (anim.GetCurrentAnimatorStateInfo(1).IsName("Idle") && !unLockAttack)
+			{
+				unLockAttackTime = 0.0f;
+				unLockAttack = true;
+				pi.attackCount = 0;
+				weapon.transform.SetParent(playerNeck.transform);
+				//	武器の位置を初期に戻る
+				weapon.transform.localPosition = weaponStartPos;
+				weapon.transform.localEulerAngles = weaponStartRot;
+				weapon.transform.tag = "Untagged";
+				audio.pitch = 1.0f;
+				anim.SetLayerWeight(anim.GetLayerIndex("Attack"), 0.0f);
+				pi.canAttack = true;            //	
 			}
 
-            if (isClimbing && (Input.GetKey(pi.keyUp) || Input.GetKey(pi.keyDown) || Input.GetAxis("axisY") != 0))                         //	梯子を登る処理
+
+			if (isClimbing && (Input.GetKey(pi.keyUp) || Input.GetKey(pi.keyDown) || Input.GetAxis("axisY") != 0))                         //	梯子を登る処理
 			{
 				anim.speed = 1.0f;
 				anim.SetBool("Climb", true);
@@ -216,8 +207,6 @@ public class ActorController : MonoBehaviour
 		CheckIsUnderDamage();
 
 		CheckPlayerIsDead();
-
-		//PlayerCanMove();
 	}
 
 	//	移動処理
@@ -356,7 +345,6 @@ public class ActorController : MonoBehaviour
 		}
 	}
 
-	//---鍾家同(2021/07/19)---
 	private void OnTriggerEnter(Collider collider)
 	{
 		switch (collider.transform.tag)
