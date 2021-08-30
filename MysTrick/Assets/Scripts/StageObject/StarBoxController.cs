@@ -51,6 +51,7 @@ public class StarBoxController : MonoBehaviour
             {
                 if (!doOnce)
                 {
+                    sound.Play();
                     rotateSpeed = 60.0f;
                     starRigid.AddForce(0, 150.0f, 0);
                     doOnce = true;
@@ -103,8 +104,6 @@ public class StarBoxController : MonoBehaviour
                 getByPlayer = true;
 
                 activeHintUI = false;
-
-                sound.Play();
 
                 lockKey.GetComponent<Rigidbody>().useGravity = true;
 

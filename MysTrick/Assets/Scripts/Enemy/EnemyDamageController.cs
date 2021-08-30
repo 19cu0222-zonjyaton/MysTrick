@@ -78,9 +78,9 @@ public class EnemyDamageController : MonoBehaviour
     }
 
     //  敵の衝突処理
-    void OnTriggerStay(Collider collider)
+    void OnTriggerEnter(Collider collider)
     {
-        if (collider.transform.tag == "Slash1" && !isStun && enemyHp > 0)
+        if (collider.transform.tag == "Slash1" && enemyHp > 0)
         {
             enemyHp--;
             au.Play();
@@ -95,13 +95,12 @@ public class EnemyDamageController : MonoBehaviour
                 stunStar.gameObject.SetActive(true);
                 isStun = true;
             }   
-            timeCount = 0.0f;
             anim.SetTrigger("IsDamage");
             canMove = false;
         }
 
         //  プレイヤーの武器と当たる処理
-        if (collider.transform.tag == "Weapon" && !isDamage && enemyHp > 0)
+        if (collider.transform.tag == "Weapon" && enemyHp > 0)
         {
             enemyHp--;
             au.Play();
