@@ -21842,6 +21842,16 @@ PrefabInstance:
       propertyPath: pathPositions.Array.data[1]
       value: 
       objectReference: {fileID: 1681040937}
+    - target: {fileID: 3787794846184598274, guid: 19f866164458f0b4689c692e1c39b025,
+        type: 3}
+      propertyPath: m_Pitch
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3787794846184598274, guid: 19f866164458f0b4689c692e1c39b025,
+        type: 3}
+      propertyPath: m_Volume
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3787794846184598275, guid: 19f866164458f0b4689c692e1c39b025,
         type: 3}
       propertyPath: enemyHp

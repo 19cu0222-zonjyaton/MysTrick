@@ -13,10 +13,10 @@ public class EnemyDamageController : MonoBehaviour
     public GameObject coin;                 //  コインオブジェクト
     public ActorController ac;              //  プレイヤーコントローラー
     public GameObject stunStar;
+    public AudioSource[] au;                 //  敵のSEオブジェクト
 
     private Rigidbody rigid;                //  プレイヤーに攻撃された処理用
     private CapsuleCollider capsuleCollider;//  衝突判定用
-    private AudioSource au;                 //  敵のSEオブジェクト
     private float timeCount;                //  コインを時間ごとにでる
     private int coinCount;                  //  コインの個数
     private float deadPosY;                 //  消滅されたY座標保存用
@@ -27,8 +27,6 @@ public class EnemyDamageController : MonoBehaviour
         rigid = gameObject.GetComponent<Rigidbody>();
 
         capsuleCollider = gameObject.GetComponent<CapsuleCollider>();
-
-        au = gameObject.GetComponent<AudioSource>();
     }
 
     void Update()
@@ -83,15 +81,16 @@ public class EnemyDamageController : MonoBehaviour
         if (collider.transform.tag == "Slash1" && enemyHp > 0)
         {
             enemyHp--;
-            au.Play();
+            au[0].Play();
 
             if (enemyHp <= 0)   //  コインを排除するY座標を記録する
             {
                 deadPosY = transform.position.y;
                 rigid.AddForce(0, 700.0f, 0);
             }
-            else
+            else if(!isStun)
             {
+                au[1].Play();
                 stunStar.gameObject.SetActive(true);
                 isStun = true;
             }   
@@ -103,7 +102,7 @@ public class EnemyDamageController : MonoBehaviour
         if (collider.transform.tag == "Weapon" && enemyHp > 0)
         {
             enemyHp--;
-            au.Play();
+            au[0].Play();
 
             if (enemyHp <= 0)   //  コインを排除するY座標を記録する
             {
