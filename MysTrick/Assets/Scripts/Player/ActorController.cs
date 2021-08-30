@@ -128,7 +128,7 @@ public class ActorController : MonoBehaviour
 				pi.canAttack = true;
 				if (pi.canAttack)
 				{
-					audio.pitch = 2.0f;                 //	音の大きさを調整
+					//audio.pitch = 2.0f;                 //	音の大きさを調整
 					audio.PlayOneShot(sounds[0]);       //	近戦SEを流す
 					pi.canAttack = false;
 				}
@@ -146,7 +146,16 @@ public class ActorController : MonoBehaviour
                 pi.isThrowing = false;
             }
 
-            if (anim.GetCurrentAnimatorStateInfo(1).IsName("Slash1") || anim.GetCurrentAnimatorStateInfo(1).IsName("Slash2") && unLockAttack)
+            if (anim.GetCurrentAnimatorStateInfo(1).IsName("Slash1"))
+            {
+                weapon.transform.tag = "Slash1";
+            }
+            else if (anim.GetCurrentAnimatorStateInfo(1).IsName("Slash2"))
+			{
+				weapon.transform.tag = "Weapon";
+			}
+
+			if (anim.GetCurrentAnimatorStateInfo(1).IsName("Slash1") || anim.GetCurrentAnimatorStateInfo(1).IsName("Slash2") && unLockAttack)
             {
 				unLockAttackTime += Time.deltaTime;
 				if (unLockAttackTime > 0.1f)
@@ -158,7 +167,7 @@ public class ActorController : MonoBehaviour
                 //	武器の位置調整
                 weapon.transform.localPosition = weaponAttackPos;
                 weapon.transform.localEulerAngles = weaponAttackRot;
-                weapon.transform.tag = "Weapon";
+
             }
 			else if (anim.GetCurrentAnimatorStateInfo(1).IsName("Idle") && !unLockAttack)
 			{

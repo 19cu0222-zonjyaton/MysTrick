@@ -37,6 +37,7 @@ TagManager:
   - FireBall
   - Totem
   - Wood
+  - Slash1
   layers:
   - Default
   - TransparentFX
@@ -60,7 +61,7 @@ TagManager:
   - Footplate
   - Totem
   - MoveBox_Player
-  - 
+  - Weapon
   - 
   - 
   - 

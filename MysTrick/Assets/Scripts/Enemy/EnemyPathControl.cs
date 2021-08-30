@@ -50,7 +50,7 @@ public class EnemyPathControl : MonoBehaviour
     void Update()
     {
         //  プレイヤーに攻撃された処理
-        if (edc.isDamage)
+        if (edc.isDamage || edc.isStun)
         {
             isAttackedByPlayer = true;
         }
@@ -59,26 +59,29 @@ public class EnemyPathControl : MonoBehaviour
         {
             if (cc.cameraStatic != "GameOver")
             {
-                if (cc.cameraStatic == "Idle" && !edc.isDamage && !warning.GetComponent<Animation>().isPlaying)
+                if (cc.cameraStatic == "Idle" && !edc.isDamage && !edc.isStun && !warning.GetComponent<Animation>().isPlaying)
                 {
                     edc.canMove = true;
                 }
 
-                if (!rayLockPlayer)
+                if (edc.canMove)
                 {
-                    warningTimeCount += Time.deltaTime;
-                    if (warningTimeCount > 2.0f)
+                    if (!rayLockPlayer)
                     {
-                        warningActive = true;
+                        warningTimeCount += Time.deltaTime;
+                        if (warningTimeCount > 2.0f)
+                        {
+                            warningActive = true;
+                        }
                     }
-                }
-                else if (rayLockPlayer && warningActive && (edc.enemyHp > 0))
-                {
-                    au.PlayOneShot(sound);
-                    edc.canMove = false;
-                    warning.SetActive(true);
-                    warningActive = false;
-                    warningTimeCount = 0.0f;
+                    else if (rayLockPlayer && warningActive && (edc.enemyHp > 0))
+                    {
+                        au.PlayOneShot(sound);
+                        edc.canMove = false;
+                        warning.SetActive(true);
+                        warningActive = false;
+                        warningTimeCount = 0.0f;
+                    }
                 }
 
                 if (!warning.GetComponent<Animation>().isPlaying)
@@ -169,15 +172,12 @@ public class EnemyPathControl : MonoBehaviour
                             Patrol();
                         }
                     }
-                    //else if (edc.canMove && !isAttackedByPlayer && !edc.hitWithPlayer)
-                    //{
-                    //    Patrol();
-                    //}
                 }
             }
             else
             {
                 playerDeadTimeCount += Time.deltaTime;
+                edc.isStun = false;
                 edc.canMove = true;
 
                 if (warningActive)

@@ -8,13 +8,15 @@ public class EnemyDamageController : MonoBehaviour
     public int enemyHp;                     //  エネミーのHP
     public bool canMove;                    //  プレイヤーに攻撃されたら時間内で -> false
     public bool hitWithPlayer;
+    public bool isStun;
     public Animator anim;                   //  アニメコントローラー
     public GameObject coin;                 //  コインオブジェクト
     public ActorController ac;              //  プレイヤーコントローラー
+    public GameObject stunStar;
 
     private Rigidbody rigid;                //  プレイヤーに攻撃された処理用
     private CapsuleCollider capsuleCollider;//  衝突判定用
-    private AudioSource au;              //  敵のSEオブジェクト
+    private AudioSource au;                 //  敵のSEオブジェクト
     private float timeCount;                //  コインを時間ごとにでる
     private int coinCount;                  //  コインの個数
     private float deadPosY;                 //  消滅されたY座標保存用
@@ -42,15 +44,24 @@ public class EnemyDamageController : MonoBehaviour
             }
         }
 
+        if (isStun)
+        {
+            timeCount += Time.deltaTime;
+            if (timeCount >= 2.0f)
+            {
+                stunStar.gameObject.SetActive(false);
+                isStun = false;
+                canMove = true;
+            }
+        }
+
         //  敵の死亡処理
         if (enemyHp <= 0)           
         {
             anim.SetBool("IsDead", true);
             capsuleCollider.isTrigger = true;
-            capsuleCollider.tag = "Untagged";       //  Tagを無効化
-
             timeCount += Time.deltaTime;
-            if (timeCount > 0.2f)                     
+            if (coinCount < 3 && timeCount > 0.2f)                     
             {
                 Instantiate(coin, new Vector3(transform.position.x, deadPosY, transform.position.z), Quaternion.identity);      //  消滅されたらコインを排除する
                 ac.coinUIAction = true;
@@ -59,7 +70,7 @@ public class EnemyDamageController : MonoBehaviour
                 timeCount = 0.0f;
             }
 
-            if (coinCount > 2)  //  敵01を消滅したら3枚のコインを獲得する
+            if (coinCount > 2.0f)  //  敵01を消滅したら3枚のコインを獲得する
             {
                 Destroy(this.gameObject);
             }
@@ -67,10 +78,9 @@ public class EnemyDamageController : MonoBehaviour
     }
 
     //  敵の衝突処理
-    void OnTriggerEnter(Collider collider)
+    void OnTriggerStay(Collider collider)
     {
-        //  プレイヤーの武器と当たる処理
-        if (collider.transform.tag == "Weapon" && !isDamage)
+        if (collider.transform.tag == "Slash1" && !isStun && enemyHp > 0)
         {
             enemyHp--;
             au.Play();
@@ -78,12 +88,39 @@ public class EnemyDamageController : MonoBehaviour
             if (enemyHp <= 0)   //  コインを排除するY座標を記録する
             {
                 deadPosY = transform.position.y;
+                rigid.AddForce(0, 700.0f, 0);
             }
-
+            else
+            {
+                stunStar.gameObject.SetActive(true);
+                isStun = true;
+            }   
+            timeCount = 0.0f;
             anim.SetTrigger("IsDamage");
+            canMove = false;
+        }
+
+        //  プレイヤーの武器と当たる処理
+        if (collider.transform.tag == "Weapon" && !isDamage && enemyHp > 0)
+        {
+            enemyHp--;
+            au.Play();
+
+            if (enemyHp <= 0)   //  コインを排除するY座標を記録する
+            {
+                deadPosY = transform.position.y;
+                rigid.AddForce(0, 700.0f, 0);
+            }
+            else
+            {
+                rigid.AddExplosionForce(600.0f, collider.transform.position, 3.0f, 3.0f);
+            }
+            timeCount = 0.0f;
+            anim.SetTrigger("IsDamage");
+            stunStar.gameObject.SetActive(false);
+            isStun = false;
             isDamage = true;
             canMove = false;
-            rigid.AddExplosionForce(600.0f, collider.transform.position, 3.0f, 3.0f);
         }
 
         //  マップから落ちる処理
@@ -97,7 +134,7 @@ public class EnemyDamageController : MonoBehaviour
 
     void OnCollisionStay(Collision collision)
     {
-        if (collision.transform.tag == "Player")
+        if (collision.transform.tag == "Player" && enemyHp > 0)
         {
             hitWithPlayer = true;
 

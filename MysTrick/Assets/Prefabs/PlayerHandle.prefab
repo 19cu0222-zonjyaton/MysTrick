@@ -1044,6 +1044,7 @@ MonoBehaviour:
   capcol: {fileID: 6563069687783362540}
   goal: {fileID: 0}
   cc: {fileID: 0}
+  isJumpStatic: 0
 --- !u!1 &6563069687687562307
 GameObject:
   m_ObjectHideFlags: 0
@@ -1321,6 +1322,7 @@ MonoBehaviour:
   cc: {fileID: 6563069688815288606}
   targetDup: 0
   targetDright: 0
+  attackCount: 0
 --- !u!114 &6563069687783362542
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1350,8 +1352,10 @@ MonoBehaviour:
   starCount: 0
   coinUIAction: 0
   climbEnd: 0
-  isDead: 0
   isFall: 0
+  isLand: 0
+  isDead: 0
+  isFallDead: 0
   moveSpeed: 6
   isInTrigger: 0
   isDamageByEnemy: 0
@@ -2261,7 +2265,7 @@ GameObject:
   - component: {fileID: 3704986014312500981}
   - component: {fileID: 7703914114206478422}
   - component: {fileID: 4063294895243107442}
-  m_Layer: 11
+  m_Layer: 22
   m_Name: UsingWeapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2356,8 +2360,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.6572901, y: 0.28032187, z: 0.43189675}
-  m_Center: {x: -0.21442132, y: 0.0018743217, z: 0.00000045099262}
+  m_Size: {x: 1.6238265, y: 0.28032187, z: 0.43189675}
+  m_Center: {x: 0.0943917, y: 0.0018743783, z: 0.00000039385054}
 --- !u!114 &4063294895243107442
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6260097348797109204}
   - component: {fileID: 349449106854145785}
   - component: {fileID: 6665290396262645940}
-  m_Layer: 0
+  m_Layer: 22
   m_Name: ThrowWeapon
   m_TagString: Weapon
   m_Icon: {fileID: 0}
