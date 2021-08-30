@@ -47,6 +47,7 @@ public class EnemyDamageController : MonoBehaviour
             timeCount += Time.deltaTime;
             if (timeCount >= 2.0f)
             {
+                timeCount = 0.0f;
                 stunStar.gameObject.SetActive(false);
                 isStun = false;
                 canMove = true;
@@ -59,7 +60,7 @@ public class EnemyDamageController : MonoBehaviour
             anim.SetBool("IsDead", true);
             capsuleCollider.isTrigger = true;
             timeCount += Time.deltaTime;
-            if (coinCount < 3 && timeCount > 0.2f)                     
+            if (coinCount < 3 && timeCount > 0.3f)                     
             {
                 Instantiate(coin, new Vector3(transform.position.x, deadPosY, transform.position.z), Quaternion.identity);      //  消滅されたらコインを排除する
                 ac.coinUIAction = true;
@@ -87,6 +88,8 @@ public class EnemyDamageController : MonoBehaviour
             {
                 deadPosY = transform.position.y;
                 rigid.AddForce(0, 700.0f, 0);
+                stunStar.gameObject.SetActive(false);
+                timeCount = 0.0f;
             }
             else if(!isStun)
             {
