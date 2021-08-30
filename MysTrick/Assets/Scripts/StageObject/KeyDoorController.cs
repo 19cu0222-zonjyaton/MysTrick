@@ -19,7 +19,6 @@ public class KeyDoorController : MonoBehaviour
 	[Header("===調整用===")]
 	[SerializeField]
 	private DoorColor doorColor;
-
 	public GameObject doorLock1;
 	public GameObject doorLock2;
 	public GameObject doorBolt1;
@@ -32,6 +31,7 @@ public class KeyDoorController : MonoBehaviour
 	public float lockOpenSpeed = 1.0f;			// ロックを開けるスピード
 	public float doorOpenTimeCount = 1.0f;		// 扉を開ける所要時間
 	public float doorOpenSpeed = 2.0f;			// 扉を開けるスピード
+	public bool MoveXPos;
 
 	[Header("===監視用===")]
 	[SerializeField]
@@ -73,10 +73,21 @@ public class KeyDoorController : MonoBehaviour
 				doorOpenTimeCount -= Time.deltaTime;
 				if (doorColor == DoorColor.Blue)
 				{
-					LeftDoor.transform.localPosition = Vector3.MoveTowards(LeftDoor.transform.localPosition,
-						new Vector3(LeftDoor.transform.localPosition.x, LeftDoor.transform.localPosition.y, LeftDoor.transform.localPosition.z + 1.7f), doorOpenSpeed * Time.deltaTime);
-					RightDoor.transform.localPosition = Vector3.MoveTowards(RightDoor.transform.localPosition,
-						new Vector3(RightDoor.transform.localPosition.x, RightDoor.transform.localPosition.y, RightDoor.transform.localPosition.z - 1.7f), doorOpenSpeed * Time.deltaTime);
+					if(!MoveXPos)
+					{
+						LeftDoor.transform.localPosition = Vector3.MoveTowards(LeftDoor.transform.localPosition,
+							new Vector3(LeftDoor.transform.localPosition.x, LeftDoor.transform.localPosition.y, LeftDoor.transform.localPosition.z + 1.7f), doorOpenSpeed * Time.deltaTime);
+						RightDoor.transform.localPosition = Vector3.MoveTowards(RightDoor.transform.localPosition,
+							new Vector3(RightDoor.transform.localPosition.x, RightDoor.transform.localPosition.y, RightDoor.transform.localPosition.z - 1.7f), doorOpenSpeed * Time.deltaTime);
+					}
+					else
+					{
+						LeftDoor.transform.localPosition = Vector3.MoveTowards(LeftDoor.transform.localPosition,
+	new Vector3(LeftDoor.transform.localPosition.x + 1.7f, LeftDoor.transform.localPosition.y, LeftDoor.transform.localPosition.z), doorOpenSpeed * Time.deltaTime);
+						RightDoor.transform.localPosition = Vector3.MoveTowards(RightDoor.transform.localPosition,
+							new Vector3(RightDoor.transform.localPosition.x - 1.7f, RightDoor.transform.localPosition.y, RightDoor.transform.localPosition.z), doorOpenSpeed * Time.deltaTime);
+
+					}
 				}
 				else if (doorColor == DoorColor.Green)
 				{
