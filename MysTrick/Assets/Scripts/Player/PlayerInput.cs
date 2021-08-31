@@ -130,6 +130,11 @@ public class PlayerInput : MonoBehaviour
 			isTriggered = true;
 		}
 
+		if (!ac.isInTrigger)
+		{
+			isTriggered = false;
+		}
+
 		if (!ac.isPushBox && ac.PlayerCanMove())
 		{
             if ((Input.GetKeyDown(keyThrow) || Input.GetAxis("throw") == 1) && canThrow && !overDistance && canAttack)

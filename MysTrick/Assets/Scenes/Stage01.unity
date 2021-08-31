@@ -718,7 +718,7 @@ PrefabInstance:
     - target: {fileID: 6106959150754543528, guid: eb7acf80775dc5944b9c468ab166f919,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -14.88
+      value: -15.13
       objectReference: {fileID: 0}
     - target: {fileID: 6106959150754543528, guid: eb7acf80775dc5944b9c468ab166f919,
         type: 3}
@@ -728,7 +728,7 @@ PrefabInstance:
     - target: {fileID: 6106959150754543528, guid: eb7acf80775dc5944b9c468ab166f919,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 9.44
+      value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 6106959150754543528, guid: eb7acf80775dc5944b9c468ab166f919,
         type: 3}
@@ -1676,7 +1676,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 882452057}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!1001 &255276350
 PrefabInstance:
@@ -1758,6 +1758,36 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 255276350}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &270378912
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 270378913}
+  m_Layer: 0
+  m_Name: Bridge2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &270378913
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 270378912}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 9.49, y: 23.98, z: 13.584}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 882452057}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &275815630
 GameObject:
   m_ObjectHideFlags: 0
@@ -9194,6 +9224,7 @@ Transform:
   - {fileID: 142236632}
   - {fileID: 327837110}
   - {fileID: 455930051}
+  - {fileID: 270378913}
   - {fileID: 253205362}
   m_Father: {fileID: 0}
   m_RootOrder: 4
@@ -10110,7 +10141,7 @@ PrefabInstance:
     - target: {fileID: 6563069688815288606, guid: deb5c94de91a32e4ca21d16c24db72a9,
         type: 3}
       propertyPath: bridge.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6563069688815288606, guid: deb5c94de91a32e4ca21d16c24db72a9,
         type: 3}
@@ -10149,6 +10180,11 @@ PrefabInstance:
       objectReference: {fileID: 3390627141092689543}
     - target: {fileID: 6563069688815288606, guid: deb5c94de91a32e4ca21d16c24db72a9,
         type: 3}
+      propertyPath: bridge.Array.data[1]
+      value: 
+      objectReference: {fileID: 7365997467948406536}
+    - target: {fileID: 6563069688815288606, guid: deb5c94de91a32e4ca21d16c24db72a9,
+        type: 3}
       propertyPath: lookAtDoor.Array.size
       value: 2
       objectReference: {fileID: 0}
@@ -10160,7 +10196,7 @@ PrefabInstance:
     - target: {fileID: 6563069688815288606, guid: deb5c94de91a32e4ca21d16c24db72a9,
         type: 3}
       propertyPath: lookAtBridge.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6563069688815288606, guid: deb5c94de91a32e4ca21d16c24db72a9,
         type: 3}
@@ -10202,6 +10238,11 @@ PrefabInstance:
       propertyPath: lookAtBridge.Array.data[0]
       value: 
       objectReference: {fileID: 455930050}
+    - target: {fileID: 6563069688815288606, guid: deb5c94de91a32e4ca21d16c24db72a9,
+        type: 3}
+      propertyPath: lookAtBridge.Array.data[1]
+      value: 
+      objectReference: {fileID: 270378912}
     - target: {fileID: 8482443360204759258, guid: deb5c94de91a32e4ca21d16c24db72a9,
         type: 3}
       propertyPath: m_Layer
@@ -23584,7 +23625,7 @@ AudioSource:
   m_audioClip: {fileID: 8300000, guid: c1d6c254e03fdb94f9ded5b217ae589c, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
-  m_Pitch: 1
+  m_Pitch: 2
   Loop: 0
   Mute: 0
   Spatialize: 0
