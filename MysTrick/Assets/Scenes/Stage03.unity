@@ -196,7 +196,7 @@ PrefabInstance:
     - target: {fileID: 4366734789213267272, guid: 2dd333ee434af6e44849524c8bbddd1c,
         type: 3}
       propertyPath: m_RootOrder
-      value: 33
+      value: 34
       objectReference: {fileID: 0}
     - target: {fileID: 4366734789213267272, guid: 2dd333ee434af6e44849524c8bbddd1c,
         type: 3}
@@ -2232,7 +2232,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 594018429}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -2.606347, z: 0}
+  m_LocalPosition: {x: 0, y: -5.3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 543450652818569785}
@@ -2249,8 +2249,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 27.151592, y: 1.7658234, z: 1.0364189}
-  m_Center: {x: -8.769239, y: -15.526663, z: 24.621412}
+  m_Size: {x: 27.151592, y: 2.6311674, z: 1.0364189}
+  m_Center: {x: -8.769239, y: -12.544434, z: 24.621412}
 --- !u!65 &594018432
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2262,8 +2262,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.7580795, y: 1.7658234, z: 49.51415}
-  m_Center: {x: -22.71806, y: -15.526663, z: 0.38254738}
+  m_Size: {x: 0.7580795, y: 2.7750082, z: 49.51415}
+  m_Center: {x: -22.71806, y: -12.492186, z: 0.38254738}
 --- !u!65 &594018433
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2275,8 +2275,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 45.385086, y: 1.7658234, z: 0.69062996}
-  m_Center: {x: -0.40455627, y: -15.526663, z: -24.714329}
+  m_Size: {x: 45.385086, y: 2.8422403, z: 0.69062805}
+  m_Center: {x: -0.40455627, y: -12.429316, z: -24.714329}
 --- !u!65 &594018434
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2288,8 +2288,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.64751434, y: 1.7658234, z: 46.64016}
-  m_Center: {x: 22.634346, y: -15.526663, z: -1.739564}
+  m_Size: {x: 0.64751434, y: 2.7770462, z: 47.31203}
+  m_Center: {x: 22.634346, y: -12.394136, z: -1.4036274}
 --- !u!65 &594018435
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2301,8 +2301,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.64751434, y: 1.8646832, z: 12.278196}
-  m_Center: {x: 22.634346, y: -10.544853, z: -5.13881}
+  m_Size: {x: 0.64751434, y: 3.0986538, z: 12.278196}
+  m_Center: {x: 22.634346, y: -7.4477005, z: -5.13881}
 --- !u!65 &594018436
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2314,8 +2314,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.63378143, y: 1.833458, z: 3.8118744}
-  m_Center: {x: 5.237879, y: 9.396695, z: -22.311749}
+  m_Size: {x: 0.63378143, y: 2.6121216, z: 3.8118744}
+  m_Center: {x: 5.237879, y: 12.366464, z: -22.311749}
 --- !u!65 &594018437
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2327,8 +2327,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 17.38472, y: 1.833458, z: 0.93592834}
-  m_Center: {x: 13.613348, y: 9.396695, z: -24.675297}
+  m_Size: {x: 17.38472, y: 2.5436726, z: 0.93592834}
+  m_Center: {x: 13.613348, y: 12.345188, z: -24.675297}
 --- !u!65 &594018438
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2340,8 +2340,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.7224622, y: 1.833458, z: 7.767029}
-  m_Center: {x: 5.334957, y: 9.396695, z: 20.540276}
+  m_Size: {x: 0.7224617, y: 2.673233, z: 7.767029}
+  m_Center: {x: 5.334957, y: 12.364293, z: 20.540276}
 --- !u!65 &594018439
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2353,8 +2353,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 17.331984, y: 1.833458, z: 0.83930206}
-  m_Center: {x: 13.639716, y: 9.396695, z: 24.85603}
+  m_Size: {x: 17.331984, y: 2.6550903, z: 0.83930206}
+  m_Center: {x: 13.639716, y: 12.327699, z: 24.85603}
 --- !u!65 &594018440
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2366,8 +2366,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.81557465, y: 1.833458, z: 50.381363}
-  m_Center: {x: 22.718376, y: 9.396695, z: 0.084999084}
+  m_Size: {x: 0.81557465, y: 2.6057167, z: 50.381363}
+  m_Center: {x: 22.718376, y: 12.341113, z: 0.084999084}
 --- !u!23 &594018441
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -2386,7 +2386,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -3363248771851627606, guid: 00155844131f80c4ba9e0335914ecf25, type: 3}
+  - {fileID: -4309585149204244795, guid: 30532f95d422a7740b8cc9c7824c35e0, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2414,7 +2414,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 594018429}
-  m_Mesh: {fileID: -8223828571603864074, guid: 00155844131f80c4ba9e0335914ecf25, type: 3}
+  m_Mesh: {fileID: 1462191296098140998, guid: 30532f95d422a7740b8cc9c7824c35e0, type: 3}
 --- !u!65 &594018443
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2426,8 +2426,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 5.8484077, y: 1.9436855, z: 0.68265724}
-  m_Center: {x: -4.6738243, y: 15.709538, z: 16.42511}
+  m_Size: {x: 5.8484077, y: 2.306572, z: 0.68265533}
+  m_Center: {x: -4.6738243, y: 18.64936, z: 16.42511}
 --- !u!65 &594018444
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2439,8 +2439,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.9060297, y: 1.9436855, z: 7.0500298}
-  m_Center: {x: -7.1450133, y: 15.709538, z: 13.241423}
+  m_Size: {x: 0.9060297, y: 2.3453045, z: 7.0500298}
+  m_Center: {x: -7.1450133, y: 18.69733, z: 13.241423}
 --- !u!1 &594195367
 GameObject:
   m_ObjectHideFlags: 0
@@ -21753,6 +21753,7 @@ MonoBehaviour:
   lockOpenSpeed: 1
   doorOpenTimeCount: 1
   doorOpenSpeed: 2
+  MoveXPos: 0
   canOpen: 0
 --- !u!65 &4148676443788063063
 BoxCollider:
@@ -25009,6 +25010,7 @@ MonoBehaviour:
   lockOpenSpeed: 1
   doorOpenTimeCount: 1
   doorOpenSpeed: 2
+  MoveXPos: 0
   canOpen: 0
 --- !u!65 &6184693395867797333
 BoxCollider:
