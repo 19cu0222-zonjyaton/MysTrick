@@ -60,7 +60,6 @@ public class ActorController : MonoBehaviour
 
 	private new AudioSource audio;			//	SEのコンポーネント
 	private Animator anim;					//	アニメコントローラーコンポーネント
-	//private Animation attack_anim;			//	アニメーションコントローラー
 	private Rigidbody rigid;                //	鋼体コンポーネント
 	private CameraController cc;
 	private Vector3 movingVec;				//	移動方向
@@ -81,8 +80,9 @@ public class ActorController : MonoBehaviour
 	private bool playerCanMove = true;
 	private bool doOnce;
 	private bool unLockAttack = true;
-	private bool attackIsOver;
-	private float attackGapTime;
+	public float attackGapTime;
+	private bool weaponSound1;
+	private bool weaponSound2;
 
 	//	初期化
 	void Awake()
@@ -121,17 +121,11 @@ public class ActorController : MonoBehaviour
 			}
 
 			//	近戦攻撃処理
-			if (pi.isAttacking && !pi.isAimStatus && !attackIsOver)
+			if (pi.isAttacking && !pi.isAimStatus)
             {
                 anim.SetLayerWeight(anim.GetLayerIndex("Attack"), 1.0f);
                 anim.SetTrigger("Slash1");
-				pi.canAttack = true;
-				if (pi.canAttack)
-				{
-					audio.PlayOneShot(sounds[0]);       //	近戦SEを流す
-					pi.canAttack = false;
-				}
-				pi.isAttacking = false;
+                pi.isAttacking = false;
 			}
 			//	第三視点武器を投げる処理
 			else if (pi.isThrowing && !pi.isAimStatus)
@@ -147,18 +141,29 @@ public class ActorController : MonoBehaviour
 
             if (anim.GetCurrentAnimatorStateInfo(1).IsName("Slash1"))
             {
-                weapon.transform.tag = "Slash1";
+				if (!weaponSound1)
+				{
+					audio.PlayOneShot(sounds[0]);
+					weaponSound1 = true;
+				}
+				weapon.transform.tag = "Slash1";
             }
             else if (anim.GetCurrentAnimatorStateInfo(1).IsName("Slash2"))
 			{
+				if (!weaponSound2)
+				{
+					audio.PlayOneShot(sounds[0]);
+					weaponSound2 = true;
+				}
 				weapon.transform.tag = "Weapon";
 			}
 
 			if (anim.GetCurrentAnimatorStateInfo(1).IsName("Slash1") || anim.GetCurrentAnimatorStateInfo(1).IsName("Slash2"))
 			{
-				anim.SetLayerWeight(anim.GetLayerIndex("Attack"), 1.0f);
+
 				if (unLockAttack)
 				{
+					anim.SetLayerWeight(anim.GetLayerIndex("Attack"), 1.0f);
 					weapon.transform.SetParent(playerHand.transform);
 					//	武器の位置調整
 					weapon.transform.localPosition = weaponAttackPos;
@@ -169,26 +174,17 @@ public class ActorController : MonoBehaviour
 			
 			if (anim.GetCurrentAnimatorStateInfo(1).IsName("Idle") && !unLockAttack)
 			{
-				pi.attackCount = 2;
+				pi.attackCount = 0;
 				weapon.transform.SetParent(playerNeck.transform);
 				//	武器の位置を初期に戻る
 				weapon.transform.localPosition = weaponStartPos;
 				weapon.transform.localEulerAngles = weaponStartRot;
 				weapon.transform.tag = "Untagged";
 				anim.SetLayerWeight(anim.GetLayerIndex("Attack"), 0.0f);
-				attackIsOver = true;
+				unLockAttack = true;
+				weaponSound1 = false;
+				weaponSound2 = false;
 			}
-
-            if (attackIsOver)
-            {
-                attackGapTime += Time.deltaTime;
-                if (attackGapTime > 0.3f)
-				{
-					unLockAttack = true;
-					pi.attackCount = 0;
-                    attackIsOver = false;
-                }
-            }
 
             if (isClimbing && (Input.GetKey(pi.keyUp) || Input.GetKey(pi.keyDown) || Input.GetAxis("axisY") != 0))                         //	梯子を登る処理
 			{
