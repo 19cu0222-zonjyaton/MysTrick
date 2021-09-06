@@ -17,7 +17,7 @@ public class CoinUIController : MonoBehaviour
 
         anim = gameObject.GetComponent<Animation>();
 
-        mapCoinCount = GameObject.FindGameObjectsWithTag("Coin").Length + GameObject.FindGameObjectsWithTag("Enemy").Length * 3;
+        mapCoinCount = GameObject.FindGameObjectsWithTag("Coin").Length + GameObject.FindGameObjectsWithTag("Enemy").Length;
     }
 
     void Update()
