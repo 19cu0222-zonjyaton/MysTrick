@@ -483,7 +483,7 @@ public class ActorController : MonoBehaviour
 		}
 	}
 
-	private void OnCollisionStay(Collision collision)
+	private void OnCollisionEnter(Collision collision)
 	{
 		if (collision.transform.tag == "Enemy" && !isUnrivaled)		//	敵と当たる処理
 		{

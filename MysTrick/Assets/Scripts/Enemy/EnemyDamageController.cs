@@ -102,7 +102,7 @@ public class EnemyDamageController : MonoBehaviour
         }
 
         //  プレイヤーの武器と当たる処理
-        if (collider.transform.tag == "Weapon" && enemyHp > 0)
+        if (collider.transform.tag == "Weapon" && enemyHp > 0 && !isDamage)
         {
             enemyHp--;
             au[0].Play();
@@ -133,7 +133,7 @@ public class EnemyDamageController : MonoBehaviour
         }
     }
 
-    void OnCollisionStay(Collision collision)
+    void OnCollisionEnter(Collision collision)
     {
         if (collision.transform.tag == "Player" && enemyHp > 0)
         {

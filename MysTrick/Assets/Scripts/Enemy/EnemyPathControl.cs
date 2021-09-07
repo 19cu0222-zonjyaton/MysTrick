@@ -146,11 +146,11 @@ public class EnemyPathControl : MonoBehaviour
                             //  光線が壁に当たったら攻撃AIをキャンセル
                             if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Wall") && Vector3.Distance(transform.position, player.transform.position) > 2.0f)
                             {
-                                timeCount += Time.deltaTime;
+                                //timeCount += Time.deltaTime;
 
-                                //  timeCount -> 敵が大幅に回転する時でhitが壁に当たる防止ため
-                                if (timeCount >= 0.5f)
-                                {
+                                ////  timeCount -> 敵が大幅に回転する時でhitが壁に当たる防止ため
+                                //if (timeCount >= 0.5f)
+                                //{
                                     isAttackedByPlayer = false;
 
                                     edc.hitWithPlayer = false;
@@ -160,11 +160,11 @@ public class EnemyPathControl : MonoBehaviour
                                     rayLockPlayer = false;
 
                                     timeCount = 0.0f;
-                                }
-                            }
-                            else
-                            {
-                                timeCount = 0.0f;
+                            //    }
+                            //}
+                            //else
+                            //{
+                            //    timeCount = 0.0f;
                             }
                         }
                         else
