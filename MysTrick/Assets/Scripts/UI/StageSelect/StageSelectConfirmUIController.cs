@@ -58,6 +58,7 @@ public class StageSelectConfirmUIController : MonoBehaviour
 
             if (timeCount < -0.3f)
             {
+                TitleBGMController.tbc.GetComponent<AudioSource>().Stop();
                 StaticController.playerPos = player.transform.position;
                 StaticController.playerRot = player.transform.eulerAngles;
                 StaticController.animIsOver = false;

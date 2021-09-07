@@ -2535,8 +2535,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boxs:
-  - {fileID: 2100000, guid: 684da5712b7c5a84c9e785e2181d2b10, type: 2}
   - {fileID: 2100000, guid: 55d20911150e88d4883a99340ad77474, type: 2}
+  - {fileID: 2100000, guid: 684da5712b7c5a84c9e785e2181d2b10, type: 2}
   - {fileID: 2100000, guid: fda634ce677606446a44294505b66dd8, type: 2}
   - {fileID: 2100000, guid: e2b0eba7fd9415846a3c3bd892a926d9, type: 2}
   aiss: {fileID: 6563069687913038457}
@@ -2810,8 +2810,7 @@ MonoBehaviour:
     type: 3}
   m_MoveAction: {fileID: 3710738434707379630, guid: ca9f5fa95ffab41fb9a615ab714db018,
     type: 3}
-  m_SubmitAction: {fileID: -1967631576421560919, guid: ca9f5fa95ffab41fb9a615ab714db018,
-    type: 3}
+  m_SubmitAction: {fileID: 0}
   m_CancelAction: {fileID: 2064916234097673511, guid: ca9f5fa95ffab41fb9a615ab714db018,
     type: 3}
   m_LeftClickAction: {fileID: 0}

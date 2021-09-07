@@ -32,6 +32,7 @@ public class MenuButtonController : MonoBehaviour
     {
         if (animator_Mask.GetCurrentAnimatorStateInfo(0).normalizedTime > 1.0f && animator_Mask.GetCurrentAnimatorStateInfo(0).IsName("Mask_W_B"))      //  指定する動画が終わったらStageSelect画面に入る
         {
+            TitleBGMController.tbc.GetComponent<AudioSource>().Play();
             SceneManager.LoadScene("StageSelect");
         }
 

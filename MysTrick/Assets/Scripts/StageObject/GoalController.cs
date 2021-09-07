@@ -90,6 +90,7 @@ public class GoalController : MonoBehaviour
             }
             else if (timeCount < 0.0f)
             {
+                TitleBGMController.tbc.GetComponent<AudioSource>().Play();
                 StaticController.clearStageName = StaticController.selectStageName;
                 SceneManager.LoadScene("StageSelect");
             }
