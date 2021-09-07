@@ -18,7 +18,7 @@ public class StaticController : MonoBehaviour
     //  StageSelectButtonController
     public static string selectStageName = "Stage01";       //  選択したステージ名(シン―を切り替えてもstatic dataに影響しない)
     public static bool confirmMenuIsOpen;
-    public static bool[] stageCanSelect = {true, true, true, true};
+    public static bool[] stageCanSelect = {true, false, false, false};
 
     //  GoalController
     public static string clearStageName = "";
