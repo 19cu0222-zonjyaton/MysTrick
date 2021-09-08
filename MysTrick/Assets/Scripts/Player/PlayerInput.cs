@@ -153,7 +153,7 @@ public class PlayerInput : MonoBehaviour
 				isAimStatus = true;
 				Dvec = Dright * playercamera.transform.right + Dup * playercamera.transform.forward;
 			}
-			else                                                                    //	第三人視点を切り替え
+			else																											//	第三人視点を切り替え
 			{
 				if (!resetFlag)
 				{

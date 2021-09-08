@@ -33,10 +33,10 @@ public class StarUIController : MonoBehaviour
 
             if (sc[i].uiAnimStart && !doOnce[i])
             {
-                star[i] = Instantiate(starUI, transform.position + new Vector3(uiPos * 100.0f, 0.0f, 0.0f), Quaternion.identity);
-                star[i].transform.SetParent(starParent.transform);
+                star[uiPos] = Instantiate(starUI, transform.position + new Vector3(uiPos * 100.0f, 0.0f, 0.0f), Quaternion.identity);
+                star[uiPos].transform.SetParent(starParent.transform);
                 uiPos++;
-                doOnce[i] = true;
+                doOnce[uiPos] = true;
             }
         }
     }

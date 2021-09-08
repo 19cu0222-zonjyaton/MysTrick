@@ -35,76 +35,79 @@ public class ExitController : MonoBehaviour
             au.Play();
         }
 
-        if (gameObject.name == "Canvas")
+        if (!player.GetComponent<ActorInStageSelect>().isMove)
         {
-            if ((Input.GetKeyDown(KeyCode.Escape) || Input.GetButtonDown("menu")) && !StaticController.confirmMenuIsOpen)
+            if (gameObject.name == "Canvas")
             {
-                if (!StaticController.exitPanelIsOpen)
+                if ((Input.GetKeyDown(KeyCode.Escape) || Input.GetButtonDown("menu")) && !StaticController.confirmMenuIsOpen)
                 {
-                    btn[0].enabled = true;
-                    btn[1].enabled = true;
-                    exitPanel.SetActive(true);
-                    StaticController.exitPanelIsOpen = true;
-                }
-                else
-                {
-                    if (!StaticController.animIsStart)
+                    if (!StaticController.exitPanelIsOpen)
                     {
-                        au.PlayOneShot(sounds[1]);
+                        btn[0].enabled = true;
+                        btn[1].enabled = true;
+                        exitPanel.SetActive(true);
+                        StaticController.exitPanelIsOpen = true;
                     }
-                    StaticController.animIsStart = true;
-                    anim.SetBool("Menu", false);
+                    else
+                    {
+                        if (!StaticController.animIsStart)
+                        {
+                            au.PlayOneShot(sounds[1]);
+                        }
+                        StaticController.animIsStart = true;
+                        anim.SetBool("Menu", false);
+                    }
+                }
+
+                if (StaticController.exitPanelIsOpen)
+                {
+                    if (anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 2.0f && anim.GetCurrentAnimatorStateInfo(0).IsName("StageSelect_Exit_Plus") && !enableInput)
+                    {
+                        EventSystem.current.SetSelectedGameObject(GameObject.Find("Yes"));       //  Yesボタンを選択状態にする
+                        enableInput = true;
+                    }
+                    else if (anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f && anim.GetCurrentAnimatorStateInfo(0).IsName("StageSelect_Exit_Minus"))
+                    {
+                        StaticController.exitPanelIsOpen = false;
+                        StaticController.animIsStart = false;
+                        enableInput = false;
+                        exitPanel.SetActive(false);
+                        EventSystem.current.SetSelectedGameObject(GameObject.Find(StaticController.selectStageName));       //  前に選択したボタンを選択状態にする
+                    }
                 }
             }
-
-            if (StaticController.exitPanelIsOpen)
+            else
             {
-                if (anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 2.0f && anim.GetCurrentAnimatorStateInfo(0).IsName("StageSelect_Exit_Plus") && !enableInput)
+                if ((Input.GetKeyDown(KeyCode.Return) || Input.GetButtonDown("action")))
                 {
-                    EventSystem.current.SetSelectedGameObject(GameObject.Find("Yes"));       //  Yesボタンを選択状態にする
-                    enableInput = true;
-                }
-                else if (anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f && anim.GetCurrentAnimatorStateInfo(0).IsName("StageSelect_Exit_Minus"))
-                {
-                    StaticController.exitPanelIsOpen = false;
-                    StaticController.animIsStart = false;
-                    enableInput = false;
-                    exitPanel.SetActive(false);
-                    EventSystem.current.SetSelectedGameObject(GameObject.Find(StaticController.selectStageName));       //  前に選択したボタンを選択状態にする
-                }
-            }
-        }
-        else
-        {
-            if ((Input.GetKeyDown(KeyCode.Return) || Input.GetButtonDown("action")))
-            {
 
-                if (EventSystem.current.currentSelectedGameObject.name == "Yes" && gameObject.name == "Yes" && !returnTitle)
-                {
-                    maskPanel.SetActive(true);
-                    returnTitle = true;
-                    au.clip = sounds[1];
-                    au.Play();
-                    btn[0].enabled = false;
+                    if (EventSystem.current.currentSelectedGameObject.name == "Yes" && gameObject.name == "Yes" && !returnTitle)
+                    {
+                        maskPanel.SetActive(true);
+                        returnTitle = true;
+                        au.clip = sounds[1];
+                        au.Play();
+                        btn[0].enabled = false;
+                    }
+                    else if (EventSystem.current.currentSelectedGameObject.name == "No" && gameObject.name == "No" && !StaticController.animIsStart)
+                    {
+                        anim.SetBool("Menu", false);
+                        au.PlayOneShot(sounds[1]);
+                        StaticController.animIsStart = true;
+                        btn[0].enabled = false;
+                    }
                 }
-                else if(EventSystem.current.currentSelectedGameObject.name == "No" && gameObject.name == "No" && !StaticController.animIsStart)
-                {
-                    anim.SetBool("Menu", false);
-                    au.PlayOneShot(sounds[1]);
-                    StaticController.animIsStart = true;
-                    btn[0].enabled = false;
-                }
-            }
 
-            if (returnTitle)
-            {
-                timeCount -= Time.deltaTime;
-                if (timeCount < -0.3f)
+                if (returnTitle)
                 {
-                    StaticController.playerPos = player.transform.position;
-                    StaticController.playerRot = player.transform.eulerAngles;
-                    StaticController.exitPanelIsOpen = false;
-                    SceneManager.LoadScene("Title");
+                    timeCount -= Time.deltaTime;
+                    if (timeCount < -0.3f)
+                    {
+                        StaticController.playerPos = player.transform.position;
+                        StaticController.playerRot = player.transform.eulerAngles;
+                        StaticController.exitPanelIsOpen = false;
+                        SceneManager.LoadScene("Title");
+                    }
                 }
             }
         }

@@ -12,10 +12,10 @@ public class ActorInStageSelect : MonoBehaviour
     public ExitController ec;             //  タイトル画面に戻るUIコントローラー
     public static int selectBtn = 1;      //  選択しているボタン標記
     public int skyboxIndex;               //  skyboxオブジェクト
+    public bool isMove;                  //  移動しているかどうかフラグ
     private AudioSource au;               //	SEのコンポーネント
     private bool goLeft;                  //  左側に移動するフラグ
     private bool goRight;                 //  右側に移動するフラグ
-    private bool isMove;                  //  移動しているかどうかフラグ
 
     //	初期化
     void Awake()

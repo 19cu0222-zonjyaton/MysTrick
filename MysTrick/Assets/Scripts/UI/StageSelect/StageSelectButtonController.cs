@@ -12,12 +12,15 @@ public class StageSelectButtonController : MonoBehaviour
 
     private Image img;
     private Vector3 startPos;                   //  始点の位置
+    private ActorInStageSelect aiss;
 
     void Awake()
     {
         img = gameObject.GetComponent<Image>();
 
         startPos = new Vector3(0, 0, 0);
+
+        aiss = GameObject.Find("PlayerHandle").GetComponent<ActorInStageSelect>();
 
         if (ActorInStageSelect.selectBtn == 4)
         {
@@ -38,7 +41,7 @@ public class StageSelectButtonController : MonoBehaviour
             gameObject.transform.parent.position = Vector3.MoveTowards(transform.parent.position, new Vector3(-250.0f, 0.0f, 0.0f), 75.0f * Time.deltaTime);
         }
 
-        if ((Input.GetKeyDown(KeyCode.Return) || Input.GetButtonDown("action")) && StaticController.stageCanSelect[ActorInStageSelect.selectBtn - 1] && !StaticController.confirmMenuIsOpen && !StaticController.exitPanelIsOpen)
+        if ((Input.GetKeyDown(KeyCode.Return) || Input.GetButtonDown("action")) && StaticController.stageCanSelect[ActorInStageSelect.selectBtn - 1] && !StaticController.confirmMenuIsOpen && !StaticController.exitPanelIsOpen && !aiss.isMove)
         {
             StaticController.confirmMenuIsOpen = true;
             confirmPanel.SetActive(true);

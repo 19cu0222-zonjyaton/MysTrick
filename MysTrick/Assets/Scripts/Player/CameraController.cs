@@ -317,6 +317,8 @@ public class CameraController : MonoBehaviour
 	//  カメラ移動関数
 	private void CameraMove(Vector3 movePos, GameObject target)
 	{
+		pi.isAimStatus = false;
+		smr.enabled = true;
 		countTime -= Time.fixedDeltaTime * timeSpeed;
 
 		if (countTime <= 9.0f && countTime > 6.0f)
