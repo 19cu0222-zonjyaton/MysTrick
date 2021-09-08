@@ -248,7 +248,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   exitPanel: {fileID: 130333975}
   maskPanel: {fileID: 1148179649}
-  player: {fileID: 0}
+  player: {fileID: 6563069687913038456}
   sounds:
   - {fileID: 8300000, guid: d15b72b2db25a56498fecc601763b895, type: 3}
   - {fileID: 8300000, guid: 747ba53d9fcb54b4bb2bdd8ea8c7cc85, type: 3}
@@ -2985,7 +2985,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maskPanel: {fileID: 79653011}
-  player: {fileID: 0}
+  player: {fileID: 6563069687913038456}
   animator: {fileID: 284528746}
   sounds:
   - {fileID: 8300000, guid: d15b72b2db25a56498fecc601763b895, type: 3}
@@ -3560,7 +3560,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   exitPanel: {fileID: 130333975}
   maskPanel: {fileID: 79653011}
-  player: {fileID: 0}
+  player: {fileID: 6563069687913038456}
   sounds:
   - {fileID: 8300000, guid: d15b72b2db25a56498fecc601763b895, type: 3}
   - {fileID: 8300000, guid: 747ba53d9fcb54b4bb2bdd8ea8c7cc85, type: 3}
@@ -4846,6 +4846,7 @@ MonoBehaviour:
   animator: {fileID: 6563069687029480512}
   ec: {fileID: 1887986147}
   skyboxIndex: 0
+  isMove: 0
 --- !u!65 &6563069687913038458
 BoxCollider:
   m_ObjectHideFlags: 0
