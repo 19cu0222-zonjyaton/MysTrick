@@ -37,7 +37,8 @@ public class GameovereMenuButtonController : MonoBehaviour
                 }
                 else
                 {
-                    SceneManager.LoadScene("Title");
+                    TitleBGMController.tbc.GetComponent<AudioSource>().Play();
+                    SceneManager.LoadScene("StageSelect");
                 }
             }
 

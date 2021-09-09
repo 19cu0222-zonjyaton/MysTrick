@@ -13,7 +13,7 @@ public class StarUIController : MonoBehaviour
     public GameObject starParent;       //  親のオブジェクト
 
     private int uiPos;
-    private bool[] doOnce = { false, false, false };
+    private bool[] doOnce = {false, false, false};
 
     void Awake()
     {
@@ -21,22 +21,22 @@ public class StarUIController : MonoBehaviour
 
     void Update()
     {
+        if (sbc.uiAnimStart && !doOnce[2])
+        {
+            star[2] = Instantiate(starUI, transform.position + new Vector3(uiPos * 100.0f, 0.0f, 0.0f), Quaternion.identity);
+            star[2].transform.SetParent(starParent.transform);
+            uiPos++;
+            doOnce[2] = true;
+        }
+
         for (int i = 0; i < 2; i++)
         {
-            if (sbc.uiAnimStart && !doOnce[2])
-            {
-                star[2] = Instantiate(starUI, transform.position + new Vector3(uiPos * 100.0f, 0.0f, 0.0f), Quaternion.identity);
-                star[2].transform.SetParent(starParent.transform);
-                uiPos++;
-                doOnce[2] = true;
-            }
-
             if (sc[i].uiAnimStart && !doOnce[i])
             {
-                star[uiPos] = Instantiate(starUI, transform.position + new Vector3(uiPos * 100.0f, 0.0f, 0.0f), Quaternion.identity);
-                star[uiPos].transform.SetParent(starParent.transform);
+                star[i] = Instantiate(starUI, transform.position + new Vector3(uiPos * 100.0f, 0.0f, 0.0f), Quaternion.identity);
+                star[i].transform.SetParent(starParent.transform);
                 uiPos++;
-                doOnce[uiPos] = true;
+                doOnce[i] = true;
             }
         }
     }

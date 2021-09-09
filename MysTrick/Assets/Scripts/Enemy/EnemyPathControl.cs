@@ -15,6 +15,7 @@ public class EnemyPathControl : MonoBehaviour
     public AudioClip sound;				//	SEオブジェクト
 
     private PlayerInput pi;             //  プレイヤーの入力コントローラー
+    private ActorController ac;
     private CameraController cc;
     private AudioSource au;
     private Ray ray;                    //  正方向から発射する光線(プレイヤーが捜査範囲に入っても壁に遮ったら元のルートに戻るように使う)
@@ -24,7 +25,6 @@ public class EnemyPathControl : MonoBehaviour
     private int index = 0;              //  今向けて移動する位置
     private bool islock = false;        //  プレイヤーが捜査範囲に入るフラグ
     private bool isAttackedByPlayer;    //  プレイヤーに攻撃されたフラグ
-    private float timeCount;
     private bool warningActive;
     private bool moveToPlayer;
     private bool rayLockPlayer;
@@ -38,6 +38,8 @@ public class EnemyPathControl : MonoBehaviour
         if (player != null)
         {
             pi = player.GetComponent<PlayerInput>();
+
+            ac = player.GetComponent<ActorController>();
 
             cc = GameObject.Find("Main Camera").GetComponent<CameraController>();
         }
@@ -101,7 +103,7 @@ public class EnemyPathControl : MonoBehaviour
                         ray = new Ray(transform.position, head.forward);
                         rayLockPlayer = false;
                     }
-                    Debug.DrawRay(ray.origin, ray.direction * 100, Color.red, 0.1f);
+                    //Debug.DrawRay(ray.origin, ray.direction * 100, Color.red, 0.1f);
 
                 }
                 else
@@ -109,7 +111,7 @@ public class EnemyPathControl : MonoBehaviour
                     for (int i = 0; i < patrolPos.Length; i++)
                     {
                         ray = new Ray(transform.position, (patrolPos[i].transform.position - transform.position).normalized);
-                        Debug.DrawRay(ray.origin, ray.direction * 100, Color.red, 0.1f);
+                        //Debug.DrawRay(ray.origin, ray.direction * 100, Color.red, 0.1f);
 
                         if (hit.collider.gameObject == patrolPos[i])
                         {
@@ -144,27 +146,27 @@ public class EnemyPathControl : MonoBehaviour
 
                             Move();
                             //  光線が壁に当たったら攻撃AIをキャンセル
-                            if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Wall") && Vector3.Distance(transform.position, player.transform.position) > 2.0f)
+                            if ((hit.collider.gameObject.layer == LayerMask.NameToLayer("Wall") && Vector3.Distance(transform.position, player.transform.position) > 2.0f) || ac.isClimbing)
                             {
                                 //timeCount += Time.deltaTime;
 
                                 ////  timeCount -> 敵が大幅に回転する時でhitが壁に当たる防止ため
                                 //if (timeCount >= 0.5f)
                                 //{
-                                    isAttackedByPlayer = false;
+                                isAttackedByPlayer = false;
 
-                                    edc.hitWithPlayer = false;
+                                edc.hitWithPlayer = false;
 
-                                    backToPatrol = true;
+                                backToPatrol = true;
 
-                                    rayLockPlayer = false;
+                                rayLockPlayer = false;
 
-                                    timeCount = 0.0f;
-                            //    }
-                            //}
-                            //else
-                            //{
-                            //    timeCount = 0.0f;
+                                //timeCount = 0.0f;
+                                //    }
+                                //}
+                                //else
+                                //{
+                                //    timeCount = 0.0f;
                             }
                         }
                         else

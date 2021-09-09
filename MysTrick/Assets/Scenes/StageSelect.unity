@@ -2289,7 +2289,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: afc70d4e2fdeb6746bfd594534b5b9b6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d178f636dfac59c40a1660fad77c5195, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2340,7 +2340,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   confirmPanel: {fileID: 284528741}
   stageImage:
-  - {fileID: 21300000, guid: afc70d4e2fdeb6746bfd594534b5b9b6, type: 3}
+  - {fileID: 21300000, guid: d178f636dfac59c40a1660fad77c5195, type: 3}
   - {fileID: 21300000, guid: d178f636dfac59c40a1660fad77c5195, type: 3}
   - {fileID: 21300000, guid: 011579d88e8259240af9d2da2fc31de2, type: 3}
   - {fileID: 21300000, guid: 927b2be18b06ce3409271cebe4e27810, type: 3}
@@ -2641,7 +2641,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: afc70d4e2fdeb6746bfd594534b5b9b6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d178f636dfac59c40a1660fad77c5195, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2673,7 +2673,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   confirmPanel: {fileID: 284528741}
   stageImage:
-  - {fileID: 21300000, guid: afc70d4e2fdeb6746bfd594534b5b9b6, type: 3}
+  - {fileID: 21300000, guid: d178f636dfac59c40a1660fad77c5195, type: 3}
   - {fileID: 21300000, guid: d178f636dfac59c40a1660fad77c5195, type: 3}
   - {fileID: 21300000, guid: 011579d88e8259240af9d2da2fc31de2, type: 3}
   - {fileID: 21300000, guid: 927b2be18b06ce3409271cebe4e27810, type: 3}
@@ -3280,7 +3280,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: afc70d4e2fdeb6746bfd594534b5b9b6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 6146f5002c44058459e99f29190b8131, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3312,7 +3312,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   confirmPanel: {fileID: 284528741}
   stageImage:
-  - {fileID: 21300000, guid: afc70d4e2fdeb6746bfd594534b5b9b6, type: 3}
+  - {fileID: 21300000, guid: 6146f5002c44058459e99f29190b8131, type: 3}
   - {fileID: 21300000, guid: 6146f5002c44058459e99f29190b8131, type: 3}
   - {fileID: 21300000, guid: af2c1914e28bea941af551229a36b235, type: 3}
   - {fileID: 21300000, guid: e342ee1e9f5ada440bb4bfd59ff3164d, type: 3}
@@ -3436,7 +3436,7 @@ Transform:
   m_GameObject: {fileID: 1853408797}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 250, y: -2.377604, z: -339.5219}
-  m_LocalScale: {x: 5, y: 5, z: 5}
+  m_LocalScale: {x: 20, y: 5, z: 20}
   m_Children:
   - {fileID: 1901152787}
   m_Father: {fileID: 22181877}

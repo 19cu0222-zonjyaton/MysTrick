@@ -504,7 +504,8 @@ public class ActorController : MonoBehaviour
 			}
 			else
 			{
-				rigid.AddExplosionForce(800.0f, collision.transform.position - new Vector3(0.0f, 1.5f, 0.0f), 5.0f, 2.0f);      //	爆発の位置を矯正
+				Physics.IgnoreLayerCollision(11, 24, true);
+				rigid.AddExplosionForce(1000.0f, collision.transform.position - new Vector3(0.0f, 1.5f, 0.0f), 5.0f, 2.0f);      //	爆発の位置を矯正
 				isDead = true;
 			}
 			playerCanMove = false;

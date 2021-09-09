@@ -64,7 +64,7 @@ public class StageSelectButtonController : MonoBehaviour
                 }
                 else if(!StaticController.stageIsClear[i])
                 {
-                    img.sprite = stageImage[0];
+                    img.sprite = stageImage[1];
                 }
             }
         }

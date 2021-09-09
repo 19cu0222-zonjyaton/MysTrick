@@ -106,7 +106,7 @@ public class WeaponController : MonoBehaviour
 
         if (backToHand)             //  持っている武器を隠す処理
         {
-            if (pi.isAimStatus || cc.cameraStatic == "GameOver")
+            if (pi.isAimStatus)
             {
                 gameObject.GetComponent<MeshRenderer>().enabled = false;
             }

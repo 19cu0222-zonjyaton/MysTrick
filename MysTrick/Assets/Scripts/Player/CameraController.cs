@@ -385,7 +385,6 @@ public class CameraController : MonoBehaviour
 				Time.timeScale = 1.0f;
 				if (ac.isDead)
 				{
-					print(deadMovePosNum);
 					transform.position = Vector3.Lerp(transform.position, gameoverCameraPos[deadMovePosNum].transform.position, 3.0f * Time.deltaTime);
 				}
 			}

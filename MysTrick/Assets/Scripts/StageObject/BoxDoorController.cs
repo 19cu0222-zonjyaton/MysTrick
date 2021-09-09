@@ -40,15 +40,15 @@ public class BoxDoorController : MonoBehaviour
 	{
 		if (entryIndex == 1)    //	Move To WaitPos
 		{
-			if (lockKey != null)
-			{
-				lockKey.GetComponent<Rigidbody>().useGravity = true;
-				lockKey.GetComponent<BoxCollider>().isTrigger = false;
-			}
+			//if (lockKey != null)
+			//{
+			//	lockKey.GetComponent<Rigidbody>().useGravity = true;
+			//	lockKey.GetComponent<BoxCollider>().isTrigger = false;
+			//}
 			player.transform.position = Vector3.MoveTowards(player.transform.position, new Vector3(movePos[0].transform.position.x, player.transform.position.y, movePos[0].transform.position.z), moveSpeed * Time.deltaTime);
 			model.transform.rotation = Quaternion.Lerp(model.transform.rotation, movePos[0].transform.rotation, rotSpeed * Time.deltaTime);
 			anim.SetFloat("Forward", 1.0f);
-			if (player.transform.position.x == movePos[0].transform.position.x && player.transform.position.z == movePos[0].transform.position.z)
+			if (Mathf.Abs(player.transform.position.x - movePos[0].transform.position.x) < 0.5f && Mathf.Abs(player.transform.position.z - movePos[0].transform.position.z) < 0.5f)
 			{
 				anim.SetFloat("Forward", 0.0f);
 				entryIndex++;
@@ -56,7 +56,10 @@ public class BoxDoorController : MonoBehaviour
 		}
 		else if (entryIndex == 2)   //	EntryDoor Open
 		{
-			Destroy(lockKey.gameObject);
+			//if (lockKey.gameObject != null)
+			//{
+			//	Destroy(lockKey.gameObject);
+			//}
 			door.transform.rotation = Quaternion.Lerp(door.transform.rotation, Quaternion.Euler(new Vector3(0, doorRotTarget[0], 0)), doorRotSpeed * Time.deltaTime);
 			if (door.transform.localEulerAngles.y < 252.0f)
 			{

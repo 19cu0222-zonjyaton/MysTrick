@@ -748,9 +748,9 @@ GameObject:
   - component: {fileID: 6563069687167480264}
   - component: {fileID: 6563069687167480265}
   - component: {fileID: 6649285473133539366}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: PlayerModule
-  m_TagString: Player
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1375,6 +1375,7 @@ MonoBehaviour:
     GreenKey: 0
   havePieces: 000000
   havePortalKey: 0
+  attackGapTime: 0
 --- !u!1 &6563069687854978686
 GameObject:
   m_ObjectHideFlags: 0

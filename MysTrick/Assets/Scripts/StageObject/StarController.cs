@@ -12,6 +12,7 @@ public class StarController : MonoBehaviour
     public bool uiAnimStart;
     public MeshRenderer[] starMesh;
     public bool canJump;
+    public bool isTitleStar;
 
     private Vector3 nowPos;             //  初期位置
     private ActorController ac;
@@ -30,7 +31,10 @@ public class StarController : MonoBehaviour
 
         anim = gameObject.GetComponent<Animation>();
 
-        ac = GameObject.Find("PlayerHandle").GetComponent<ActorController>();
+        if (!isTitleStar)
+        {
+            ac = GameObject.Find("PlayerHandle").GetComponent<ActorController>();
+        }
     }
 
     // Update is called once per frame

@@ -29,6 +29,7 @@ public class ClimbCheck : MonoBehaviour
     {
         if (climbStart)     //  登り始める
         {
+            Physics.IgnoreLayerCollision(11, 13, true);
             playerModule.transform.rotation = transform.rotation;
             pi.ResetSignal();
             ac.isClimbing = true;
@@ -45,6 +46,7 @@ public class ClimbCheck : MonoBehaviour
 
         if (ac.climbEnd && climbStart)    //  登り終わる
         {
+            Physics.IgnoreLayerCollision(11, 13, false);
             if (isNormalLadder)
             {
                 player.transform.position = ac.climbLandPos;
