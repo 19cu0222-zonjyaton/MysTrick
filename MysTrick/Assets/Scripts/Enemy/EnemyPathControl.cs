@@ -61,9 +61,13 @@ public class EnemyPathControl : MonoBehaviour
         {
             if (cc.cameraStatic != "GameOver")
             {
-                if (cc.cameraStatic == "Idle" && !edc.isDamage && !edc.isStun && !warning.GetComponent<Animation>().isPlaying)
+                if (cc.cameraStatic == "Idle" && !edc.isDamage && !edc.isStun && !ac.isEntryDoor && !warning.GetComponent<Animation>().isPlaying)
                 {
                     edc.canMove = true;
+                }
+                else
+                {
+                    edc.canMove = false;
                 }
 
                 if (edc.canMove)

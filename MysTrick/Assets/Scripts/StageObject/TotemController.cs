@@ -13,6 +13,7 @@ public class TotemController : MonoBehaviour
 	[Header("===調整用===")]
 	public float shootInterval;
 	public GameObject fireBall;
+	public ActorController ac;
 
 	private TimeController timeController;
 	private ObjectController objectController;
@@ -26,7 +27,7 @@ public class TotemController : MonoBehaviour
 	void Update()
 	{
 		// カウント終了すれば弾を発射する
-		if (timeController.isFinish)
+		if (timeController.isFinish && !ac.isEntryDoor)
 		{
 			Instantiate(fireBall, this.transform.position + this.transform.right * -3.0f, Quaternion.Euler(this.transform.rotation.eulerAngles + new Vector3(0.0f, -90.0f, 0.0f)));
 			timeController.TimeDelay(0.0f, shootInterval);
