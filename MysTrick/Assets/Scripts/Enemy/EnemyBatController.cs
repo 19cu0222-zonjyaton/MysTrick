@@ -3,6 +3,7 @@
 // 概要				：バットエネミーの制御
 // 作成者			：鍾家同
 // 更新内容			：2021/06/28 作成
+//					：2021/09/09 当たり判定の修正
 //-------------------------------------------------
 using System.Collections;
 using System.Collections.Generic;
@@ -102,6 +103,8 @@ public class EnemyBatController : MonoBehaviour
 	public float returnSpeed;				// 戻るスピード
 	public TimeController timeController;
 	public SkinnedMeshRenderer mesh;
+	public BoxCollider untriggeredCol;
+	public BoxCollider triggeredCol;
 
 	[Header("===監視用===")]
 	[SerializeField]
@@ -225,7 +228,7 @@ public class EnemyBatController : MonoBehaviour
 	// 直線往復移動
 	void Straight()
 	{
-		Debug.Log("Straight");
+		//Debug.Log("Straight");
 		statement = Statement.General;
 		this.transform.Translate(Vector3.forward * Time.deltaTime * moveData.moveSpeed);
 	}
@@ -362,7 +365,7 @@ public class EnemyBatController : MonoBehaviour
 		collider.enabled = false;
 		if (deathData.timeCountMax >= 0.0f) deathData.timeCountMax -= Time.deltaTime;
 		else Destroy(this.gameObject);
-		Debug.Log("Death");
+		//Debug.Log("Death");
 	}
 
 	// アニメーション制御
@@ -459,6 +462,16 @@ public class EnemyBatController : MonoBehaviour
 				if (damaging) isHurt = true;
 			}
 		}
+		if (other.gameObject.layer == LayerMask.NameToLayer("Ground"))
+		{
+			hitGround = true;
+			canATK = false;
+			if (!isDamage) canRest = true;
+		}
+		else if (other.gameObject.tag == "Player")
+		{
+			Debug.Log("GD!");
+		}
 	}
 
 	void OnCollisionEnter(Collision other)
@@ -468,6 +481,10 @@ public class EnemyBatController : MonoBehaviour
 			hitGround = true;
 			canATK = false;
 			if(!isDamage) canRest = true;
+		}
+		else if (other.gameObject.tag == "Player")
+		{
+			Debug.Log("GD!");
 		}
 	}
 	private void OnCollisionExit(Collision other)
