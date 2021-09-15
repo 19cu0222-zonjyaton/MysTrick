@@ -26938,6 +26938,7 @@ GameObject:
   - component: {fileID: 1266345879803520622}
   - component: {fileID: 2238760369041436567}
   - component: {fileID: 4784719034394300292}
+  - component: {fileID: 4763851387048156647}
   m_Layer: 0
   m_Name: pCube465
   m_TagString: Untagged
@@ -26945,6 +26946,20 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!64 &4763851387048156647
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4763851387048156646}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 6335121558443693655, guid: 86ca88a2e109f07419cab86a10e1b82d, type: 3}
 --- !u!4 &4768200466535646122
 Transform:
   m_ObjectHideFlags: 0
@@ -28769,6 +28784,7 @@ GameObject:
   - component: {fileID: 1402650403485843078}
   - component: {fileID: 1829929921106346593}
   - component: {fileID: 251865005502827058}
+  - component: {fileID: 8019730100202231645}
   m_Layer: 0
   m_Name: pCube439
   m_TagString: Untagged
@@ -28776,6 +28792,20 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!64 &8019730100202231645
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8019730100202231644}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -9160392199231394969, guid: 86ca88a2e109f07419cab86a10e1b82d, type: 3}
 --- !u!1 &8026072152749192413
 GameObject:
   m_ObjectHideFlags: 0
