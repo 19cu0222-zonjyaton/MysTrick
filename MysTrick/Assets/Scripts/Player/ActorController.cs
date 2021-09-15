@@ -128,7 +128,7 @@ public class ActorController : MonoBehaviour
                 pi.isAttacking = false;
 			}
 			//	第三視点武器を投げる処理
-			else if (pi.isThrowing && !pi.isAimStatus)
+			else if (pi.isThrowing && cc.canThrowWeapon && !pi.isAimStatus)
             {
 				anim.SetLayerWeight(anim.GetLayerIndex("Attack"), 1.0f);
                 anim.SetTrigger("Throw");
@@ -173,7 +173,6 @@ public class ActorController : MonoBehaviour
 			
 			if (anim.GetCurrentAnimatorStateInfo(1).IsName("Idle") && !unLockAttack)
 			{
-				pi.canThrow = true;
 				cc.canThrowWeapon = true;
 				pi.attackCount = 0;
 				weapon.transform.SetParent(playerNeck.transform);
