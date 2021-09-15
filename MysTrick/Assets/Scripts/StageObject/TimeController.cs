@@ -38,6 +38,7 @@ public class TimeController : MonoBehaviour
 				isFinish = true;
 				isStart = false;
 			}
+			else isFinish = false;
 		}
 	}
 

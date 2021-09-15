@@ -131,6 +131,7 @@ public class EnemyBatController : MonoBehaviour
 	private bool isDead = false;			// 死亡フラグ
 
 	private Vector3 curRotation;			// 現在位置
+	[SerializeField]
 	private Vector3 returnPosition;			// 戻り位置
 	private new Rigidbody rigidbody;
 	private new Collider collider;
@@ -176,7 +177,7 @@ public class EnemyBatController : MonoBehaviour
 					RaycastHit FWHit;
 
 					// 攻撃の下準備状態、攻撃状態と回転状態ではないなら常にレイを放つ
-					if (Physics.Raycast(DWRay, out DWHit, Mathf.Infinity) && !canPreATK && !canATK && !canTurn && !hitGround && !isDamage)
+					if (Physics.Raycast(DWRay, out DWHit, Mathf.Infinity) && !canPreATK && !canATK && !canTurn && !hitGround && !isDamage && !isDead && !canRest)
 					{
 						// 前に障害物があり、あるいは下に“壁”があれば真っ先に回転する
 						if (Physics.Raycast(FWRay, out FWHit, 3.0f) || DWHit.collider.gameObject.layer == LayerMask.NameToLayer("Wall"))
@@ -264,7 +265,7 @@ public class EnemyBatController : MonoBehaviour
 	// 休憩
 	void Rest()
 	{
-		//Debug.Log("Rest");
+		Debug.Log("Rest");
 		if (canRest)
 		{
 			// 休憩開始
@@ -278,6 +279,7 @@ public class EnemyBatController : MonoBehaviour
 				statement = Statement.Return;
 				hitGround = false;
 				rigidbody.useGravity = false;
+				canHurt = true;
 				this.transform.position = Vector3.MoveTowards(this.transform.position, returnPosition, returnSpeed * Time.deltaTime);
 			}
 			// 初期値に戻る
@@ -293,7 +295,8 @@ public class EnemyBatController : MonoBehaviour
 	// 攻撃
 	void Attack()
 	{
-		//Debug.Log("Attack");
+		Debug.Log("Attack");
+		rigidbody.isKinematic = true;
 		canHurt = false;
 		statement = Statement.Attack;
 		if (canPreATK && attackData.preTimeCountMax > 0.0f)
@@ -431,10 +434,13 @@ public class EnemyBatController : MonoBehaviour
 	{
 		if (other.transform.tag == "Weapon")
 		{
+			rigidbody.isKinematic = false;
+			Debug.Log("!!");
+
 			if (timeController.isFinish && canHurt)
 			{
 				// タイマー起動（二重ダメージ受けを防ぐため）
-				//timeController.TimeDelay(0.0f, 1.5f, true);
+				timeController.TimeDelay(0.0f, 1.5f);
 
 				// HP計算
 				if (health > 1)
@@ -470,7 +476,7 @@ public class EnemyBatController : MonoBehaviour
 		}
 		else if (other.gameObject.tag == "Player")
 		{
-			Debug.Log("GD!");
+			//Debug.Log("GD!");
 		}
 	}
 
@@ -484,7 +490,7 @@ public class EnemyBatController : MonoBehaviour
 		}
 		else if (other.gameObject.tag == "Player")
 		{
-			Debug.Log("GD!");
+			//Debug.Log("GD!");
 		}
 	}
 	private void OnCollisionExit(Collision other)
