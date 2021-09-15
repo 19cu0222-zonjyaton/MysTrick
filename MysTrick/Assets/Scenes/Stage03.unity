@@ -16904,6 +16904,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6563069687783362542, guid: deb5c94de91a32e4ca21d16c24db72a9,
         type: 3}
+      propertyPath: coinCount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6563069687783362542, guid: deb5c94de91a32e4ca21d16c24db72a9,
+        type: 3}
       propertyPath: starCount
       value: 0
       objectReference: {fileID: 0}
@@ -27352,7 +27357,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4395286397919238371}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 3.9924817, y: 6.9268303, z: 0.57856166}

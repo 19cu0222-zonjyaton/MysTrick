@@ -102,7 +102,7 @@ public class EnemyDamageController : MonoBehaviour
         }
 
         //  プレイヤーの武器と当たる処理
-        if (collider.transform.tag == "Weapon" && enemyHp > 0 && !isDamage)
+        if ((collider.transform.tag == "Slash2" || collider.transform.tag == "Weapon") && enemyHp > 0 && !isDamage)
         {
             enemyHp--;
             au[0].Play();

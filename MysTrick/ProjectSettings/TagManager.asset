@@ -38,6 +38,7 @@ TagManager:
   - Totem
   - Wood
   - Slash1
+  - Slash2
   layers:
   - Default
   - TransparentFX
