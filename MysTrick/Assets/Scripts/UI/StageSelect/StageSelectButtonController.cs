@@ -22,7 +22,7 @@ public class StageSelectButtonController : MonoBehaviour
 
         aiss = GameObject.Find("PlayerHandle").GetComponent<ActorInStageSelect>();
 
-        if (ActorInStageSelect.selectBtn == 4)
+        if (ActorInStageSelect.selectBtn != 1)
         {
             gameObject.transform.parent.position = new Vector3(-250, 0, 0);
         }
