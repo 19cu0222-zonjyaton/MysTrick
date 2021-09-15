@@ -32,11 +32,11 @@ public class StageSelectButtonController : MonoBehaviour
     void Update()
     {
         //  Panelの移動処理
-        if (ActorInStageSelect.selectBtn == 3)      
+        if (ActorInStageSelect.selectBtn == 1)      
         {
             gameObject.transform.parent.position = Vector3.MoveTowards(transform.parent.position, startPos, 75.0f * Time.deltaTime);
         }
-        else if(ActorInStageSelect.selectBtn == 4)
+        else if(ActorInStageSelect.selectBtn == 2)
         {
             gameObject.transform.parent.position = Vector3.MoveTowards(transform.parent.position, new Vector3(-250.0f, 0.0f, 0.0f), 75.0f * Time.deltaTime);
         }

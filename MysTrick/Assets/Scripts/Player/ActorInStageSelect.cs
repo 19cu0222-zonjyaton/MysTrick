@@ -103,7 +103,7 @@ public class ActorInStageSelect : MonoBehaviour
 
             if (goLeft)     //  StageSelect画面のプレイヤー移動処理
             {
-                if (selectBtn != 3)
+                if (selectBtn != 1)
                 {
                     transform.position += new Vector3(-0.1f, 0.0f, 0.0f);
                 }
@@ -114,31 +114,31 @@ public class ActorInStageSelect : MonoBehaviour
                 }
                 else if (selectBtn == 2)
                 {
-                     transform.rotation = Quaternion.Lerp(transform.rotation, target[5].transform.rotation, 5.0f * Time.deltaTime);
+                     transform.rotation = Quaternion.Lerp(transform.rotation, target[4].transform.rotation, 5.0f * Time.deltaTime);
                 }
                 else if (selectBtn == 3)
                 {
-                    transform.rotation = Quaternion.Lerp(transform.rotation, target[4].transform.rotation, 5.0f * Time.deltaTime);
+                    transform.rotation = Quaternion.Lerp(transform.rotation, target[3].transform.rotation, 5.0f * Time.deltaTime);
                 }
             }
             else if (goRight)
             {               
-                if (selectBtn != 4)
+                if (selectBtn != 2)
                 {
                     transform.position += new Vector3(0.1f, 0.0f, 0.0f);
                 }
 
                 if (selectBtn == 2)
-                {                    
-                    transform.rotation = Quaternion.Lerp(transform.rotation, target[1].transform.rotation, 5.0f * Time.deltaTime);
+                {
+                    transform.rotation = Quaternion.Lerp(transform.rotation, target[5].transform.rotation, 5.0f * Time.deltaTime);
                 }
                 else if (selectBtn == 3)
                 {
-                    transform.rotation = Quaternion.Lerp(transform.rotation, target[2].transform.rotation, 5.0f * Time.deltaTime);
+                    transform.rotation = Quaternion.Lerp(transform.rotation, target[1].transform.rotation, 5.0f * Time.deltaTime);
                 }
                 else if (selectBtn == 4)
                 {
-                    transform.rotation = Quaternion.Lerp(transform.rotation, target[3].transform.rotation, 5.0f * Time.deltaTime);
+                    transform.rotation = Quaternion.Lerp(transform.rotation, target[2].transform.rotation, 5.0f * Time.deltaTime);
                 }
             }
         }
