@@ -327,6 +327,7 @@ public class ActorController : MonoBehaviour
 			pi.ResetSignal();
 			model.GetComponent<CapsuleCollider>().enabled = true;
 			Physics.IgnoreLayerCollision(11, 13, true);
+			Physics.IgnoreLayerCollision(11, 16, true);
 			model.transform.localRotation = Quaternion.Lerp(model.transform.localRotation, Quaternion.Euler(-90.0f, damageRot.y, damageRot.z), 3.0f * Time.deltaTime);
 			transform.tag = "Untagged";
 		}

@@ -2094,7 +2094,7 @@ GameObject:
   - component: {fileID: 376532391}
   - component: {fileID: 376532393}
   - component: {fileID: 376532392}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: Stick
   m_TagString: Stick
   m_Icon: {fileID: 0}
@@ -6870,7 +6870,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1078844590}
   - component: {fileID: 1078844592}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: Stick
   m_TagString: Stick
   m_Icon: {fileID: 0}

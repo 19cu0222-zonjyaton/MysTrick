@@ -26002,7 +26002,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9123327512272275637}
   - component: {fileID: 3421699051109277683}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: thorn17
   m_TagString: Stick
   m_Icon: {fileID: 0}
