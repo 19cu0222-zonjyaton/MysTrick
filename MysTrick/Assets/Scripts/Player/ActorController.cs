@@ -160,7 +160,6 @@ public class ActorController : MonoBehaviour
 
 			if (anim.GetCurrentAnimatorStateInfo(1).IsName("Slash1") || anim.GetCurrentAnimatorStateInfo(1).IsName("Slash2"))
 			{
-
 				if (unLockAttack)
 				{
 					anim.SetLayerWeight(anim.GetLayerIndex("Attack"), 1.0f);
@@ -174,6 +173,8 @@ public class ActorController : MonoBehaviour
 			
 			if (anim.GetCurrentAnimatorStateInfo(1).IsName("Idle") && !unLockAttack)
 			{
+				pi.canThrow = true;
+				cc.canThrowWeapon = true;
 				pi.attackCount = 0;
 				weapon.transform.SetParent(playerNeck.transform);
 				//	武器の位置を初期に戻る

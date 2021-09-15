@@ -145,7 +145,9 @@ public class PlayerInput : MonoBehaviour
 			{
 				attackCount++;
 				isAttacking = true;
-            }
+				canThrow = false;
+				cc.canThrowWeapon = false;
+			}
 
 			if ((Input.GetKey(KeyCode.LeftShift) || Input.GetButton("perspect")) && !ac.isClimbing && ac.cameraCanMove)      //	第一人視点を切り替え
 			{
