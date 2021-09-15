@@ -155,7 +155,7 @@ public class ActorController : MonoBehaviour
 					audio.PlayOneShot(sounds[0]);
 					weaponSound2 = true;
 				}
-				weapon.transform.tag = "Weapon";
+				weapon.transform.tag = "Slash2";
 			}
 
 			if (anim.GetCurrentAnimatorStateInfo(1).IsName("Slash1") || anim.GetCurrentAnimatorStateInfo(1).IsName("Slash2"))
