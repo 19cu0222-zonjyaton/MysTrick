@@ -52,7 +52,7 @@ public class FootPlateController : MonoBehaviour
 						nextUpward = false;
 						timeCount = 1.0f;
 						// 回転が必要であれば、回転する
-						if (needTurn) this.transform.rotation = Quaternion.Euler(0.0f, 0.0f, 0.0f);
+						//if (needTurn) this.transform.rotation = Quaternion.Euler(0.0f, 0.0f, 0.0f);
 					}
 				}
 				// 降下開始
@@ -70,7 +70,7 @@ public class FootPlateController : MonoBehaviour
 						nextUpward = true;
 						timeCount = 1.0f;
 						// 回転が必要であれば、回転する
-						if (needTurn) this.transform.rotation = Quaternion.Euler(0.0f, 0.0f, 180.0f);
+						//if (needTurn) this.transform.rotation = Quaternion.Euler(0.0f, 0.0f, 180.0f);
 					}
 				}
 			}
