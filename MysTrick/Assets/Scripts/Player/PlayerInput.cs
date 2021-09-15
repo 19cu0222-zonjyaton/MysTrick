@@ -145,7 +145,6 @@ public class PlayerInput : MonoBehaviour
 			{
 				attackCount++;
 				isAttacking = true;
-				canThrow = false;
 				cc.canThrowWeapon = false;
 			}
 
