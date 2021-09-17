@@ -59,11 +59,11 @@ public class MoveBoxController : MonoBehaviour
 			{
 				if (moveWithPlayer)
 				{
-					anim.speed = 1.0f;
 					anim.SetBool("Push", false);
 					anim.SetBool("PrePush", false);
 					rigid.isKinematic = true;
 					moveWithPlayer = false;
+					anim.speed = 1.0f;
 					ac.moveSpeed = 3.0f;
 				}
 				else

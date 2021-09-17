@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
@@ -10,6 +11,7 @@ public class ActorInStageSelect : MonoBehaviour
     public Button[] btn;                  //  選択しているボタンオブジェクト
     public Animator animator;             //  アニメコントローラーコンポーネント
     public ExitController ec;             //  タイトル画面に戻るUIコントローラー
+    public GameObject stage02;
     public static int selectBtn = 1;      //  選択しているボタン標記
     public int skyboxIndex;               //  skyboxオブジェクト
     public bool isMove;                  //  移動しているかどうかフラグ
@@ -41,9 +43,18 @@ public class ActorInStageSelect : MonoBehaviour
                 {
                     if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetAxis("axisX") > 0)
                     {
-                        goRight = true;
-                        selectBtn++;
-                        au.Play();
+                        if(selectBtn == 1)
+                        {
+                            goRight = true;
+                            selectBtn++;
+                            au.Play();
+                        }
+                        else if(Math.Round(stage02.gameObject.transform.position.x, 0) == -250)
+                        {
+                            goRight = true;
+                            selectBtn++;
+                            au.Play();
+                        }
                     }
                 }
 
