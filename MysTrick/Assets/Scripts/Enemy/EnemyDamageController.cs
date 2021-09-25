@@ -110,11 +110,11 @@ public class EnemyDamageController : MonoBehaviour
             if (enemyHp <= 0)   //  コインを排除するY座標を記録する
             {
                 deadPosY = transform.position.y;
-                rigid.AddForce(0, 700.0f, 0);
+                rigid.AddForce(0, 800.0f, 0);
             }
             else
             {
-                rigid.AddExplosionForce(600.0f, collider.transform.position, 3.0f, 3.0f);
+                rigid.AddExplosionForce(800.0f, collider.transform.position, 3.0f, 3.0f);
             }
             timeCount = 0.0f;
             anim.SetTrigger("IsDamage");

@@ -14,7 +14,6 @@ public class OnGroundSensor : MonoBehaviour
     private Vector3 point1;             //  当たり判定最高点
     private Vector3 point2;             //  当たり判定最低点
     private float radius;               //  プレイヤーの半径
-    public bool isJumpStatic;
 
     //  初期化
     void Awake()
@@ -41,21 +40,12 @@ public class OnGroundSensor : MonoBehaviour
 
         if (outputCols.Length == 0 && !ac.isClimbing)
         {
-            if (ac.isJumping)
-            {
-                isJumpStatic = true;
-            }
-
-            if (!isJumpStatic)
-            {
-                ac.isFall = true;
-                anim.SetBool("Fall", true);
-                pi.ResetSignal();
-            }
+            ac.isFall = true;
+            anim.SetBool("Fall", true);
+            pi.ResetSignal();
         }
         else if (outputCols.Length != 0)
         {
-            isJumpStatic = false;
             if (ac.isFall)
             {
                 anim.SetBool("Fall", false);

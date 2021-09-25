@@ -1044,7 +1044,6 @@ MonoBehaviour:
   capcol: {fileID: 6563069687783362540}
   goal: {fileID: 0}
   cc: {fileID: 0}
-  isJumpStatic: 0
 --- !u!1 &6563069687687562307
 GameObject:
   m_ObjectHideFlags: 0
@@ -2361,8 +2360,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.6238265, y: 0.28032187, z: 0.59}
-  m_Center: {x: 0.0943917, y: 0.0018743783, z: 0.12}
+  m_Size: {x: 1.7452619, y: 0.28032187, z: 0.5578561}
+  m_Center: {x: 0.15510942, y: 0.0018743847, z: -0.009925014}
 --- !u!114 &4063294895243107442
 MonoBehaviour:
   m_ObjectHideFlags: 0
