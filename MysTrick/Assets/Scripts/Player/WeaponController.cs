@@ -145,7 +145,6 @@ public class WeaponController : MonoBehaviour
 
         if (collider.gameObject.layer == LayerMask.NameToLayer("Wall") && gameObject.transform.tag == "Weapon")
         {
-            print("aaaaaaaaaaaaaaaaaa");
             speed = 0.0f;
         }
     }
