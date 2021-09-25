@@ -5751,6 +5751,7 @@ MonoBehaviour:
   - {fileID: 1218231512}
   animator: {fileID: 6563069687029480512}
   ec: {fileID: 1887986147}
+  stage02: {fileID: 1740122574}
   skyboxIndex: 0
   isMove: 0
 --- !u!65 &6563069687913038458
