@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/NihonLogo.unity
+    guid: 6de46c76bc20f0a408c56892275e31af
+  - enabled: 1
     path: Assets/Scenes/Title.unity
     guid: d6fbc7dc71b353e4b90c5c80f5627938
   - enabled: 1
