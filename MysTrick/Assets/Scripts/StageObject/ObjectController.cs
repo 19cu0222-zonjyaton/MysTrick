@@ -63,6 +63,7 @@ public class ObjectController : MonoBehaviour
 	private bool timeFlag = true;
 	private bool liftingFin;			// エレベーター使用完了フラグ
 	private int pressCount = 0;			// 押し回数
+	private bool awayFromLift = false;	
 
 
 	// RotatePerAng用変数
@@ -250,13 +251,21 @@ public class ObjectController : MonoBehaviour
 						//this.transform.position = Vector3.Slerp(moveData.startPosition, nextTarget, moveData.speed);
 						this.transform.position = Vector3.MoveTowards(moveData.startPosition, nextTarget, moveData.speed);
 					}
-					else liftingFin = true;
+					else
+					{
+						liftingFin = true;
+					}
 
 				}
 				if (liftingFin)
 				{
 					if (nextTarget == moveData.targetA.position)
 					{
+						if (awayFromLift)
+						{
+							ElevTimer.TimerStart = true;
+							awayFromLift = false;
+						}
 						moveData.startPosition = moveData.targetA.position;
 						nextTarget = moveData.targetB.position;
 					}
@@ -366,6 +375,10 @@ public class ObjectController : MonoBehaviour
 			else if (Mathf.Abs(this.transform.position.magnitude - moveData.targetA.position.magnitude) <= 0.1f)
 			{
 				ElevTimer.TimerStart = true;
+			}
+			else if(Mathf.Abs(this.transform.position.magnitude - moveData.targetA.position.magnitude) >= 0.1f)
+			{
+				awayFromLift = true;
 			}
 		}
 	}
