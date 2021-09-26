@@ -77,9 +77,9 @@ public class EnemyDamageController : MonoBehaviour
     }
 
     //  敵の衝突処理
-    void OnTriggerEnter(Collider collider)
+    void OnTriggerStay(Collider collider)
     {
-        if (collider.transform.tag == "Slash1" && enemyHp > 0)
+        if (collider.transform.tag == "Slash1" && enemyHp > 0 && ac.enemyCanHurt)
         {
             enemyHp--;
             au[0].Play();
@@ -98,6 +98,7 @@ public class EnemyDamageController : MonoBehaviour
                 isStun = true;
             }   
             anim.SetTrigger("IsDamage");
+            ac.enemyCanHurt = false;
             canMove = false;
         }
 
@@ -114,7 +115,7 @@ public class EnemyDamageController : MonoBehaviour
             }
             else
             {
-                rigid.AddExplosionForce(800.0f, collider.transform.position, 3.0f, 3.0f);
+                rigid.AddExplosionForce(16.0f, collider.transform.position, 3.0f, 3.0f, ForceMode.Impulse);
             }
             timeCount = 0.0f;
             anim.SetTrigger("IsDamage");
@@ -125,11 +126,9 @@ public class EnemyDamageController : MonoBehaviour
         }
 
         //  マップから落ちる処理
-        if (collider.transform.tag == "DeadCheck")
+        if (collider.transform.tag == "DeadCheck" && enemyHp > 0)
         {
-            ac.coinUIAction = true;
-            ac.coinCount += 3;
-            Destroy(this.gameObject);
+            enemyHp = 0;
         }
     }
 

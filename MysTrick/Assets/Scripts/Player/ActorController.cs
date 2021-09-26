@@ -43,6 +43,7 @@ public class ActorController : MonoBehaviour
 	public bool isInCameraZoom;
 	public int cameraZoomIndex;
 	public Vector3 climbLandPos;
+	public bool enemyCanHurt;
 
 	//---鍾家同(2021/07/19)---
 	[System.Serializable]
@@ -104,6 +105,8 @@ public class ActorController : MonoBehaviour
 		weaponStartRot = weapon.transform.localEulerAngles;
 
 		Physics.IgnoreLayerCollision(11, 13, false);
+		Physics.IgnoreLayerCollision(11, 16, false);
+		Physics.IgnoreLayerCollision(11, 24, false);
 	}
 
 	void Update()
@@ -143,6 +146,7 @@ public class ActorController : MonoBehaviour
             {
 				if (!weaponSound1)
 				{
+					enemyCanHurt = true;
 					audio.PlayOneShot(sounds[0]);
 					weaponSound1 = true;
 				}
@@ -326,8 +330,9 @@ public class ActorController : MonoBehaviour
 			anim.enabled = false;
 			pi.ResetSignal();
 			model.GetComponent<CapsuleCollider>().enabled = true;
-			Physics.IgnoreLayerCollision(11, 13, true);
-			Physics.IgnoreLayerCollision(11, 16, true);
+			Physics.IgnoreLayerCollision(11, 13, true);		//	敵とプレイヤー
+			Physics.IgnoreLayerCollision(11, 16, true);		//	針とプレイヤー
+			Physics.IgnoreLayerCollision(11, 24, true);		//	コインとプレイヤー
 			model.transform.localRotation = Quaternion.Lerp(model.transform.localRotation, Quaternion.Euler(-90.0f, damageRot.y, damageRot.z), 3.0f * Time.deltaTime);
 			transform.tag = "Untagged";
 		}
@@ -505,9 +510,7 @@ public class ActorController : MonoBehaviour
 			}
 			else
 			{
-				Physics.IgnoreLayerCollision(11, 24, true);
-				rigid.AddExplosionForce(1000.0f, collision.transform.position - new Vector3(0.0f, 1.5f, 0.0f), 5.0f, 2.0f);      //	爆発の位置を矯正
-				isDead = true;
+				rigid.AddExplosionForce(800.0f, collision.transform.position - new Vector3(0.0f, 1.5f, 0.0f), 5.0f, 1.5f);      //	爆発の位置を矯正
 			}
 			playerCanMove = false;
 		}

@@ -38,7 +38,7 @@ public class OnGroundSensor : MonoBehaviour
         
         Collider[] outputCols = Physics.OverlapCapsule(point1, point2 ,radius, LayerMask.GetMask("Ground"));        //  Groundという名前の階層と当てますか
 
-        if (outputCols.Length == 0 && !ac.isClimbing)
+        if (outputCols.Length == 0 && !ac.isClimbing && !ac.isUnrivaled)
         {
             ac.isFall = true;
             anim.SetBool("Fall", true);
