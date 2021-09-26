@@ -108,7 +108,6 @@ public class EnemyPathControl : MonoBehaviour
                         rayLockPlayer = false;
                     }
                     //Debug.DrawRay(ray.origin, ray.direction * 100, Color.red, 0.1f);
-
                 }
                 else
                 {
@@ -177,6 +176,10 @@ public class EnemyPathControl : MonoBehaviour
                         {
                             Patrol();
                         }
+                    }
+                    else
+                    {
+                        Patrol();
                     }
                 }
             }
