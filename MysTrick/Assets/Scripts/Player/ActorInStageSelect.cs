@@ -23,7 +23,7 @@ public class ActorInStageSelect : MonoBehaviour
     void Awake()
     {
         QualitySettings.vSyncCount = 0;
-        Application.targetFrameRate = 60;//	FPSを60に固定する
+        Application.targetFrameRate = 60;                   //	FPSを60に固定する
 
         au = gameObject.GetComponent<AudioSource>();
 
@@ -35,8 +35,8 @@ public class ActorInStageSelect : MonoBehaviour
 
     void Update()
     {
-        if (StaticController.clearStageName == "")        //  StageからStageSelectに飛びるではない場合
-        {
+        //if (StaticController.clearStageName == "")        //  StageからStageSelectに飛びるではない場合
+        //{
             if (!isMove && !StaticController.confirmMenuIsOpen && !StaticController.exitPanelIsOpen)
             {
                 if (selectBtn < 4)
@@ -70,41 +70,41 @@ public class ActorInStageSelect : MonoBehaviour
 
                 StaticController.selectStageName = btn[selectBtn - 1].name;
             }
-        }
-        else                                            //  StageをクリアしてStageから飛びる場合
-        {
-            if (selectBtn < 4)
-            {
-                transform.position = StaticController.playerPos;
-                transform.eulerAngles = StaticController.playerRot;
+        //}
+        //else                                            //  StageをクリアしてStageから飛びる場合
+        //{
+        //    if (selectBtn < 4)
+        //    {
+        //        transform.position = StaticController.playerPos;
+        //        transform.eulerAngles = StaticController.playerRot;
 
-                if (StaticController.stageIsFirstClear[selectBtn - 1])
-                {
-                    goRight = true;
-                    selectBtn++;
-                    StaticController.stageIsFirstClear[selectBtn - 2] = false;
-                    StaticController.selectStageName = btn[selectBtn - 1].name;
+        //        if (StaticController.stageIsFirstClear[selectBtn - 1])
+        //        {
+        //            goRight = true;
+        //            selectBtn++;
+        //            StaticController.stageIsFirstClear[selectBtn - 2] = false;
+        //            StaticController.selectStageName = btn[selectBtn - 1].name;
 
-                    for (int i = 0; i < 4; i++)
-                    {
-                        StaticController.stageCanSelect[selectBtn - 1] = true;
-                    }
-                }
-                else if (!StaticController.stageIsFirstClear[selectBtn - 1])
-                {
-                    StaticController.selectStageName = btn[selectBtn - 1].name;
-                }
+        //            for (int i = 0; i < 4; i++)
+        //            {
+        //                StaticController.stageCanSelect[selectBtn - 1] = true;
+        //            }
+        //        }
+        //        else if (!StaticController.stageIsFirstClear[selectBtn - 1])
+        //        {
+        //            StaticController.selectStageName = btn[selectBtn - 1].name;
+        //        }
 
-                StaticController.clearStageName = "";
-            }
-            else if(selectBtn == 4)
-            {
-                transform.position = StaticController.playerPos;
-                transform.eulerAngles = StaticController.playerRot;
-                StaticController.selectStageName = btn[selectBtn - 1].name;
-                StaticController.clearStageName = "";
-            }
-        }
+        //        StaticController.clearStageName = "";
+        //    }
+        //    else if(selectBtn == 4)
+        //    {
+        //        transform.position = StaticController.playerPos;
+        //        transform.eulerAngles = StaticController.playerRot;
+        //        StaticController.selectStageName = btn[selectBtn - 1].name;
+        //        StaticController.clearStageName = "";
+        //    }
+        //}
 
         if (goLeft || goRight)
         {
