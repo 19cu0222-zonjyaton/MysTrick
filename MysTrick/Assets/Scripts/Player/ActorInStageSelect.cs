@@ -18,6 +18,7 @@ public class ActorInStageSelect : MonoBehaviour
     private AudioSource au;               //	SEのコンポーネント
     private bool goLeft;                  //  左側に移動するフラグ
     private bool goRight;                 //  右側に移動するフラグ
+    private float timeCount;
 
     //	初期化
     void Awake()
@@ -37,19 +38,22 @@ public class ActorInStageSelect : MonoBehaviour
     {
         //if (StaticController.clearStageName == "")        //  StageからStageSelectに飛びるではない場合
         //{
+
+        if (timeCount > 0.8f)
+        {
             if (!isMove && !StaticController.confirmMenuIsOpen && !StaticController.exitPanelIsOpen)
             {
                 if (selectBtn < 4)
                 {
                     if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetAxis("axisX") > 0)
                     {
-                        if(selectBtn == 1)
+                        if (selectBtn == 1)
                         {
                             goRight = true;
                             selectBtn++;
                             au.Play();
                         }
-                        else if(Math.Round(stage02.gameObject.transform.position.x, 0) == -250)
+                        else if (Math.Round(stage02.gameObject.transform.position.x, 0) == -250)
                         {
                             goRight = true;
                             selectBtn++;
@@ -70,6 +74,11 @@ public class ActorInStageSelect : MonoBehaviour
 
                 StaticController.selectStageName = btn[selectBtn - 1].name;
             }
+        }
+        else
+        {
+            timeCount += Time.deltaTime;
+        }
         //}
         //else                                            //  StageをクリアしてStageから飛びる場合
         //{
