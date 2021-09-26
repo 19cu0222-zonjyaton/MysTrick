@@ -16164,6 +16164,7 @@ GameObject:
   - component: {fileID: 955147150}
   - component: {fileID: 955147161}
   - component: {fileID: 955147160}
+  - component: {fileID: 955147163}
   m_Layer: 8
   m_Name: BoxCollider_Ground
   m_TagString: Untagged
@@ -16354,6 +16355,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.3266373, y: 0.1813488, z: 2.0122643}
   m_Center: {x: 6.4705524, y: 3.5779371, z: -19.937498}
+--- !u!65 &955147163
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 955147148}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 19.303856, y: 0.2839737, z: 13.352728}
+  m_Center: {x: 0.93572235, y: 10.509247, z: -3.500454}
 --- !u!1001 &993174581
 PrefabInstance:
   m_ObjectHideFlags: 0
