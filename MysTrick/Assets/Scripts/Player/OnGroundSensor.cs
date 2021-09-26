@@ -14,6 +14,7 @@ public class OnGroundSensor : MonoBehaviour
     private Vector3 point1;             //  当たり判定最高点
     private Vector3 point2;             //  当たり判定最低点
     private float radius;               //  プレイヤーの半径
+    private float timeCount;
 
     //  初期化
     void Awake()
@@ -41,11 +42,20 @@ public class OnGroundSensor : MonoBehaviour
         if (outputCols.Length == 0 && !ac.isClimbing && !ac.isUnrivaled)
         {
             ac.isFall = true;
-            anim.SetBool("Fall", true);
-            pi.ResetSignal();
+            anim.SetBool("Fall", true);         
+            timeCount += Time.fixedDeltaTime;
+            if (timeCount >= 4.0f)
+            {
+                pi.inputEnabled = true;
+            }
+            else
+            {
+                pi.ResetSignal();
+            }
         }
         else if (outputCols.Length != 0)
         {
+            timeCount = 0.0f;
             if (ac.isFall)
             {
                 anim.SetBool("Fall", false);
