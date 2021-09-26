@@ -34,11 +34,11 @@ public class ClimbCheck : MonoBehaviour
             pi.ResetSignal();
             ac.isClimbing = true;
             
-            if (Input.GetKey(pi.keyUp) || Input.GetAxis("axisY") == -1.0f)
+            if (Input.GetKey(pi.keyUp) || Input.GetAxis("axisY") <= -0.9f)
             {
                 player.transform.position += new Vector3(0, 0.1f, 0);
             }
-            else if(Input.GetKey(pi.keyDown) || Input.GetAxis("axisY") == 1.0f)
+            else if(Input.GetKey(pi.keyDown) || Input.GetAxis("axisY") >= 0.9f)
             {
                 player.transform.position -= new Vector3(0, 0.1f, 0);
             }

@@ -115,7 +115,7 @@ public class EnemyDamageController : MonoBehaviour
             }
             else
             {
-                rigid.AddExplosionForce(16.0f, collider.transform.position, 3.0f, 3.0f, ForceMode.Impulse);
+                rigid.AddExplosionForce(12.0f, collider.transform.position, 2.0f, 2.0f, ForceMode.Impulse);
             }
             timeCount = 0.0f;
             anim.SetTrigger("IsDamage");
