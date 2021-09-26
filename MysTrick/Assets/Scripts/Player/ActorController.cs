@@ -177,6 +177,7 @@ public class ActorController : MonoBehaviour
 			
 			if (anim.GetCurrentAnimatorStateInfo(1).IsName("Idle") && !unLockAttack)
 			{
+				enemyCanHurt = false;
 				cc.canThrowWeapon = true;
 				pi.attackCount = 0;
 				weapon.transform.SetParent(playerNeck.transform);

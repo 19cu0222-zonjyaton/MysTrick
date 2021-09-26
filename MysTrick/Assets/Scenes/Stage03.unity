@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 1392975114}
-  m_IndirectSpecularColor: {r: 0.22779906, g: 0.47146332, b: 0.52710843, a: 1}
+  m_IndirectSpecularColor: {r: 0.22801062, g: 0.47155476, b: 0.5271753, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3774,6 +3774,11 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 17.98
       objectReference: {fileID: 0}
+    - target: {fileID: 3787794846184598275, guid: 19f866164458f0b4689c692e1c39b025,
+        type: 3}
+      propertyPath: ac
+      value: 
+      objectReference: {fileID: 578182602}
     - target: {fileID: 3787794847377038210, guid: 19f866164458f0b4689c692e1c39b025,
         type: 3}
       propertyPath: m_RootOrder
@@ -5594,6 +5599,11 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 17.98
       objectReference: {fileID: 0}
+    - target: {fileID: 3787794846184598275, guid: 19f866164458f0b4689c692e1c39b025,
+        type: 3}
+      propertyPath: ac
+      value: 
+      objectReference: {fileID: 578182602}
     - target: {fileID: 3787794847377038210, guid: 19f866164458f0b4689c692e1c39b025,
         type: 3}
       propertyPath: m_RootOrder
@@ -5653,6 +5663,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Enemy_Ghost2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3787794847377038211, guid: 19f866164458f0b4689c692e1c39b025,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3787794847476027998, guid: 19f866164458f0b4689c692e1c39b025,
         type: 3}
@@ -16850,17 +16865,17 @@ PrefabInstance:
     - target: {fileID: 6563069687783362538, guid: deb5c94de91a32e4ca21d16c24db72a9,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 20.25
+      value: 19.84
       objectReference: {fileID: 0}
     - target: {fileID: 6563069687783362538, guid: deb5c94de91a32e4ca21d16c24db72a9,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 5.77
+      value: 5.81
       objectReference: {fileID: 0}
     - target: {fileID: 6563069687783362538, guid: deb5c94de91a32e4ca21d16c24db72a9,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -22.13
+      value: -21.3
       objectReference: {fileID: 0}
     - target: {fileID: 6563069687783362538, guid: deb5c94de91a32e4ca21d16c24db72a9,
         type: 3}
@@ -23180,6 +23195,11 @@ PrefabInstance:
       propertyPath: pathPositions.Array.data[3]
       value: 
       objectReference: {fileID: 1495020486}
+    - target: {fileID: 3787794846184598275, guid: 19f866164458f0b4689c692e1c39b025,
+        type: 3}
+      propertyPath: ac
+      value: 
+      objectReference: {fileID: 578182602}
     - target: {fileID: 3787794847377038210, guid: 19f866164458f0b4689c692e1c39b025,
         type: 3}
       propertyPath: m_RootOrder
@@ -23239,6 +23259,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Enemy_Ghost1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3787794847377038211, guid: 19f866164458f0b4689c692e1c39b025,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3787794847476027998, guid: 19f866164458f0b4689c692e1c39b025,
         type: 3}
