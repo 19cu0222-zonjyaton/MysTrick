@@ -79,7 +79,16 @@ public class MoveBoxController : MonoBehaviour
 				pi.isTriggered = false;
 			}
 		}
-	}
+
+		if (other.transform.tag == "Stick" && !moveWithPlayer)
+		{
+			rigid.isKinematic = false;
+		}
+		else if (other.transform.tag == "Player" && !moveWithPlayer)
+		{
+			rigid.isKinematic = true;
+		}
+    }
 
 	private void OnTriggerExit(Collider other)
 	{

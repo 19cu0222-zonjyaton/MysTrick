@@ -126,7 +126,7 @@ public class EnemyDamageController : MonoBehaviour
         }
 
         //  マップから落ちる処理
-        if (collider.transform.tag == "DeadCheck" && enemyHp > 0)
+        if ((collider.transform.tag == "DeadCheck" || collider.transform.tag == "Stick") && enemyHp > 0)
         {
             enemyHp = 0;
         }

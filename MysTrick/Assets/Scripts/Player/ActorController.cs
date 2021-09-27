@@ -302,7 +302,10 @@ public class ActorController : MonoBehaviour
 			{
 				if (damageByStick && !cameraCanMove)
 				{
-					transform.position = stickBackPos.transform.position;
+					if (!isPushBox)
+					{
+						transform.position = stickBackPos.transform.position;
+					}
 					bc.stickCanMove = true;
 				}
 				playerCanMove = true;

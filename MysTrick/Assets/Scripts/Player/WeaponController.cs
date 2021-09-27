@@ -119,13 +119,13 @@ public class WeaponController : MonoBehaviour
 
     void OnTriggerStay(Collider collider)
     {
-        if (collider.transform.tag == "Player" && speed <= 0.0f && canBack)
+        if (collider.transform.tag == "Player" && speed <= 0.0f)
         {
             backToHand = true;
             pi.canThrow = true;
             cc.canThrowWeapon = true;
             distanceCheck.transform.tag = "GapCheck";
-            canBack = false;
+            //canBack = false;
             weaponCollider.size = new Vector3(1.65f, weaponCollider.size.y, weaponCollider.size.z);
 
             //  チェックオブジェクトの位置を戻す
@@ -151,10 +151,10 @@ public class WeaponController : MonoBehaviour
 
     void OnTriggerExit(Collider collider)
     {
-        if (collider.transform.tag == "GapCheck")
-        {
-            canBack = true;
-            distanceCheck.transform.tag = "Untagged";
-        }
+        //if (collider.transform.tag == "GapCheck")
+        //{
+        //    canBack = true;
+        //    distanceCheck.transform.tag = "Untagged";
+        //}
     }
 }
