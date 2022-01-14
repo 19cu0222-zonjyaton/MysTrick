@@ -1355,7 +1355,7 @@ MonoBehaviour:
   isLand: 0
   isDead: 0
   isFallDead: 0
-  moveSpeed: 6
+  moveSpeed: 7
   isInTrigger: 0
   isDamageByEnemy: 0
   isUnrivaled: 0
@@ -1369,6 +1369,7 @@ MonoBehaviour:
   isInCameraZoom: 0
   cameraZoomIndex: 0
   climbLandPos: {x: 0, y: 0, z: 0}
+  enemyCanHurt: 0
   haveKeys:
     BlueKey: 0
     GreenKey: 0
@@ -2142,7 +2143,7 @@ MonoBehaviour:
   - {fileID: 3667239347666716757}
   canThrowWeapon: 1
   cameraStatic: Idle
-  horizontalSpeed: 50
+  horizontalSpeed: 80
   verticalSpeed: 40
   timeSpeed: 1.5
   moveSpeed: {x: 0, y: 0, z: 0}

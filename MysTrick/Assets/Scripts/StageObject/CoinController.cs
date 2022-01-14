@@ -43,7 +43,14 @@ public class CoinController : MonoBehaviour
             {
                 radian += perRadian;                //  弧度をプラスする
                 float dy = Mathf.Cos(radian) * radius;
-                transform.position = nowPos + new Vector3(0, dy, 0);
+                if (isTitleCoin)
+                {
+                    transform.position = nowPos + new Vector3(0, dy, 0);
+                }
+                else
+                {
+                    transform.position = startPos + new Vector3(0, dy, 0);
+                }
 
                 if (radian >= 360.0f)
                 {
