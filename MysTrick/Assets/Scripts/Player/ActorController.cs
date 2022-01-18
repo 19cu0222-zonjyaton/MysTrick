@@ -19,7 +19,8 @@ public class ActorController : MonoBehaviour
 	public ClimbCheck climbCheck;			//	昇るチェック
 	public PlayerInput pi;					//	入力コントローラー
 	public AudioClip[] sounds;              //	SEオブジェクト
-	public ParticleSystem walkDust;			//	歩いてのエフェクト
+	public GameObject walkDustPrefab;       //	歩いエフェクトのオブジェクト(林 2022/01/18)
+
 	public int hp;							//	プレイヤーHP
 	public int coinCount;                   //	獲得したコイン数
 	public int starCount;                   //	獲得したスター数
@@ -85,8 +86,7 @@ public class ActorController : MonoBehaviour
 	public float attackGapTime;
 	private bool weaponSound1;
 	private bool weaponSound2;
-	private bool emmTrue = true;
-	private bool emmFalse = false;
+
 
 	//	初期化
 	void Awake()
@@ -106,8 +106,6 @@ public class ActorController : MonoBehaviour
 		weaponStartPos = weapon.transform.localPosition;
 
 		weaponStartRot = weapon.transform.localEulerAngles;
-
-		walkDust = GetComponent<ParticleSystem>();
 
 		Physics.IgnoreLayerCollision(11, 13, false);
 		Physics.IgnoreLayerCollision(11, 16, false);
@@ -246,18 +244,20 @@ public class ActorController : MonoBehaviour
 			movingVec = pi.Dmag * model.transform.forward;
 		}
 
-		/*
-		if (pi.Dmag > 0.01f)
-        {
-			var walkDust_emission = walkDust.emission;
-			walkDust_emission.enable = emmTrue;
+
+		// プレーヤーが移動している時、歩いてエフェクトを出す(林 2022/01/18)
+		if (pi.Dmag > 0.1f)
+		{
+			ParticleSystem dustEffect = walkDustPrefab.GetComponent<ParticleSystem>();
+			var em = dustEffect.emission;
+			em.enabled = true;
 		} // end if()
-        else
-        {
-			var walkDust_emission = walkDust.emission;
-			walkDust_emission.enable = emmFalse;
+		else
+		{
+			ParticleSystem dustEffect = walkDustPrefab.GetComponent<ParticleSystem>();
+			var em = dustEffect.emission;
+			em.enabled = false;
 		} // end else
-		*/
 
 		transform.position += movingVec * moveSpeed * Time.fixedDeltaTime;
 		
