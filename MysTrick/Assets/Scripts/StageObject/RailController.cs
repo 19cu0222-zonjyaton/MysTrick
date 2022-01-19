@@ -47,6 +47,7 @@ public class RailController : MonoBehaviour
 		if (canRailMove)
 		{
 			timeCount += Time.deltaTime;
+			// 指定時間内且指定回数の場合、オブジェクトを次の角度に回転する
 			if (timeCount <= timeMax && timeCount >= 0.0f && numToMove[i] == Ladder.i)
 			{
 				this.transform.localPosition = Vector3.MoveTowards(this.transform.localPosition,
@@ -54,6 +55,7 @@ public class RailController : MonoBehaviour
 					moveSpeed * Time.deltaTime);
 				canPlayerMove = true;
 			}
+			// 指定時間内且初期値ではない場合、オブジェクトを次の角度に回転する
 			else if (timeCount <= timeMax && timeCount >= 0.0f && this.transform.localPosition != curPosition)
 			{
 				this.transform.localPosition = Vector3.MoveTowards(this.transform.localPosition,
@@ -61,6 +63,7 @@ public class RailController : MonoBehaviour
 					moveSpeed * Time.deltaTime);
 				canPlayerMove = false;
 			}
+			// 最大経過時間を過ぎたら初期値に戻す
 			else if (timeCount > timeMax)
 			{
 				i = (i + 1) % 4;

@@ -86,30 +86,6 @@ public class TriggerController : MonoBehaviour
 		}
 	}
 
-	//private void OnCollisionStay(Collision other)       //	プレイヤーが動いていない場合OnCollisionStayは呼び出されない
-	//{
-	//    if (other.transform.tag == "Player")
-	//    {
-	//        hintUI.SetActive(true);
-
-	//        if (this.transform.tag == "Device" && Player.isTriggered)
-	//        {
-	//            isTriggered = true;
-	//Player.isTriggered = false;
-
-	//Debug.Log(this.transform.name + " has touched.");
-	//        }
-	//    }
-	//}
-
-	//private void OnCollisionExit(Collision other)
-	//{
-	//	if (other.transform.tag == "Player")
-	//	{
-	//		hintUI.SetActive(false);
-	//	}
-	//}
-
 	// 当たり判定
 	//----------------------------------
 	private void OnTriggerEnter(Collider other)
@@ -130,23 +106,14 @@ public class TriggerController : MonoBehaviour
 					// カウント終了
 					if (timeController.isFinish)
 					{
-						//// 表示になった場合
-						//if (Stair.transform.gameObject.activeSelf)
-						//{
-						//	Stair.transform.gameObject.SetActive(false);
-						//}
-						// 表示になってない場合
-						//else
-						//{
-							Stair.transform.gameObject.SetActive(true);
-							isCameraTriggered = true;
+						Stair.transform.gameObject.SetActive(true);
+						isCameraTriggered = true;
 
-							if (!hadDone)
-							{
-								cameraCanMoveToStair = true;
-								hadDone = true;
-							}
-						//}
+						if (!hadDone)
+						{
+							cameraCanMoveToStair = true;
+							hadDone = true;
+						}
 						timeController.isFinish = false;
 						timeController.TimeDelay(0.0f, 0.5f);
 					}
@@ -185,28 +152,18 @@ public class TriggerController : MonoBehaviour
 				this.transform.BroadcastMessage("DeviceOnTriggered", "sFootPlate");
 
 				pi.isTriggered = false;
+				Stair.transform.gameObject.SetActive(true);
+				isCameraTriggered = true;
 
-				//// 表示になった場合
-				//if (Stair.transform.gameObject.activeSelf)
-				//{
-				//	Stair.transform.gameObject.SetActive(false);
-				//}
-				//// 表示になってない場合
-				//else
-				//{
-					Stair.transform.gameObject.SetActive(true);
-					isCameraTriggered = true;
-
-					if (!hadDone)
+				if (!hadDone)
+				{
+					if (this.gameObject.name == "sDevice002")
 					{
-						if (this.gameObject.name == "sDevice002")
-						{
-							Destroy(GameObject.Find("TempCollider"));
-						}
-						cameraCanMoveToStair = true;
-						hadDone = true;
+						Destroy(GameObject.Find("TempCollider"));
 					}
-				//}
+					cameraCanMoveToStair = true;
+					hadDone = true;
+				}
 			}
 
 			if (this.transform.tag == "Handle" && pi.isTriggered)
@@ -235,6 +192,5 @@ public class TriggerController : MonoBehaviour
 			}
 		}
 	}
-
-		//----------------------------------
+	//----------------------------------
 }

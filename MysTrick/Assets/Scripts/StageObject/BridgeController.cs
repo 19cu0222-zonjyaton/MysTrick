@@ -1,6 +1,6 @@
 ﻿//-------------------------------------------------
 // ファイル名		：BridgeController.cs
-// 概要				：梯子の制御
+// 概要				：橋の制御
 // 作成者			：鍾家同
 // 更新内容			：2021/04/12 作成
 //					：2021/07/15 更新　各角度を変更できるように修正
@@ -17,9 +17,8 @@ public class BridgeController : MonoBehaviour
 	public float speed = 5.0f;
 
 	[Header("===監視用===")]
-	public bool hasDone;				//	カメラ用参数
-	public bool isTriggered;
-
+	public bool hasDone;				// カメラ用参数
+	public bool isTriggered;			// オブジェクトを起動するフラグ
 	private Quaternion targetEuAng;		// 目標角度（オイラー角）
 	private Vector3 curAng;				// 現在角度
 	private Vector3 nextAng;			// 目標角度
@@ -57,8 +56,6 @@ public class BridgeController : MonoBehaviour
 				targetEuAng = Quaternion.Euler(targetAng);
 				// Quaternion.Slerp(Quaternion from, Quaternion to, deltaTime * speed)
 				this.transform.rotation = Quaternion.Slerp(transform.rotation, targetEuAng, Time.deltaTime * speed);
-				//Debug.Log(this.transform.eulerAngles.z);
-				//this.transform.Rotate(0f, 0f, angle);
 			}
 			// 回転停止、初期値に戻る
 			else if(timeCount <= 0.0f)

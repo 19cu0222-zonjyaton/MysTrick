@@ -114,7 +114,7 @@ public class EnemyBatController : MonoBehaviour
 	[SerializeField]
 	private bool canPreATK = false;			// 攻撃の下準備フラグ
 	[SerializeField]
-	private bool canATK = false;			// 攻撃フラグ
+	private bool canATK = false;				// 攻撃フラグ
 	[SerializeField]
 	private bool canRest = false;			// 休憩フラグ
 	[SerializeField]
@@ -136,12 +136,15 @@ public class EnemyBatController : MonoBehaviour
 	private new Rigidbody rigidbody;
 	private new Collider collider;
 	private Animator animator;
+	private new AudioSource audio;			//	Audioコンポーネント
+	private bool playOnce;					//	一回だけSEを流すフラグ
 
 	void Awake()
 	{
 		rigidbody = GetComponent<Rigidbody>();
 		collider = GetComponent<Collider>();
 		animator = GetComponent<Animator>();
+		audio = GetComponent<AudioSource>();
 	}
 
 	// 初期化
@@ -180,7 +183,7 @@ public class EnemyBatController : MonoBehaviour
 					if (Physics.Raycast(DWRay, out DWHit, Mathf.Infinity) && !canPreATK && !canATK && !canTurn && !hitGround && !isDamage && !isDead && !canRest)
 					{
 						// 前に障害物があり、あるいは下に“壁”があれば真っ先に回転する
-						if (Physics.Raycast(FWRay, out FWHit, 3.0f) || DWHit.collider.gameObject.layer == LayerMask.NameToLayer("Wall"))
+						if (Physics.Raycast(FWRay, out FWHit, 3.0f) || DWHit.collider.gameObject.layer == LayerMask.NameToLayer("Fence"))
 						{
 							canTurn = true;
 						}
@@ -208,12 +211,13 @@ public class EnemyBatController : MonoBehaviour
 					}
 				}
 				if (isDead) Dead();
-				else if (isDamage && canHurt) Damage();
+				else if (isDamage) Damage();
 				else if (canTurn) Turn();
 				else if (canRest) Rest();
 				else if ((canPreATK || canATK) && !hitGround) Attack();
 
 				AnimStatement();
+
 				break;
 			case Movement.Spiral:
 				Spiral();
@@ -229,7 +233,6 @@ public class EnemyBatController : MonoBehaviour
 	// 直線往復移動
 	void Straight()
 	{
-		//Debug.Log("Straight");
 		statement = Statement.General;
 		this.transform.Translate(Vector3.forward * Time.deltaTime * moveData.moveSpeed);
 	}
@@ -243,7 +246,6 @@ public class EnemyBatController : MonoBehaviour
 	// 回転する
 	void Turn()
 	{
-		//Debug.Log("Turn");
 		statement = Statement.General;
 		// 回転時間開始
 		rotateTimeCount += Time.deltaTime;
@@ -265,7 +267,6 @@ public class EnemyBatController : MonoBehaviour
 	// 休憩
 	void Rest()
 	{
-		Debug.Log("Rest");
 		if (canRest)
 		{
 			// 休憩開始
@@ -295,7 +296,6 @@ public class EnemyBatController : MonoBehaviour
 	// 攻撃
 	void Attack()
 	{
-		Debug.Log("Attack");
 		rigidbody.isKinematic = true;
 		canHurt = false;
 		statement = Statement.Attack;
@@ -328,7 +328,6 @@ public class EnemyBatController : MonoBehaviour
 	// ダメージ受け
 	void Damage()
 	{
-		//Debug.Log("Damage");
 		// ダメージ受け開始
 		if (isDamage)
 		{
@@ -336,29 +335,38 @@ public class EnemyBatController : MonoBehaviour
 			{
 				damaging = true;
 				rigidbody.useGravity = false;
+				canHurt = false;
 			}
 
 			if (damaging)
 			{
-				if (damageData.timeCountMax >= 0.0f && hitGround) damageData.timeCountMax -= Time.deltaTime;
+				if (damageData.timeCountMax >= 0.0f && hitGround)
+				{
+					damageData.timeCountMax -= Time.deltaTime;
+				}
+				// ダメージ受けた且元の位置に戻していない場合
 				else if (damageData.timeCountMax <= 0.0f && this.transform.position != damageData.backPosition)
 				{
 					statement = Statement.Return;
+					// 元の位置に戻す
 					this.transform.position = Vector3.MoveTowards(
 						this.transform.position, damageData.backPosition, returnSpeed * Time.deltaTime);
 					isHurt = false;
 				}
+				// 元の位置に戻した場合
 				else if (this.transform.position == damageData.backPosition)
 				{
 					isDamage = false;
 					damageData.timeCountMax = damageData.timeCountReset;
 					damaging = false;
 					isHurt = false;
+					canHurt = true;
 				}
 				if (isHurt) rigidbody.useGravity = true;
 				else rigidbody.useGravity = false;
 			}
 		}
+		Debug.Log("Damage");
 	}
 
 	// 死亡
@@ -432,15 +440,22 @@ public class EnemyBatController : MonoBehaviour
 	//----------------------------------
 	void OnTriggerEnter(Collider other)
 	{
-		if (other.transform.tag == "Weapon")
+		if (other.transform.tag == "Weapon" || other.transform.tag == "Slash1")
 		{
 			rigidbody.isKinematic = false;
-			Debug.Log("!!");
 
 			if (timeController.isFinish && canHurt)
 			{
 				// タイマー起動（二重ダメージ受けを防ぐため）
 				timeController.TimeDelay(0.0f, 1.5f);
+
+				// 音を出す
+				/*if (!playOnce)
+				{
+					audio.Play();
+					playOnce = true;
+				}*/
+				audio.Play();
 
 				// HP計算
 				if (health > 1)
@@ -454,6 +469,7 @@ public class EnemyBatController : MonoBehaviour
 					isDead = true;
 					health = 0;
 				}
+				Debug.Log("DamageCount");
 
 				// HPがある限り、ダメージ受けたら上方向に力をかけ且つ墜落
 				if (!isDead)
@@ -462,10 +478,11 @@ public class EnemyBatController : MonoBehaviour
 					rigidbody.useGravity = true;
 					damageData.timeCountMax = damageData.timeCountReset;
 					isDamage = true;
-					canRest = false;
 				}
 				// ダメージ状態でさらにダメージ受けるとフラグを立つ
 				if (damaging) isHurt = true;
+
+				//canHurt = false;
 			}
 		}
 		if (other.gameObject.layer == LayerMask.NameToLayer("Ground"))
@@ -474,31 +491,29 @@ public class EnemyBatController : MonoBehaviour
 			canATK = false;
 			if (!isDamage) canRest = true;
 		}
-		else if (other.gameObject.tag == "Player")
-		{
-			//Debug.Log("GD!");
-		}
 	}
-
+	void OnTriggerExit(Collider other)
+	{
+		if (other.gameObject.layer == LayerMask.NameToLayer("Ground"))
+		{
+			hitGround = false;
+		}
+		Debug.Log("EXIT");
+	}
 	void OnCollisionEnter(Collision other)
 	{
 		if (other.gameObject.layer == LayerMask.NameToLayer("Ground"))
 		{
 			hitGround = true;
 			canATK = false;
-			if(!isDamage) canRest = true;
-		}
-		else if (other.gameObject.tag == "Player")
-		{
-			//Debug.Log("GD!");
 		}
 	}
-	private void OnCollisionExit(Collision other)
+	/*void OnCollisionExit(Collision other)
 	{
 		if (other.gameObject.layer == LayerMask.NameToLayer("Ground"))
 		{
 			hitGround = false;
 		}
-	}
+	}*/
 	//----------------------------------
 }

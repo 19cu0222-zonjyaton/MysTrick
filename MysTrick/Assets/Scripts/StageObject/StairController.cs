@@ -16,7 +16,7 @@ public class StairController : MonoBehaviour
 	[Header("===監視用===")]
 	public bool isTriggered;			
 	public int moveVec;					//	移動方向
-	public bool hasDone;                //	カメラ用参数
+	public bool hasDone;				//	カメラ用参数
 	public float moveTargetA;
 	public float moveTargetB;
 	public float movePos;

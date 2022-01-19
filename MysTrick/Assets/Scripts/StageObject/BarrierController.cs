@@ -17,8 +17,8 @@ public class BarrierController : MonoBehaviour
 	public Transform targetLA;				// 左A点
 	public Transform targetLB;				// 左B点
 	public bool stickCanMove;				// 針は移動可能フラグ
-	public bool right = true;               // 最初位置(右か左か)
-	public bool hasDone;                   // 
+	public bool right = true;				// 最初位置(右か左か)
+	public bool hasDone;					// 
 	public bool fromZtoX;					// 復帰する順番
 	public bool fromXtoZ;					// 復帰する順番
 	public float moveSpeed = 5.0f;			// 移動スピード
@@ -28,16 +28,18 @@ public class BarrierController : MonoBehaviour
 	
 	[Header("===監視用===")]
 	[SerializeField]
-	private bool isTriggered;
-	private int count;
-	private bool toStop;
-	private bool _fromZtoX;
-	private bool _fromXtoZ;
-	private float stopTimeReset;
-	private float moveInterval = 0.5f;
-	private Vector3 nextPosition;
-	private bool handleFlag;
+	private bool isTriggered;				// 起動しているかどうか
+	private int count;						// rightブール変数を無限切り替えを防ぐための変数
+	private bool toStop;					// オブジェクトを一旦停止するフラグ
+	private bool _fromZtoX;					// 移動中フラグ(Z軸を復帰->X軸を復帰)
+	private bool _fromXtoZ;					// 移動中フラグ(X軸を復帰->Y軸を復帰)
+	private float stopTimeReset;			// 停止時間の復帰
+	[SerializeField]
+	private float moveInterval = 0.5f;		// 次の移動を行動するまでの停止時間
+	private Vector3 nextPosition;			// 次の位置
+	private bool handleFlag;				// デバイスにあるハンドルのフラグ
 
+	// 初期化
 	void Start()
 	{
 		stickCanMove = true;
@@ -52,35 +54,39 @@ public class BarrierController : MonoBehaviour
 
 	void Update()
 	{
-		//	プレイヤーがダメージを受けた後一定時間過ぎたら動けるにする
+		//	プレイヤーがダメージを受けた後一定時間過ぎたら動けるようにする
 		if (stickCanMove)
 		{
-			// デバイスを作動する時
+			// デバイスを作動している時
 			if (Device != null && Device.isTriggered)
 			{
+				// デバイスにあるハンドルのフラグ
 				if (!handleFlag)
 				{
 					++Device.launchCount;
 					handleFlag = true;
 				}
-
+				// カメラの切り替え開始
 				if (cameraSwitchTime > 0.0f)
 				{
 					cameraSwitchTime -= Time.deltaTime;
 					toStop = true;
 				}
+				// カメラの切り替え完了
 				else
 				{
 					isTriggered = true;
-					//toStop = false;
+					// 右移動から左移動に変更する
 					if (count == 0 && right)
 					{
 						right = false;
 					}
+					// 左移動から右移動に変更する
 					else if (count == 0 && !right)
 					{
 						right = true;
 					}
+					// rightブール変数を無限切り替えを防ぐため
 					++count;
 				}
 			}
@@ -90,11 +96,15 @@ public class BarrierController : MonoBehaviour
 				// 移動中(X軸を復帰->Z軸を復帰)
 				if (fromXtoZ)
 				{
+					// 最初位置に戻す
 					if (this.transform.localPosition.x != targetLA.localPosition.x)
 						this.transform.localPosition = Vector3.MoveTowards(this.transform.localPosition, targetLA.localPosition, moveSpeed * 1.5f * Time.deltaTime);
+					// 次の移動を行う
 					else if (this.transform.localPosition.z != targetRA.localPosition.z)
 					{
+						// 次の移動を行うまでに暫く停止する
 						if (moveInterval > 0.0f) moveInterval -= Time.deltaTime;
+						// 停止完了した場合移動開始
 						else
 						{
 							this.transform.localPosition = Vector3.MoveTowards(this.transform.localPosition, targetRA.localPosition, moveSpeed * 1.5f * Time.deltaTime);
@@ -106,11 +116,15 @@ public class BarrierController : MonoBehaviour
 				// 移動中(Z軸を復帰->X軸を復帰)
 				else if (fromZtoX)
 				{
+					// 最初位置に戻す
 					if (this.transform.localPosition.z != targetLA.localPosition.z)
 						this.transform.localPosition = Vector3.MoveTowards(this.transform.localPosition, targetLA.localPosition, moveSpeed * 1.5f * Time.deltaTime);
+					// 次の移動を行う
 					else if (this.transform.localPosition.x != targetRA.localPosition.x)
 					{
+						// 次の移動を行うまでに暫く停止する
 						if (moveInterval > 0.0f) moveInterval -= Time.deltaTime;
+						// 停止完了した場合移動開始
 						else
 						{
 							this.transform.localPosition = Vector3.MoveTowards(this.transform.localPosition, targetRA.localPosition, moveSpeed * 1.5f * Time.deltaTime);
@@ -140,11 +154,15 @@ public class BarrierController : MonoBehaviour
 				// 移動中(X軸を復帰->Z軸を復帰)
 				if (fromXtoZ)
 				{
+					// 最初位置に戻す
 					if (this.transform.localPosition.x != targetRA.localPosition.x)
 						this.transform.localPosition = Vector3.MoveTowards(this.transform.localPosition, targetRA.localPosition, moveSpeed * 1.5f * Time.deltaTime);
+					// 次の移動を行う
 					else if (this.transform.localPosition.z != targetLA.localPosition.z)
 					{
+						// 次の移動を行うまでに暫く停止する
 						if (moveInterval > 0.0f) moveInterval -= Time.deltaTime;
+						// 停止完了した場合移動開始
 						else this.transform.localPosition = Vector3.MoveTowards(this.transform.localPosition, targetLA.localPosition, moveSpeed * 1.5f * Time.deltaTime);
 					}
 					else fromXtoZ = false;
@@ -152,11 +170,15 @@ public class BarrierController : MonoBehaviour
 				// 移動中(Z軸を復帰->X軸を復帰)
 				else if (fromZtoX)
 				{
+					// 最初位置に戻す
 					if (this.transform.localPosition.z != targetRA.localPosition.z)
 						this.transform.localPosition = Vector3.MoveTowards(this.transform.localPosition, targetRA.localPosition, moveSpeed * 1.5f * Time.deltaTime);
+					// 次の移動を行う
 					else if (this.transform.localPosition.x != targetLA.localPosition.x)
 					{
+						// 次の移動を行うまでに暫く停止する
 						if (moveInterval > 0.0f) moveInterval -= Time.deltaTime;
+						// 停止完了した場合移動開始
 						else this.transform.localPosition = Vector3.MoveTowards(this.transform.localPosition, targetLA.localPosition, moveSpeed * 1.5f * Time.deltaTime);
 
 					}
@@ -215,6 +237,7 @@ public class BarrierController : MonoBehaviour
 	//----------------------------------
 	void OnCollisionStay(Collision other)
 	{
+		// プレイヤーと親子付け
 		if (other.transform.tag == "Player")
 		{
 			other.transform.SetParent(this.gameObject.transform);
@@ -222,6 +245,7 @@ public class BarrierController : MonoBehaviour
 	}
 	private void OnCollisionExit(Collision other)
 	{
+		// プレイヤーと親子解除
 		if (other.transform.tag == "Player")
 		{
 			other.transform.SetParent(null);

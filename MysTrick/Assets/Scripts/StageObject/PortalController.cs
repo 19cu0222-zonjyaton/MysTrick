@@ -24,27 +24,10 @@ public class PortalController : MonoBehaviour
 	private FootPlateDeviceController FootDevice;
 	private Vector3 nextPosition;
 	private bool isTriggered;
-	
-
-	void Awake()
-	{
-
-	}
 
 	void Start()
 	{
 		nextPosition = targetB.localPosition;
 		finMoving = false;
-	}
-
-	void Update()
-	{
-		/*if (FootDevice.isTriggered)
-		{
-			if (this.transform.localPosition != nextPosition)
-			{
-				this.transform.localPosition = Vector3.MoveTowards(this.transform.localPosition, nextPosition, moveSpeed * Time.deltaTime);
-			}
-		}*/
 	}
 }

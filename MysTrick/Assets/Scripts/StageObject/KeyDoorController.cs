@@ -48,10 +48,14 @@ public class KeyDoorController : MonoBehaviour
 		if (canOpen) OpenDoor();
 	}
 
+	// 開門行動
 	void OpenDoor()
 	{
+		// カメラの切り替え時間開始
 		if (CameraTimeCount > 0.0f) CameraTimeCount -= Time.deltaTime;
+		// カメラの切り替え時間停止
 		else if (CameraTimeCount < 0.0f) CameraTimeCount = 0.0f;
+		// ロックを解除開始
 		else if (lockOpenTimeCount > 0.0f)
 		{
 			lockOpenTimeCount -= Time.deltaTime;
@@ -59,6 +63,7 @@ public class KeyDoorController : MonoBehaviour
 			doorLock2.GetComponent<Rigidbody>().useGravity = true;
 			doorLock2.GetComponent<BoxCollider>().enabled = true;
 		}
+		// 解除完了した場合、ドアロックとドアボルトを削除
 		else if (lockOpenTimeCount < 0.0f)
 		{
 			lockOpenTimeCount = 0.0f;
@@ -66,15 +71,18 @@ public class KeyDoorController : MonoBehaviour
 			if (doorBolt1 != null) Destroy(doorBolt1.gameObject);
 			if (doorBolt2 != null) Destroy(doorBolt2.gameObject);
 		}
+		// 解除完了した場合、扉を開ける
 		else if (lockOpenTimeCount == 0.0f)
 		{
+			// 扉を移動開始
 			if (doorOpenTimeCount > 0.0f)
 			{
 				doorOpenTimeCount -= Time.deltaTime;
 				if (doorColor == DoorColor.Blue)
 				{
-					if(!MoveXPos)
+					if (!MoveXPos)
 					{
+						// 扉を左右へ移動する
 						LeftDoor.transform.localPosition = Vector3.MoveTowards(LeftDoor.transform.localPosition,
 							new Vector3(LeftDoor.transform.localPosition.x, LeftDoor.transform.localPosition.y, LeftDoor.transform.localPosition.z + 1.7f), doorOpenSpeed * Time.deltaTime);
 						RightDoor.transform.localPosition = Vector3.MoveTowards(RightDoor.transform.localPosition,
@@ -82,8 +90,9 @@ public class KeyDoorController : MonoBehaviour
 					}
 					else
 					{
+						// 扉を左右へ移動する
 						LeftDoor.transform.localPosition = Vector3.MoveTowards(LeftDoor.transform.localPosition,
-	new Vector3(LeftDoor.transform.localPosition.x + 1.7f, LeftDoor.transform.localPosition.y, LeftDoor.transform.localPosition.z), doorOpenSpeed * Time.deltaTime);
+							new Vector3(LeftDoor.transform.localPosition.x + 1.7f, LeftDoor.transform.localPosition.y, LeftDoor.transform.localPosition.z), doorOpenSpeed * Time.deltaTime);
 						RightDoor.transform.localPosition = Vector3.MoveTowards(RightDoor.transform.localPosition,
 							new Vector3(RightDoor.transform.localPosition.x - 1.7f, RightDoor.transform.localPosition.y, RightDoor.transform.localPosition.z), doorOpenSpeed * Time.deltaTime);
 
@@ -91,12 +100,14 @@ public class KeyDoorController : MonoBehaviour
 				}
 				else if (doorColor == DoorColor.Green)
 				{
+					// 扉を左右へ移動する
 					LeftDoor.transform.localPosition = Vector3.MoveTowards(LeftDoor.transform.localPosition,
 						new Vector3(LeftDoor.transform.localPosition.x, LeftDoor.transform.localPosition.y, LeftDoor.transform.localPosition.z - 1.7f), doorOpenSpeed * Time.deltaTime);
 					RightDoor.transform.localPosition = Vector3.MoveTowards(RightDoor.transform.localPosition,
 						new Vector3(RightDoor.transform.localPosition.x, RightDoor.transform.localPosition.y, RightDoor.transform.localPosition.z + 1.7f), doorOpenSpeed * Time.deltaTime);
 				}
 			}
+			// 扉を移動完了した場合、扉を削除
 			else if (doorOpenTimeCount < 0.0f)
 			{
 				doorOpenTimeCount = 0.0f;
@@ -112,19 +123,23 @@ public class KeyDoorController : MonoBehaviour
 	{
 		if (other.transform.tag == "Player")
 		{
+			// 扉が開けられない場合、hintUIを隠す
 			if (!canOpen)
 			{
 				HintUI.SetActive(true);
 			}
+			// 扉が開けられる場合、hintUIを現す
 			else
 			{
 				HintUI.SetActive(false);
 			}
 
+			// プレイヤーが青いキーを持っている状態で、扉が青い扉且デバイスが起動した場合、開門開始
 			if (doorColor == DoorColor.Blue && other.GetComponent<ActorController>().haveKeys.BlueKey == true && Player.isTriggered)
 			{
 				canOpen = true;
 			}
+			// プレイヤーが緑色キーを持っている状態で、扉が緑色扉且デバイスが起動した場合、開門開始
 			else if (doorColor == DoorColor.Green && other.GetComponent<ActorController>().haveKeys.GreenKey == true && Player.isTriggered)
 			{
 				canOpen = true;

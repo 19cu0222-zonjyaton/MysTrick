@@ -25,11 +25,6 @@ public class FootPlateController : MonoBehaviour
 	[SerializeField]
 	private float timeCount;			// 回復まで所要時間
 
-	void Start()
-	{
-
-	}
-
 	void Update()
 	{
 		if (isTriggered)

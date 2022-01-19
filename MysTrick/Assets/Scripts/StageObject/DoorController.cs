@@ -10,10 +10,9 @@ public class DoorController : MonoBehaviour
 	public Vector3 targetB;
 	public float speed = 5.0f;
 	public bool isTriggered;
-	public bool hasDone;                //	カメラ用参数
-
-	private float timeCount = 2.5f;      //	Triggerを出すまでの時間
-	private int pressCount = 0;         // 押し回数
+	public bool hasDone;				//	カメラ用参数
+	private float timeCount = 2.5f;		//	Triggerを出すまでの時間
+	private int pressCount = 0;			// 押し回数
 	private new AudioSource audio;
 	private bool playOnce;
 

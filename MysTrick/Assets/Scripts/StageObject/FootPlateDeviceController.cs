@@ -21,16 +21,19 @@ public class FootPlateDeviceController : MonoBehaviour
 	public bool doubleTriggerA = false;		// portalA用フラグ
 	public bool doubleTriggerB = false;		// portalB用フラグ
 	private bool canTrigger = false;
-	private bool lockFlag;
+	private bool lockFlag = false;			// ロックフラグ(重複ループ防止ため)
 
 	void Update()
 	{
+		// デバイス起動開始
 		if (canTrigger)
 		{
+			// カメラの切り替え時間開始
 			if (cameraTimeCount > 0.0f)
 			{
 				cameraTimeCount -= Time.deltaTime;
 			}
+			// カメラの切り替え時間完了
 			else
 			{
 				cameraTimeCount = 0.0f;
@@ -39,10 +42,11 @@ public class FootPlateDeviceController : MonoBehaviour
 			}
 		}
 
+		// プレイヤーかボックスがオブジェクトと接触した場合、ポータルゲートを上昇開始
 		if ((pc.isPlayer || mbc.isMoveBox) && !lockFlag)
 		{
 			this.transform.BroadcastMessage("DeviceOnTriggered", "sFootPlate");
-			lockFlag = true;
+			lockFlag = true;		// ロックする（ループしないよう）
 			oc.isTrigger = true;
 			if (isTriggered)
 			{
@@ -51,10 +55,11 @@ public class FootPlateDeviceController : MonoBehaviour
 			}
 			else canTrigger = true;
 		}
-		else if (!(pc.isPlayer) && !(mbc.isMoveBox) && lockFlag)
+		// プレイヤーかボックスがオブジェクトから離れた場合、ポータルゲートを降下開始
+		else if (!pc.isPlayer && !mbc.isMoveBox && lockFlag)
 		{
 			this.transform.BroadcastMessage("DeviceOnTriggered", "sFootPlate");
-			lockFlag = false;
+			lockFlag = false;		// ロック解除
 			if (isTriggered)
 			{
 				doubleTriggerA = true;
@@ -63,37 +68,4 @@ public class FootPlateDeviceController : MonoBehaviour
 			else canTrigger = true;
 		}
 	}
-
-	//void OnTriggerEnter(Collider other)
-	//{
-	//	if ((other.transform.tag == "Player" || other.transform.tag == "MoveBox") && !lockFlag)
-	//	{
-	//			print(other.transform.name);
-	//			lockFlag = true;
-	//			this.transform.BroadcastMessage("DeviceOnTriggered", "sFootPlate");
-	//			oc.isTrigger = true;
-	//			if (isTriggered)
-	//			{
-	//				doubleTriggerA = true;
-	//				doubleTriggerB = true;
-	//			}
-	//			else canTrigger = true;
-	//	}
-	//}
-
-	//void OnTriggerExit(Collider other)
-	//{
-	//	if ((other.transform.tag == "Player" || other.transform.tag == "MoveBox") && lockFlag)
-	//	{
-	//		lockFlag = false;
-	//		this.transform.BroadcastMessage("DeviceOnTriggered", "sFootPlate");
-	//		if (isTriggered)
-	//		{
-	//			doubleTriggerA = true;
-	//			doubleTriggerB = true;
-	//		}
-	//		else canTrigger = true;
-	//		Debug.Log("GD!");
-	//	}
-	//}
 }

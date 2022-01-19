@@ -14,85 +14,80 @@ public class ObjectController : MonoBehaviour
 {
 	public enum Trajectory
 	{
-		OneWayMove,
-		TwoWayMove,
-		AutoTwoWayMove,
-		RotatePerAngle,
-		RotateToTarget,
-		WaitToStart,
-		PortalMove,
+		OneWayMove,			// 片道移動
+		TwoWayMove,			// 往復移動
+		AutoTwoWayMove,		// 自動往復移動
+		RotatePerAngle,		// 一定角度ごとに回転
+		RotateToTarget,		// 指定角度に回転
+		WaitToStart,		// 指定時間から移動
+		PortalMove,			// ポータルゲートの移動
 	}
 
 	//===調整用値===
 	[Header("移動方法")]
 	[Header("===調整用===")]
-	public Trajectory trajectory;
+	public Trajectory trajectory;		// 移動方法変数
 
 	[System.Serializable]
 	public struct MoveData
 	{
 		[Tooltip("For OneWayMove")]
-		public Transform target;
+		public Transform target;		// 指定位置
 		[Tooltip("For RotateToTarget, RotatePerAng")]
-		public Vector3 targetAng;
+		public Vector3 targetAng;		// 指定角度
 		[HideInInspector]
-		public Quaternion targetEuAng;
+		public Quaternion targetEuAng;	// 指定オイラー角
 		[HideInInspector]
-		public Vector3 startPosition;
+		public Vector3 startPosition;	// 開始位置
 		[Tooltip("For TwoWayMove, AutoWayMove, WaitToStart, PortalMove")]
-		public Transform targetA;
+		public Transform targetA;		// 指定位置A
 		[Tooltip("For TwoWayMove, AutoWayMove, WaitToStart, PortalMove")]
-		public Transform targetB;
+		public Transform targetB;		// 指定位置B
 		[Tooltip("For PortalMove")]
-		public ObjectController portalA;
+		public ObjectController portalA;// 指定ポータルゲート位置A
 		[Tooltip("For PortalMove")]
-		public ObjectController portalB;
+		public ObjectController portalB;// 指定ポータルゲート位置B
 		[Tooltip("For All")]
-		public float speed;
+		public float speed;				// 移動スピード
 	}
 	public MoveData moveData;
 	public TriggerController Device;
 	public FootPlateDeviceController FootDevice;
 	public TimerController ElevTimer;
-	public bool DeviceIsFtDev;
-	public bool isSinglePortal;
+	public bool DeviceIsFtDev;			// デバイスがFootDeviceかどうかフラグ
+	public bool isSinglePortal;			// 単ポータルゲートかどうかフラグ
 	//==============
 
-	private Vector3 nextTarget;
-	private float startSpeed;
-	private bool timeFlag = true;
+	private Vector3 nextTarget;			// 次の指定位置
+	private float startSpeed;			// スタートスピード
+	private bool timeFlag = true;		// タイマー用フラグ
 	private bool liftingFin;			// エレベーター使用完了フラグ
 	private int pressCount = 0;			// 押し回数
-	private bool awayFromLift = false;	
+	private bool awayFromLift = false;	// プレイヤーがリフトから離れたかフラグ
 
 
 	// RotatePerAng用変数
 	//--------------------------------
-	// 回転可能フラグ
-	private bool canRotate = false;
-	// 回転開始までに準備時間
+	private bool canRotate = false;		// 回転可能フラグ
 	[Tooltip("For RotateToAng: The time before start rotating. ( <0: need preparing time.)")]
-	public float timeCount = -2.0f;
+	public float timeCount = -2.0f;     // 回転開始までに準備時間
 	[Tooltip("For RotateToAng: The maximum time.")]
-	public float timeMax = 3.0f;
-	// 回転初期時間
-	//private float timeReset;
-	private Vector3 nextAng;
-	//	Audioコンポーネント
-	private new AudioSource audio;
-	//	一回だけSEを流すフラグ
-	private bool playOnce;
+	public float timeMax = 3.0f;        // 最大経過時間
+	private Vector3 nextAng;			// 次の指定角度
+	private new AudioSource audio;		// Audioコンポーネント
+	private bool playOnce;              // 一回だけSEを流すフラグ
 	//--------------------------------
 
 	//===監視用値===
 	[Header("===監視用===")]
-	public bool isTrigger;				//	カメラ用フラグ
-	public bool hasDone;				//	カメラ用フラグ
-	public float audioSpeed = 1.0f;		//	SEを流すスピード
+	public bool isTrigger;				// カメラ用フラグ
+	public bool hasDone;				// カメラ用フラグ
+	public float audioSpeed = 1.0f;		// SEを流すスピード
 	public bool portalMoveFin;			// ポータル移動完了フラグ
-	public bool doubleTrigger = false;	// 
+	public bool doubleTrigger = false;	// ダブルトリガー
 										//==============
 
+	// 初期化
 	void Awake()
 	{
 		moveData.targetEuAng = Quaternion.Euler(moveData.targetAng);
@@ -104,20 +99,17 @@ public class ObjectController : MonoBehaviour
 		portalMoveFin = false;
 		audio = gameObject.GetComponent<AudioSource>();
 		ElevTimer = gameObject.GetComponent<TimerController>();
-		//timeReset = timeCount;
 	}
 
-	// Update is called once per frame
 	void Update()
 	{
-		//Debug.Log(moveData.targetA.position);
-		//Debug.Log(moveData.targetA.localPosition);
-		//Debug.Log(this.transform.position);
-		//Debug.Log(this.transform.localPosition);
+		// 現在位置を取得
 		Vector3 curPosition = this.transform.position;
+		// 各移動方法
 		switch (trajectory)
 		{
 			case Trajectory.OneWayMove:
+				// デバイスが起動すれば、オブジェクトを起動開始
 				if (Device.isTriggered)
 				{
 					isTrigger = true;
@@ -127,7 +119,9 @@ public class ObjectController : MonoBehaviour
 					{
 						if (Mathf.Abs(this.transform.localPosition.magnitude - nextTarget.magnitude) > 0.01f)
 						{
+							// 指定位置に移動
 							this.transform.localPosition = Vector3.MoveTowards(this.transform.localPosition, moveData.target.localPosition, moveData.speed * Time.deltaTime);
+							// 音を出す
 							if (!playOnce)
 							{
 								audio.Play();
@@ -135,8 +129,10 @@ public class ObjectController : MonoBehaviour
 							}
 						}
 					}
+					// 移動停止
 					else if (timeCount > timeMax) 
 					{
+						// 初期値に戻す
 						Device.isTriggered = false;
 						isTrigger = false;
 						playOnce = false;
@@ -144,6 +140,7 @@ public class ObjectController : MonoBehaviour
 				}
 				break;
 			case Trajectory.TwoWayMove:
+				// デバイスが起動すれば、オブジェクトを起動開始
 				if (Device.isTriggered)
 				{
 					Debug.Log(nextTarget);
@@ -153,6 +150,7 @@ public class ObjectController : MonoBehaviour
 					if (timeCount <= timeMax && timeCount >= 0.0f)
 					{
 						this.transform.position = Vector3.MoveTowards(this.transform.position, nextTarget, moveData.speed * Time.deltaTime);
+						// 音を出す
 						if (!playOnce)
 						{
 							audio.Play();
@@ -164,7 +162,8 @@ public class ObjectController : MonoBehaviour
 					{
 						++pressCount;
 						++Device.launchCount;
-						if (isTrigger)              //	一回が行ったらDelay時間をなしにする
+						//	一回行ったらDelay時間をなしにする
+						if (isTrigger)
 						{
 							timeCount = 0.0f;
 							isTrigger = false;
@@ -178,17 +177,20 @@ public class ObjectController : MonoBehaviour
 				}
 				break;
 			case Trajectory.AutoTwoWayMove:
+				// デバイスが起動すれば、オブジェクトを起動開始
 				if (Device.isTriggered)
 				{
 					isTrigger = true;
+					// 移動開始
 					if (Mathf.Abs(curPosition.magnitude - nextTarget.magnitude) > 0.1f)
 					{
 						moveData.speed += Time.deltaTime * 10.0f;
-						//this.transform.position = Vector3.Slerp(moveData.startPosition, nextTarget, moveData.speed);
 						this.transform.position = Vector3.MoveTowards(moveData.startPosition, nextTarget, moveData.speed);
 					}
+					// 移動停止
 					else
 					{
+						// タイマー起動
 						if (timeFlag)
 						{
 							Invoke("Timer", 2.0f);
@@ -198,16 +200,14 @@ public class ObjectController : MonoBehaviour
 				}
 				break;
 			case Trajectory.RotatePerAngle:
-				//Debug.Log(transform.rotation);
-				//Debug.Log(transform.rotation.eulerAngles);
-				//Debug.Log(nextAng);
+				// デバイスが起動すれば、オブジェクトを起動開始
 				if (Device.isTriggered) canRotate = true;
 				if (canRotate)
 				{
 					isTrigger = true;
 					// 回転開始までにカウントダウン
 					timeCount += Time.deltaTime;
-
+					// 音を出す
 					if (!playOnce)
 					{
 						audio.Play();
@@ -226,13 +226,13 @@ public class ObjectController : MonoBehaviour
 						// 角度の補正
 						if (this.transform.rotation != Quaternion.Euler(nextAng)) this.transform.rotation = Quaternion.Euler(nextAng);
 						nextAng += moveData.targetAng;
-						// 初期値に戻す
-						if (isTrigger)    //	一回が行ったらDelay時間をなしにする
+						// 一回行ったらDelay時間をなしにする
+						if (isTrigger)
 						{
 							timeCount = 0.0f;
 							isTrigger = false;
 						}
-						//timeCount = timeReset;
+						// 初期値に戻す
 						playOnce = false;
 						canRotate = false;
 						Device.isTriggered = false;
@@ -242,13 +242,14 @@ public class ObjectController : MonoBehaviour
 			case Trajectory.RotateToTarget:
 				break;
 			case Trajectory.WaitToStart:
+				// 現在位置を取得
 				Vector3 currPosition = this.transform.position;
+				// カウントダウン終了後、リフトを移動開始
 				if (ElevTimer.TimerFinish)
 				{
 					if (this.transform.position != nextTarget && !liftingFin)
 					{
 						moveData.speed += Time.deltaTime * 10.0f;
-						//this.transform.position = Vector3.Slerp(moveData.startPosition, nextTarget, moveData.speed);
 						this.transform.position = Vector3.MoveTowards(moveData.startPosition, nextTarget, moveData.speed);
 					}
 					else
@@ -257,10 +258,13 @@ public class ObjectController : MonoBehaviour
 					}
 
 				}
+				// リフトが移動完了後、次の移動に準備
 				if (liftingFin)
 				{
+					// 次の移動位置はtargetAをtargetBに変更
 					if (nextTarget == moveData.targetA.position)
 					{
+						// プレイヤーがリフトから離れたら、カウントダウン開始
 						if (awayFromLift)
 						{
 							ElevTimer.TimerStart = true;
@@ -269,11 +273,13 @@ public class ObjectController : MonoBehaviour
 						moveData.startPosition = moveData.targetA.position;
 						nextTarget = moveData.targetB.position;
 					}
+					// 次の移動位置はtargetBをtargetAに変更
 					else
 					{
 						moveData.startPosition = moveData.targetB.position;
 						nextTarget = moveData.targetA.position;
 					}
+					// 初期値に戻る
 					moveData.speed = 0.0f;
 					liftingFin = false;
 					ElevTimer.TimerFinish = false;
@@ -343,7 +349,8 @@ public class ObjectController : MonoBehaviour
 			nextTarget = moveData.targetB.position;
 			moveData.startPosition = moveData.targetA.position;
 		}
-		else if(Mathf.Abs(this.transform.position.magnitude) - Mathf.Abs(moveData.targetB.position.magnitude) < 0.1f)
+		// 現在位置がtargetBの場合、targetAに向かって移動していく
+		else if (Mathf.Abs(this.transform.position.magnitude) - Mathf.Abs(moveData.targetB.position.magnitude) < 0.1f)
 		{
 			nextTarget = moveData.targetA.position;
 			moveData.startPosition = moveData.targetB.position;
@@ -356,6 +363,7 @@ public class ObjectController : MonoBehaviour
 	//----------------------------------
 	private void OnTriggerStay(Collider other)
 	{
+		// プレイヤーはエレベーターに入っているかつ、エレベーターが移動していない場合
 		if (other.gameObject.tag == "Player" && trajectory == Trajectory.WaitToStart
 			&& this.transform.position == moveData.targetB.position)
 		{
@@ -367,16 +375,18 @@ public class ObjectController : MonoBehaviour
 	{
 		if (other.gameObject.tag == "Player" && trajectory == Trajectory.WaitToStart)
 		{
-			// エレベーターから外す場合
+			// エレベーターが移動していない場合
 			if (Mathf.Abs(this.transform.position.magnitude - moveData.targetB.position.magnitude) <= 0.1f)
 			{
 				ElevTimer.TimerStart = false;
 			}
+			// エレベーターが移動完了場合
 			else if (Mathf.Abs(this.transform.position.magnitude - moveData.targetA.position.magnitude) <= 0.1f)
 			{
 				ElevTimer.TimerStart = true;
 			}
-			else if(Mathf.Abs(this.transform.position.magnitude - moveData.targetA.position.magnitude) >= 0.1f)
+			// エレベーターが移動中の場合
+			else if (Mathf.Abs(this.transform.position.magnitude - moveData.targetA.position.magnitude) >= 0.1f)
 			{
 				awayFromLift = true;
 			}
