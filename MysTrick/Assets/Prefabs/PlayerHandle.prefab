@@ -1346,7 +1346,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 0eb24866f8b828e448e9877d0f6abe5d, type: 3}
   - {fileID: 8300000, guid: 56fc6d5827a955e46b5134c76f73a6ed, type: 3}
   - {fileID: 8300000, guid: 8e2f17a7700fba9498e4f8a6f5388350, type: 3}
-  walkDustPrefab: {fileID: 0}
+  walkDustPrefab: {fileID: 4440269821928078119}
   hp: 5
   coinCount: 0
   starCount: 0
@@ -2499,7 +2499,7 @@ PrefabInstance:
     - target: {fileID: 6777527147905323337, guid: d934e97769a039349a2daaacef142d7c,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 0.46
       objectReference: {fileID: 0}
     - target: {fileID: 6777527147905323337, guid: d934e97769a039349a2daaacef142d7c,
         type: 3}
@@ -2509,7 +2509,7 @@ PrefabInstance:
     - target: {fileID: 6777527147905323337, guid: d934e97769a039349a2daaacef142d7c,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -0.24
       objectReference: {fileID: 0}
     - target: {fileID: 6777527147905323337, guid: d934e97769a039349a2daaacef142d7c,
         type: 3}
@@ -2551,6 +2551,12 @@ PrefabInstance:
 --- !u!4 &4183358131522741387 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6777527147905323337, guid: d934e97769a039349a2daaacef142d7c,
+    type: 3}
+  m_PrefabInstance: {fileID: 7206000224216626626}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &4440269821928078119 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6458121076298338021, guid: d934e97769a039349a2daaacef142d7c,
     type: 3}
   m_PrefabInstance: {fileID: 7206000224216626626}
   m_PrefabAsset: {fileID: 0}

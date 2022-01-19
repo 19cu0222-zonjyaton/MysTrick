@@ -86,6 +86,7 @@ public class ActorController : MonoBehaviour
 	public float attackGapTime;
 	private bool weaponSound1;
 	private bool weaponSound2;
+	private bool dustEffectIsOn = false;
 
 
 	//	初期化
@@ -246,17 +247,19 @@ public class ActorController : MonoBehaviour
 
 
 		// プレーヤーが移動している時、歩いてエフェクトを出す(林 2022/01/18)
-		if (pi.Dmag > 0.1f)
+		if ( (pi.Dmag > 0.25f) && dustEffectIsOn == false )
 		{
 			ParticleSystem dustEffect = walkDustPrefab.GetComponent<ParticleSystem>();
 			var em = dustEffect.emission;
 			em.enabled = true;
+			dustEffectIsOn = true;
 		} // end if()
-		else
+		else if( (pi.Dmag <= 0.25f) && dustEffectIsOn == true)
 		{
 			ParticleSystem dustEffect = walkDustPrefab.GetComponent<ParticleSystem>();
 			var em = dustEffect.emission;
 			em.enabled = false;
+			dustEffectIsOn = false;
 		} // end else
 
 		transform.position += movingVec * moveSpeed * Time.fixedDeltaTime;
