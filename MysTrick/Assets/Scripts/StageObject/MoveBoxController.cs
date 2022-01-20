@@ -44,34 +44,37 @@ public class MoveBoxController : MonoBehaviour
 				}
 			}
 		}
+		
 	}
 
 	private void OnTriggerStay(Collider other)
 	{
 		if (other.transform.tag == "Player")
 		{
-			if (!moveWithPlayer)
+			if (!moveWithPlayer && !ac.isPushBox)
 			{
 				hintUI.SetActive(true);
 			}
 
 			if (pi.isTriggered)
 			{
-				if (moveWithPlayer)
+				if (moveWithPlayer && ac.isPushBox)
 				{
 					anim.SetBool("Push", false);
 					anim.SetBool("PrePush", false);
 					rigid.isKinematic = true;
+					ac.isPushBox = false;
 					moveWithPlayer = false;
 					anim.speed = 1.0f;
 					ac.moveSpeed = 3.0f;
 				}
-				else
+				else if(!ac.isPushBox)
 				{
 					anim.SetBool("PrePush", true);
 					pi.ResetSignal();
 					rigid.isKinematic = false;
 					hintUI.SetActive(false);
+					ac.isPushBox = true;
 					moveWithPlayer = true;
 					ac.moveSpeed = 7.0f;
 				}
@@ -79,6 +82,7 @@ public class MoveBoxController : MonoBehaviour
 				pi.isTriggered = false;
 			}
 		}
+
 
 		if (other.transform.tag == "Stick" && !moveWithPlayer)
 		{
@@ -92,7 +96,7 @@ public class MoveBoxController : MonoBehaviour
 
 	private void OnTriggerExit(Collider other)
 	{
-		if (other.transform.tag == "Player")
+		if (other.transform.tag == "Player" || ac.isPushBox)
 		{
 			hintUI.SetActive(false);
 		}
