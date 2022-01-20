@@ -34,7 +34,6 @@ public class RotCheck : MonoBehaviour
                 if (!doOnce)
                 {
 					tempCollider.enabled = true;
-                    ac.isPushBox = true; 
                     doOnce = true;
                 }
                 player.transform.position = new Vector3(transform.position.x, player.transform.position.y, transform.position.z);                  
@@ -43,7 +42,7 @@ public class RotCheck : MonoBehaviour
             {
                 tempCollider.enabled = false;
                 player.gameObject.transform.SetParent(null);
-                ac.isPushBox = false;
+
                 doOnce = false;
             }
 		}
