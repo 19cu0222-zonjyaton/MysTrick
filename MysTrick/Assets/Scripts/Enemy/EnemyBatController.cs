@@ -498,7 +498,6 @@ public class EnemyBatController : MonoBehaviour
 		{
 			hitGround = false;
 		}
-		Debug.Log("EXIT");
 	}
 	void OnCollisionEnter(Collision other)
 	{
