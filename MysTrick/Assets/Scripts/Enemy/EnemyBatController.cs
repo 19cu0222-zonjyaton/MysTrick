@@ -137,7 +137,7 @@ public class EnemyBatController : MonoBehaviour
 	private new Collider collider;
 	private Animator animator;
 	private new AudioSource audio;			//	Audioコンポーネント
-	private bool playOnce;					//	一回だけSEを流すフラグ
+	private bool playOnce;                  //	一回だけSEを流すフラグ
 
 	void Awake()
 	{
@@ -167,6 +167,7 @@ public class EnemyBatController : MonoBehaviour
 
 	void Update()
 	{
+
 		switch (movement)
 		{
 			case Movement.Straight:
@@ -469,7 +470,7 @@ public class EnemyBatController : MonoBehaviour
 					isDead = true;
 					health = 0;
 				}
-				Debug.Log("DamageCount");
+				// Debug.Log("DamageCount");
 
 				// HPがある限り、ダメージ受けたら上方向に力をかけ且つ墜落
 				if (!isDead)
@@ -494,14 +495,14 @@ public class EnemyBatController : MonoBehaviour
 	}
 	void OnTriggerExit(Collider other)
 	{
-		if (other.gameObject.layer == LayerMask.NameToLayer("Ground"))
+		if (other.gameObject.layer == LayerMask.NameToLayer("Ground") || other.gameObject.layer == LayerMask.NameToLayer("Fence"))
 		{
 			hitGround = false;
 		}
 	}
 	void OnCollisionEnter(Collision other)
 	{
-		if (other.gameObject.layer == LayerMask.NameToLayer("Ground"))
+		if (other.gameObject.layer == LayerMask.NameToLayer("Ground") || other.gameObject.layer == LayerMask.NameToLayer("Fence"))
 		{
 			hitGround = true;
 			canATK = false;

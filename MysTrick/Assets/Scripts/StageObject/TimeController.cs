@@ -48,6 +48,7 @@ public class TimeController : MonoBehaviour
 		if (!isStart)				// カウント開始（カウント終了までに再カウント防止）
 		{
 			isStart = true;
+			isFinish = false;
 			timeStart = _timeStart;
 			timeMax = _timeMax;
 			speed = _speed;
