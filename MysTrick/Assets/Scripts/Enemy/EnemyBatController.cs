@@ -74,7 +74,11 @@ public class EnemyBatController : MonoBehaviour
 		public float restTimeCountReset;// 攻撃完了の休憩最初時間
 		[Tooltip("The attacking (world)position.")]
 		[HideInInspector]
-		public Vector3 atkPosition;		// 攻撃位置
+		public Vector3 atkPosition;     // 攻撃位置
+
+		[Tooltip("The range for the attacking detection.")]
+		public float detectRange;       // 攻撃の検索するの範囲  2022/01/25 - 林雲暉
+
 	}
 	public AttackData attackData;
 
@@ -177,19 +181,28 @@ public class EnemyBatController : MonoBehaviour
 					// Ray(Vector3 (world)origin, Vector3 direction)
 					Ray DWRay = new Ray(this.transform.position, -this.transform.up);			// 下向きにレイを描く
 					Ray FWRay = new Ray(this.transform.position, this.transform.forward);		// 前向きにレイを描く
-					RaycastHit DWHit;
 					RaycastHit FWHit;
+					RaycastHit boxHitInfo;
+					int layerInfo = 1 << 11 | 1 << 25 | 1 << 8;                                 // 検索するレイヤーを指定する  2022/01/25 - 林雲暉
+
+					// 前のRaycastのバージョン
+					// RaycastHit DWHit;
+					// Physics.Raycast(DWRay, out DWHit, Mathf.Infinity) 
+
+					// Debug用　衝突をチェック  2022/01/25 - 林雲暉
+					// Debug.Log(":" + Physics.BoxCast(this.transform.position, new Vector3(attackData.detectRange, 3.0f, attackData.detectRange), -this.transform.up, out boxHitInfo, new Quaternion(), 15.0f, layerInfo));
 
 					// 攻撃の下準備状態、攻撃状態と回転状態ではないなら常にレイを放つ
-					if (Physics.Raycast(DWRay, out DWHit, Mathf.Infinity) && !canPreATK && !canATK && !canTurn && !hitGround && !isDamage && !isDead && !canRest)
+					// BoxCastに変更、PrefabのdetectRangeで検索範囲を指定できます  2022/01/25 - 林雲暉
+					if (Physics.BoxCast(this.transform.position, new Vector3(attackData.detectRange, 3.0f, attackData.detectRange), -this.transform.up, out boxHitInfo, this.transform.rotation, 15.0f, layerInfo) && !canPreATK && !canATK && !canTurn && !hitGround && !isDamage && !isDead && !canRest)
 					{
 						// 前に障害物があり、あるいは下に“壁”があれば真っ先に回転する
-						if (Physics.Raycast(FWRay, out FWHit, 3.0f) || DWHit.collider.gameObject.layer == LayerMask.NameToLayer("Fence"))
+						if (Physics.Raycast(FWRay, out FWHit, 3.0f) || boxHitInfo.collider.gameObject.layer == LayerMask.NameToLayer("Fence"))
 						{
 							canTurn = true;
 						}
 						// 下にプレイヤーがあれば攻撃する
-						else if (DWHit.collider.gameObject.layer == LayerMask.NameToLayer("Player"))
+						else if (boxHitInfo.collider.gameObject.layer == LayerMask.NameToLayer("Player"))
 						{
 							canPreATK = true;
 							returnPosition = this.transform.position;
@@ -206,9 +219,10 @@ public class EnemyBatController : MonoBehaviour
 								Straight();
 							}
 						}
-						//Debug.Log("Hit Collider: " + DWHit.collider.name);
+						// Debug.Log("Hit Collider: " + boxHitInfo.collider.name);
 						// レイがシーンに見られるようにする
-						Debug.DrawLine(DWRay.origin, DWHit.point, Color.red);
+						// Debug.DrawLine(this.transform.position, boxHitInfo.point , Color.red);
+
 					}
 				}
 				if (isDead) Dead();
@@ -251,7 +265,8 @@ public class EnemyBatController : MonoBehaviour
 		// 回転時間開始
 		rotateTimeCount += Time.deltaTime;
 		// タイマーの時間切れすると、回転する
-		if (rotateTimeCount <= moveData.rotateTimeMax)
+		// +0.5　回転待つ用　2022/01/25 - 林雲暉
+		if (rotateTimeCount <= moveData.rotateTimeMax+0.5f)
 		{
 			//this.transform.rotation = Quaternion.Lerp(this.transform.rotation, Quaternion.Euler(0.0f, 180.0f, 0.0f), Time.deltaTime * 10.0f);
 			this.transform.rotation = Quaternion.RotateTowards(this.transform.rotation, Quaternion.Euler(curRotation + new Vector3(0.0f, 180.0f, 0.0f)), Time.deltaTime * moveData.rotateSpeed);

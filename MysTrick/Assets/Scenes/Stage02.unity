@@ -22104,6 +22104,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: enemy_bat2
       objectReference: {fileID: 0}
+    - target: {fileID: 2246282403636003444, guid: 8bf0eaa4b05eca84499c739d42a96186,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8bf0eaa4b05eca84499c739d42a96186, type: 3}
 --- !u!4 &1582301939 stripped
@@ -28102,7 +28107,7 @@ GameObject:
   - component: {fileID: 7465922194823442425}
   - component: {fileID: 3566829931873971782}
   - component: {fileID: 4109268681664727376}
-  m_Layer: 0
+  m_Layer: 25
   m_Name: Stage002Fence
   m_TagString: Untagged
   m_Icon: {fileID: 0}

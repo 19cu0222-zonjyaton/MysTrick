@@ -402,6 +402,7 @@ MonoBehaviour:
     restTimeCountMax: 1.5
     restTimeCountReset: 0
     atkPosition: {x: 0, y: 0, z: 0}
+    detectRange: 2.5
   damageData:
     timeCountMax: 1.5
     timeCountReset: 0
