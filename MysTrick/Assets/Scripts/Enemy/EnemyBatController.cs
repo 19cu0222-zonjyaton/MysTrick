@@ -74,10 +74,10 @@ public class EnemyBatController : MonoBehaviour
 		public float restTimeCountReset;// 攻撃完了の休憩最初時間
 		[Tooltip("The attacking (world)position.")]
 		[HideInInspector]
-		public Vector3 atkPosition;     // 攻撃位置
+		public Vector3 atkPosition;		// 攻撃位置
 
 		[Tooltip("The range for the attacking detection.")]
-		public float detectRange;       // 攻撃の検索するの範囲  2022/01/25 - 林雲暉
+		public float detectRange;		// 攻撃の検索するの範囲  2022/01/25 - 林雲暉
 
 	}
 	public AttackData attackData;
@@ -116,6 +116,7 @@ public class EnemyBatController : MonoBehaviour
 	public SkinnedMeshRenderer rightwing;
 	public BoxCollider untriggeredCol;
 	public BoxCollider triggeredCol;
+	public GameObject stunHint;
 
 	[Header("===監視用===")]
 	[SerializeField]
@@ -148,6 +149,7 @@ public class EnemyBatController : MonoBehaviour
 	private new Collider collider;
 	private Animator animator;
 	private new AudioSource audio;			//	Audioコンポーネント
+	private CameraController cameraController;
 	private bool playOnce;					//	一回だけSEを流すフラグ
 	private float unrivaledTime;			// 無敵時間
 
@@ -157,7 +159,8 @@ public class EnemyBatController : MonoBehaviour
 		collider = GetComponent<Collider>();
 		animator = GetComponent<Animator>();
 		audio = GetComponent<AudioSource>();
-		unrivaledTime = 0.5f;
+		cameraController = GameObject.Find("Main Camera").GetComponent<CameraController>();
+		unrivaledTime = 0.3f;
 	}
 
 	// 初期化
@@ -180,67 +183,18 @@ public class EnemyBatController : MonoBehaviour
 
 	void Update()
 	{
-
 		switch (movement)
 		{
 			case Movement.Straight:
-				// 移動ルートが指定されてない場合、壁まで往復移動
-				if (moveData.targetA == null || moveData.targetB == null)
-				{
-					// Ray(Vector3 (world)origin, Vector3 direction)
-					Ray DWRay = new Ray(this.transform.position, -this.transform.up);			// 下向きにレイを描く
-					Ray FWRay = new Ray(this.transform.position, this.transform.forward);		// 前向きにレイを描く
-					RaycastHit FWHit;
-					RaycastHit boxHitInfo;
-					int layerInfo = 1 << 11 | 1 << 25 | 1 << 8;                                 // 検索するレイヤーを指定する  2022/01/25 - 林雲暉
-
-					// 前のRaycastのバージョン
-					// RaycastHit DWHit;
-					// Physics.Raycast(DWRay, out DWHit, Mathf.Infinity) 
-
-					// Debug用　衝突をチェック  2022/01/25 - 林雲暉
-					// Debug.Log(":" + Physics.BoxCast(this.transform.position, new Vector3(attackData.detectRange, 3.0f, attackData.detectRange), -this.transform.up, out boxHitInfo, new Quaternion(), 15.0f, layerInfo));
-
-					// 攻撃の下準備状態、攻撃状態と回転状態ではないなら常にレイを放つ
-					// BoxCastに変更、PrefabのdetectRangeで検索範囲を指定できます  2022/01/25 - 林雲暉
-					if (Physics.BoxCast(this.transform.position, new Vector3(attackData.detectRange, 3.0f, attackData.detectRange), -this.transform.up, out boxHitInfo, this.transform.rotation, 15.0f, layerInfo)
-						&& !canPreATK && !canATK && !canTurn && !hitGround && !isDamage && !isDead && !canRest)
-					{
-						// 前に障害物があり、あるいは下に“壁”があれば真っ先に回転する
-						if (Physics.Raycast(FWRay, out FWHit, 3.0f) || boxHitInfo.collider.gameObject.layer == LayerMask.NameToLayer("Fence"))
-						{
-							canTurn = true;
-						}
-						// 下にプレイヤーがあれば攻撃する
-						else if (boxHitInfo.collider.gameObject.layer == LayerMask.NameToLayer("Player"))
-						{
-							canPreATK = true;
-							returnPosition = this.transform.position;
-							attackData.atkPosition = GameObject.FindGameObjectWithTag("Player").transform.position;
-						}
-						// 下に指定されてないオブジェクトがあれば移動する
-						else
-						{
-							if (!canTurn)
-							{
-								//returnPosition = this.transform.position;
-								damageData.backPosition = this.transform.position;
-								curRotation = this.transform.rotation.eulerAngles;
-								Straight();
-							}
-						}
-						// Debug.Log("Hit Collider: " + boxHitInfo.collider.name);
-						// レイがシーンに見られるようにする
-						Debug.DrawLine(this.transform.position, boxHitInfo.point , Color.red);
-					}
-				}
 				if (isDead) Dead();
-				else if (isDamage) Damage();
+				else if (isDamage)
+				{
+					Damage();
+					Unrivaled();
+				}
 				else if (canTurn) Turn();
 				else if (canRest) Rest();
 				else if ((canPreATK || canATK) && !hitGround) Attack();
-				if (isDamage)
-					Unrivaled();
 				else
 				{
 					bodypart1.enabled = true;
@@ -250,10 +204,61 @@ public class EnemyBatController : MonoBehaviour
 					bodypart5.enabled = true;
 					leftwing.enabled = true;
 					rightwing.enabled = true;
+
+					// 移動ルートが指定されてない場合、壁まで往復移動
+					if (moveData.targetA == null || moveData.targetB == null)
+					{
+						// Ray(Vector3 (world)origin, Vector3 direction)
+						Ray DWRay = new Ray(this.transform.position, -this.transform.up);           // 下向きにレイを描く
+						Ray FWRay = new Ray(this.transform.position, this.transform.forward);       // 前向きにレイを描く
+						RaycastHit FWHit;
+						RaycastHit boxHitInfo;
+						int layerInfo = 1 << 11 | 1 << 25 | 1 << 8;                                 // 検索するレイヤーを指定する  2022/01/25 - 林雲暉
+
+						// 前のRaycastのバージョン
+						// RaycastHit DWHit;
+						// Physics.Raycast(DWRay, out DWHit, Mathf.Infinity) 
+
+						// Debug用　衝突をチェック  2022/01/25 - 林雲暉
+						// Debug.Log(":" + Physics.BoxCast(this.transform.position, new Vector3(attackData.detectRange, 3.0f, attackData.detectRange), -this.transform.up, out boxHitInfo, new Quaternion(), 15.0f, layerInfo));
+
+						// 攻撃の下準備状態、攻撃状態と回転状態ではないなら常にレイを放つ
+						// BoxCastに変更、PrefabのdetectRangeで検索範囲を指定できます  2022/01/25 - 林雲暉
+						if (Physics.BoxCast(this.transform.position, new Vector3(attackData.detectRange, 3.0f, attackData.detectRange), -this.transform.up, out boxHitInfo, this.transform.rotation, 15.0f, layerInfo)
+							/*&& !canPreATK && !canATK && !canTurn && !hitGround && !isDamage && !isDead && !canRest*/)
+						{
+							//Debug.Log("StraightFunction");
+							// 前に障害物があり、あるいは下に“壁”があれば真っ先に回転する
+							if (Physics.Raycast(FWRay, out FWHit, 3.0f) || boxHitInfo.collider.gameObject.layer == LayerMask.NameToLayer("Fence"))
+							{
+								canTurn = true;
+							}
+							// 下にプレイヤーがあれば攻撃する
+							else if (boxHitInfo.collider.gameObject.layer == LayerMask.NameToLayer("Player") && cameraController.cameraStatic == "Idle")
+							{
+								canPreATK = true;
+								returnPosition = this.transform.position;
+								attackData.atkPosition = GameObject.FindGameObjectWithTag("Player").transform.position;
+							}
+							// 下に指定されてないオブジェクトがあれば移動する
+							else
+							{
+								if (!canTurn)
+								{
+									//returnPosition = this.transform.position;
+									damageData.backPosition = this.transform.position;
+									curRotation = this.transform.rotation.eulerAngles;
+									Straight();
+								}
+							}
+							// Debug.Log("Hit Collider: " + boxHitInfo.collider.name);
+							// レイがシーンに見られるようにする
+							Debug.DrawLine(this.transform.position, boxHitInfo.point, Color.red);
+						}
+					}
 				}
 
 				AnimStatement();
-
 				break;
 			case Movement.Spiral:
 				Spiral();
@@ -304,14 +309,14 @@ public class EnemyBatController : MonoBehaviour
 	// 休憩
 	void Rest()
 	{
-		Debug.Log("RestFunction");
+		//Debug.Log("RestFunction");
 		if (canRest)
 		{
 			// 休憩開始
 			if (attackData.restTimeCountMax >= 0.0f)
 			{
 				attackData.restTimeCountMax -= Time.deltaTime;
-				canHurt = false;
+				canHurt = true;
 			}
 			// 休憩停止
 			else if (attackData.restTimeCountMax < 0.0f)
@@ -336,7 +341,7 @@ public class EnemyBatController : MonoBehaviour
 	// 攻撃
 	void Attack()
 	{
-		Debug.Log("AttackFunction");
+		//Debug.Log("AttackFunction");
 		rigidbody.isKinematic = true;
 		canHurt = false;
 		statement = Statement.Attack;
@@ -359,10 +364,14 @@ public class EnemyBatController : MonoBehaviour
 		{
 			// 攻撃状態に切り替える
 			statement = Statement.Attack;
-			this.transform.position = Vector3.MoveTowards(this.transform.position, attackData.atkPosition, attackData.atkSpeed * Time.deltaTime);
+			this.transform.position = Vector3.MoveTowards(this.transform.position, attackData.atkPosition + new Vector3(0.0f, 2.0f, 0.0f), attackData.atkSpeed * Time.deltaTime);
 			//rigidbody.velocity = new Vector3(0.0f, -attackData.atkSpeed, 0.0f);
 			//rigidbody.AddForce(0.0f, -attackData.atkSpeed / Time.deltaTime, 0.0f);
-			//Debug.Log("Attacking!");
+			if(this.transform.position== attackData.atkPosition + new Vector3(0.0f, 2.0f, 0.0f))
+			{
+				canATK = false;
+				canRest = true;
+			}
 		}
 	}
 
@@ -377,6 +386,8 @@ public class EnemyBatController : MonoBehaviour
 		// ダメージ受け開始
 		if (isDamage)
 		{
+			//Debug.Log("DamageFunction");
+			stunHint.SetActive(true);
 			if (hitGround)
 			{
 				damaging = true;
@@ -402,17 +413,18 @@ public class EnemyBatController : MonoBehaviour
 				// 元の位置に戻した場合
 				else if (this.transform.position == damageData.backPosition)
 				{
-					isDamage = false;
 					damageData.timeCountMax = damageData.timeCountReset;
+					attackData.restTimeCountMax = attackData.restTimeCountReset;
+					isDamage = false;
 					damaging = false;
 					isHurt = false;
 					canHurt = true;
+					stunHint.SetActive(false);
 				}
 				if (isHurt) rigidbody.useGravity = true;
 				else rigidbody.useGravity = false;
 			}
 		}
-		Debug.Log("DamageFunction");
 	}
 
 	// 死亡
@@ -429,7 +441,7 @@ public class EnemyBatController : MonoBehaviour
 	void Unrivaled()
 	{
 		unrivaledTime -= Time.deltaTime;
-		if (unrivaledTime < 0.5f && unrivaledTime > 0.25f)
+		if (unrivaledTime < 0.3f && unrivaledTime > 0.15f)
 		{
 			bodypart1.enabled = false;
 			bodypart2.enabled = false;
@@ -451,7 +463,7 @@ public class EnemyBatController : MonoBehaviour
 		}
 		else
 		{
-			unrivaledTime = 0.5f;
+			unrivaledTime = 0.3f;
 		}
 
 
@@ -552,8 +564,8 @@ public class EnemyBatController : MonoBehaviour
 				// HPがある限り、ダメージ受けたら上方向に力をかけ且つ墜落
 				if (!isDead)
 				{
-					rigidbody.AddForce(0.0f, damageData.damageForce, 0.0f);
 					rigidbody.useGravity = true;
+					rigidbody.AddForce(0.0f, damageData.damageForce, 0.0f);
 					damageData.timeCountMax = damageData.timeCountReset;
 					isDamage = true;
 				}
