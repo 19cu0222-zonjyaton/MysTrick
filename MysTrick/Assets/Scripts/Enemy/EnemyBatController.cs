@@ -409,6 +409,7 @@ public class EnemyBatController : MonoBehaviour
 					this.transform.position = Vector3.MoveTowards(
 						this.transform.position, damageData.backPosition, returnSpeed * Time.deltaTime);
 					isHurt = false;
+					stunHint.SetActive(false);
 				}
 				// 元の位置に戻した場合
 				else if (this.transform.position == damageData.backPosition)
