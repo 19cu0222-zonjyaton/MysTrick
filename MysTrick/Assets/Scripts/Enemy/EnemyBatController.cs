@@ -107,6 +107,13 @@ public class EnemyBatController : MonoBehaviour
 	public float returnSpeed;				// 戻るスピード
 	public TimeController timeController;
 	public SkinnedMeshRenderer mesh;
+	public MeshRenderer bodypart1;
+	public MeshRenderer bodypart2;
+	public MeshRenderer bodypart3;
+	public MeshRenderer bodypart4;
+	public MeshRenderer bodypart5;
+	public SkinnedMeshRenderer leftwing;
+	public SkinnedMeshRenderer rightwing;
 	public BoxCollider untriggeredCol;
 	public BoxCollider triggeredCol;
 
@@ -141,7 +148,8 @@ public class EnemyBatController : MonoBehaviour
 	private new Collider collider;
 	private Animator animator;
 	private new AudioSource audio;			//	Audioコンポーネント
-	private bool playOnce;                  //	一回だけSEを流すフラグ
+	private bool playOnce;					//	一回だけSEを流すフラグ
+	private float unrivaledTime;			// 無敵時間
 
 	void Awake()
 	{
@@ -149,6 +157,7 @@ public class EnemyBatController : MonoBehaviour
 		collider = GetComponent<Collider>();
 		animator = GetComponent<Animator>();
 		audio = GetComponent<AudioSource>();
+		unrivaledTime = 0.5f;
 	}
 
 	// 初期化
@@ -194,7 +203,8 @@ public class EnemyBatController : MonoBehaviour
 
 					// 攻撃の下準備状態、攻撃状態と回転状態ではないなら常にレイを放つ
 					// BoxCastに変更、PrefabのdetectRangeで検索範囲を指定できます  2022/01/25 - 林雲暉
-					if (Physics.BoxCast(this.transform.position, new Vector3(attackData.detectRange, 3.0f, attackData.detectRange), -this.transform.up, out boxHitInfo, this.transform.rotation, 15.0f, layerInfo) && !canPreATK && !canATK && !canTurn && !hitGround && !isDamage && !isDead && !canRest)
+					if (Physics.BoxCast(this.transform.position, new Vector3(attackData.detectRange, 3.0f, attackData.detectRange), -this.transform.up, out boxHitInfo, this.transform.rotation, 15.0f, layerInfo)
+						&& !canPreATK && !canATK && !canTurn && !hitGround && !isDamage && !isDead && !canRest)
 					{
 						// 前に障害物があり、あるいは下に“壁”があれば真っ先に回転する
 						if (Physics.Raycast(FWRay, out FWHit, 3.0f) || boxHitInfo.collider.gameObject.layer == LayerMask.NameToLayer("Fence"))
@@ -221,8 +231,7 @@ public class EnemyBatController : MonoBehaviour
 						}
 						// Debug.Log("Hit Collider: " + boxHitInfo.collider.name);
 						// レイがシーンに見られるようにする
-						// Debug.DrawLine(this.transform.position, boxHitInfo.point , Color.red);
-
+						Debug.DrawLine(this.transform.position, boxHitInfo.point , Color.red);
 					}
 				}
 				if (isDead) Dead();
@@ -230,6 +239,18 @@ public class EnemyBatController : MonoBehaviour
 				else if (canTurn) Turn();
 				else if (canRest) Rest();
 				else if ((canPreATK || canATK) && !hitGround) Attack();
+				if (isDamage)
+					Unrivaled();
+				else
+				{
+					bodypart1.enabled = true;
+					bodypart2.enabled = true;
+					bodypart3.enabled = true;
+					bodypart4.enabled = true;
+					bodypart5.enabled = true;
+					leftwing.enabled = true;
+					rightwing.enabled = true;
+				}
 
 				AnimStatement();
 
@@ -266,7 +287,7 @@ public class EnemyBatController : MonoBehaviour
 		rotateTimeCount += Time.deltaTime;
 		// タイマーの時間切れすると、回転する
 		// +0.5　回転待つ用　2022/01/25 - 林雲暉
-		if (rotateTimeCount <= moveData.rotateTimeMax+0.5f)
+		if (rotateTimeCount <= moveData.rotateTimeMax)
 		{
 			//this.transform.rotation = Quaternion.Lerp(this.transform.rotation, Quaternion.Euler(0.0f, 180.0f, 0.0f), Time.deltaTime * 10.0f);
 			this.transform.rotation = Quaternion.RotateTowards(this.transform.rotation, Quaternion.Euler(curRotation + new Vector3(0.0f, 180.0f, 0.0f)), Time.deltaTime * moveData.rotateSpeed);
@@ -283,12 +304,14 @@ public class EnemyBatController : MonoBehaviour
 	// 休憩
 	void Rest()
 	{
+		Debug.Log("RestFunction");
 		if (canRest)
 		{
 			// 休憩開始
 			if (attackData.restTimeCountMax >= 0.0f)
 			{
 				attackData.restTimeCountMax -= Time.deltaTime;
+				canHurt = false;
 			}
 			// 休憩停止
 			else if (attackData.restTimeCountMax < 0.0f)
@@ -296,7 +319,7 @@ public class EnemyBatController : MonoBehaviour
 				statement = Statement.Return;
 				hitGround = false;
 				rigidbody.useGravity = false;
-				canHurt = true;
+				//canHurt = true;
 				this.transform.position = Vector3.MoveTowards(this.transform.position, returnPosition, returnSpeed * Time.deltaTime);
 			}
 			// 初期値に戻る
@@ -305,6 +328,7 @@ public class EnemyBatController : MonoBehaviour
 			{
 				attackData.restTimeCountMax = attackData.restTimeCountReset;
 				canRest = false;
+				canHurt = true;
 			}
 		}
 	}
@@ -312,6 +336,7 @@ public class EnemyBatController : MonoBehaviour
 	// 攻撃
 	void Attack()
 	{
+		Debug.Log("AttackFunction");
 		rigidbody.isKinematic = true;
 		canHurt = false;
 		statement = Statement.Attack;
@@ -344,6 +369,11 @@ public class EnemyBatController : MonoBehaviour
 	// ダメージ受け
 	void Damage()
 	{
+		canRest = false;
+		canTurn = false;
+		canPreATK = false;
+		canATK = false;
+
 		// ダメージ受け開始
 		if (isDamage)
 		{
@@ -382,7 +412,7 @@ public class EnemyBatController : MonoBehaviour
 				else rigidbody.useGravity = false;
 			}
 		}
-		Debug.Log("Damage");
+		Debug.Log("DamageFunction");
 	}
 
 	// 死亡
@@ -393,6 +423,38 @@ public class EnemyBatController : MonoBehaviour
 		if (deathData.timeCountMax >= 0.0f) deathData.timeCountMax -= Time.deltaTime;
 		else Destroy(this.gameObject);
 		//Debug.Log("Death");
+	}
+
+	// 無敵時間
+	void Unrivaled()
+	{
+		unrivaledTime -= Time.deltaTime;
+		if (unrivaledTime < 0.5f && unrivaledTime > 0.25f)
+		{
+			bodypart1.enabled = false;
+			bodypart2.enabled = false;
+			bodypart3.enabled = false;
+			bodypart4.enabled = false;
+			bodypart5.enabled = false;
+			leftwing.enabled = false;
+			rightwing.enabled = false;
+		}
+		else if (unrivaledTime > 0.0f)
+		{
+			bodypart1.enabled = true;
+			bodypart2.enabled = true;
+			bodypart3.enabled = true;
+			bodypart4.enabled = true;
+			bodypart5.enabled = true;
+			leftwing.enabled = true;
+			rightwing.enabled = true;
+		}
+		else
+		{
+			unrivaledTime = 0.5f;
+		}
+
+
 	}
 
 	// アニメーション制御
