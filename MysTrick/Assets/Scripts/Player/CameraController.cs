@@ -191,11 +191,13 @@ public class CameraController : MonoBehaviour
 
 				if (transform.eulerAngles.x > 0.01f && !canRotate)      //	transform.eulerAngles　->	自身の回転角度を獲得できる		視点切り替え途中は回転できない
 				{
-					transform.rotation = Quaternion.Slerp(transform.rotation, firstPerspect.transform.rotation, Time.fixedDeltaTime * 12.0f);
+					transform.transform.localEulerAngles = Vector3.Slerp(transform.localEulerAngles, new Vector3(0, transform.localEulerAngles.y, transform.localEulerAngles.z), Time.fixedDeltaTime * 12.0f);
+					model.transform.localEulerAngles = new Vector3(model.transform.localEulerAngles.x, 0, model.transform.localEulerAngles.z);
 					aimEulerX = 0.0f;
 				}
 				else
 				{
+					
 					canRotate = true;
 					aimEulerX -= pi.Jup * verticalSpeed * 2.0f * Time.fixedDeltaTime;
 					transform.Rotate(Vector3.up, pi.Jright * 80 * Time.fixedDeltaTime);
