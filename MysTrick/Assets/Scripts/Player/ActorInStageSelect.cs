@@ -16,8 +16,8 @@ public class ActorInStageSelect : MonoBehaviour
     public int skyboxIndex;               //  skyboxオブジェクト
     public bool isMove;                  //  移動しているかどうかフラグ
     private AudioSource au;               //	SEのコンポーネント
-    private bool goLeft;                  //  左側に移動するフラグ
-    private bool goRight;                 //  右側に移動するフラグ
+    public bool goLeft;                  //  左側に移動するフラグ
+    public bool goRight;                 //  右側に移動するフラグ
     private float timeCount;
 
     //	初期化
@@ -36,9 +36,6 @@ public class ActorInStageSelect : MonoBehaviour
 
     void Update()
     {
-        //if (StaticController.clearStageName == "")        //  StageからStageSelectに飛びるではない場合
-        //{
-
         if (timeCount > 0.8f)
         {
             if (!isMove && !StaticController.confirmMenuIsOpen && !StaticController.exitPanelIsOpen)

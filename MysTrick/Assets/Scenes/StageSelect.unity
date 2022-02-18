@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 861564355}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.12731749, g: 0.13414757, b: 0.1210787, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3105,7 +3105,7 @@ MonoBehaviour:
   - {fileID: 2100000, guid: fda634ce677606446a44294505b66dd8, type: 2}
   - {fileID: 2100000, guid: e2b0eba7fd9415846a3c3bd892a926d9, type: 2}
   aiss: {fileID: 6563069687913038457}
-  maxFadeTime: 0.5
+  maxFadeTime: 1.1
 --- !u!1 &1385888252
 GameObject:
   m_ObjectHideFlags: 0
@@ -5755,6 +5755,8 @@ MonoBehaviour:
   stage02: {fileID: 1740122574}
   skyboxIndex: 0
   isMove: 0
+  goLeft: 0
+  goRight: 0
 --- !u!65 &6563069687913038458
 BoxCollider:
   m_ObjectHideFlags: 0
