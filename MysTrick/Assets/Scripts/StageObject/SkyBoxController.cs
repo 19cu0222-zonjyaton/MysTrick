@@ -21,7 +21,8 @@ public class SkyBoxController : MonoBehaviour
     public ActorInStageSelect aiss;
 
     private int curSkyBoxIndex = 0;     // 現在のSkyBoxの番号
-    public float maxFadeTime;           // フェイドするの時間
+    public float maxFadeInTime;           // フェイドするの時間
+    public float maxFadeOutTime;           // フェイドするの時間
     private float curTime;              // フェイド計算用カウンター
     private bool isFadeIn;              // フェイドインするか？
     private bool isFadeOut;             // フェイドアウトするか？
@@ -29,7 +30,6 @@ public class SkyBoxController : MonoBehaviour
     private float maxExposure;          // 現在最大のExposure
     private bool isMove;
     private bool doOnce;
-    private int aaa;
 
     void Awake()
     {
@@ -46,52 +46,38 @@ public class SkyBoxController : MonoBehaviour
         {
             RenderSettings.skybox = boxs[aiss.skyboxIndex];     // 初期SkyBoxを設定
             isFadeIn = true;
+            maxExposure = GetDefaultExposure(curSkyBoxIndex);
         } // end if()
     } // void Start()
 
     // Update is called once per frame
     void Update()
     {
-        // 
-        //if ( aiss != null && curSkyBoxIndex != aiss.skyboxIndex )
-        //{
-        //    isFadeOut = true;
-        //} // end if()
-
-
-        if ((aiss.goLeft || aiss.goRight) && !doOnce)
+        if ( aiss != null && curSkyBoxIndex != aiss.nextSelectStageNum)
         {
-            isMove = true;
-            isFadeOut = true;
-            doOnce = true;
-        }
+           isFadeOut = true;
+        } // end if()
 
         // 背景フェイドアウト
         if (isFadeOut == true)
         {
-            if (curTime < maxFadeTime)
+            if (curTime < maxFadeOutTime)
             {
                 curTime += Time.deltaTime;
-                RenderSettings.skybox.SetFloat("_Exposure", Mathf.Lerp(maxExposure, 0, (curTime / maxFadeTime)));         // 画面暗転、Exposure調整
-            }
+                RenderSettings.skybox.SetFloat("_Exposure", Mathf.Lerp(maxExposure, 0, (curTime / maxFadeOutTime)));         // 画面暗転、Exposure調整
+            } // end if()
             else
             {
                 changeSkyBox = true;
                 isFadeOut = false;
                 isMove = false;
                 curTime = 0;
-            }
+            } // end else
             //    // old one
             //    // public Color colorStart = Color.black;
             //    // public Color colorEnd;
             //    // RenderSettings.skybox.SetColor("_Tint", Color.Lerp(colorEnd, colorStart, (curTime / maxFadeTime)));
-            //} // end if()
-            //else
-            //{
-            //    changeSkyBox = true;
-            //    isFadeOut = false;
-            //    curTime = 0;
-            //} // end else
+
         } // end if()
 
         // 背景交換(SkyBox)
@@ -99,14 +85,22 @@ public class SkyBoxController : MonoBehaviour
         {
             if (aiss != null)
             {
-                if (boxs[aiss.skyboxIndex] != null)
+                if (boxs[aiss.nextSelectStageNum] != null)
                 {
                     // Skyboxマテリアル変更
                     RenderSettings.skybox.SetFloat("_Exposure", 0);
+                    // 次のSkyboxマテリアルのExposureを0に
+                    boxs[aiss.nextSelectStageNum].SetFloat("_Exposure", 0);
+                    // Skyboxマテリアル変更
+                    RenderSettings.skybox = boxs[aiss.nextSelectStageNum];
+                    // 前のSkyboxマテリアルのExposureをデフォルトに
                     boxs[curSkyBoxIndex].SetFloat("_Exposure", maxExposure);
+
                     changeSkyBox = false;
                     isFadeIn = true;
-                    curSkyBoxIndex = aiss.skyboxIndex;
+                    curSkyBoxIndex = aiss.nextSelectStageNum;
+
+                    //　現在のSkyboxマテリアルのExposure最大値をゲット
                     maxExposure = GetDefaultExposure(curSkyBoxIndex);
                 } // end if
             } // end if
@@ -115,15 +109,13 @@ public class SkyBoxController : MonoBehaviour
         // 背景フェイドイン
         if (isFadeIn)
         {
-            if (curTime < maxFadeTime)
+            if (curTime < maxFadeInTime)
             {
-                RenderSettings.skybox = boxs[aiss.skyboxIndex];
                 curTime += Time.deltaTime;
-                RenderSettings.skybox.SetFloat("_Exposure", Mathf.Lerp(0, maxExposure, (curTime / maxFadeTime)));         // Exposure調整
+                RenderSettings.skybox.SetFloat("_Exposure", Mathf.Lerp(0, maxExposure, (curTime / maxFadeInTime)));         // Exposure調整
             } // end if()
             else
             {
-                RenderSettings.skybox = boxs[aiss.skyboxIndex];
                 isFadeIn = false;
                 doOnce = false;
                 curTime = 0;

@@ -19,10 +19,12 @@ public class ActorInStageSelect : MonoBehaviour
     public bool goLeft;                  //  左側に移動するフラグ
     public bool goRight;                 //  右側に移動するフラグ
     private float timeCount;
+    public int nextSelectStageNum ;      //　向かいているステージの番号
 
     //	初期化
     void Awake()
     {
+        nextSelectStageNum = 0;
         QualitySettings.vSyncCount = 0;
         Application.targetFrameRate = 60;                   //	FPSを60に固定する
 
@@ -164,6 +166,7 @@ public class ActorInStageSelect : MonoBehaviour
         {
             skyboxIndex = selectBtn - 1;
         }
+        else nextSelectStageNum = selectBtn - 1;     //　向かいているステージの番号
     }
 
     void OnTriggerEnter(Collider collider)      //  止まる判定

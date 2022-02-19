@@ -2316,7 +2316,7 @@ MonoBehaviour:
     m_SelectedColor: {r: 1, g: 1, b: 1, a: 1}
     m_DisabledColor: {r: 1, g: 1, b: 1, a: 0.5019608}
     m_ColorMultiplier: 1
-    m_FadeDuration: 0.2
+    m_FadeDuration: 0.15
   m_SpriteState:
     m_HighlightedSprite: {fileID: 0}
     m_PressedSprite: {fileID: 0}
@@ -2818,7 +2818,7 @@ MonoBehaviour:
     m_SelectedColor: {r: 1, g: 1, b: 1, a: 1}
     m_DisabledColor: {r: 1, g: 1, b: 1, a: 0.5019608}
     m_ColorMultiplier: 1
-    m_FadeDuration: 0.2
+    m_FadeDuration: 0.15
   m_SpriteState:
     m_HighlightedSprite: {fileID: 0}
     m_PressedSprite: {fileID: 0}
@@ -3105,7 +3105,8 @@ MonoBehaviour:
   - {fileID: 2100000, guid: fda634ce677606446a44294505b66dd8, type: 2}
   - {fileID: 2100000, guid: e2b0eba7fd9415846a3c3bd892a926d9, type: 2}
   aiss: {fileID: 6563069687913038457}
-  maxFadeTime: 1.1
+  maxFadeInTime: 0.5
+  maxFadeOutTime: 0.3
 --- !u!1 &1385888252
 GameObject:
   m_ObjectHideFlags: 0
@@ -3171,7 +3172,7 @@ MonoBehaviour:
     m_SelectedColor: {r: 1, g: 1, b: 1, a: 1}
     m_DisabledColor: {r: 1, g: 1, b: 1, a: 0.5019608}
     m_ColorMultiplier: 1
-    m_FadeDuration: 0.2
+    m_FadeDuration: 0.15
   m_SpriteState:
     m_HighlightedSprite: {fileID: 0}
     m_PressedSprite: {fileID: 0}
@@ -3996,7 +3997,7 @@ MonoBehaviour:
     m_SelectedColor: {r: 1, g: 1, b: 1, a: 1}
     m_DisabledColor: {r: 1, g: 1, b: 1, a: 0.5019608}
     m_ColorMultiplier: 1
-    m_FadeDuration: 0.2
+    m_FadeDuration: 0.15
   m_SpriteState:
     m_HighlightedSprite: {fileID: 0}
     m_PressedSprite: {fileID: 0}
@@ -5757,6 +5758,7 @@ MonoBehaviour:
   isMove: 0
   goLeft: 0
   goRight: 0
+  nextSelectStageNum: 0
 --- !u!65 &6563069687913038458
 BoxCollider:
   m_ObjectHideFlags: 0
