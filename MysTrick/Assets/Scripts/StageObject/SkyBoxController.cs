@@ -28,8 +28,6 @@ public class SkyBoxController : MonoBehaviour
     private bool isFadeOut;             // フェイドアウトするか？
     private bool changeSkyBox;          // SkyBoxマテリアル変更するか？
     private float maxExposure;          // 現在最大のExposure
-    private bool isMove;
-    private bool doOnce;
 
     void Awake()
     {
@@ -70,7 +68,6 @@ public class SkyBoxController : MonoBehaviour
             {
                 changeSkyBox = true;
                 isFadeOut = false;
-                isMove = false;
                 curTime = 0;
             } // end else
             //    // old one
@@ -117,7 +114,6 @@ public class SkyBoxController : MonoBehaviour
             else
             {
                 isFadeIn = false;
-                doOnce = false;
                 curTime = 0;
             } // end else
         } // end if()

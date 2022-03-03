@@ -23,6 +23,8 @@ public class GoalController : MonoBehaviour
     private int[] tempGetCount = new int[4];
     private float timeCount = 10.0f;
 
+    private CameraFade fadeControl;
+
     // 初期化
     void Awake()
     {
@@ -32,6 +34,9 @@ public class GoalController : MonoBehaviour
         }
 
         au = gameObject.GetComponent<AudioSource>();
+
+        fadeControl = GameObject.Find("Main Camera").GetComponent<CameraFade>();
+        
     }
 
     void Update()
@@ -58,8 +63,6 @@ public class GoalController : MonoBehaviour
         //  ゲームクリア処理
         if (gameClear)
         {
-            clearMask.GetComponent<CanvasGroup>().alpha = 1;
-
             //  コインの獲得率を更新する処理
             for (int i = 0; i < 4; i++)
             {
@@ -84,13 +87,18 @@ public class GoalController : MonoBehaviour
             }
 
             timeCount -= Time.deltaTime;
-            if (timeCount >= 0.0f && timeCount < 3.0f)
+            if (timeCount >= 1.0f && timeCount < 3.0f)
             {
-                clearMask.GetComponent<Animation>().Play();
+                //clearMask.GetComponent<Animation>().Play();
+                fadeControl.isFading = true;
             }
+            else if ( timeCount <1.0f && timeCount >= 0.0f)
+                clearMask.GetComponent<CanvasGroup>().alpha = 1;
             else if (timeCount < 0.0f)
             {
-                TitleBGMController.tbc.GetComponent<AudioSource>().Play();
+                if (TitleBGMController.tbc)
+                    TitleBGMController.tbc.GetComponent<AudioSource>().Play();
+
                 StaticController.clearStageName = StaticController.selectStageName;
                 SceneManager.LoadScene("StageSelect");
             }
