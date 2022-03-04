@@ -15,8 +15,6 @@ public class TutorialImageController : MonoBehaviour
     public bool doneFlag;
     public bool isOpening = false;
 
-    public GameObject ttt;
-
     void Awake()
     {
         animator = gameObject.GetComponent<Animator>();
@@ -29,8 +27,6 @@ public class TutorialImageController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        ttt = EventSystem.current.currentSelectedGameObject;
-
         if (!ac.isDead && !ac.isFallDead)
         {
             if ( animIsOver)

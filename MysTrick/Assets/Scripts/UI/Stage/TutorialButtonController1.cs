@@ -58,12 +58,12 @@ public class TutorialButtonController1 : MonoBehaviour
                 //animator_Menu.SetTrigger("Cancel");
                 animator_Menu.SetBool("Menu", false);
             }
-            else if (EventSystem.current.currentSelectedGameObject.name == "Next" && gameObject.name == "Next")
-            {
+            //else if (EventSystem.current.currentSelectedGameObject.name == "Next" && gameObject.name == "Next")
+            //{
                 // Time.timeScale = 1;
                 // animator_Mask.SetTrigger("WhiteToBlack");
                 // btn.enabled = false;
-            }
+            //}
         }
     }
 }
