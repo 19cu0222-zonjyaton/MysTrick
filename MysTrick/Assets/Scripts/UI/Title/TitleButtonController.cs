@@ -50,6 +50,13 @@ public class TitleButtonController : MonoBehaviour
         {
             timeCount_GameStart += Time.deltaTime;
             timeCount_Text += Time.deltaTime;
+
+            // チュートリアルに遷移する時、BGMをフェイドアウト
+            if (gameObject.name == "Tutorial")
+            {
+                if (TitleBGMController.tbc.GetComponent<AudioSource>().volume >= 0.0f)
+                    TitleBGMController.tbc.GetComponent<AudioSource>().volume -= Time.deltaTime/2;
+            }
         }
 
         //  ゲームスタート
@@ -59,13 +66,21 @@ public class TitleButtonController : MonoBehaviour
 
             if (!maskPanel.GetComponent<Animation>().isPlaying)
             {
-                SceneManager.LoadScene("StageSelect");
+                // チュートリアルを読み込む
+                if (gameObject.name == "Tutorial")
+                {
+                    TitleBGMController.tbc.GetComponent<AudioSource>().Stop();
+                    TitleBGMController.tbc.GetComponent<AudioSource>().volume = 1.0f;
+                    StaticController.selectStageName = "Tutorial";
+                    SceneManager.LoadScene("Tutorial");
+                }
+                else SceneManager.LoadScene("StageSelect");
             }
         }
 
         if (EventSystem.current.currentSelectedGameObject.name == gameObject.name)
         {
-            //  文字の点滅処理
+                //  文字の点滅処理
             if (timeCount_Text >= 0.15f && timeCount_Text <= 0.3f)
             {
                 gameObject.GetComponent<Image>().enabled = true;
@@ -79,7 +94,7 @@ public class TitleButtonController : MonoBehaviour
 
         if ((Input.GetKeyDown(KeyCode.Return) || Input.GetButtonDown("action")) && EventSystem.current.currentSelectedGameObject.name == gameObject.name)
         {
-            if ((gameObject.name == "Start" || gameObject.name == "Continue") && !gameStart)
+            if ((gameObject.name == "Start" || gameObject.name == "Continue" || gameObject.name == "Tutorial" ) && !gameStart)
             {
                 titleLogo.transform.position = new Vector3(0, 35.0f, -30.0f);
                 titleLogo.transform.eulerAngles = new Vector3(0, 180.0f, 0);
