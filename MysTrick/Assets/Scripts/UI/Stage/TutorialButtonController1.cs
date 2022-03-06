@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
-public class MenuButtonController : MonoBehaviour
+public class TutorialButtonController1 : MonoBehaviour
 {
     public GameObject menuPanel;
     public AudioClip[] sounds;              //	SEオブジェクト
@@ -14,7 +14,7 @@ public class MenuButtonController : MonoBehaviour
     private AudioSource au;                 //	SEのコンポーネント
     private Animator animator_Menu;
     private Animator animator_Mask;
-    private StageMenuController smc;
+    private TutorialImageController smc;
 
     void Awake()
     {
@@ -24,7 +24,7 @@ public class MenuButtonController : MonoBehaviour
 
         animator_Mask = GameObject.Find("Mask").GetComponent<Animator>();
 
-        smc = menuPanel.GetComponent<StageMenuController>();
+        smc = menuPanel.GetComponent<TutorialImageController>();
     }
 
     // Update is called once per frame
@@ -48,22 +48,22 @@ public class MenuButtonController : MonoBehaviour
         if (Time.timeScale == 0 && (Input.GetKeyDown(KeyCode.Return) || Input.GetButtonDown("action")))
         {
             smc.animIsOver = false;
-            smc.isOpenMenu = false;
+
             au.clip = sounds[1];
             au.Play();
 
-            if (EventSystem.current.currentSelectedGameObject.name == "Continue" && gameObject.name == "Continue")
+            if (EventSystem.current.currentSelectedGameObject.name == "Close" && gameObject.name == "Close")
             {
                 Time.timeScale = 1;
                 //animator_Menu.SetTrigger("Cancel");
                 animator_Menu.SetBool("Menu", false);
             }
-            else if (EventSystem.current.currentSelectedGameObject.name == "Back" && gameObject.name == "Back")
-            {
-                Time.timeScale = 1;
-                animator_Mask.SetTrigger("WhiteToBlack");
-                btn.enabled = false;
-            }
+            //else if (EventSystem.current.currentSelectedGameObject.name == "Next" && gameObject.name == "Next")
+            //{
+                // Time.timeScale = 1;
+                // animator_Mask.SetTrigger("WhiteToBlack");
+                // btn.enabled = false;
+            //}
         }
     }
 }

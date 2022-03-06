@@ -3,18 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class StageMenuController : MonoBehaviour
+public class TutorialImageController : MonoBehaviour
 {
     public bool isOpenMenu;                 //   UIメニューは呼び出されたか
     public GameObject selectButton;         //   UIを出たらデフォルト選択するボタン
     public bool animIsOver = true;          //   UIのアニメ終了フラグ
     public AudioSource[] buttonAu;
-    private Animator animator;
+    public Animator animator;
     private AudioSource au;                 //	SEのコンポーネント
     private ActorController ac;
-
-    public GameObject btn1;
-    public GameObject btn2;
+    public bool doneFlag;
+    public bool isOpening = false;
 
     void Awake()
     {
@@ -30,63 +29,59 @@ public class StageMenuController : MonoBehaviour
     {
         if (!ac.isDead && !ac.isFallDead)
         {
-            if ((Input.GetKeyDown(KeyCode.Escape) || Input.GetButtonDown("menu")) && animIsOver)
+            if ( animIsOver)
             {
-                if (isOpenMenu)           //  もう一度ESC或いはXBoxのMenuボタンでゲーム画面に戻る
+                if (isOpenMenu)
                 {
-                    if (btn1 && btn2)
+                    if (isOpening == false)
                     {
-                        btn1.SetActive(false);
-                        btn2.SetActive(false);
-                    } // end if
+                        isOpening = true;
+                        for (int i = 0; i < buttonAu.Length; i++)
+                        {
+                            buttonAu[i].enabled = true;
+                        } // end for()
 
+                        EventSystem.current.SetSelectedGameObject(selectButton.gameObject);
+                        animator.enabled = true;
+                        animator.SetBool("Menu", true);
+                    } // end if()
+                } // end if()
+                else 
+                {
                     for (int i = 0; i < buttonAu.Length; i++)
                     {
                         buttonAu[i].enabled = false;
-                    }
+                    } // end for()
 
                     Time.timeScale = 1;
                     animIsOver = false;
                     //animator.SetTrigger("Cancel");
-                    animator.SetBool("Menu", false);
-                    isOpenMenu = false;
-                }
-                else                  //   ESC或いはXBoxのMenuボタンで呼び出せる
-                {
-                    if (btn1 && btn2)
-                    {
-                        btn1.SetActive(true);
-                        btn2.SetActive(true);
-                    } // end if
-
-                    for (int i = 0; i < buttonAu.Length; i++)
-                    {
-                        buttonAu[i].enabled = true;
-                    }
-
-                    EventSystem.current.SetSelectedGameObject(selectButton);
-                    animator.enabled = true;
-                    animator.SetBool("Menu", true);
-                    isOpenMenu = true;
-                }
+                    animator.enabled = false;
+                } // end else()
 
                 au.Play();
-            }
+            } // end if()
 
             if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f && animIsOver)   //  normalizedTime == 0 -> スタート normalizedTime == 1 -> エンド 
             {
                 Time.timeScale = 0;
-            }
+                animIsOver = false;
+            } // end if()
 
-            if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f && animator.GetCurrentAnimatorStateInfo(0).IsName("Stage_Menu_Minus"))
+            if (isOpenMenu == true && animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f && animator.GetCurrentAnimatorStateInfo(0).IsName("Tutorial_Img_Minus"))
             {
+                // doesnt  excute
                 Time.timeScale = 1;
                 animIsOver = true;
-            }
+                isOpenMenu = false;
+                doneFlag = true;
+                isOpening = false;
+            } // end if()
         }
         else
         {
             gameObject.SetActive(false);
-        }
+        } // end else()
     }
+
 }
